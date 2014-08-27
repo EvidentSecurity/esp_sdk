@@ -47,7 +47,7 @@ module EspSdk
 
 
     # Get a pageable list of records
-    def list(url="http://0.0.0.0:3001/api/#{version}/#{self.class.to_s.demodulize.underscore}", type=:Get)
+    def list(url="#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}", type=:Get)
       response      = connect(url, type)
       @total_pages  = response['Total'].to_i
       @page_links   = pagination_links(response)
@@ -57,7 +57,7 @@ module EspSdk
     # Get a single record
     def record(options={})
       raise MissingAttribute, 'Missing required attribute id:' unless options.key?(:id)
-      response = connect("http://0.0.0.0:3001/api/#{version}/#{self.class.to_s.demodulize.underscore}/#{options[:id]}", :Get)
+      response = connect("#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}/#{options[:id]}", :Get)
       @current_record = convert_json(response.body)
     end
 

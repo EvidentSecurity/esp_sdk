@@ -3,20 +3,17 @@ require 'uri'
 
 module EspSdk
   class Client
-    attr_reader :version
+    attr_reader :config
 
-    def initialize(token=EspSDK::Configure.token, email=EspSDK::Configure.email, version='v1')
-      @token   = token
-      @email   = email
-      @version = version
+    def initialize(config)
+      @config  = config
     end
 
     def connect(url, type=:Get)
       begin
-        puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** url = " + url.inspect
         uri     = URI(url)
         http    = Net::HTTP.new(uri.host, uri.port)
-        request = Net::HTTP.const_get(type).new uri, { 'Authorization' => @token, 'Authorization-Email' => @email }
+        request = Net::HTTP.const_get(type).new uri, { 'Authorization' => @config.token, 'Authorization-Email' => @config.email }
         http.start
         http.request(request)
       rescue Exception => e
