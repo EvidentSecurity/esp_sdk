@@ -4,7 +4,7 @@ module EspSdk
   class Base < EspSdk::Client
     attr_accessor :page_number
     attr_reader :current_page, :total_pages, :current_record
-
+    
     def pages
       @pages ||= {}
     end
@@ -13,12 +13,10 @@ module EspSdk
       @page_number || 0
     end
 
-    def pagination_links(response)
-      response['Link'].to_s.scan(/https?:\/\/[\w.:\/?=]+/)
-    end
-
-
     def next_page
+      # Call list first if @current_page is blank
+      list if @current_page.blank?
+
       pages[self.page_number.to_s] ||= @current_page
       self.page_number += 1
 
@@ -26,7 +24,7 @@ module EspSdk
         if pages[self.page_number.to_s].present?
           @current_page = pages[self.page_number.to_s]
         else
-          @current_page = convert_json(connect(@page_links[self.page_number], :Get).body)
+          @current_page = Client.convert_json(connect(@page_links[self.page_number], :Get).body)
         end
       else
         self.page_number -= 1
@@ -35,6 +33,9 @@ module EspSdk
     end
 
     def prev_page
+      # Call list first if @current_page is blank
+      list if @current_page.blank?
+
       self.page_number -= 1
 
       if self.page_number >= 0 && pages[self.page_number.to_s].present?
@@ -45,35 +46,58 @@ module EspSdk
       end
     end
 
-
     # Get a pageable list of records
-    def list(url="#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}", type=:Get)
-      response      = connect(url, type)
-      @total_pages  = response['Total'].to_i
+    def list
+      response      = connect(base_url, :Get)
       @page_links   = pagination_links(response)
-      @current_page = convert_json(response.body)
+      @total_pages  = @page_links.count
+      @current_page = Client.convert_json(response.body)
     end
 
     # Get a single record
-    def record(options={})
-      raise MissingAttribute, 'Missing required attribute id:' unless options.key?(:id)
-      response = connect("#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}/#{options[:id]}", :Get)
-      @current_record = convert_json(response.body)
+    def show(options={})
+      check_id(options)
+      submit(id_url(options.delete(:id)), :Get)
+    end
+
+    # Update a single record
+    def update(options={})
+      check_id(options)
+      submit(id_url(options.delete(:id)), :Patch, options)
+    end
+
+    # Destroy a single record
+    def destroy(options={})
+      check_id(options)
+      submit(id_url(options.delete(:id)), :Delete)
+    end
+    
+    # Create a new record
+    def create(options={})
+      submit(base_url, :Post, options)
     end
 
     private
 
-      # Recursively convert json
-      def convert_json(json)
-        if json.is_a?(String)
-          convert_json(JSON.load(json))
-        elsif json.is_a?(Array)
-          json.each_with_index do |value, index|
-            json[index] = convert_json(value)
-          end
-        else
-          json
-        end
+      def check_id(options)
+        raise EspSdk::Exceptions::MissingAttribute, 'Missing required attribute id:' unless options[:id].present?
+      end
+
+      def id_url(id)
+        "#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}/#{id}"
+      end
+    
+      def base_url
+        "#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}"
+      end
+    
+      def submit(url, type, options={})
+        response         = connect(url, type, options)
+        @current_record  = Client.convert_json(response.body)
+      end
+
+      def pagination_links(response)
+        response['Link'].to_s.scan(/https?:\/\/[\w.:\/?=]+/)
       end
   end
 end
