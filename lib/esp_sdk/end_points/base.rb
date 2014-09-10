@@ -10,7 +10,7 @@ module EspSdk
     end
 
     def page_number
-      @page_number || 0
+      @page_number ||= 0
     end
 
     def next_page
