@@ -11,6 +11,10 @@ module EspSdk
 
       private
 
+        def required_params
+          [:id, :name, :identifier, :provider, :scope, :risk_level, :description, :resolution, :service]
+        end
+      
         def run_url
           "#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}/run"
         end

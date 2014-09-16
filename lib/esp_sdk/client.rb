@@ -3,7 +3,7 @@ require 'uri'
 
 module EspSdk
   class Client
-    attr_reader :config
+    attr_reader :config, :errors
 
     def initialize(config)
       @config  = config
@@ -25,6 +25,8 @@ module EspSdk
 
       # Raise an error if we do not have a HTTPSuccess 2xx for our response
       unless response.kind_of? Net::HTTPSuccess
+        # Set the errors
+        @errors = Client.convert_json(response.body)['errors']
         response.error!
       end
 
