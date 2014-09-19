@@ -2,55 +2,42 @@ require 'json'
 
 module EspSdk
   class Base < EspSdk::Client
-    attr_accessor :page_number
-    attr_reader :current_page, :total_pages, :current_record
-    
-    def pages
-      @pages ||= {}
-    end
+    attr_reader :current_page, :current_record
 
-    def page_number
-      @page_number ||= 0
-    end
 
     def next_page
-      # Call list first if @current_page is blank
-      list if @current_page.blank?
+      if @current_page
+        if @page_links['next'].present?
+          response = connect(@page_links['next'], :Get)
+          pagination_links(response)
+          @current_page = Client.convert_json(response.body)
 
-      pages[self.page_number.to_s] ||= @current_page
-      self.page_number += 1
-
-      if self.page_number <= (@page_links.length - 1)
-        if pages[self.page_number.to_s].present?
-          @current_page = pages[self.page_number.to_s]
         else
-          @current_page = Client.convert_json(connect(@page_links[self.page_number], :Get).body)
+          @current_page
         end
       else
-        self.page_number -= 1
-        @current_page
+        list
       end
     end
 
     def prev_page
-      # Call list first if @current_page is blank
-      list if @current_page.blank?
-
-      self.page_number -= 1
-
-      if self.page_number >= 0 && pages[self.page_number.to_s].present?
-        @current_page = pages[self.page_number.to_s]
+      if @current_page
+        if @page_links['prev'].present?
+          response      = connect(@page_links['prev'], :Get)
+          pagination_links(response)
+          @current_page = Client.convert_json(response.body)
+        else
+          @current_page
+        end
       else
-        self.page_number += 1
-        @current_page
+        list
       end
     end
 
     # Get a pageable list of records
     def list
       response      = connect(base_url, :Get)
-      @page_links   = pagination_links(response)
-      @total_pages  = @page_links.count
+      pagination_links(response)
       @current_page = Client.convert_json(response.body)
     end
 
@@ -131,7 +118,7 @@ module EspSdk
       end
 
       def pagination_links(response)
-        response['Link'].to_s.scan(/https?:\/\/[\w.:\/?=]+/)
+        @page_links = JSON.load(response['Link'])
       end
 
       # Run the callbacks defined for parameter checking.
