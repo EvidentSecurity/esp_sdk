@@ -435,12 +435,11 @@ TODO: Change this to require an external account id before release instead of an
     
     # Run an Evident Signature
     Required :signature_name => name of signature to run
-    Required :arn => Arn to use
-    Required :external_id => External ID
+    Required :external_account_id => ID of the external account with the ARN/External ID to use
     Required :regions => Array of regions to run the signature in
-    Required :name => Name of current run
+    # Requires manager role access
     
-    api.signatures.run(signature_name: 'validate_cloud_formation_template', arn: 'ARN', external_id: 'EXTERNAL ID', regions: [:us_east_1], name: 'test' ) =>
+    api.signatures.run(signature_name: 'validate_cloud_formation_template', regions: [:us_east_1], external_account_id: 1)
     {
         "alerts" => [
             [0] {
@@ -495,7 +494,7 @@ TODO: Change this to require an external account id before release instead of an
                            "free_trial_expires_at" => nil,
                              "plan_setup_complete" => true,
                                       "enable_sso" => false,
-                                      "sso_idp_id" => "ee3894d2-b65a-46db-ba7a-0925754fe67b"
+                                      "sso_idp_id" => "19f780c8-46eb-4ad1-ba6a-2c954aff49f1"
         }
     ]
 
@@ -519,7 +518,7 @@ TODO: Change this to require an external account id before release instead of an
                        "free_trial_expires_at" => nil,
                          "plan_setup_complete" => true,
                                   "enable_sso" => false,
-                                  "sso_idp_id" => "ee3894d2-b65a-46db-ba7a-0925754fe67b"
+                                  "sso_idp_id" => "19f780c8-46eb-4ad1-ba6a-2c954aff49f1"
     }
 
     
@@ -544,7 +543,7 @@ TODO: Change this to require an external account id before release instead of an
                        "free_trial_expires_at" => nil,
                          "plan_setup_complete" => true,
                                   "enable_sso" => false,
-                                  "sso_idp_id" => "ee3894d2-b65a-46db-ba7a-0925754fe67b"
+                                  "sso_idp_id" => "19f780c8-46eb-4ad1-ba6a-2c954aff49f1"
     }
 
 ## Contributing
