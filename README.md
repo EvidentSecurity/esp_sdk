@@ -331,6 +331,114 @@ Or install it yourself as:
         ]
     }
 
+## Custom Signatures end point
+### List action
+    # List is a pageable response of 25 total signatures per page
+    api.custom_signatures.list => 
+    [
+        [ 0] {
+                         "id" => 4,
+            "organization_id" => 1,
+                  "signature" => "// Demo Signature\r\ndsl.configure(function(c) {\r\n  c.module        = 'check_user_count_javascript';  // Required\r\n  c.identifier    = 'AWS:GLO-001';                  // Required unique identifier for this signature\r\n  c.description   = 'Check IAM user count';         // Required short description\r\n  c.valid_regions = ['us_east_1'];                  // Only run in us_east_1\r\n  c.display_as    = 'global';                       // Display as region global instead of region us_east_1\r\n});\r\n\r\n// Required perform function\r\nfunction perform(aws) {\r\n    try {\r\n        var count = aws.iam.list_users().users.length || 0;\r\n        if (count === 0) {\r\n            return dsl.fail({\r\n            user_count: count,\r\n            condition: 'count == 0' });\r\n        } else {\r\n            return dsl.pass({\r\n                    user_count: count,\r\n                    condition: 'count >= 1' });\r\n        }\r\n    }\r\n    catch(err) {\r\n        return dsl.error({error: err.message});\r\n    }\r\n}\r\n",
+                "description" => "test",
+                 "resolution" => "test",
+                       "name" => "Testing",
+                     "active" => true,
+                 "created_at" => "2014-07-21T20:09:24.809Z",
+                 "updated_at" => "2014-08-04T14:15:28.326Z",
+                 "risk_level" => "High",
+                 "identifier" => nil,
+                 "service_id" => nil,
+                 "deleted_at" => nil
+        }
+    }
+    
+    # Current page
+    api.custom_signatures.current_page
+    
+    # Next page sets current page with the next page results.
+    api.custom_signatures.next_page
+    
+    # Prev page sets current page with the previous page results.
+    api.custom_signatures.prev_page
+    
+### Show action
+    # Show a specific custom signature
+    # Required :id
+    
+    api.custom_signatures.show(id: 4) =>
+    {
+                     "id" => 4,
+        "organization_id" => 1,
+              "signature" => "// Demo Signature\r\ndsl.configure(function(c) {\r\n  c.module        = 'check_user_count_javascript';  // Required\r\n  c.identifier    = 'AWS:GLO-001';                  // Required unique identifier for this signature\r\n  c.description   = 'Check IAM user count';         // Required short description\r\n  c.valid_regions = ['us_east_1'];                  // Only run in us_east_1\r\n  c.display_as    = 'global';                       // Display as region global instead of region us_east_1\r\n});\r\n\r\n// Required perform function\r\nfunction perform(aws) {\r\n    try {\r\n        var count = aws.iam.list_users().users.length || 0;\r\n        if (count === 0) {\r\n            return dsl.fail({\r\n            user_count: count,\r\n            condition: 'count == 0' });\r\n        } else {\r\n            return dsl.pass({\r\n                    user_count: count,\r\n                    condition: 'count >= 1' });\r\n        }\r\n    }\r\n    catch(err) {\r\n        return dsl.error({error: err.message});\r\n    }\r\n}\r\n",
+            "description" => "test",
+             "resolution" => "test",
+                   "name" => "Testing",
+                 "active" => true,
+             "created_at" => "2014-07-21T20:09:24.809Z",
+             "updated_at" => "2014-08-04T14:15:28.326Z",
+             "risk_level" => "High",
+             "identifier" => nil,
+             "service_id" => nil,
+             "deleted_at" => nil
+    }
+    
+### Run action
+    # Run a custom signature
+    # Required :custom_signature_id => ID of the custom signature to run
+    # Required :external_account_id => ID of the external account to use
+    # Required :regions => Array of regions to run the signature in
+    
+    api.custom_signatures.run(custom_signature_id: 1, external_account_id: 1, regions: [:us_east_1]) =>
+    {
+        "alerts" => [
+            [0] {
+                             "info" => {
+                         "user_count" => 1,
+                          "condition" => "count >= 1",
+                    "deep_inspection" => [
+                        [0] {
+                            "users" => [
+                                [ 0] {
+                                           "path" => "/",
+                                      "user_name" => "demouser",
+                                        "user_id" => "AIDAHJFKDHGFHFGKHKGFH",
+                                            "arn" => "arn:aws:iam::00000000:user/demouser",
+                                    "create_date" => "2014-01-16T19:05:36.000Z"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                           "status" => "pass",
+                           "config" => {
+                                "module" => "check_user_count_javascript",
+                           "description" => "Check IAM user count",
+                         "valid_regions" => [
+                        [0] "us_east_1"
+                    ],
+                            "identifier" => "AWS:GLO-001",
+                       "deep_inspection" => [
+                        [0] "users"
+                    ],
+                     "unique_identifier" => [
+                        [0] {
+                            "user_name" => "user_id"
+                        }
+                    ],
+                            "display_as" => "global",
+                    "validation_context" => nil,
+                                "errors" => {}
+                },
+                           "region" => "us_east_1",
+                "unique_identifier" => {
+                          "demouser"  => "AIDAHJFKDHGFHFGKHKGFH",
+                }
+            }
+        ]
+    }
+
+
 ## Signatures end point
 ### List action
     # List is a pageable response of 25 total signatures per page.
@@ -431,7 +539,6 @@ Or install it yourself as:
     }
 
 ### Run action
-TODO: Change this to require an external account id before release instead of an ARN/External ID. As of right now this will allow them to run any ARN/External ID
     
     # Run an Evident Signature
     Required :signature_name => name of signature to run
