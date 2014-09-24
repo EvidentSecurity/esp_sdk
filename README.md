@@ -331,6 +331,37 @@ Or install it yourself as:
         ]
     }
 
+## Services end point
+#### *Note this end point is a read only end point, and requires the user to have manager role access
+#### This end point can be used to for retrieving a service id to apply to a custom signature. Example your custom signature targets EC2 services.
+### List action
+    # list is a pageable response of 25 total signatures per page
+    api.services.list => 
+    [
+        [ 4] {
+                        "id" => 5,
+                      "name" => "EC2",
+                      "code" => "EC2",
+                "created_at" => "2014-07-15T16:45:43.457Z",
+                "updated_at" => "2014-07-15T16:45:43.457Z"
+            }
+    ]
+
+### Show action
+    # Show a specific signature
+    # Required :id
+    
+    api.show(id: 5) =>
+    {
+                "id" => 5,
+              "name" => "EC2",
+              "code" => "EC2",
+        "created_at" => "2014-07-15T16:45:43.457Z",
+        "updated_at" => "2014-07-15T16:45:43.457Z"
+    }
+
+
+
 ## Custom Signatures end point
 ### List action
     # List is a pageable response of 25 total signatures per page

@@ -27,7 +27,12 @@ module EspSdk
       unless response.kind_of? Net::HTTPSuccess
         # Set the errors
         @errors = Client.convert_json(response.body)['errors']
-        response.error!
+
+        if @errors.first.present? && @errors.first == 'Token has expired'
+          raise EspSdk::Exceptions::TokenExpired, @errors.first
+        else
+          response.error!
+        end
       end
 
       response
