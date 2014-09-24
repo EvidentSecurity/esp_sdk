@@ -54,6 +54,7 @@ Or install it yourself as:
         [7] #<EspSdk::EndPoints::Signatures:0x000001028a22f0 @config=#<EspSdk::Configure:0x00000102890f28 @email="me@gmail.com", @version="v1", @uri="https://api.evident.io/api", @token="6_4wys1a2FhqsECstavC", @token_expires_at=Fri, 19 Sep 2014 15:39:10 UTC +00:00>>,
         [8] #<EspSdk::EndPoints::Dashboard:0x000001028a1e90 @config=#<EspSdk::Configure:0x00000102890f28 @email="me@gmail.com", @version="v1", @uri="https://api.evident.io/api", @token="6_4wys1a2FhqsECstavC", @token_expires_at=Fri, 19 Sep 2014 15:39:10 UTC +00:00>>,
         [9] #<EspSdk::EndPoints::ContactRequests:0x000001028a1940 @config=#<EspSdk::Configure:0x00000102890f28 @email="me@gmail.com", @version="v1", @uri="https://api.evident.io/api", @token="6_4wys1a2FhqsECstavC", @token_expires_at=Fri, 19 Sep 2014 15:39:10 UTC +00:00>>
+        [10] #<EspSdk::EndPoints::Services:0x000001031949f8 @config=#<EspSdk::Configure:0x000001010880e8 @email="me@gmail.com", @version="v1", @uri="https://api.evident.io/api", @token="6_4wys1a2FhqsECstavC", @token_expires_at=Fri, 19 Sep 2014 15:39:10 UTC +00:00>>
     ]
 
 ## Reports end point
@@ -705,7 +706,7 @@ Or install it yourself as:
     api.sub_organizations.next_page
     
     # Prev page sets current page with the previous page results.
-    api.sub_organization.prev_page
+    api.sub_organizations.prev_page
 
 ### Show action
     # Show a specific sub organization
@@ -752,6 +753,85 @@ Or install it yourself as:
     api.sub_organizations.destroy(id: 3) =>
     {
         "success" => "Test has been destroyed"
+    }
+
+    
+## Teams end point
+### List action
+    # List is a pageable response of 25 total signatures per page.
+    api.teams.list =>
+    [
+        [ 0] {
+                             "id" => 1,
+            "sub_organization_id" => 1,
+                           "name" => "Evident",
+                     "created_at" => "2014-06-23T18:53:25.552Z",
+                     "updated_at" => "2014-06-23T18:53:25.552Z",
+                "organization_id" => 1,
+                     "deleted_at" => nil
+        },
+    ]
+    
+    # Current page
+    api.teams.current_page
+    
+    # Next page sets current page with the next page results.
+    api.teams.next_page
+    
+    # Prev page sets current page with the previous page results.
+    api.teams.prev_page
+
+### Show action
+    # Show a specific team
+    # Required :id
+    api.teams.show(id: 1) =>
+    {
+                         "id" => 1,
+        "sub_organization_id" => 1,
+                       "name" => "Evident",
+                 "created_at" => "2014-06-23T18:53:25.552Z",
+                 "updated_at" => "2014-06-23T18:53:25.552Z",
+            "organization_id" => 1,
+                 "deleted_at" => nil
+    }
+
+### Create action
+    # Create a new team
+    # Required :sub_organization_id => id of the sub organization to add this team to. Must have access to the sub organization as well.
+    # Required :name
+    api.teams.create(name: 'testing', sub_organization_id: 1) =>
+    {
+                         "id" => 52,
+        "sub_organization_id" => 1,
+                       "name" => "testing",
+                 "created_at" => "2014-09-24T18:51:28.517Z",
+                 "updated_at" => "2014-09-24T18:51:28.517Z",
+            "organization_id" => 1,
+                 "deleted_at" => nil
+    }
+
+### Update action
+    # Update a team
+    # Required :id
+    # Valid :sub_organization_id, :name
+    api.teams.update(id: 52, name: 'New Name') =>
+    {
+                         "id" => 52,
+        "sub_organization_id" => 1,
+                       "name" => "New Name",
+                 "created_at" => "2014-09-24T18:51:28.517Z",
+                 "updated_at" => "2014-09-24T18:53:20.313Z",
+            "organization_id" => 1,
+                 "deleted_at" => nil
+    }
+
+### Destroy Action
+#### * Note this will destroy any external accounts attached.
+    # Destroy a team
+    # Required :id
+    api.teams.destroy(id: 52) =>
+    {
+        "success" => "New Name has been destroyed"
     }
 
     
