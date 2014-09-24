@@ -16,6 +16,10 @@ module EspSdk
           [:id, :signature, :name, :risk_level]
         end
 
+        def valid_params
+          [:description, :active, :resolution]
+        end
+
         def validate_run_params(params)
           valid_params = [:custom_signature_id, :regions, :external_account_id]
           keys         = params.keys

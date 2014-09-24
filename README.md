@@ -411,8 +411,58 @@ Or install it yourself as:
              "updated_at" => "2014-08-04T14:15:28.326Z",
              "risk_level" => "High",
              "identifier" => nil,
-             "service_id" => nil,
+             "service_id" => 11,
              "deleted_at" => nil
+    }
+
+### Update action
+    # Update a custom signature
+    # Required :id
+    # Valid :description, :resolution, :name, :active, :signature, :risk_level
+    api.custom_signatures.update(id: 4, active: false, name: 'Updated Name') =>
+    {
+                     "id" => 4,
+        "organization_id" => 1,
+              "signature" => "// Demo Signature\r\ndsl.configure(function(c) {\r\n  c.module            = 'check_user_count_javascript';  // Required\r\n  c.identifier        = 'AWS:GLO-001';                  // Required unique identifier for this signature\r\n  c.description       = 'Check IAM user count';         // Required short description\r\n  c.valid_regions     = ['us_east_1'];                  // Only run in us_east_1\r\n  c.display_as        = 'global';                       // Display as region global instead of region us_east_1\r\n  c.deep_inspection   = ['users'];\r\n  c.unique_identifier = [{'user_name': 'user_id'}];\r\n});\r\n\r\n// Required perform function\r\nfunction perform(aws) {\r\n    try {\r\n        var count = aws.iam.list_users().users.length || 0;\r\n        \r\n        // Setup the deep inspection and unique identifier data\r\n        dsl.set_data(aws.iam.list_users());\r\n        if (count === 0) {\r\n            return dsl.fail({\r\n                user_count: count,\r\n                condition: 'count == 0' });\r\n        } else {\r\n            return dsl.pass({\r\n                    user_count: count,\r\n                    condition: 'count >= 1' });\r\n        }\r\n    }\r\n    catch(err) {\r\n        return dsl.error({error: err.message});\r\n    }\r\n}",
+            "description" => "test",
+             "resolution" => "test",
+                   "name" => "Updated Name",
+                 "active" => false,
+             "created_at" => "2014-07-21T20:09:24.809Z",
+             "updated_at" => "2014-09-24T20:48:21.822Z",
+             "risk_level" => "High",
+             "identifier" => nil,
+             "service_id" => 11,
+             "deleted_at" => nil
+    }
+
+### Create Action
+    # Create a new custom signature
+    # Required :signature, :name, :risk_level
+    signature = "// Demo Signature\r\ndsl.configure(function(c) {\r\n  c.module            = 'check_user_count_javascript';  // Required\r\n  c.identifier        = 'AWS:GLO-001';                  // Required unique identifier for this signature\r\n  c.description       = 'Check IAM user count';         // Required short description\r\n  c.valid_regions     = ['us_east_1'];                  // Only run in us_east_1\r\n  c.display_as        = 'global';                       // Display as region global instead of region us_east_1\r\n  c.deep_inspection   = ['users'];\r\n  c.unique_identifier = [{'user_name': 'user_id'}];\r\n});\r\n\r\n// Required perform function\r\nfunction perform(aws) {\r\n    try {\r\n        var count = aws.iam.list_users().users.length || 0;\r\n        \r\n        // Setup the deep inspection and unique identifier data\r\n        dsl.set_data(aws.iam.list_users());\r\n        if (count === 0) {\r\n            return dsl.fail({\r\n                user_count: count,\r\n                condition: 'count == 0' });\r\n        } else {\r\n            return dsl.pass({\r\n                    user_count: count,\r\n                    condition: 'count >= 1' });\r\n        }\r\n    }\r\n    catch(err) {\r\n        return dsl.error({error: err.message});\r\n    }\r\n}"
+    api.custom_signatures.create(signature: signature, name: 'Demo Signature', risk_level: 'High') =>
+    {
+                     "id" => 97,
+        "organization_id" => 1,
+              "signature" => "// Demo Signature\r\ndsl.configure(function(c) {\r\n  c.module            = 'check_user_count_javascript';  // Required\r\n  c.identifier        = 'AWS:GLO-001';                  // Required unique identifier for this signature\r\n  c.description       = 'Check IAM user count';         // Required short description\r\n  c.valid_regions     = ['us_east_1'];                  // Only run in us_east_1\r\n  c.display_as        = 'global';                       // Display as region global instead of region us_east_1\r\n  c.deep_inspection   = ['users'];\r\n  c.unique_identifier = [{'user_name': 'user_id'}];\r\n});\r\n\r\n// Required perform function\r\nfunction perform(aws) {\r\n    try {\r\n        var count = aws.iam.list_users().users.length || 0;\r\n        \r\n        // Setup the deep inspection and unique identifier data\r\n        dsl.set_data(aws.iam.list_users());\r\n        if (count === 0) {\r\n            return dsl.fail({\r\n                user_count: count,\r\n                condition: 'count == 0' });\r\n        } else {\r\n            return dsl.pass({\r\n                    user_count: count,\r\n                    condition: 'count >= 1' });\r\n        }\r\n    }\r\n    catch(err) {\r\n        return dsl.error({error: err.message});\r\n    }\r\n}",
+            "description" => nil,
+             "resolution" => nil,
+                   "name" => "Demo Signature",
+                 "active" => nil,
+             "created_at" => "2014-09-24T20:51:08.901Z",
+             "updated_at" => "2014-09-24T20:51:08.901Z",
+             "risk_level" => "High",
+             "identifier" => nil,
+             "service_id" => 11,
+             "deleted_at" => nil
+    }
+
+### Destroy Action
+    # Destroy a custom signature
+    # Required :id
+    api.custom_signatures.destroy(id: 97) =>
+    {
+        "success" => "Demo Signature has been destroyed"
     }
     
 ### Run action

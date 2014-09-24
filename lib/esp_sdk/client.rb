@@ -28,8 +28,12 @@ module EspSdk
         # Set the errors
         @errors = Client.convert_json(response.body)['errors']
 
-        if @errors.first.present? && @errors.first == 'Token has expired'
-          raise EspSdk::Exceptions::TokenExpired, @errors.first
+        if @errors.present?
+          if @errors.include?('Token has expired')
+            raise EspSdk::Exceptions::TokenExpired, 'Token has expired'
+          elsif @errors.include?('Record not found')
+            raise EspSdk::Exceptions::RecordNotFound, 'Record not found'
+          end
         else
           response.error!
         end
