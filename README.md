@@ -684,6 +684,77 @@ Or install it yourself as:
                                   "sso_idp_id" => "19f780c8-46eb-4ad1-ba6a-2c954aff49f1"
     }
 
+## Sub Organizations end point
+### List action
+    # List is a pageable response of 25 total signatures per page.
+    api.sub_organizations.list =>
+    [
+        [0] {
+                         "id" => 1,
+            "organization_id" => 1,
+                       "name" => "Evident",
+                 "created_at" => "2014-06-23T18:53:25.531Z",
+                 "updated_at" => "2014-09-03T12:32:50.472Z"
+        }
+    ]
+    
+    # Current page
+    api.sub_organizations.current_page
+    
+    # Next page sets current page with the next page results.
+    api.sub_organizations.next_page
+    
+    # Prev page sets current page with the previous page results.
+    api.sub_organization.prev_page
+
+### Show action
+    # Show a specific sub organization
+    # Required :id
+    api.sub_organizations.show(id: 1) =>
+    {
+                     "id" => 1,
+        "organization_id" => 1,
+                   "name" => "Evident",
+             "created_at" => "2014-06-23T18:53:25.531Z",
+             "updated_at" => "2014-09-03T12:32:50.472Z"
+    }
+
+
+### Update action
+    # Update a specific sub organization
+    # Required :id
+    # Valid param :name
+    api.sub_organizations.update(id: 1, name: 'Test') =>
+    {
+                     "id" => 1,
+        "organization_id" => 1,
+                   "name" => "Test",
+             "created_at" => "2014-06-23T18:53:25.531Z",
+             "updated_at" => "2014-09-24T18:37:02.252Z"
+    }
+
+### Create action
+    # Create a new sub organization
+    # Required :name
+    api.sub_organizations.create(name: 'Test') =>
+    {
+                     "id" => 3,
+        "organization_id" => 1,
+                   "name" => "Test",
+             "created_at" => "2014-09-24T18:39:25.493Z",
+             "updated_at" => "2014-09-24T18:39:25.493Z"
+    }
+
+### Destroy Action
+#### * Note this action will also destroy every team within the sub organization and any external accounts attached.
+    # Destroy a sub organization
+    # Required :id
+    api.sub_organizations.destroy(id: 3) =>
+    {
+        "success" => "Test has been destroyed"
+    }
+
+    
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/esp_sdk/fork )
