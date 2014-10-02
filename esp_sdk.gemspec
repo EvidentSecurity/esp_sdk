@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'esp_sdk/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'ESP SDK'
+  spec.name          = 'esp_sdk'
   spec.version       = EspSdk::VERSION
   spec.authors       = ['Andrew Medeiros']
   spec.email         = ['amedeiros0920@gmail.com']
