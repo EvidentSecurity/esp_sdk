@@ -6,25 +6,13 @@ module EspSdk
       @email    = options[:email]
       @version  = options[:version] || 'v1'
       @token    = options[:token]
+    end
 
+    def self.end_point
       if ENV['RAILS_ENV'].present?
         if ENV['RAILS_ENV'] == 'release'
           @uri = 'https://api.release.evident.io/api'
         elsif ENV['RAILS_ENV'] == 'development'
-          @uri = 'http://0.0.0.0:3001/api'
-        else
-          @uri = 'https://api.evident.io/api'
-        end
-      else
-        @uri = 'https://api.evident.io/api'
-      end
-    end
-
-    def self.end_point
-      if !!defined?(Rails)
-        if Rails.env.release?
-          @uri = 'https://api.release.evident.io/api'
-        elsif Rails.env.development?
           @uri = 'http://0.0.0.0:3001/api'
         else
           @uri = 'https://api.evident.io/api'
