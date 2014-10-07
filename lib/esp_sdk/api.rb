@@ -3,13 +3,20 @@ module EspSdk
     attr_reader :end_points, :config
 
     def initialize(options={})
-      raise MissingAttribute, 'Missing required email' unless options[:email].present?
-      raise MissingAttribute, 'Missing required email' unless options[:password].present?
+      raise Exceptions::MissingAttribute, 'Missing required email'    if options[:email].blank?
+      raise Exceptions::MissingAttribute, 'Missing required password' if options[:password].blank? && options[:token].blank?
       @config       = Configure.new(options)
-      @config.token = options.delete(:password)
       @end_points   = []
 
-      get_token
+
+      # Get the token if one was not supplied in the options
+      if @config.token.blank?
+        @config.token = options.delete(:password)
+        get_token
+      else
+        validate_token
+      end
+
       define_methods
     end
 
@@ -31,8 +38,16 @@ module EspSdk
       end
 
       def get_token
+        token_setup
+      end
+
+      def validate_token
+        token_setup('valid')
+      end
+
+      def token_setup(end_point='new')
         client        = Client.new(@config)
-        response      = client.connect("#{config.uri}/#{config.version}/token/new")
+        response      = client.connect("#{config.uri}/#{config.version}/token/#{end_point}")
         user          = Client.convert_json(response.body)
         @config.token = user['authentication_token']
         @config.token_expires_at = user['token_expires_at'].to_datetime.in_time_zone('UTC')
