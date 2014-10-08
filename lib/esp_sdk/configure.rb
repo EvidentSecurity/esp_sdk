@@ -9,10 +9,12 @@ module EspSdk
     end
 
     def self.end_point
+      return @uri if @uri.present?
+
       if ENV['RAILS_ENV'].present?
         if ENV['RAILS_ENV'] == 'release'
           @uri = 'https://api.release.evident.io/api'
-        elsif ENV['RAILS_ENV'] == 'development'
+        elsif ENV['RAILS_ENV'] == 'development' || ENV['RAILS_ENV'] == 'test'
           @uri = 'http://0.0.0.0:3001/api'
         else
           @uri = 'https://api.evident.io/api'

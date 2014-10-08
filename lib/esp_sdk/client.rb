@@ -51,7 +51,11 @@ module EspSdk
           json[index] = convert_json(value)
         end
       else
-        json
+        if json.is_a?(Array)
+          json
+        else
+          ActiveSupport::HashWithIndifferentAccess.new(json)
+        end
       end
     end
   end
