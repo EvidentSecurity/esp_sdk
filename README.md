@@ -467,11 +467,11 @@ Or install it yourself as:
     
 ### Run action
     # Run a custom signature
-    # Required :custom_signature_id => ID of the custom signature to run
+    # Required :id => ID of the custom signature to run
     # Required :external_account_id => ID of the external account to use
     # Required :regions => Array of regions to run the signature in
     
-    api.custom_signatures.run(custom_signature_id: 1, external_account_id: 1, regions: [:us_east_1]) =>
+    api.custom_signatures.run(id: 1, external_account_id: 1, regions: [:us_east_1]) =>
     {
         "alerts" => [
             [0] {
@@ -520,7 +520,61 @@ Or install it yourself as:
         ]
     }
 
+### Run Raw action
+    # Run a raw custom signature 
+    # Required: :signature => JavaScript signature to run as a string
+    # Required :external_account_id => ID of the external account to use
+    # Required :regions => Array of regions to run the signature in
+    api.custom_signatures.run_raw(signature: "Javascript", regions: [:us_east_1], external_account_id: 1) =>
+    {
+        "alerts" => [
+            [0] {
+                             "info" => {
+                         "user_count" => 1,
+                          "condition" => "count >= 1",
+                    "deep_inspection" => [
+                        [0] {
+                            "users" => [
+                                [ 0] {
+                                           "path" => "/",
+                                      "user_name" => "demouser",
+                                        "user_id" => "AIDAHJFKDHGFHFGKHKGFH",
+                                            "arn" => "arn:aws:iam::00000000:user/demouser",
+                                    "create_date" => "2014-01-16T19:05:36.000Z"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                           "status" => "pass",
+                           "config" => {
+                                "module" => "check_user_count_javascript",
+                           "description" => "Check IAM user count",
+                         "valid_regions" => [
+                        [0] "us_east_1"
+                    ],
+                            "identifier" => "AWS:GLO-001",
+                       "deep_inspection" => [
+                        [0] "users"
+                    ],
+                     "unique_identifier" => [
+                        [0] {
+                            "user_name" => "user_id"
+                        }
+                    ],
+                            "display_as" => "global",
+                    "validation_context" => nil,
+                                "errors" => {}
+                },
+                           "region" => "us_east_1",
+                "unique_identifier" => {
+                          "demouser"  => "AIDAHJFKDHGFHFGKHKGFH",
+                }
+            }
+        ]
+    }
 
+    
 ## Signatures end point
 ### List action
     # List is a pageable response of 25 total signatures per page.

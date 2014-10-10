@@ -2,7 +2,12 @@ module EspSdk
   module EndPoints
     class CustomSignatures < Base
       def run(params={})
-        validate_run_params(params)
+        validate_run_params(valid_run_params, params.keys)
+        submit(run_url, :Post, params)
+      end
+
+      def run_raw(params={})
+        validate_run_params(valid_run_raw_params, params.keys)
         submit(run_url, :Post, params)
       end
 
@@ -20,10 +25,15 @@ module EspSdk
           [:description, :active, :resolution]
         end
 
-        def validate_run_params(params)
-          valid_params = [:custom_signature_id, :regions, :external_account_id]
-          keys         = params.keys
+        def valid_run_params
+          [:id, :regions, :external_account_id]
+        end
 
+        def valid_run_raw_params
+          [:signature, :regions, :external_account_id]
+        end
+
+        def validate_run_params(valid_params, keys)
           # Check that all the valid params are present
           valid_params.each do |param|
             raise EspSdk::Exceptions::MissingAttribute, "Missing required attribute #{param}" unless keys.include?(param)
