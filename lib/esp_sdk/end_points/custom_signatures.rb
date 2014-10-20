@@ -3,12 +3,12 @@ module EspSdk
     class CustomSignatures < Base
       def run(params={})
         validate_run_params(valid_run_params, params.keys)
-        submit(run_url, :Post, params)
+        submit(run_url, :post, params)
       end
 
       def run_raw(params={})
         validate_run_params(valid_run_raw_params, params.keys)
-        submit(run_url, :Post, params)
+        submit(run_url, :post, params)
       end
 
       private

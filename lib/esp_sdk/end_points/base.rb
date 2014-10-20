@@ -8,7 +8,7 @@ module EspSdk
     def next_page
       if @current_page
         if @page_links['next'].present?
-          response = connect(@page_links['next'], :Get)
+          response = connect(@page_links['next'], :get)
           pagination_links(response)
           @current_page = Client.convert_json(response.body)
 
@@ -23,7 +23,7 @@ module EspSdk
     def prev_page
       if @current_page
         if @page_links['prev'].present?
-          response      = connect(@page_links['prev'], :Get)
+          response      = connect(@page_links['prev'], :get)
           pagination_links(response)
           @current_page = Client.convert_json(response.body)
         else
@@ -36,29 +36,29 @@ module EspSdk
 
     # Get a pageable list of records
     def list
-      response      = connect(base_url, :Get)
+      response      = connect(base_url, :get)
       pagination_links(response)
       @current_page = Client.convert_json(response.body)
     end
 
     # Get a single record
     def show(params={})
-      run_callbacks(:validate_id, params) { submit(id_url(params.delete(:id)), :Get) }
+      run_callbacks(:validate_id, params) { submit(id_url(params.delete(:id)), :get) }
     end
 
     # Update a single record
     def update(params={})
-      run_callbacks(:validate_id, :validate_update_params, params) { submit(id_url(params.delete(:id)), :Patch, params) }
+      run_callbacks(:validate_id, :validate_update_params, params) { submit(id_url(params.delete(:id)), :patch, params) }
     end
 
     # Destroy a single record
     def destroy(params={})
-      run_callbacks(:validate_id, params) { submit(id_url(params.delete(:id)), :Delete) }
+      run_callbacks(:validate_id, params) { submit(id_url(params.delete(:id)), :delete) }
     end
-    
+
     # Create a new record
     def create(params={})
-      run_callbacks(:validate_create_params, params) { submit(base_url, :Post, params) }
+      run_callbacks(:validate_create_params, params) { submit(base_url, :post, params) }
     end
 
     private
@@ -118,7 +118,7 @@ module EspSdk
       end
 
       def pagination_links(response)
-        @page_links = JSON.load(response['Link'])
+        @page_links = JSON.load(response.headers[:link])
       end
 
       # Run the callbacks defined for parameter checking.

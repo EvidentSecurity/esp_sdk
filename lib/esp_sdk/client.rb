@@ -1,5 +1,4 @@
-require 'net/http'
-require 'uri'
+require 'rest_client'
 
 module EspSdk
   class Client
@@ -9,35 +8,24 @@ module EspSdk
       @config  = config
     end
 
-    def connect(url, type=:Get, body={})
-      begin
-        uri          = URI(url)
-        uri.query    = { self.class.to_s.demodulize.singularize.underscore => body }.to_query if body.present?
-        http         = Net::HTTP.new(uri.host, uri.port)
-        request      = Net::HTTP.const_get(type).new uri, { 'Authorization' => @config.token, 'Authorization-Email' => @config.email, 'Content-Type' => 'json/text' }
-        http.start
-        response = http.request(request)
-      rescue Exception => e
-        puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** e.message = " + e.message.inspect
-        puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** e.backtrace.join('\n') = " + e.backtrace.join("\n")
-      ensure
-        http.finish if http.active?
+    def connect(url, type=:get, payload={})
+      headers = { 'Authorization' => @config.token, 'Authorization-Email' => @config.email, 'Content-Type' => 'json/text' }
+      payload = { self.class.to_s.demodulize.singularize.underscore => payload }
+      if type == :get || type == :delete
+        response = RestClient.send(type, url, headers.merge(params: payload))
+      else
+        response = RestClient.send(type, url, payload, headers)
       end
 
-      # Raise an error if we do not have a HTTPSuccess 2xx for our response
-      if response.kind_of? Net::HTTPSuccess
-        # Set the errors
-        @errors = Client.convert_json(response.body)['errors']
+      body     = Client.convert_json(response.body)
+      @errors  = body['errors'] if body.present? && body.kind_of?(Hash) && body['errors'].present?
 
-        if @errors.present?
-          if @errors.include?('Token has expired')
-            raise EspSdk::Exceptions::TokenExpired, 'Token has expired'
-          elsif @errors.include?('Record not found')
-            raise EspSdk::Exceptions::RecordNotFound, 'Record not found'
-          end
+      if @errors.present?
+        if @errors.include?('Token has expired')
+          raise EspSdk::Exceptions::TokenExpired, 'Token has expired'
+        elsif @errors.include?('Record not found')
+          raise EspSdk::Exceptions::RecordNotFound, 'Record not found'
         end
-      else
-        response.error!
       end
 
       response

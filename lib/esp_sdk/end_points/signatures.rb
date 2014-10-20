@@ -3,11 +3,11 @@ module EspSdk
     class Signatures < Base
       def run(params={})
         validate_run_params(params)
-        submit(run_url, :Post, params)
+        submit(run_url, :post, params)
       end
 
       def names
-        submit(name_url, :Get)
+        submit(name_url, :get)
       end
 
       private
