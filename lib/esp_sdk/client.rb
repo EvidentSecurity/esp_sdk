@@ -18,13 +18,14 @@ module EspSdk
         http.start
         response = http.request(request)
       rescue Exception => e
-          puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** e.message = " + e.message.inspect
+        puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** e.message = " + e.message.inspect
+        puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** e.backtrace.join('\n') = " + e.backtrace.join("\n")
       ensure
-        http.finish
+        http.finish if http.active?
       end
 
       # Raise an error if we do not have a HTTPSuccess 2xx for our response
-      unless response.kind_of? Net::HTTPSuccess
+      if response.kind_of? Net::HTTPSuccess
         # Set the errors
         @errors = Client.convert_json(response.body)['errors']
 
@@ -34,9 +35,9 @@ module EspSdk
           elsif @errors.include?('Record not found')
             raise EspSdk::Exceptions::RecordNotFound, 'Record not found'
           end
-        else
-          response.error!
         end
+      else
+        response.error!
       end
 
       response
