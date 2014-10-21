@@ -10,7 +10,7 @@ module EspSdk
 
     def connect(url, type=:get, payload={})
       headers = { 'Authorization' => @config.token, 'Authorization-Email' => @config.email, 'Content-Type' => 'json/text' }
-      payload = { self.class.to_s.demodulize.singularize.underscore => payload }
+      payload = { self.class.to_s.demodulize.singularize.underscore => payload } if payload.present?
       
       if type == :get || type == :delete
         if payload.present?
