@@ -11,8 +11,13 @@ module EspSdk
     def connect(url, type=:get, payload={})
       headers = { 'Authorization' => @config.token, 'Authorization-Email' => @config.email, 'Content-Type' => 'json/text' }
       payload = { self.class.to_s.demodulize.singularize.underscore => payload }
+      
       if type == :get || type == :delete
-        response = RestClient.send(type, url, headers.merge(params: payload))
+        if payload.present?
+          response = RestClient.send(type, url, headers.merge(params: payload))
+        else
+          response = RestClient.send(type, url, headers)
+        end
       else
         response = RestClient.send(type, url, payload, headers)
       end
