@@ -41,7 +41,12 @@ module EspSdk
     # Recursively convert json
     def self.convert_json(json)
       if json.is_a?(String)
-        convert_json(JSON.load(json))
+        begin
+          convert_json(JSON.load(json))
+        rescue JSON::ParserError
+          # Rescue a parse error and return the object.
+          json
+        end
       elsif json.is_a?(Array)
         json.each_with_index do |value, index|
           json[index] = convert_json(value)
