@@ -11,25 +11,27 @@ module EspSdk
     def connect(url, type=:get, payload={})
       headers = { 'Authorization' => @config.token, 'Authorization-Email' => @config.email, 'Content-Type' => 'json/text' }
       payload = { self.class.to_s.demodulize.singularize.underscore => payload } if payload.present?
-      
-      if type == :get || type == :delete
-        if payload.present?
-          response = RestClient.send(type, url, headers.merge(params: payload))
+      begin
+        if type == :get || type == :delete
+          if payload.present?
+            response = RestClient.send(type, url, headers.merge(params: payload))
+          else
+            response = RestClient.send(type, url, headers)
+          end
         else
-          response = RestClient.send(type, url, headers)
+          response = RestClient.send(type, url, payload, headers)
         end
-      else
-        response = RestClient.send(type, url, payload, headers)
+      rescue RestClient::UnprocessableEntity, RestClient::Unauthorized => e
+        response = e.response
+        body     = Client.convert_json(response.body)
+        @errors  = body['errors'] if body.present? && body.kind_of?(Hash) && body['errors'].present?
       end
 
-      body     = Client.convert_json(response.body)
-      @errors  = body['errors'] if body.present? && body.kind_of?(Hash) && body['errors'].present?
-
       if @errors.present?
-        if @errors.include?('Token has expired')
+        if @errors.select { |error| error.to_s.include?('Token has expired') }.present?
           raise EspSdk::Exceptions::TokenExpired, 'Token has expired'
-        elsif @errors.include?('Record not found')
-          raise EspSdk::Exceptions::RecordNotFound, 'Record not found'
+        elsif (error = @errors.select { |error| error.to_s.include?('Record not found') }[0]).present?
+          raise EspSdk::Exceptions::RecordNotFound, error
         end
       end
 
