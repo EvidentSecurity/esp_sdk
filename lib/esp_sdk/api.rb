@@ -50,7 +50,7 @@ module EspSdk
         response      = client.connect("#{config.uri}/#{config.version}/token/#{end_point}")
         user          = Client.convert_json(response.body)
         @config.token = user['authentication_token']
-        @config.token_expires_at = user['token_expires_at'].to_datetime.in_time_zone('UTC')
+        @config.token_expires_at = user['token_expires_at'].to_s.to_datetime.to_s.in_time_zone('UTC') || 1.hour.from_now.to_datetime.in_time_zone('UTC')
       end
   end
 end
