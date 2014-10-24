@@ -332,6 +332,256 @@ Or install it yourself as:
         ]
     }
 
+### Timewarp action
+#### This endpoint is used for returning dashboard stats at a specific hour in the past
+    # Required params: time: => '1413999010' Unix Time
+    # The time is floored and has five minutes subtracted. Then adds an hour for the end time. Any reports between that hour will have their stats returned.
+    # EX: 
+    # start_time =  DateTime.strptime('1413999010','%s').at_beginning_of_hour - 5.minutes
+    # end_time   = start_time + 1.hour
+    api.dashboard.timewarp(time: '1413999010') =>
+    {
+        "enterprise" => false,
+             "teams" => [
+            [0] {
+                            "name" => "Default Team",
+                         "team_id" => 1,
+                "sub_organization" => "Default Sub Organization",
+                      "created_at" => "2014-10-22T17:30:10.086Z",
+                       "report_id" => 5,
+                           "stats" => {
+                         "total" => 356,
+                       "regions" => [
+                        [0] {
+                                 "code" => "global",
+                            "region_id" => 9,
+                                "total" => 23,
+                                 "pass" => 22,
+                                 "high" => 1,
+                               "medium" => 22,
+                                  "low" => 0
+                        },
+                        [1] {
+                                 "code" => "us_east_1",
+                            "region_id" => 6,
+                                "total" => 139,
+                                 "pass" => 105,
+                                 "high" => 0,
+                               "medium" => 67,
+                                  "low" => 72
+                        },
+                        [2] {
+                                 "code" => "eu_west_1",
+                            "region_id" => 4,
+                                "total" => 3,
+                                 "pass" => 6,
+                                 "high" => 2,
+                               "medium" => 1,
+                                  "low" => 0
+                        },
+                        [3] {
+                                 "code" => "ap_northeast_1",
+                            "region_id" => 1,
+                                "total" => 3,
+                                 "pass" => 6,
+                                 "high" => 2,
+                               "medium" => 1,
+                                  "low" => 0
+                        },
+                        [4] {
+                                 "code" => "us_west_1",
+                            "region_id" => 7,
+                                "total" => 3,
+                                 "pass" => 6,
+                                 "high" => 2,
+                               "medium" => 1,
+                                  "low" => 0
+                        },
+                        [5] {
+                                 "code" => "ap_southeast_1",
+                            "region_id" => 2,
+                                "total" => 3,
+                                 "pass" => 7,
+                                 "high" => 2,
+                               "medium" => 1,
+                                  "low" => 0
+                        },
+                        [6] {
+                                 "code" => "us_west_2",
+                            "region_id" => 8,
+                                "total" => 2,
+                                 "pass" => 10,
+                                 "high" => 1,
+                               "medium" => 1,
+                                  "low" => 0
+                        },
+                        [7] {
+                                 "code" => "sa_east_1",
+                            "region_id" => 5,
+                                "total" => 3,
+                                 "pass" => 6,
+                                 "high" => 2,
+                               "medium" => 1,
+                                  "low" => 0
+                        },
+                        [8] {
+                                 "code" => "ap_southeast_2",
+                            "region_id" => 3,
+                                "total" => 3,
+                                 "pass" => 6,
+                                 "high" => 2,
+                               "medium" => 1,
+                                  "low" => 0
+                        }
+                    ],
+                    "signatures" => [
+                        [ 0] {
+                            "signature_id" => 88,
+                               "unique_id" => "AWS:SSS-006",
+                                   "total" => 1
+                        },
+                        [ 1] {
+                            "signature_id" => 89,
+                               "unique_id" => "AWS:SSS-008",
+                                   "total" => 1
+                        },
+                        [ 2] {
+                            "signature_id" => 87,
+                               "unique_id" => "AWS:SSS-007",
+                                   "total" => 1
+                        },
+                        [ 3] {
+                            "signature_id" => 14,
+                               "unique_id" => "AWS:EC2-001",
+                                   "total" => 21
+                        },
+                        [ 4] {
+                            "signature_id" => 70,
+                               "unique_id" => "AWS:SSS-001",
+                                   "total" => 1
+                        },
+                        [ 5] {
+                            "signature_id" => 72,
+                               "unique_id" => "AWS:CLT-001",
+                                   "total" => 7
+                        },
+                        [ 6] {
+                            "signature_id" => 69,
+                               "unique_id" => "AWS:EC2-031",
+                                   "total" => 44
+                        },
+                        [ 7] {
+                            "signature_id" => 18,
+                               "unique_id" => "AWS:VPC-009",
+                                   "total" => 6
+                        },
+                        [ 8] {
+                            "signature_id" => 68,
+                               "unique_id" => "AWS:IAM-008",
+                                   "total" => 1
+                        },
+                        [ 9] {
+                            "signature_id" => 82,
+                               "unique_id" => "AWS:ELB-007",
+                                   "total" => 43
+                        },
+                        [10] {
+                            "signature_id" => 81,
+                               "unique_id" => "AWS:SSS-003",
+                                   "total" => 1
+                        },
+                        [11] {
+                            "signature_id" => 80,
+                               "unique_id" => "AWS:ELB-001",
+                                   "total" => 8
+                        },
+                        [12] {
+                            "signature_id" => 11,
+                               "unique_id" => "AWS:IAM-007",
+                                   "total" => 14
+                        },
+                        [13] {
+                            "signature_id" => 83,
+                               "unique_id" => "AWS:ELB-008",
+                                   "total" => 4
+                        },
+                        [14] {
+                            "signature_id" => 77,
+                               "unique_id" => "AWS:RDS-002",
+                                   "total" => 2
+                        },
+                        [15] {
+                            "signature_id" => 67,
+                               "unique_id" => "AWS:EC2-032",
+                                   "total" => 24
+                        },
+                        [16] {
+                            "signature_id" => 1,
+                               "unique_id" => "AWS:EC2-030",
+                                   "total" => 3
+                        }
+                    ],
+                      "services" => [
+                        [0] {
+                               "service" => "RDS",
+                                 "total" => 2,
+                            "service_id" => 10
+                        },
+                        [1] {
+                               "service" => "ELB",
+                                 "total" => 55,
+                            "service_id" => 8
+                        },
+                        [2] {
+                               "service" => "IAM",
+                                 "total" => 15,
+                            "service_id" => 3
+                        },
+                        [3] {
+                               "service" => "VPC",
+                                 "total" => 6,
+                            "service_id" => 7
+                        },
+                        [4] {
+                               "service" => "CLT",
+                                 "total" => 7,
+                            "service_id" => 9
+                        },
+                        [5] {
+                               "service" => "EC2",
+                                 "total" => 92,
+                            "service_id" => 1
+                        },
+                        [6] {
+                               "service" => "SSS",
+                                 "total" => 5,
+                            "service_id" => 5
+                        }
+                    ],
+                    "severities" => [
+                        [0] {
+                            "severity" => "high",
+                               "total" => 14
+                        },
+                        [1] {
+                            "severity" => "medium",
+                               "total" => 96
+                        },
+                        [2] {
+                            "severity" => "low",
+                               "total" => 72
+                        },
+                        [3] {
+                            "severity" => "pass",
+                               "total" => 174
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+
+
 ## Services end point
 #### *Note this end point is a read only end point, and requires the user to have manager role access
 #### This end point can be used to for retrieving a service id to apply to a custom signature. Example your custom signature targets EC2 services.
