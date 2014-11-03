@@ -1,4 +1,5 @@
 require 'rest_client'
+require_relative 'extensions/rest_client/request'
 
 module EspSdk
   class Client
