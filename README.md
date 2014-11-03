@@ -1,6 +1,6 @@
 # EspSdk
 
-Ruby SDK for Evident.io API
+Ruby SDK for Evident.io API. This gem is very beta and is missing tests. Updates and changes will be made to the current version.
 
 ## Installation
 
@@ -62,26 +62,9 @@ Or install it yourself as:
     # List action is a pageable response with a total of 5 reports per page.
     api.reports.list => 
     {
-            "report" => 130,
+            "id" => 130,
         "created_at" => "2014-08-06T19:59:57.540Z",
-              "team" => "Evident",
-            "alerts" => [
-            [  0] {
-                          "signature" => "Sss Global Any Bucket Permissions",
-                             "status" => "fail",
-                             "region" => "us_east_1",
-                   "external_account" => "Development",
-                         "identifier" => "AWS:SSS-008",
-                         "risk_level" => "Low",
-                            "service" => "SSS",
-                        "description" => "Check if S3 buckets have any global permissions enabled",
-                         "resolution" => "This signature is under active development.",
-                "related_information" => {
-                            "message" => "A permission is granted to Everyone on the 'evident-prod' bucket",
-                             "bucket" => "evident-prod",
-                    "deep_inspection" => nil
-                }
-            },
+              "team" => "Evident"
     }
     
     # Current page
