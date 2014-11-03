@@ -6,10 +6,10 @@ require 'esp_sdk/version'
 Gem::Specification.new do |spec|
   spec.name          = 'esp_sdk'
   spec.version       = EspSdk::VERSION
-  spec.authors       = ['Andrew Medeiros']
-  spec.email         = ['amedeiros0920@gmail.com']
+  spec.authors       = ['Evident.io']
+  spec.email         = ['support@evident.io']
   spec.summary       = %q{SDK for interacting with the ESP API.}
-  spec.homepage      = ""
+  spec.homepage      = ''
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
