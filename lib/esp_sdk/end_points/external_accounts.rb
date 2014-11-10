@@ -3,6 +3,10 @@ module EspSdk
     class ExternalAccounts < Base
 
 
+      def generate_external_id
+        SecureRandom.uuid
+      end
+
       private
 
         def required_params
