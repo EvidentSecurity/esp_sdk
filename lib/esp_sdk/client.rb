@@ -9,7 +9,7 @@ module EspSdk
       @config  = config
     end
 
-    def connect(url, type=:get, payload={})
+    def connect(url, type = :get, payload = {})
       headers = { 'Authorization' => @config.token, 'Authorization-Email' => @config.email, 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
       payload = { self.class.to_s.demodulize.singularize.underscore => payload } if payload.present?
       begin
@@ -25,14 +25,14 @@ module EspSdk
       rescue RestClient::UnprocessableEntity, RestClient::Unauthorized => e
         response = e.response
         body     = Client.convert_json(response.body)
-        @errors  = body['errors'] if body.present? && body.kind_of?(Hash) && body['errors'].present?
+        @errors  = body['errors'] if body.present? && body.is_a?(Hash) && body['errors'].present?
       end
 
       if @errors.present?
         if @errors.select { |error| error.to_s.include?('Token has expired') }.present?
-          raise EspSdk::Exceptions::TokenExpired, 'Token has expired'
+          fail ::TokenExpired, 'Token has expired'
         elsif (error = @errors.select { |error| error.to_s.include?('Record not found') }[0]).present?
-          raise EspSdk::Exceptions::RecordNotFound, error
+          fail ::RecordNotFound, error
         end
       end
 

@@ -1,7 +1,6 @@
 module EspSdk
   module EndPoints
     class Organizations < Base
-
       private
 
       def required_params
