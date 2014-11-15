@@ -9,8 +9,7 @@ module EspSdk
         if @page_links['next'].present?
           response = connect(@page_links['next'], :get)
           pagination_links(response)
-          @current_page = Client.convert_json(response.body)
-
+          @current_page = JSON.load(response.body)
         else
           @current_page
         end
@@ -24,7 +23,7 @@ module EspSdk
         if @page_links['prev'].present?
           response      = connect(@page_links['prev'], :get)
           pagination_links(response)
-          @current_page = Client.convert_json(response.body)
+          @current_page = JSON.load(response.body)
         else
           @current_page
         end
@@ -35,9 +34,9 @@ module EspSdk
 
     # Get a pageable list of records
     def list
-      response      = connect(base_url, :get)
+      response = connect(base_url, :get)
       pagination_links(response)
-      @current_page = Client.convert_json(response.body)
+      @current_page = JSON.load(response.body)
     end
 
     # Get a single record
@@ -57,7 +56,8 @@ module EspSdk
 
     # Create a new record
     def create(params = {})
-      run_callbacks(:validate_create_params, params) { submit(base_url, :post, params) }
+      submit(base_url, :post, params)
+      # run_callbacks(:validate_create_params, params) { submit(base_url, :post, params) }
     end
 
     private
@@ -113,7 +113,7 @@ module EspSdk
 
     def submit(url, type, options = {})
       response         = connect(url, type, options)
-      @current_record  = Client.convert_json(response.body)
+      @current_record  = JSON.load(response.body)
     end
 
     def pagination_links(response)

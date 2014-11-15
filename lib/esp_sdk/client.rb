@@ -24,7 +24,7 @@ module EspSdk
         end
       rescue RestClient::UnprocessableEntity, RestClient::Unauthorized => e
         response = e.response
-        body     = Client.convert_json(response.body)
+        body     = JSON.load(response.body)
         @errors  = body['errors'] if body.present? && body.is_a?(Hash) && body['errors'].present?
       end
 
@@ -37,28 +37,6 @@ module EspSdk
       end
 
       response
-    end
-
-    # Recursively convert json
-    def self.convert_json(json)
-      if json.is_a?(String)
-        begin
-          convert_json(JSON.load(json))
-        rescue JSON::ParserError
-          # Rescue a parse error and return the object.
-          json
-        end
-      elsif json.is_a?(Array)
-        json.each_with_index do |value, index|
-          json[index] = convert_json(value)
-        end
-      else
-        if json.is_a?(Array)
-          json
-        else
-          ActiveSupport::HashWithIndifferentAccess.new(json)
-        end
-      end
     end
   end
 end
