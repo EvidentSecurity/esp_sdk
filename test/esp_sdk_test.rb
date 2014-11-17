@@ -3,10 +3,12 @@ require File.expand_path(File.dirname(__FILE__) + '/test_helper')
 class EspSdkTest < ActiveSupport::TestCase
   context 'EspSdk' do
     context '#env' do
-      setup { EspSdk.instance_variable_set(:@env, nil) }
+      setup do
+        EspSdk.instance_variable_set(:@env, nil)
+        ENV['ESP_ENV'] = nil
+      end
 
       should 'return :production when ENV is not set' do
-        ENV['ESP_ENV'] = nil
         assert_equal :production, EspSdk.env
       end
 
