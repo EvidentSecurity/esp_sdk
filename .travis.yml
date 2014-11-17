@@ -1,7 +1,9 @@
 language: ruby
 rvm:
 - 2.1.1
-cache: bundler - bundle exec rake test
+cache: bundler
+script:
+  - bundle exec rake test
 addons:
   code_climate:
     repo_token: 73b22e855ca36fc2ab337552731c44437923bdf96780beb01c04c0fe2775f7a1
