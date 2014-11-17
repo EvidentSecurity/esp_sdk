@@ -1,7 +1,9 @@
+[![Build Status](https://travis-ci.org/EvidentSecurity/esp_sdk.svg?branch=master)](https://travis-ci.org/EvidentSecurity/esp_sdk)
+[![Code Climate](https://codeclimate.com/repos/546a526f6956800d2900e3fb/badges/841000b5295e533401c3/gpa.svg)](https://codeclimate.com/repos/546a526f6956800d2900e3fb/feed)
+
 # EspSdk
 
-Ruby SDK for Evident.io API. This gem is very beta and is missing tests. Updates and changes will be made to the current version.
-This is a very early preview.
+Ruby SDK for Evident.io API. Version 1.0.0 has a full test suite.
 
 ## Installation
 
