@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/test_helper')
 class EspSdkTest < ActiveSupport::TestCase
   context 'EspSdk' do
     context '#env' do
-      setup { EspSdk.instance_variable_set(:'@env', nil) }
+      setup { EspSdk.instance_variable_set(:@env, nil) }
 
       should 'return :production when ENV is not set' do
         ENV['ESP_ENV'] = nil
@@ -17,6 +17,7 @@ class EspSdkTest < ActiveSupport::TestCase
 
       should 'return :release when ENV[RAILS_ENV] is set to release' do
         ENV['RAILS_ENV'] = 'release'
+        assert_equal :release, EspSdk.env
       end
     end
 
