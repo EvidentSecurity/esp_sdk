@@ -5,30 +5,26 @@ module EspSdk
     attr_reader :current_page, :current_record
 
     def next_page
-      if @current_page
-        if @page_links['next'].present?
-          response = connect(@page_links['next'], :get)
-          pagination_links(response)
-          @current_page = JSON.load(response.body)
-        else
-          @current_page
-        end
+      return list if current_page.blank?
+
+      if @page_links['next'].present?
+        response = connect(@page_links['next'], :get)
+        pagination_links(response)
+        @current_page = JSON.load(response.body)
       else
-        list
+        current_page
       end
     end
 
     def prev_page
-      if @current_page
-        if @page_links['prev'].present?
-          response      = connect(@page_links['prev'], :get)
-          pagination_links(response)
-          @current_page = JSON.load(response.body)
-        else
-          @current_page
-        end
+      return list if current_page.blank?
+
+      if @page_links['prev'].present?
+        response      = connect(@page_links['prev'], :get)
+        pagination_links(response)
+        @current_page = JSON.load(response.body)
       else
-        list
+        @current_page
       end
     end
 
@@ -65,11 +61,11 @@ module EspSdk
     private
 
     def validate_id(params)
-      fail ::MissingAttribute, 'Missing required attribute id' if params[:id].blank?
+      fail MissingAttribute, 'Missing required attribute id' if params[:id].blank?
     end
 
     def id_url(id)
-      "#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}/#{id}"
+      "#{base_url}/#{id}"
     end
 
     def base_url
