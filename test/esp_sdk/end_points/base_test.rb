@@ -3,8 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
 class BaseTest < ActiveSupport::TestCase
   context 'Base' do
     setup do
-      # Clear stubs
-      FakeWeb.clean_registry
       # Stub the token setup for our configuration object
       EspSdk::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
       @config = EspSdk::Configure.new(email: 'test@evident.io')
@@ -127,12 +125,13 @@ class BaseTest < ActiveSupport::TestCase
     context '#id_url' do
       should 'return a valid id url for the test environment' do
         # Test through a different endpoint to get a valid URL
+        EspSdk.instance_variable_set(:@env, :development)
         external_account = EspSdk::EndPoints::ExternalAccounts.new(@config)
         assert_equal 'http://0.0.0.0:3001/api/v1/external_accounts/1', external_account.send(:id_url, 1)
       end
 
       should 'return a valid id url for the release environment' do
-        EspSdk.expects(:release?).returns(true)
+        EspSdk.instance_variable_set(:@env, :release)
         config = EspSdk::Configure.new(email: 'test@evident.io')
         # Test through a different endpoint to get a valid URL
         external_account = EspSdk::EndPoints::ExternalAccounts.new(config)
@@ -140,7 +139,7 @@ class BaseTest < ActiveSupport::TestCase
       end
 
       should 'return a valid id url for the production environment' do
-        EspSdk.expects(:production?).returns(true)
+        EspSdk.instance_variable_set(:@env, :production)
         config = EspSdk::Configure.new(email: 'test@evident.io')
         # Test through a different endpoint to get a valid URL
         external_account = EspSdk::EndPoints::ExternalAccounts.new(config)
@@ -149,8 +148,9 @@ class BaseTest < ActiveSupport::TestCase
     end
 
     context '#base_url' do
-      should 'return a valid base url for the test environment' do
+      should 'return a valid base url for the development environment' do
         # Test through a different endpoint to get a valid URL
+        EspSdk.instance_variable_set(:@env, :development)
         external_account = EspSdk::EndPoints::ExternalAccounts.new(@config)
         assert_equal 'http://0.0.0.0:3001/api/v1/external_accounts', external_account.send(:base_url)
       end

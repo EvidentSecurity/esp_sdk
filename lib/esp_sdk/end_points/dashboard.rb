@@ -6,25 +6,23 @@ module EspSdk
         submit(timewarp_url, :post, params)
       end
 
-      def valid_timewarp_params
-        [:time]
-      end
-
       private
 
       def timewarp_url
-        "#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}/timewarp"
+        "#{base_url}/timewarp"
       end
 
       def validate_timewarp_params(keys)
+        valid_timewarp_params = [:time]
+
         # Check that all the valid params are present
         valid_timewarp_params.each do |param|
-          fail ::MissingAttribute, "Missing required attribute #{param}" unless keys.include?(param)
+          fail MissingAttribute, "Missing required attribute #{param}" unless keys.include?(param)
         end
 
         # Check for invalid params
         keys.each do |key|
-          fail ::UnknownAttribute, key unless valid_timewarp_params.include?(key)
+          fail UnknownAttribute, "Unknown attribute #{key}" unless valid_timewarp_params.include?(key)
         end
       end
     end

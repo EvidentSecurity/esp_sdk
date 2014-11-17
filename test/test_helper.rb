@@ -11,3 +11,10 @@ require 'fakeweb'
 require 'awesome_print'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+
+class ActiveSupport::TestCase
+  setup do
+    # Clear stubs
+    FakeWeb.clean_registry
+  end
+end

@@ -3,8 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
 class CustomSignaturesTest < ActiveSupport::TestCase
   context 'CustomSignatures' do
     setup do
-      # Clear stubs
-      FakeWeb.clean_registry
       # Stub the token setup for our configuration object
       EspSdk::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
       @config = EspSdk::Configure.new(email: 'test@evident.io')
@@ -35,16 +33,17 @@ class CustomSignaturesTest < ActiveSupport::TestCase
 
     context '#run_url' do
       should 'have the correct run_url for development environment' do
+        EspSdk.instance_variable_set(:@env, :development)
         assert_equal 'http://0.0.0.0:3001/api/v1/custom_signatures/run', @custom_signatures.send(:run_url)
       end
 
       should 'have the correct run_url for the release environment' do
-        EspSdk.expects(:release?).returns(true)
+        EspSdk.instance_variable_set(:@env, :release)
         assert_equal 'https://api-rel.evident.io/api/v1/custom_signatures/run', @custom_signatures.send(:run_url)
       end
 
       should 'have the correct run_url for the production environment' do
-        EspSdk.expects(:production?).returns(true)
+        EspSdk.instance_variable_set(:@env, :production)
         assert_equal 'https://api.evident.io/api/v1/custom_signatures/run', @custom_signatures.send(:run_url)
       end
     end
