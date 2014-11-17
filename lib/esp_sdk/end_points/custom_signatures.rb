@@ -17,14 +17,6 @@ module EspSdk
         "#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}/run"
       end
 
-      def required_params
-        [:id, :signature, :name, :risk_level]
-      end
-
-      def valid_params
-        [:description, :active, :resolution]
-      end
-
       def valid_run_params
         [:id, :regions, :external_account_id]
       end
