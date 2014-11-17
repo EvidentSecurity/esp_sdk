@@ -8,5 +8,6 @@ require 'minitest/reporters'
 require 'shoulda'
 require 'mocha'
 require 'fakeweb'
+require 'awesome_print'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new

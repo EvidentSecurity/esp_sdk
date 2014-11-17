@@ -3,4 +3,5 @@ module EspSdk
   class UnknownAttribute < StandardError; end
   class TokenExpired     < StandardError; end
   class RecordNotFound   < StandardError; end
+  class Exception        < StandardError; end
 end

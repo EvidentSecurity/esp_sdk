@@ -25,5 +25,11 @@ class ExceptionsTest < ActiveSupport::TestCase
         assert EspSdk::RecordNotFound.new.is_a?(StandardError)
       end
     end
+
+    context 'Exception' do
+      should 'be a StandardError' do
+        assert EspSdk::Exception.new.is_a?(StandardError)
+      end
+    end
   end
 end
