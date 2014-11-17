@@ -7,7 +7,7 @@ class BaseTest < ActiveSupport::TestCase
       FakeWeb.clean_registry
       # Stub the token setup for our configuration object
       EspSdk::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
-      @config = EspSdk::Configure.new(email: 'demo@evident.io')
+      @config = EspSdk::Configure.new(email: 'test@evident.io')
       @base   = EspSdk::Base.new(@config)
     end
 
@@ -133,7 +133,7 @@ class BaseTest < ActiveSupport::TestCase
 
       should 'return a valid id url for the release environment' do
         EspSdk.expects(:release?).returns(true)
-        config = EspSdk::Configure.new(email: 'demo@evident.io')
+        config = EspSdk::Configure.new(email: 'test@evident.io')
         # Test through a different endpoint to get a valid URL
         external_account = EspSdk::EndPoints::ExternalAccounts.new(config)
         assert_equal 'https://api-rel.evident.io/api/v1/external_accounts/1', external_account.send(:id_url, 1)
@@ -141,7 +141,7 @@ class BaseTest < ActiveSupport::TestCase
 
       should 'return a valid id url for the production environment' do
         EspSdk.expects(:production?).returns(true)
-        config = EspSdk::Configure.new(email: 'demo@evident.io')
+        config = EspSdk::Configure.new(email: 'test@evident.io')
         # Test through a different endpoint to get a valid URL
         external_account = EspSdk::EndPoints::ExternalAccounts.new(config)
         assert_equal 'https://api.evident.io/api/v1/external_accounts/1', external_account.send(:id_url, 1)
@@ -157,7 +157,7 @@ class BaseTest < ActiveSupport::TestCase
 
       should 'return a valid base url for the release environment' do
         EspSdk.expects(:release?).returns(true)
-        config = EspSdk::Configure.new(email: 'demo@evident.io')
+        config = EspSdk::Configure.new(email: 'test@evident.io')
         # Test through a different endpoint to get a valid URL
         external_account = EspSdk::EndPoints::ExternalAccounts.new(config)
         assert_equal 'https://api-rel.evident.io/api/v1/external_accounts', external_account.send(:base_url)
@@ -165,7 +165,7 @@ class BaseTest < ActiveSupport::TestCase
 
       should 'return a valid base url for the production environment' do
         EspSdk.expects(:production?).returns(true)
-        config = EspSdk::Configure.new(email: 'demo@evident.io')
+        config = EspSdk::Configure.new(email: 'test@evident.io')
         # Test through a different endpoint to get a valid URL
         external_account = EspSdk::EndPoints::ExternalAccounts.new(config)
         assert_equal 'https://api.evident.io/api/v1/external_accounts', external_account.send(:base_url)

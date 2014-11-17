@@ -3,8 +3,8 @@ module EspSdk
     attr_reader :end_points, :config
 
     def initialize(options = {})
-      fail ::MissingAttribute, 'Missing required email'    if options[:email].blank?
-      fail ::MissingAttribute, 'Missing required password' if options[:password].blank? && options[:token].blank?
+      fail MissingAttribute, 'Missing required email'    if options[:email].blank?
+      fail MissingAttribute, 'Missing required password or token' if options[:password].blank? && options[:token].blank?
       @config     = Configure.new(options)
       @end_points = []
       define_methods

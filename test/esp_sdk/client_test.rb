@@ -5,7 +5,7 @@ class ClientTest < ActiveSupport::TestCase
     setup do
       # Stub the token setup for our configuration object
       EspSdk::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
-      @config = EspSdk::Configure.new(email: 'demo@evident.io')
+      @config = EspSdk::Configure.new(email: 'test@evident.io')
       @config.token = '1234abc'
       @client = EspSdk::Client.new(@config)
     end
@@ -14,7 +14,7 @@ class ClientTest < ActiveSupport::TestCase
       # Sanity check really.
       should 'set the config on the client' do
         assert @client.config.is_a?(EspSdk::Configure)
-        assert_equal 'demo@evident.io', @client.config.email
+        assert_equal 'test@evident.io', @client.config.email
         assert_equal '1234abc', @client.config.token
       end
     end
