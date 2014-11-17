@@ -1,138 +1,86 @@
 require 'json'
 
 module EspSdk
-  class Base < EspSdk::Client
-    attr_reader :current_page, :current_record
+  module EndPoints
+    class Base < EspSdk::Client
+      attr_reader :current_page, :current_record
 
+      def next_page
+        return list if current_page.blank?
 
-    def next_page
-      if @current_page
         if @page_links['next'].present?
           response = connect(@page_links['next'], :get)
           pagination_links(response)
-          @current_page = Client.convert_json(response.body)
-
+          @current_page = JSON.load(response.body)
         else
-          @current_page
+          current_page
         end
-      else
-        list
       end
-    end
 
-    def prev_page
-      if @current_page
+      def prev_page
+        return list if current_page.blank?
+
         if @page_links['prev'].present?
           response      = connect(@page_links['prev'], :get)
           pagination_links(response)
-          @current_page = Client.convert_json(response.body)
+          @current_page = JSON.load(response.body)
         else
           @current_page
         end
-      else
-        list
       end
-    end
 
-    # Get a pageable list of records
-    def list
-      response      = connect(base_url, :get)
-      pagination_links(response)
-      @current_page = Client.convert_json(response.body)
-    end
+      # Get a pageable list of records
+      def list
+        response = connect(base_url, :get)
+        pagination_links(response)
+        @current_page = JSON.load(response.body)
+      end
 
-    # Get a single record
-    def show(params={})
-      run_callbacks(:validate_id, params) { submit(id_url(params.delete(:id)), :get) }
-    end
+      # Get a single record
+      def show(params = {})
+        validate_id(params)
+        submit(id_url(params.delete(:id)), :get)
+      end
 
-    # Update a single record
-    def update(params={})
-      run_callbacks(:validate_id, :validate_update_params, params) { submit(id_url(params.delete(:id)), :patch, params) }
-    end
+      # Update a single record
+      def update(params = {})
+        validate_id(params)
+        submit(id_url(params.delete(:id)), :patch, params)
+      end
 
-    # Destroy a single record
-    def destroy(params={})
-      run_callbacks(:validate_id, params) { submit(id_url(params.delete(:id)), :delete) }
-    end
+      # Destroy a single record
+      def destroy(params = {})
+        validate_id(params)
+        submit(id_url(params.delete(:id)), :delete)
+      end
 
-    # Create a new record
-    def create(params={})
-      run_callbacks(:validate_create_params, params) { submit(base_url, :post, params) }
-    end
+      # Create a new record
+      def create(params = {})
+        submit(base_url, :post, params)
+      end
 
-    private
+      private
 
       def validate_id(params)
-        raise EspSdk::Exceptions::MissingAttribute, 'Missing required attribute id' if params[:id].blank?
-      end
-
-      # Validate update params
-      def validate_update_params(params)
-        # We allow for single field update so we do not need to check every required param here.
-        # Check for params that are not valid instead.
-        valid = valid_params + required_params
-        params.keys.each do |key|
-          raise EspSdk::Exceptions::UnknownAttribute, key unless valid.include?(key)
-        end
-      end
-
-      # Validate the create params
-      def validate_create_params(params)
-        # Check for missing required params
-        # ID is not a valid create param
-        (required_params - [:id]).each do |param|
-          raise EspSdk::Exceptions::MissingAttribute, "Missing required attribute #{param}" if params[param].blank?
-        end
-
-        # Remove ID from valid params. Include the required params as valid params
-        valid = ((valid_params + required_params).uniq - [:id])
-
-        # Check for params that are not valid
-        params.keys.each do |key|
-          raise EspSdk::Exceptions::UnknownAttribute, key unless valid.include?(key)
-        end
-      end
-
-      # Override in the sub class should return an array of symbols that represent valid required params for the model
-      def required_params
-        []
-      end
-
-      # Override in the sub class should return an array of symbols that represent valid params for the model
-      def valid_params
-        []
+        fail MissingAttribute, 'Missing required attribute id' if params[:id].blank?
       end
 
       def id_url(id)
-        "#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}/#{id}"
+        "#{base_url}/#{id}"
       end
-    
+
       def base_url
         "#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}"
       end
-    
-      def submit(url, type, options={})
+
+      def submit(url, type, options = {})
         response         = connect(url, type, options)
-        @current_record  = Client.convert_json(response.body)
+        @current_record  = JSON.load(response.body)
       end
 
       def pagination_links(response)
         @page_links = JSON.load(response.headers[:link])
       end
-
-      # Run the callbacks defined for parameter checking.
-      def run_callbacks(*args)
-        # Last arg is the params
-        params = args.pop
-
-        # Go through and call our callbacks
-        args.each do |callback|
-          send(callback, params)
-        end
-
-        # Yield block if given.
-        yield if block_given?
-      end
+    end
   end
 end

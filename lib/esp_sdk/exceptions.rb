@@ -1,8 +1,7 @@
 module EspSdk
-  module Exceptions
-    class MissingAttribute < ArgumentError; end
-    class UnknownAttribute < ArgumentError; end
-    class TokenExpired     < Exception; end
-    class RecordNotFound   < Exception; end
-  end
+  class MissingAttribute < StandardError; end
+  class UnknownAttribute < StandardError; end
+  class TokenExpired     < StandardError; end
+  class RecordNotFound   < StandardError; end
+  class Exception        < StandardError; end
 end

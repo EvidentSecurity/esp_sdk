@@ -1,0 +1,15 @@
+language: ruby
+rvm:
+  - 2.1.1
+cache: bundler
+script:
+  - bundle exec rake test
+addons:
+  code_climate:
+    repo_token: 73b22e855ca36fc2ab337552731c44437923bdf96780beb01c04c0fe2775f7a1
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+  slack:
+    secure: hLFYvBxZelAunpALVqYadsb3JEMF9txdKpo5C2pY1ZSwrhLc0Gnqv19a+ToAvLlDrV1kS0YKT15ayiSS63sIJEbMnMEFb6WDAg2fw3TYxVd/aQsiAWrDCSPVGcHH71iXjJH2+BCZ4D1FmqzjNZU5MKIQ8IG9vxvylIxY5zzV6lo=

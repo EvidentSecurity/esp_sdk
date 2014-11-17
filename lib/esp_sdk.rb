@@ -43,4 +43,3 @@ module EspSdk
     env == :test
   end
 end
-
