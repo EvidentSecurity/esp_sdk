@@ -13,11 +13,11 @@ module EspSdk
       private
 
       def run_url
-        "#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}/run"
+        "#{base_url}/run"
       end
 
       def name_url
-        base_url + '/signature_names'
+        "#{base_url}/signature_names"
       end
 
       def validate_run_params(options)
@@ -31,7 +31,7 @@ module EspSdk
 
         # Check for invalid params
         keys.each do |key|
-          fail EspSdk::UnknownAttribute, key unless valid_params.include?(key)
+          fail EspSdk::UnknownAttribute, "Unknown attribute #{key}" unless valid_params.include?(key)
         end
       end
     end
