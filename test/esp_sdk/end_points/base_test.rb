@@ -8,7 +8,7 @@ class BaseTest < ActiveSupport::TestCase
       # Stub the token setup for our configuration object
       EspSdk::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
       @config = EspSdk::Configure.new(email: 'test@evident.io')
-      @base   = EspSdk::Base.new(@config)
+      @base   = EspSdk::EndPoints::Base.new(@config)
     end
 
     context '#next_page' do
