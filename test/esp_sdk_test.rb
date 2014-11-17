@@ -9,16 +9,12 @@ class EspSdkTest < ActiveSupport::TestCase
       end
 
       should 'return :production when ENV is not set' do
+        ENV.expects(:[]).returns(nil).at_least_once
         assert_equal :production, EspSdk.env
       end
 
       should 'return :release when ENV[ESP_ENV] is set to release' do
-        ENV['ESP_ENV'] = 'release'
-        assert_equal :release, EspSdk.env
-      end
-
-      should 'return :release when ENV[RAILS_ENV] is set to release' do
-        ENV['RAILS_ENV'] = 'release'
+        ENV.expects(:[]).returns('release').at_least_once
         assert_equal :release, EspSdk.env
       end
     end
