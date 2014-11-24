@@ -30,7 +30,7 @@ module EspSdk
       rescue RestClient::UnprocessableEntity => e
         response = e.response
         body     = JSON.load(response.body) if response.body.present?
-        check_errors(JSON.load(body))
+        check_errors(body)
       end
 
       response
