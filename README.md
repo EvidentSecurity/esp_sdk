@@ -31,22 +31,22 @@ Or install it yourself as:
     api = EspSdk::Api.new(email: 'me@google.com', password: 'password', version: 'optional')
 
 ## Configuration
-    
+
     api.config => #<EspSdk::Configure:0x00000102890f28 @email="me@gmail.com", @version="v1", @uri="https://api.evident.io/api", @token="6_4wys1a2FhqsECstavC", @token_expires_at=Fri, 19 Sep 2014 15:39:10 UTC +00:00>
-    
+
     # Authorization token
     api.config.token => "6_4wys1a2FhqsECstavC"
-    
+
     # Token expiration. ActiveSupport::TimeWithZone
     api.config.token_expires_at => Fri, 19 Sep 2014 15:39:10 UTC +00:00
-    
+
     # Authorization email
     api.config.email => "me@gmail.com"
 
 ## End points array
 
     # Current and all endpoints in a single array
-    
+
     api.end_points =>
     [
         [0] #<EspSdk::EndPoints::Reports:0x000001019bc498 @config=#<EspSdk::Configure:0x00000102890f28 @email="me@gmail.com", @version="v1", @uri="https://api.evident.io/api", @token="6_4wys1a2FhqsECstavC", @token_expires_at=Fri, 19 Sep 2014 15:39:10 UTC +00:00>>,
@@ -65,26 +65,26 @@ Or install it yourself as:
 ## Reports end point
 ### List action
     # List action is a pageable response with a total of 5 reports per page.
-    api.reports.list => 
+    api.reports.list =>
     {
             "id" => 130,
         "created_at" => "2014-08-06T19:59:57.540Z",
               "team" => "Evident"
     }
-    
+
     # Current page
     api.reports.current_page
-    
+
     # Next page sets current_page with the next page results.
     api.reports.next_page
-    
+
     # Previous page sets current_page with the previous page results.
     api.reports.prev_page
 
 ### Show action
     # Show a specific report
     # Required :id
-    api.reports.show(id: 130) => 
+    api.reports.show(id: 130) =>
     {
                 "report" => 130,
             "created_at" => "2014-08-06T19:59:57.540Z",
@@ -107,7 +107,7 @@ Or install it yourself as:
                     }
                 },
     }
-    
+
     # Current record shows the current record
     api.reports.current_record
 
@@ -324,7 +324,7 @@ Or install it yourself as:
 #### This endpoint is used for returning dashboard stats at a specific hour in the past
     # Required params: time: => '1413999010' Unix Time
     # The time is floored and has five minutes subtracted. Then adds an hour for the end time. Any reports between that hour will have their stats returned.
-    # EX: 
+    # EX:
     # start_time =  DateTime.strptime('1413999010','%s').at_beginning_of_hour - 5.minutes
     # end_time   = start_time + 1.hour
     api.dashboard.timewarp(time: '1413999010') =>
@@ -569,13 +569,103 @@ Or install it yourself as:
         ]
     }
 
+## External Accounts end point
+### List action
+
+    # list is a pageable response of 25 total external accounts per page
+    api.external_accounts.list =>
+    [
+      [0] {
+        "id" => 1,
+        "created_at" => "2014-10-22T16:23:19.615Z",
+        "updated_at" => "2014-11-03T21:39:36.891Z",
+        "organization_id" => 1,
+        "nickname" => "Ops",
+        "team_id" => 1,
+        "sub_organization_id" => 1,
+        "arn" => "arn:aws:iam::12345:role/evident_service_role",
+        "external_id" => "External ID"
+      }
+    ]
+    # Current page
+    api.external_accounts.current_page
+
+    # Next page sets current page with the next page results.
+    api.external_accounts.next_page
+
+    # Prev page sets current page with the previous page results.
+    api.external_accounts.prev_page
+
+### Show action
+    # Show a specific external account
+    # Required :id
+    api.external_accounts.show(id: 1) =>
+    {
+      "id" => 1,
+      "created_at" => "2014-10-22T16:23:19.615Z",
+      "updated_at" => "2014-11-03T21:39:36.891Z",
+      "organization_id" => 1,
+      "nickname" => "Ops",
+      "team_id" => 1,
+      "sub_organization_id" => 1,
+      "arn" => "arn:aws:iam::12345:role/evident_service_role",
+      "external_id" => "External ID"
+    }
+
+    # Current record
+    api.external_accounts.current_record
+
+### Update action
+    # Update a specific external account
+    # Required :id
+    api.external_accounts.update(id: 1, nickname: 'Dev Ops') =>
+    {
+      "id" => 1,
+      "created_at" => "2014-10-22T16:23:19.615Z",
+      "updated_at" => "2014-11-03T21:39:36.891Z",
+      "organization_id" => 1,
+      "nickname" => "Dev Ops",
+      "team_id" => 1,
+      "sub_organization_id" => 1,
+      "arn" => "arn:aws:iam::12345:role/evident_service_role",
+      "external_id" => "External ID"
+    }
+
+### Destroy action
+    # Destroy a specific external account
+    # Required :id
+    api.external_accounts.destroy(id: 1) =>
+    {
+      "success" => "Dev Ops has been destroyed"
+    }
+
+### Create action
+    # Create a new external account
+    Required: :arn, :external_id, :sub_organization_id, :team_id
+    api.external_accounts.create(arn: 'arn:aws:iam::12345:role/evident_service_role',
+                                external_id: 'External ID',
+                                nickname: 'Dev ops',
+                                sub_organization_id: 1,
+                                team_id: 1) =>
+    {
+      "id" => 3,
+      "created_at" => "2014-11-24T15:37:35.249Z",
+      "updated_at" => "2014-11-24T15:37:35.249Z",
+      "organization_id" => 1,
+      "nickname" => "Dev Ops",
+      "team_id" => 1,
+      "sub_organization_id" => 1,
+      "arn" => "arn:aws:iam::12345:role/evident_service_role",
+      "external_id" => "External ID"
+    }
+
 
 ## Services end point
 #### *Note this end point is a read only end point, and requires the user to have manager role access
 #### This end point can be used to for retrieving a service id to apply to a custom signature. Example your custom signature targets EC2 services.
 ### List action
     # list is a pageable response of 25 total signatures per page
-    api.services.list => 
+    api.services.list =>
     [
         [ 4] {
                         "id" => 5,
@@ -589,8 +679,8 @@ Or install it yourself as:
 ### Show action
     # Show a specific signature
     # Required :id
-    
-    api.show(id: 5) =>
+
+    api.services.show(id: 5) =>
     {
                 "id" => 5,
               "name" => "EC2",
@@ -604,7 +694,7 @@ Or install it yourself as:
 ## Custom Signatures end point
 ### List action
     # List is a pageable response of 25 total signatures per page
-    api.custom_signatures.list => 
+    api.custom_signatures.list =>
     [
         [ 0] {
                          "id" => 4,
@@ -622,20 +712,20 @@ Or install it yourself as:
                  "deleted_at" => nil
         }
     }
-    
+
     # Current page
     api.custom_signatures.current_page
-    
+
     # Next page sets current page with the next page results.
     api.custom_signatures.next_page
-    
+
     # Prev page sets current page with the previous page results.
     api.custom_signatures.prev_page
-    
+
 ### Show action
     # Show a specific custom signature
     # Required :id
-    
+
     api.custom_signatures.show(id: 4) =>
     {
                      "id" => 4,
@@ -702,13 +792,13 @@ Or install it yourself as:
     {
         "success" => "Demo Signature has been destroyed"
     }
-    
+
 ### Run action
     # Run a custom signature
     # Required :id => ID of the custom signature to run
     # Required :external_account_id => ID of the external account to use
     # Required :regions => Array of regions to run the signature in
-    
+
     api.custom_signatures.run(id: 1, external_account_id: 1, regions: [:us_east_1]) =>
     {
         "alerts" => [
@@ -759,7 +849,7 @@ Or install it yourself as:
     }
 
 ### Run Raw action
-    # Run a raw custom signature 
+    # Run a raw custom signature
     # Required: :signature => JavaScript signature to run as a string
     # Required :external_account_id => ID of the external account to use
     # Required :regions => Array of regions to run the signature in
@@ -812,11 +902,11 @@ Or install it yourself as:
         ]
     }
 
-    
+
 ## Signatures end point
 ### List action
     # List is a pageable response of 25 total signatures per page.
-    api.signatures.list => 
+    api.signatures.list =>
     [
         [ 0] {
                      "id" => 35,
@@ -835,20 +925,20 @@ Or install it yourself as:
             }
         },
     ]
-    
+
     # Current page
     api.signatures.current_page
-    
+
     # Next page sets current page with the next page results.
     api.signatures.next_page
-    
+
     # Prev page sets current page with the previous page results.
     api.signatures.prev_page
 
 ### Show action
     # Show a specific signature
     # Required :id
-    api.signatures.show(id: 35) => 
+    api.signatures.show(id: 35) =>
     {
                  "id" => 35,
                "name" => "Global Telnet",
@@ -913,13 +1003,13 @@ Or install it yourself as:
     }
 
 ### Run action
-    
+
     # Run an Evident Signature
     Required :signature_name => name of signature to run
     Required :external_account_id => ID of the external account with the ARN/External ID to use
     Required :regions => Array of regions to run the signature in
     # Requires manager role access
-    
+
     api.signatures.run(signature_name: 'validate_cloud_formation_template', regions: [:us_east_1], external_account_id: 1)
     {
         "alerts" => [
@@ -1002,7 +1092,7 @@ Or install it yourself as:
                                   "sso_idp_id" => nil
     }
 
-    
+
 ### Update action
     # Update your organizations information
     # Required :id
@@ -1040,13 +1130,13 @@ Or install it yourself as:
                  "updated_at" => "2014-09-03T12:32:50.472Z"
         }
     ]
-    
+
     # Current page
     api.sub_organizations.current_page
-    
+
     # Next page sets current page with the next page results.
     api.sub_organizations.next_page
-    
+
     # Prev page sets current page with the previous page results.
     api.sub_organizations.prev_page
 
@@ -1097,7 +1187,7 @@ Or install it yourself as:
         "success" => "Test has been destroyed"
     }
 
-    
+
 ## Teams end point
 ### List action
     # List is a pageable response of 25 total signatures per page.
@@ -1113,13 +1203,13 @@ Or install it yourself as:
                      "deleted_at" => nil
         },
     ]
-    
+
     # Current page
     api.teams.current_page
-    
+
     # Next page sets current page with the next page results.
     api.teams.next_page
-    
+
     # Prev page sets current page with the previous page results.
     api.teams.prev_page
 
@@ -1176,7 +1266,7 @@ Or install it yourself as:
         "success" => "New Name has been destroyed"
     }
 
-    
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/esp_sdk/fork )
