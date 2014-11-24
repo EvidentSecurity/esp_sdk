@@ -31,5 +31,11 @@ class ExceptionsTest < ActiveSupport::TestCase
         assert EspSdk::Exception.new.is_a?(StandardError)
       end
     end
+
+    context 'Unauthorized' do
+      should 'be a StandardError' do
+        assert EspSdk::Unauthorized.new.is_a?(StandardError)
+      end
+    end
   end
 end
