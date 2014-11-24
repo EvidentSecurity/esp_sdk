@@ -25,9 +25,12 @@ module EspSdk
           fail MissingAttribute, 'Missing required attributes' if payload.blank?
           response = RestClient.send(type, url, payload, headers)
         end
-      rescue RestClient::UnprocessableEntity, RestClient::Unauthorized => e
+      rescue RestClient::Unauthorized => e
+        fail EspSdk::Unauthorized, 'Unauthorized request'
+      rescue RestClient::UnprocessableEntity => e
         response = e.response
-        check_errors(JSON.load(response.body))
+        body     = JSON.load(response.body) if response.body.present?
+        check_errors(JSON.load(body))
       end
 
       response

@@ -21,6 +21,16 @@ class ClientTest < ActiveSupport::TestCase
 
     context '#connect' do
       setup { @url = 'https://esp.evident.io/api/v1/test' }
+
+      should 'raise an unauthorized error' do
+        RestClient.expects(:get).raises(RestClient::Unauthorized)
+        exception = assert_raises EspSdk::Unauthorized do
+          @client.connect(@url, :get)
+        end
+
+        assert_equal 'Unauthorized request', exception.message
+      end
+
       [:get, :delete].each do |type|
         should "make #{type} request with headers only" do
           # Make sure the correct RestClient method is called and arguments are passed

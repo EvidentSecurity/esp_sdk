@@ -4,4 +4,5 @@ module EspSdk
   class TokenExpired     < StandardError; end
   class RecordNotFound   < StandardError; end
   class Exception        < StandardError; end
+  class Unauthorized     < StandardError; end
 end
