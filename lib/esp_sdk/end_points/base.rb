@@ -13,7 +13,7 @@ module EspSdk
           pagination_links(response)
           self.current_page = JSON.load(response.body)
         else
-          current_page
+          @current_page
         end
       end
 
