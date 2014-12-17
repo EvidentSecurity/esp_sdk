@@ -11,7 +11,7 @@ module EspSdk
         if @page_links['next'].present?
           response = connect(@page_links['next'], :get)
           pagination_links(response)
-          @current_page = JSON.load(response.body)
+          self.current_page = JSON.load(response.body)
         else
           current_page
         end
@@ -23,7 +23,7 @@ module EspSdk
         if @page_links['prev'].present?
           response      = connect(@page_links['prev'], :get)
           pagination_links(response)
-          @current_page = JSON.load(response.body)
+          self.current_page = JSON.load(response.body)
         else
           @current_page
         end
@@ -33,7 +33,7 @@ module EspSdk
       def list
         response = connect(base_url, :get)
         pagination_links(response)
-        @current_page = JSON.load(response.body)
+        self.current_page = JSON.load(response.body)
       end
 
       # Get a single record
@@ -75,11 +75,15 @@ module EspSdk
 
       def submit(url, type, options = {})
         response         = connect(url, type, options)
-        @current_record  = JSON.load(response.body)
+        @current_record  = ActiveSupport::HashWithIndifferentAccess.new(JSON.load(response.body))
       end
 
       def pagination_links(response)
-        @page_links = JSON.load(response.headers[:link])
+        @page_links = ActiveSupport::HashWithIndifferentAccess.new(JSON.load(response.headers[:link]))
+      end
+
+      def current_page=(value)
+        @current_page = ActiveSupport::HashWithIndifferentAccess.new(value)
       end
     end
   end

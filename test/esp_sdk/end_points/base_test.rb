@@ -171,5 +171,41 @@ class BaseTest < ActiveSupport::TestCase
         assert_equal 'https://api.evident.io/api/v1/external_accounts', external_account.send(:base_url)
       end
     end
+
+    context 'current_page' do
+      setup do
+        # Setup fakeweb
+        FakeWeb.register_uri(:get, /api\/v1\/base/, body: { stub: 'Stub' }.to_json)
+        @base.list
+      end
+
+      should 'be ActiveSupport::HashWithIndifferentAccess' do
+        assert @base.current_page.is_a?(ActiveSupport::HashWithIndifferentAccess)
+      end
+    end
+
+    context 'current_record' do
+      setup do
+        # Setup fakeweb
+        FakeWeb.register_uri(:get, /api\/v1\/base\/1/, body: { stub: 'Stub' }.to_json)
+        @base.show(id: 1)
+      end
+
+      should 'be ActiveSupport::HashWithIndifferentAccess' do
+        assert @base.current_record.is_a?(ActiveSupport::HashWithIndifferentAccess)
+      end
+    end
+
+    context 'page_links' do
+      setup do
+        # Setup fakeweb
+        FakeWeb.register_uri(:get, /api\/v1\/base/, body: { stub: 'Stub' }.to_json)
+        @base.list
+      end
+
+      should 'be ActiveSupport::HashWithIndifferentAccess' do
+        assert @base.instance_variable_get(:@page_links).is_a?(ActiveSupport::HashWithIndifferentAccess)
+      end
+    end
   end
 end
