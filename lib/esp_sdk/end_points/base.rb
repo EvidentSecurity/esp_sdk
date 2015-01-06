@@ -78,8 +78,20 @@ module EspSdk
         @current_record  = ActiveSupport::HashWithIndifferentAccess.new(JSON.load(response.body))
       end
 
+      # Converts the link header into a hash of links
+      #
+      # "<http://test.host/api/v1/custom_signatures?page=2>; rel=\"last\", <http://test.host/api/v1/custom_signatures?page=2>; rel=\"next\""
+      # => { "last" => "http://test.host/api/v1/custom_signatures?page=2",
+      #      "next" => "http://test.host/api/v1/custom_signatures?page=2" }
       def pagination_links(response)
         @page_links = ActiveSupport::HashWithIndifferentAccess.new(JSON.load(response.headers[:link]))
+      rescue JSON::ParserError
+        @page_links = ActiveSupport::HashWithIndifferentAccess.new.tap do |page_links|
+          response.headers[:link].to_s.split(',').each  do |link|
+            /<(?<link>.*)>; rel="(?<key>\w*)"/ =~ link
+            page_links[key] = link
+          end
+        end
       end
 
       def current_page=(value)
