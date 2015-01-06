@@ -127,7 +127,7 @@ class BaseTest < ActiveSupport::TestCase
         # Test through a different endpoint to get a valid URL
         EspSdk.instance_variable_set(:@env, :development)
         external_account = EspSdk::EndPoints::ExternalAccounts.new(@config)
-        assert_equal 'http://0.0.0.0:3001/api/v1/external_accounts/1', external_account.send(:id_url, 1)
+        assert_equal 'http://0.0.0.0:3000/api/v1/external_accounts/1', external_account.send(:id_url, 1)
       end
 
       should 'return a valid id url for the release environment' do
@@ -152,7 +152,7 @@ class BaseTest < ActiveSupport::TestCase
         # Test through a different endpoint to get a valid URL
         EspSdk.instance_variable_set(:@env, :development)
         external_account = EspSdk::EndPoints::ExternalAccounts.new(@config)
-        assert_equal 'http://0.0.0.0:3001/api/v1/external_accounts', external_account.send(:base_url)
+        assert_equal 'http://0.0.0.0:3000/api/v1/external_accounts', external_account.send(:base_url)
       end
 
       should 'return a valid base url for the release environment' do

@@ -30,7 +30,7 @@ class SignaturesTest < ActiveSupport::TestCase
     context '#run_url' do
       should 'have the correct run_url for development environment' do
         EspSdk.instance_variable_set(:@env, :development)
-        assert_equal 'http://0.0.0.0:3001/api/v1/signatures/run', @signatures.send(:run_url)
+        assert_equal 'http://0.0.0.0:3000/api/v1/signatures/run', @signatures.send(:run_url)
       end
 
       should 'have the correct run_url for the release environment' do
@@ -47,7 +47,7 @@ class SignaturesTest < ActiveSupport::TestCase
     context '#name_url' do
       should 'have the correct run_url for development environment' do
         EspSdk.instance_variable_set(:@env, :development)
-        assert_equal 'http://0.0.0.0:3001/api/v1/signatures/signature_names', @signatures.send(:name_url)
+        assert_equal 'http://0.0.0.0:3000/api/v1/signatures/signature_names', @signatures.send(:name_url)
       end
 
       should 'have the correct run_url for the release environment' do
