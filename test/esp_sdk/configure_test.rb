@@ -29,7 +29,7 @@ class ConfigureTest < ActiveSupport::TestCase
       should 'return the development URI when the environment is not release or production' do
         EspSdk.expects(:production?).returns(false)
         EspSdk.expects(:release?).returns(false)
-        assert_equal 'http://0.0.0.0:3001/api', @config.uri
+        assert_equal 'http://0.0.0.0:3000/api', @config.uri
       end
     end
 

@@ -22,7 +22,7 @@ class DashboardTest < ActiveSupport::TestCase
     context '#timewarp_url' do
       should 'have the correct run_url for development environment' do
         EspSdk.instance_variable_set(:@env, :development)
-        assert_equal 'http://0.0.0.0:3001/api/v1/dashboard/timewarp', @dashboard.send(:timewarp_url)
+        assert_equal 'http://0.0.0.0:3000/api/v1/dashboard/timewarp', @dashboard.send(:timewarp_url)
       end
 
       should 'have the correct run_url for the release environment' do

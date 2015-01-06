@@ -16,7 +16,7 @@ module EspSdk
       elsif EspSdk.release?
         @uri = 'https://api-rel.evident.io/api'
       else
-        @uri = 'http://0.0.0.0:3001/api'
+        @uri = 'http://0.0.0.0:3000/api'
       end
     end
 
