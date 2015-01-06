@@ -10,28 +10,39 @@ class BaseTest < ActiveSupport::TestCase
     end
 
     context '#next_page' do
-      setup do
-        # Setup fakeweb
-        FakeWeb.register_uri(:get, /api\/v1\/base/,
-                             :body => { stub: 'Stub' }.to_json)
-      end
-
       should 'call list if @current_page is blank' do
+        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{ stub: 'Stub' }].to_json)
         @base.expects(:list)
+
         @base.next_page
       end
 
       should "return the current page if @page_links['links']' are blank" do
+        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{ stub: 'Stub' }].to_json)
         @base.expects(:current_page)
+
         @base.next_page
+      end
+
+      should 'request next page and set current_page' do
+        FakeWeb.register_uri(:get, 'http://0.0.0.0:3000/api/v1/base',
+                             :body => [{ stub: 'page1' }].to_json,
+                             :link => %(<http://0.0.0.0:3000/api/v1/base?page=5>; rel="last", <http://0.0.0.0:3000/api/v1/base?page=2>; rel="next"))
+        FakeWeb.register_uri(:get, 'http://0.0.0.0:3000/api/v1/base?page=2',
+                             :body => [{ stub: 'page2' }].to_json)
+
+        @base   = EspSdk::EndPoints::Base.new(@config)
+        @base.list
+        @base.next_page
+
+        assert_equal 'page2', @base.current_page.first[:stub]
       end
     end
 
     context '#prev_page' do
       setup do
-        # Setup fakeweb
-        FakeWeb.register_uri(:get, /api\/v1\/base/,
-                             :body => { stub: 'Stub' }.to_json)
+        FakeWeb.register_uri(:get, %r{api/v1/base},
+                             :body => [{ stub: 'Stub' }].to_json)
       end
 
       should 'call list if @current_page is blank' do
@@ -46,30 +57,26 @@ class BaseTest < ActiveSupport::TestCase
     end
 
     context '#list' do
-      setup do
-        # Setup fakeweb
-         FakeWeb.register_uri(:get, /api\/v1\/base/,
-                             :body => { stub: 'Stub' }.to_json)
-      end
-
       should 'set the current page and setup link pagination' do
+        FakeWeb.register_uri(:get, %r{api/v1/base},
+                             :body => [{ stub: 'Stub' }].to_json)
         @base.expects(:pagination_links)
+
         response = @base.list
-        assert response.key?('stub')
+
+        assert response.first.key?('stub')
         assert_equal response, @base.current_page
       end
     end
 
     context '#show' do
-      setup do
-        # Setup fakeweb
-        FakeWeb.register_uri(:get, /api\/v1\/base\/1/,
-                             :body => { stub: 'Stub' }.to_json)
-      end
-
       should 'call validate id and return the stub response, and set the current_record' do
+        FakeWeb.register_uri(:get, %r{api/v1/base/1},
+                             :body => { stub: 'Stub' }.to_json)
         payload = { id: 1 }
+
         @base.expects(:validate_id).with(payload)
+
         response = @base.show(payload)
         assert response.key?('stub')
         assert_equal response, @base.current_record
@@ -77,15 +84,13 @@ class BaseTest < ActiveSupport::TestCase
     end
 
     context '#update' do
-      setup do
-        # Setup fakeweb
-        FakeWeb.register_uri(:get, /api\/v1\/base\/1/,
-                             :body => { stub: 'Stub' }.to_json)
-      end
-
       should 'call validate id and return the stub response, and set the current_record' do
+        FakeWeb.register_uri(:get, %r{api/v1/base/1},
+                             :body => { stub: 'Stub' }.to_json)
         payload = { id: 1, name: 'Test' }
+
         @base.expects(:validate_id).with(payload)
+
         response = @base.show(payload)
         assert response.key?('stub')
         assert_equal response, @base.current_record
@@ -93,15 +98,13 @@ class BaseTest < ActiveSupport::TestCase
     end
 
     context '#destroy' do
-      setup do
-        # Setup fakeweb
+      should 'call validate id and return the stub response, and set the current_record' do
         FakeWeb.register_uri(:get, /api\/v1\/base\/1/,
                              :body => { success: 'Stub has been destroyed' }.to_json)
-      end
-
-      should 'call validate id and return the stub response, and set the current_record' do
         payload = { id: 1 }
+
         @base.expects(:validate_id).with(payload)
+
         response = @base.show(payload)
         assert response.key?('success')
         assert_equal response, @base.current_record
@@ -173,32 +176,29 @@ class BaseTest < ActiveSupport::TestCase
     end
 
     context 'current_page' do
-      setup do
-        # Setup fakeweb
-        FakeWeb.register_uri(:get, /api\/v1\/base/, body: { stub: 'Stub' }.to_json)
-        @base.list
-      end
+      should 'convert hashes to ActiveSupport::HashWithIndifferentAccess' do
+        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{stub: 'Stub'}, {}].to_json)
 
-      should 'be ActiveSupport::HashWithIndifferentAccess' do
-        assert @base.current_page.is_a?(ActiveSupport::HashWithIndifferentAccess)
+        @base.list
+
+        assert @base.current_page.first.is_a?(ActiveSupport::HashWithIndifferentAccess)
+        assert @base.current_page.last.is_a?(ActiveSupport::HashWithIndifferentAccess)
       end
     end
 
     context 'current_record' do
-      setup do
-        # Setup fakeweb
-        FakeWeb.register_uri(:get, /api\/v1\/base\/1/, body: { stub: 'Stub' }.to_json)
-        @base.show(id: 1)
-      end
-
       should 'be ActiveSupport::HashWithIndifferentAccess' do
+        FakeWeb.register_uri(:get, %r{api/v1/base/1}, body: [{ stub: 'Stub' }].to_json)
+
+        @base.show(id: 1)
+
         assert @base.current_record.is_a?(ActiveSupport::HashWithIndifferentAccess)
       end
     end
 
     context 'page_links' do
       should 'be ActiveSupport::HashWithIndifferentAccess' do
-        FakeWeb.register_uri(:get, /api\/v1\/base/, body: { stub: 'Stub' }.to_json)
+        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{ stub: 'Stub' }].to_json)
 
         @base.list
 
@@ -206,7 +206,7 @@ class BaseTest < ActiveSupport::TestCase
       end
 
       should 'set @page_links to hash with URLs if in JSON format' do
-        FakeWeb.register_uri(:get, /api\/v1\/base/, body: { stub: 'Stub' }.to_json,
+        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{ stub: 'Stub' }].to_json,
                                                     link: %({"next": "http://test.host/api/v1/custom_signatures?page=2", "last": "http://test.host/api/v1/custom_signatures?page=5"}))
 
         @base.list
@@ -217,7 +217,7 @@ class BaseTest < ActiveSupport::TestCase
       end
 
       should 'set @page_links to hash with URLs if in HTTP format' do
-        FakeWeb.register_uri(:get, /api\/v1\/base/, body: { stub: 'Stub' }.to_json,
+        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{ stub: 'Stub' }].to_json,
                                                     link: %(<http://test.host/api/v1/custom_signatures?page=5>; rel="last", <http://test.host/api/v1/custom_signatures?page=2>; rel="next"))
         @base.list
 

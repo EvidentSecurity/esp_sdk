@@ -94,8 +94,8 @@ module EspSdk
         end
       end
 
-      def current_page=(value)
-        @current_page = ActiveSupport::HashWithIndifferentAccess.new(value)
+      def current_page=(values)
+        @current_page = values.map(&:with_indifferent_access)
       end
     end
   end
