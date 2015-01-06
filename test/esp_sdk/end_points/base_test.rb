@@ -197,14 +197,33 @@ class BaseTest < ActiveSupport::TestCase
     end
 
     context 'page_links' do
-      setup do
-        # Setup fakeweb
+      should 'be ActiveSupport::HashWithIndifferentAccess' do
         FakeWeb.register_uri(:get, /api\/v1\/base/, body: { stub: 'Stub' }.to_json)
+
         @base.list
+
+        assert @base.instance_variable_get(:@page_links).is_a?(ActiveSupport::HashWithIndifferentAccess)
       end
 
-      should 'be ActiveSupport::HashWithIndifferentAccess' do
-        assert @base.instance_variable_get(:@page_links).is_a?(ActiveSupport::HashWithIndifferentAccess)
+      should 'set @page_links to hash with URLs if in JSON format' do
+        FakeWeb.register_uri(:get, /api\/v1\/base/, body: { stub: 'Stub' }.to_json,
+                                                    link: %({"next": "http://test.host/api/v1/custom_signatures?page=2", "last": "http://test.host/api/v1/custom_signatures?page=5"}))
+
+        @base.list
+
+        links = @base.instance_variable_get(:@page_links)
+        assert_equal 'http://test.host/api/v1/custom_signatures?page=5', links[:last]
+        assert_equal 'http://test.host/api/v1/custom_signatures?page=2', links[:next]
+      end
+
+      should 'set @page_links to hash with URLs if in HTTP format' do
+        FakeWeb.register_uri(:get, /api\/v1\/base/, body: { stub: 'Stub' }.to_json,
+                                                    link: %(<http://test.host/api/v1/custom_signatures?page=5>; rel="last", <http://test.host/api/v1/custom_signatures?page=2>; rel="next"))
+        @base.list
+
+        links = @base.instance_variable_get(:@page_links)
+        assert_equal 'http://test.host/api/v1/custom_signatures?page=5', links[:last]
+        assert_equal 'http://test.host/api/v1/custom_signatures?page=2', links[:next]
       end
     end
   end
