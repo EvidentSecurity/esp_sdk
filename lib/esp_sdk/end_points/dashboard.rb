@@ -1,6 +1,11 @@
 module EspSdk
   module EndPoints
     class Dashboard < Base
+      def list
+        response = connect(base_url, :get)
+        @current_page = JSON.load(response.body).with_indifferent_access
+      end
+
       def timewarp(params = {})
         validate_timewarp_params(params.keys)
         submit(timewarp_url, :post, params)
