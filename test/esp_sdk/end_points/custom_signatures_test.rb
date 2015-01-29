@@ -80,7 +80,7 @@ class CustomSignaturesTest < ActiveSupport::TestCase
       should 'raise an error for an unknown attribute' do
         e = assert_raises EspSdk::UnknownAttribute do
           @custom_signatures.send(:validate_run_params, @valid_params, { id: 1, regions: [:us_east_1],
-                                                                      external_account_id: 1, bad_param: 1}.keys)
+                                                                      external_account_id: 1, bad_param: 1, language: 'javascript'}.keys)
         end
 
         assert_equal 'Unknown attribute bad_param', e.message

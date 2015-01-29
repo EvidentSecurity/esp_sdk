@@ -18,11 +18,11 @@ module EspSdk
       end
 
       def valid_run_params
-        [:id, :regions, :external_account_id]
+        [:id, :regions, :external_account_id, :language]
       end
 
       def valid_run_raw_params
-        [:signature, :regions, :external_account_id]
+        [:signature, :regions, :external_account_id, :language]
       end
 
       def validate_run_params(valid_params, keys)

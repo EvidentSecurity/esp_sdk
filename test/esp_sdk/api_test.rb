@@ -14,7 +14,7 @@ class ApiTest < ActiveSupport::TestCase
         e = assert_raises EspSdk::MissingAttribute do
           EspSdk::Api.new(email: 'test@evident.io')
         end
-        assert_equal 'Missing required password or token', e.message
+        assert_equal 'Missing required password', e.message
 
       end
 

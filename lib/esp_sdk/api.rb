@@ -3,8 +3,8 @@ module EspSdk
     attr_reader :end_points, :config
 
     def initialize(options = {})
-      fail MissingAttribute, 'Missing required email'    if options[:email].blank?
-      fail MissingAttribute, 'Missing required password or token' if options[:password].blank? && options[:token].blank?
+      options[:email] ||= options_errors(:email)
+      options_errors(:password) if options[:token].blank? && options[:password].blank?
       @config     = Configure.new(options)
       @end_points = []
       define_methods
@@ -24,6 +24,10 @@ module EspSdk
 
         @end_points << send(name)
       end
+    end
+
+    def options_errors(option)
+      ENV["ESP_#{option.upcase}"] || fail(EspSdk::MissingAttribute, "Missing required #{option}") # rubocop:disable all
     end
   end
 end

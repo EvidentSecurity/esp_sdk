@@ -1,4 +1,5 @@
 require 'active_support/all'
+require 'awesome_print'
 require_relative 'esp_sdk/version'
 require_relative 'esp_sdk/configure'
 require_relative 'esp_sdk/client'
@@ -15,6 +16,7 @@ require_relative 'esp_sdk/end_points/dashboard'
 require_relative 'esp_sdk/end_points/contact_requests'
 require_relative 'esp_sdk/end_points/services'
 require_relative 'esp_sdk/api'
+require_relative 'esp_sdk/repl'
 require_relative 'esp_sdk/exceptions'
 
 module EspSdk
