@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'mocha', '~> 1.1.0'
   spec.add_development_dependency 'fakeweb', '~> 1.3'
 
-  spec.add_runtime_dependency 'activesupport', '~> 4.1.6'
+  spec.add_runtime_dependency 'activesupport', '>= 3.0.0'
   spec.add_runtime_dependency 'rest_client', '~> 1.7.3'
   spec.add_runtime_dependency 'pry', '~> 0.10.1'
   spec.add_runtime_dependency 'awesome_print', '~> 1.2.0'
