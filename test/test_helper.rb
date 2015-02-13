@@ -7,7 +7,6 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require 'mocha/mini_test'
 require 'shoulda'
-require 'mocha'
 require 'fakeweb'
 require 'awesome_print'
 
