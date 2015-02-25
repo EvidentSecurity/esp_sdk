@@ -5,17 +5,17 @@ class ApiTest < ActiveSupport::TestCase
     context '#initalize' do
       should 'raise a MissingAttribute error for a missing email' do
         e = assert_raises EspSdk::MissingAttribute do
-          EspSdk::Api.new({ })
+          EspSdk::Api.new()
         end
-        assert_equal 'Missing required email', e.message
 
+        assert_equal 'Missing required email', e.message
       end
       should 'raise a MissingAttribute error for a missing token and password' do
         e = assert_raises EspSdk::MissingAttribute do
           EspSdk::Api.new(email: 'test@evident.io')
         end
-        assert_equal 'Missing required password', e.message
 
+        assert_equal 'Missing required password', e.message
       end
 
       should 'define our endpoint methods and add them to the end_points array' do
