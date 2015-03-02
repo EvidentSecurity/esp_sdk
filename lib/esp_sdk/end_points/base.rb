@@ -70,7 +70,7 @@ module EspSdk
       end
 
       def base_url
-        "#{config.uri}/#{config.version}/#{self.class.to_s.demodulize.underscore}"
+        config.url(self.class.to_s.demodulize.underscore)
       end
 
       def submit(url, type, options = {})
