@@ -26,10 +26,10 @@ class BaseTest < ActiveSupport::TestCase
 
       should 'request next page and set current_page' do
         WebMock.stub_request(:get, 'http://0.0.0.0:3000/api/v1/base')
-          .to_return(:body => [{ stub: 'page1' }].to_json,
-                     headers: { :link => %(<http://0.0.0.0:3000/api/v1/base?page=5>; rel="last", <http://0.0.0.0:3000/api/v1/base?page=2>; rel="next") })
+          .to_return(body: [{ stub: 'page1' }].to_json,
+                     headers: { link: %(<http://0.0.0.0:3000/api/v1/base?page=5>; rel="last", <http://0.0.0.0:3000/api/v1/base?page=2>; rel="next") })
         WebMock.stub_request(:get, 'http://0.0.0.0:3000/api/v1/base?page=2')
-          .to_return(:body => [{ stub: 'page2' }].to_json)
+          .to_return(body: [{ stub: 'page2' }].to_json)
 
         @base = EspSdk::EndPoints::Base.new(@config)
         @base.list
@@ -42,7 +42,7 @@ class BaseTest < ActiveSupport::TestCase
     context '#prev_page' do
       setup do
         WebMock.stub_request(:get, %r{api/v1/base})
-          .to_return(:body => [{ stub: 'Stub' }].to_json)
+          .to_return(body: [{ stub: 'Stub' }].to_json)
       end
 
       should 'call list if @current_page is blank' do
@@ -59,7 +59,7 @@ class BaseTest < ActiveSupport::TestCase
     context '#list' do
       should 'set the current page and setup link pagination' do
         WebMock.stub_request(:get, %r{api/v1/base})
-          .to_return(:body => [{ stub: 'Stub' }].to_json)
+          .to_return(body: [{ stub: 'Stub' }].to_json)
         @base.expects(:pagination_links)
 
         response = @base.list
@@ -72,7 +72,7 @@ class BaseTest < ActiveSupport::TestCase
     context '#show' do
       should 'call validate id and return the stub response, and set the current_record' do
         WebMock.stub_request(:get, %r{api/v1/base/1})
-          .to_return(:body => { stub: 'Stub' }.to_json)
+          .to_return(body: { stub: 'Stub' }.to_json)
         payload = { id: 1 }
 
         @base.expects(:validate_id).with(payload)
@@ -86,7 +86,7 @@ class BaseTest < ActiveSupport::TestCase
     context '#update' do
       should 'call validate id and return the stub response, and set the current_record' do
         WebMock.stub_request(:get, %r{api/v1/base/1})
-          .to_return(:body => { stub: 'Stub' }.to_json)
+          .to_return(body: { stub: 'Stub' }.to_json)
         payload = { id: 1, name: 'Test' }
 
         @base.expects(:validate_id).with(payload)
@@ -99,8 +99,8 @@ class BaseTest < ActiveSupport::TestCase
 
     context '#destroy' do
       should 'call validate id and return the stub response, and set the current_record' do
-        WebMock.stub_request(:get, /api\/v1\/base\/1/)
-          .to_return(:body => { success: 'Stub has been destroyed' }.to_json)
+        WebMock.stub_request(:get, %r{api/v1/base/1})
+          .to_return(body: { success: 'Stub has been destroyed' }.to_json)
         payload = { id: 1 }
 
         @base.expects(:validate_id).with(payload)
@@ -113,7 +113,7 @@ class BaseTest < ActiveSupport::TestCase
 
     context '#validate_id' do
       should 'return nil when an ID is present' do
-        assert_nil @base.send(:validate_id, { id: 1 })
+        assert_nil @base.send(:validate_id, id: 1)
       end
 
       should 'raise EspSdk::MissingAttribute for a missing id' do

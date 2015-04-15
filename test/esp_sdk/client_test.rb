@@ -101,26 +101,26 @@ class ClientTest < ActiveSupport::TestCase
       end
 
       should 'return nil when errors is missing the errors key' do
-        assert_nil @client.send(:check_errors, { test: 1 })
+        assert_nil @client.send(:check_errors, test: 1)
       end
 
       should 'raise TokenExpired exception when a token has expired error is present' do
         e = assert_raises EspSdk::TokenExpired do
-          @client.send(:check_errors, { 'errors' => ['Token has expired'] })
+          @client.send(:check_errors, 'errors' => ['Token has expired'])
         end
         assert_equal 'Token has expired', e.message
       end
 
       should 'raise TokenExpired exception when a record has not been found' do
         e = assert_raises EspSdk::RecordNotFound do
-          @client.send(:check_errors, { 'errors' => ['Record not found'] })
+          @client.send(:check_errors, 'errors' => ['Record not found'])
         end
         assert_equal 'Record not found', e.message
       end
 
       should 'join the return errors into a EspSdk::Exception' do
         e = assert_raises EspSdk::Exception do
-          @client.send(:check_errors, { 'errors' => ['ARN is blank', 'External ID is blank'] })
+          @client.send(:check_errors, 'errors' => ['ARN is blank', 'External ID is blank'])
         end
         assert_equal 'ARN is blank. External ID is blank', e.message
       end

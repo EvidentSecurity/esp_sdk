@@ -7,36 +7,30 @@ module EspSdk
     attr_reader :config, :errors
 
     def initialize(config)
-      @config  = config
+      @config = config
     end
 
     def connect(url, type = :get, payload = {})
-      payload = { payload_key => payload } if payload.present?
-
-      begin
-        if type == :get || type == :delete
-          if payload.present?
-            response = RestClient.send(type, url, headers.merge(params: payload))
-          else
-            response = RestClient.send(type, url, headers)
-          end
-        else
-          # The rest of our actions will require a payload
-          fail MissingAttribute, 'Missing required attributes' if payload.blank?
-          response = RestClient.send(type, url, payload, headers)
-        end
-      rescue RestClient::Unauthorized => e
-        fail EspSdk::Unauthorized, 'Unauthorized request'
-      rescue RestClient::UnprocessableEntity => e
-        response = e.response
-        body     = JSON.load(response.body) if response.body.present?
-        check_errors(body)
-      end
-
-      response
+      build_and_send_request(url, type, payload)
+    rescue RestClient::Unauthorized
+      raise EspSdk::Unauthorized, 'Unauthorized request'
+    rescue RestClient::UnprocessableEntity => e
+      body = JSON.load(e.response.body) if e.response.body.present?
+      check_errors(body)
     end
 
     private
+
+    def build_and_send_request(url, type, payload)
+      if type == :get || type == :delete
+        headers[:params] = payload_hash(payload) if payload.present?
+        RestClient.send(type, url, headers)
+      else
+        # The rest of our actions will require a payload
+        fail MissingAttribute, 'Missing required attributes' if payload.blank?
+        RestClient.send(type, url, payload_hash(payload), headers)
+      end
+    end
 
     def headers
       @headers ||= { 'Authorization' => @config.token, 'Authorization-Email' => @config.email, 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
@@ -46,17 +40,17 @@ module EspSdk
       @payload_key ||= self.class.to_s.demodulize.singularize.underscore
     end
 
-    def check_errors(body)
-      @errors  = body['errors'] if body.present? && body.is_a?(Hash) && body['errors'].present?
-      return unless @errors.present?
+    def payload_hash(payload)
+      { payload_key => payload } if payload.present?
+    end
 
-      if @errors.select { |error| error.to_s.include?('Token has expired') }.present?
-        fail TokenExpired, 'Token has expired'
-      elsif (error = @errors.select { |error| error.to_s.include?('Record not found') }[0]).present?
-        fail RecordNotFound, error
-      else
-        fail EspSdk::Exception, "#{@errors.join('. ')}"
-      end
+    def check_errors(body)
+      return if body.blank? || !body.is_a?(Hash) || body['errors'].blank?
+      @errors = body['errors']
+
+      fail TokenExpired, 'Token has expired' if @errors.any? { |error| error.to_s.include?('Token has expired') }
+      fail RecordNotFound, 'Record not found' if @errors.any? { |error| error.to_s.include?('Record not found') }
+      fail EspSdk::Exception, "#{@errors.join('. ')}"
     end
   end
 end

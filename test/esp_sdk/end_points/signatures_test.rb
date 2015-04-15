@@ -64,7 +64,7 @@ class SignaturesTest < ActiveSupport::TestCase
     context '#validate_run_params' do
       should 'raise an error for a missing param' do
         e = assert_raises EspSdk::MissingAttribute do
-          @signatures.send(:validate_run_params, { signature_name: 'test', regions: [:us_east_1] })
+          @signatures.send(:validate_run_params, signature_name: 'test', regions: [:us_east_1])
         end
 
         assert_equal 'Missing required attribute external_account_id', e.message
@@ -72,8 +72,9 @@ class SignaturesTest < ActiveSupport::TestCase
 
       should 'raise an error for an unknown attribute' do
         e = assert_raises EspSdk::UnknownAttribute do
-          @signatures.send(:validate_run_params, { signature_name: 'test', regions: [:us_east_1],
-                                                                         external_account_id: 1, bad_param: 1})
+          @signatures.send(:validate_run_params,
+                           signature_name: 'test', regions: [:us_east_1],
+                           external_account_id: 1, bad_param: 1)
         end
 
         assert_equal 'Unknown attribute bad_param', e.message

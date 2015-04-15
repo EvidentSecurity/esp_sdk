@@ -4,17 +4,17 @@ module EspSdk
     attr_reader :client, :options, :results
 
     def initialize(options = {})
-      @options   = options
-      @client    = EspSdk::Api.new(@options)
+      @options = options
+      @client = EspSdk::Api.new(@options)
     end
 
     # Override eval to delegate to the scripting eval
     def eval
       @results = client.custom_signatures.run_raw(
-      signature: @options[:signature],
-      language: @options[:language],
-      regions: Array(@options[:region]),
-      external_account_id: @options[:external_account_id])
+        signature: @options[:signature],
+        language: @options[:language],
+        regions: Array(@options[:region]),
+        external_account_id: @options[:external_account_id])
     end
 
     def signature
@@ -23,7 +23,7 @@ module EspSdk
 
     def set_signature(signature, language = :javascript)
       @options[:signature] = signature
-      @options[:language]  = language
+      @options[:language] = language
       true
     end
 
@@ -31,7 +31,7 @@ module EspSdk
       @options[:region]
     end
 
-    def set_region(region)
+    def set_region(region) # rubocop:disable Style/AccessorMethodName
       @options[:region] = region
     end
 
@@ -39,7 +39,7 @@ module EspSdk
       @options[:external_account_id]
     end
 
-    def set_external_account_id(id)
+    def set_external_account_id(id) # rubocop:disable Style/AccessorMethodName
       @options[:external_account_id] = id
     end
 

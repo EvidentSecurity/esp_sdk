@@ -27,7 +27,7 @@ module EspSdk
     end
 
     def options_errors(option)
-      ENV["ESP_#{option.upcase}"] || fail(EspSdk::MissingAttribute, "Missing required #{option}") # rubocop:disable all
+      ENV["ESP_#{option.upcase}"] || fail(EspSdk::MissingAttribute, "Missing required #{option}")
     end
   end
 end

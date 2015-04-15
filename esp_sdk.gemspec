@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = EspSdk::VERSION
   spec.authors       = ['Evident.io']
   spec.email         = ['support@evident.io']
-  spec.summary       = %q{SDK for interacting with the ESP API.}
+  spec.summary       = "SDK for interacting with the ESP API."
   spec.homepage      = ''
   spec.license       = 'MIT'
 

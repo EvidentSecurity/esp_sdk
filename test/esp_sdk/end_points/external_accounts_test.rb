@@ -9,7 +9,6 @@ class ExternalAccountsTest < ActiveSupport::TestCase
       @external_accounts = EspSdk::EndPoints::ExternalAccounts.new(@config)
     end
 
-
     context '#generate_external_id' do
       should 'call SecureRandom.uuid' do
         SecureRandom.expects(:uuid)

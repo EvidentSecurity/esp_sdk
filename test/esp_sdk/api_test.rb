@@ -5,7 +5,7 @@ class ApiTest < ActiveSupport::TestCase
     context '#initalize' do
       should 'raise a MissingAttribute error for a missing email' do
         e = assert_raises EspSdk::MissingAttribute do
-          EspSdk::Api.new()
+          EspSdk::Api.new
         end
 
         assert_equal 'Missing required email', e.message

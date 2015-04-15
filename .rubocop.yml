@@ -89,7 +89,7 @@ Style/BlockComments:
 Style/BlockEndNewline:
   Enabled: true
 
-Style/Blocks:
+Style/BlockDelimiters:
   Enabled: true
 
 
@@ -467,7 +467,6 @@ Style/RedundantSelf:
 
 Style/RegexpLiteral:
   Enabled: true
-  MaxSlashes: 1
 
 Style/RescueModifier:
   Enabled: true
@@ -586,7 +585,7 @@ Style/SpecialGlobalVars:
   Enabled: true
 
 Style/StringLiterals:
-  Enabled: true
+  Enabled: false
   EnforcedStyle: single_quotes
   SupportedStyles:
     - single_quotes
@@ -654,7 +653,7 @@ Style/UnneededCapitalW:
 Style/UnneededPercentQ:
   Enabled: true
 
-Style/UnneededPercentX:
+Style/CommandLiteral:
   Enabled: true
 
 Style/VariableInterpolation:
