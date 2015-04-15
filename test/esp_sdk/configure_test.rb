@@ -15,9 +15,9 @@ class ConfigureTest < ActiveSupport::TestCase
 
       should 'should setup the token and token and expires at' do
         EspSdk::Configure.any_instance.unstub(:token_setup)
-        FakeWeb.register_uri(:get, %r{api/v1/token/new},
-                             body: { authentication_token: 'token',
-                                     token_expires_at: 1.hour.from_now }.to_json)
+        WebMock.stub_request(:get, %r{api/v1/token/new})
+          .to_return(body: { authentication_token: 'token',
+                             token_expires_at: 1.hour.from_now }.to_json)
 
         config = EspSdk::Configure.new(email: 'test@test.com', password: 'password1234')
 

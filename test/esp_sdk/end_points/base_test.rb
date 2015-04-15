@@ -6,32 +6,32 @@ class BaseTest < ActiveSupport::TestCase
       # Stub the token setup for our configuration object
       EspSdk::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
       @config = EspSdk::Configure.new(email: 'test@evident.io')
-      @base   = EspSdk::EndPoints::Base.new(@config)
+      @base = EspSdk::EndPoints::Base.new(@config)
     end
 
     context '#next_page' do
       should 'call list if @current_page is blank' do
-        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{ stub: 'Stub' }].to_json)
+        WebMock.stub_request(:get, %r{api/v1/base}).to_return(body: [{ stub: 'Stub' }].to_json)
         @base.expects(:list)
 
         @base.next_page
       end
 
       should "return the current page if @page_links['links']' are blank" do
-        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{ stub: 'Stub' }].to_json)
+        WebMock.stub_request(:get, %r{api/v1/base}).to_return(body: [{ stub: 'Stub' }].to_json)
         @base.expects(:current_page)
 
         @base.next_page
       end
 
       should 'request next page and set current_page' do
-        FakeWeb.register_uri(:get, 'http://0.0.0.0:3000/api/v1/base',
-                             :body => [{ stub: 'page1' }].to_json,
-                             :link => %(<http://0.0.0.0:3000/api/v1/base?page=5>; rel="last", <http://0.0.0.0:3000/api/v1/base?page=2>; rel="next"))
-        FakeWeb.register_uri(:get, 'http://0.0.0.0:3000/api/v1/base?page=2',
-                             :body => [{ stub: 'page2' }].to_json)
+        WebMock.stub_request(:get, 'http://0.0.0.0:3000/api/v1/base')
+          .to_return(:body => [{ stub: 'page1' }].to_json,
+                     headers: { :link => %(<http://0.0.0.0:3000/api/v1/base?page=5>; rel="last", <http://0.0.0.0:3000/api/v1/base?page=2>; rel="next") })
+        WebMock.stub_request(:get, 'http://0.0.0.0:3000/api/v1/base?page=2')
+          .to_return(:body => [{ stub: 'page2' }].to_json)
 
-        @base   = EspSdk::EndPoints::Base.new(@config)
+        @base = EspSdk::EndPoints::Base.new(@config)
         @base.list
         @base.next_page
 
@@ -41,8 +41,8 @@ class BaseTest < ActiveSupport::TestCase
 
     context '#prev_page' do
       setup do
-        FakeWeb.register_uri(:get, %r{api/v1/base},
-                             :body => [{ stub: 'Stub' }].to_json)
+        WebMock.stub_request(:get, %r{api/v1/base})
+          .to_return(:body => [{ stub: 'Stub' }].to_json)
       end
 
       should 'call list if @current_page is blank' do
@@ -58,8 +58,8 @@ class BaseTest < ActiveSupport::TestCase
 
     context '#list' do
       should 'set the current page and setup link pagination' do
-        FakeWeb.register_uri(:get, %r{api/v1/base},
-                             :body => [{ stub: 'Stub' }].to_json)
+        WebMock.stub_request(:get, %r{api/v1/base})
+          .to_return(:body => [{ stub: 'Stub' }].to_json)
         @base.expects(:pagination_links)
 
         response = @base.list
@@ -71,8 +71,8 @@ class BaseTest < ActiveSupport::TestCase
 
     context '#show' do
       should 'call validate id and return the stub response, and set the current_record' do
-        FakeWeb.register_uri(:get, %r{api/v1/base/1},
-                             :body => { stub: 'Stub' }.to_json)
+        WebMock.stub_request(:get, %r{api/v1/base/1})
+          .to_return(:body => { stub: 'Stub' }.to_json)
         payload = { id: 1 }
 
         @base.expects(:validate_id).with(payload)
@@ -85,8 +85,8 @@ class BaseTest < ActiveSupport::TestCase
 
     context '#update' do
       should 'call validate id and return the stub response, and set the current_record' do
-        FakeWeb.register_uri(:get, %r{api/v1/base/1},
-                             :body => { stub: 'Stub' }.to_json)
+        WebMock.stub_request(:get, %r{api/v1/base/1})
+          .to_return(:body => { stub: 'Stub' }.to_json)
         payload = { id: 1, name: 'Test' }
 
         @base.expects(:validate_id).with(payload)
@@ -99,8 +99,8 @@ class BaseTest < ActiveSupport::TestCase
 
     context '#destroy' do
       should 'call validate id and return the stub response, and set the current_record' do
-        FakeWeb.register_uri(:get, /api\/v1\/base\/1/,
-                             :body => { success: 'Stub has been destroyed' }.to_json)
+        WebMock.stub_request(:get, /api\/v1\/base\/1/)
+          .to_return(:body => { success: 'Stub has been destroyed' }.to_json)
         payload = { id: 1 }
 
         @base.expects(:validate_id).with(payload)
@@ -177,7 +177,7 @@ class BaseTest < ActiveSupport::TestCase
 
     context 'current_page' do
       should 'convert hashes to ActiveSupport::HashWithIndifferentAccess' do
-        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{stub: 'Stub'}, {}].to_json)
+        WebMock.stub_request(:get, %r{api/v1/base}).to_return(body: [{ stub: 'Stub' }, {}].to_json)
 
         @base.list
 
@@ -188,7 +188,7 @@ class BaseTest < ActiveSupport::TestCase
 
     context 'current_record' do
       should 'be ActiveSupport::HashWithIndifferentAccess' do
-        FakeWeb.register_uri(:get, %r{api/v1/base/1}, body: [{ stub: 'Stub' }].to_json)
+        WebMock.stub_request(:get, %r{api/v1/base/1}).to_return(body: [{ stub: 'Stub' }].to_json)
 
         @base.show(id: 1)
 
@@ -198,7 +198,7 @@ class BaseTest < ActiveSupport::TestCase
 
     context 'page_links' do
       should 'be ActiveSupport::HashWithIndifferentAccess' do
-        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{ stub: 'Stub' }].to_json)
+        WebMock.stub_request(:get, %r{api/v1/base}).to_return(body: [{ stub: 'Stub' }].to_json)
 
         @base.list
 
@@ -206,8 +206,8 @@ class BaseTest < ActiveSupport::TestCase
       end
 
       should 'set @page_links to hash with URLs if in JSON format' do
-        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{ stub: 'Stub' }].to_json,
-                                                    link: %({"next": "http://test.host/api/v1/custom_signatures?page=2", "last": "http://test.host/api/v1/custom_signatures?page=5"}))
+        WebMock.stub_request(:get, %r{api/v1/base}).to_return(body: [{ stub: 'Stub' }].to_json,
+                                                              headers: { link: %({"next": "http://test.host/api/v1/custom_signatures?page=2", "last": "http://test.host/api/v1/custom_signatures?page=5"}) })
 
         @base.list
 
@@ -217,8 +217,8 @@ class BaseTest < ActiveSupport::TestCase
       end
 
       should 'set @page_links to hash with URLs if in HTTP format' do
-        FakeWeb.register_uri(:get, %r{api/v1/base}, body: [{ stub: 'Stub' }].to_json,
-                                                    link: %(<http://test.host/api/v1/custom_signatures?page=5>; rel="last", <http://test.host/api/v1/custom_signatures?page=2>; rel="next"))
+        WebMock.stub_request(:get, %r{api/v1/base}).to_return(body: [{ stub: 'Stub' }].to_json,
+                                                              headers: { link: %(<http://test.host/api/v1/custom_signatures?page=5>; rel="last", <http://test.host/api/v1/custom_signatures?page=2>; rel="next") })
         @base.list
 
         links = @base.instance_variable_get(:@page_links)

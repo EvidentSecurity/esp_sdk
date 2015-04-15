@@ -7,7 +7,7 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require 'mocha/mini_test'
 require 'shoulda'
-require 'fakeweb'
+require 'webmock/minitest'
 require 'awesome_print'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
@@ -15,6 +15,6 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 class ActiveSupport::TestCase
   setup do
     # Clear stubs
-    FakeWeb.clean_registry
+    WebMock.reset!
   end
 end
