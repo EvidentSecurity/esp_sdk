@@ -13,6 +13,8 @@ require 'awesome_print'
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 class ActiveSupport::TestCase
+  self.test_order = :random
+
   setup do
     # Clear stubs
     WebMock.reset!
