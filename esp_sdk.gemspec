@@ -23,9 +23,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest'
   spec.add_development_dependency 'minitest-reporters'
   spec.add_development_dependency 'shoulda'
-  spec.add_development_dependency 'codeclimate-test-reporter'
   spec.add_development_dependency 'mocha'
   spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'coveralls'
 
   spec.add_runtime_dependency 'activesupport', '>= 3.0.0'
   spec.add_runtime_dependency 'rest-client', '~> 1.7.3'

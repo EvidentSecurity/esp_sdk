@@ -1,6 +1,6 @@
 ENV['ESP_ENV'] = 'test'
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
+require 'coveralls'
+Coveralls.wear!
 
 require 'esp_sdk'
 require 'minitest/autorun'
