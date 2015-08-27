@@ -2,13 +2,15 @@ ENV['ESP_ENV'] = 'test'
 require 'coveralls'
 Coveralls.wear!
 
-require 'esp_sdk'
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'mocha/mini_test'
 require 'shoulda'
 require 'webmock/minitest'
 require 'awesome_print'
+require 'rubygems'
+require 'active_resource'
+require 'esp_sdk'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 

@@ -1,3 +1,3 @@
-module EspSdk
+module ESP
   VERSION = '1.1.0'
 end

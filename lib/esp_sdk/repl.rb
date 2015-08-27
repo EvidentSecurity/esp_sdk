@@ -1,11 +1,11 @@
-module EspSdk
+module ESP
   # Current context in the ESP REPL
   class Repl
     attr_reader :client, :options, :results
 
     def initialize(options = {})
       @options = options
-      @client = EspSdk::Api.new(@options)
+      @client = ESP::Api.new(@options)
     end
 
     # Override eval to delegate to the scripting eval
@@ -45,7 +45,7 @@ module EspSdk
 
     # Used to reset the client
     def reload!
-      @client = EspSdk::Api.new(@options)
+      @client = ESP::Api.new(@options)
       'Reloaded!'
     end
 

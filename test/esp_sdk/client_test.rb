@@ -4,16 +4,16 @@ class ClientTest < ActiveSupport::TestCase
   context 'Client' do
     setup do
       # Stub the token setup for our configuration object
-      EspSdk::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
-      @config = EspSdk::Configure.new(email: 'test@evident.io')
+      ESP::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
+      @config = ESP::Configure.new(email: 'test@evident.io')
       @config.token = '1234abc'
-      @client = EspSdk::Client.new(@config)
+      @client = ESP::Client.new(@config)
     end
 
     context '#initalize' do
       # Sanity check really.
       should 'set the config on the client' do
-        assert @client.config.is_a?(EspSdk::Configure)
+        assert @client.config.is_a?(ESP::Configure)
         assert_equal 'test@evident.io', @client.config.email
         assert_equal '1234abc', @client.config.token
       end
@@ -24,7 +24,7 @@ class ClientTest < ActiveSupport::TestCase
 
       should 'raise an unauthorized error' do
         RestClient.expects(:get).raises(RestClient::Unauthorized)
-        exception = assert_raises EspSdk::Unauthorized do
+        exception = assert_raises ESP::Unauthorized do
           @client.connect(@url, :get)
         end
 
@@ -48,7 +48,7 @@ class ClientTest < ActiveSupport::TestCase
 
       [:post, :patch, :put].each do |type|
         should "raise MissingAttribute exception for an empty payload from request type #{type}" do
-          e = assert_raises EspSdk::MissingAttribute do
+          e = assert_raises ESP::MissingAttribute do
             @client.connect(@url, type)
           end
 
@@ -86,7 +86,7 @@ class ClientTest < ActiveSupport::TestCase
       should 'create the correct payload key' do
         # Check this through and endpoint class.
         # Should take the class name and turn it into a valid key the api understands
-        external_account = EspSdk::EndPoints::ExternalAccounts.new(@config)
+        external_account = ESP::ExternalAccounts.new(@config)
         assert_equal 'external_account', external_account.send(:payload_key)
       end
     end
@@ -105,21 +105,21 @@ class ClientTest < ActiveSupport::TestCase
       end
 
       should 'raise TokenExpired exception when a token has expired error is present' do
-        e = assert_raises EspSdk::TokenExpired do
+        e = assert_raises ESP::TokenExpired do
           @client.send(:check_errors, 'errors' => ['Token has expired'])
         end
         assert_equal 'Token has expired', e.message
       end
 
       should 'raise TokenExpired exception when a record has not been found' do
-        e = assert_raises EspSdk::RecordNotFound do
+        e = assert_raises ESP::RecordNotFound do
           @client.send(:check_errors, 'errors' => ['Record not found'])
         end
         assert_equal 'Record not found', e.message
       end
 
-      should 'join the return errors into a EspSdk::Exception' do
-        e = assert_raises EspSdk::Exception do
+      should 'join the return errors into a ESP::Exception' do
+        e = assert_raises ESP::Exception do
           @client.send(:check_errors, 'errors' => ['ARN is blank', 'External ID is blank'])
         end
         assert_equal 'ARN is blank. External ID is blank', e.message

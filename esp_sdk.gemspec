@@ -5,7 +5,7 @@ require 'esp_sdk/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'esp_sdk'
-  spec.version       = EspSdk::VERSION
+  spec.version       = ESP::VERSION
   spec.authors       = ['Evident.io']
   spec.email         = ['support@evident.io']
   spec.summary       = "SDK for interacting with the ESP API."
@@ -17,6 +17,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
+  spec.required_ruby_version = '>= 2.0.0'
+
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rubocop'
@@ -27,9 +29,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock'
   spec.add_development_dependency 'coveralls'
 
-  spec.add_runtime_dependency 'activesupport', '>= 3.0.0'
-  spec.add_runtime_dependency 'rest-client', '~> 1.7.3'
-  spec.add_runtime_dependency 'pry'
-  spec.add_runtime_dependency 'awesome_print'
-  spec.add_runtime_dependency 'artii'
+  spec.add_dependency 'activeresource', '~> 4.0.0'
+  spec.add_dependency 'api-auth'
+  spec.add_dependency 'rest-client' # , '~> 1.7.3'
+  spec.add_dependency 'pry'
+  spec.add_dependency 'awesome_print'
+  spec.add_dependency 'artii'
 end

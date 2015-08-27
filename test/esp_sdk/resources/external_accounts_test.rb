@@ -4,9 +4,9 @@ class ExternalAccountsTest < ActiveSupport::TestCase
   context 'ExternalAccounts' do
     setup do
       # Stub the token setup for our configuration object
-      EspSdk::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
-      @config = EspSdk::Configure.new(email: 'test@evident.io')
-      @external_accounts = EspSdk::EndPoints::ExternalAccounts.new(@config)
+      ESP::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
+      @config = ESP::Configure.new(email: 'test@evident.io')
+      @external_accounts = ESP::ExternalAccounts.new(@config)
     end
 
     context '#generate_external_id' do

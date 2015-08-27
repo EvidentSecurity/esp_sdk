@@ -1,69 +1,69 @@
 require File.expand_path(File.dirname(__FILE__) + '/test_helper')
 
-class EspSdkTest < ActiveSupport::TestCase
-  context 'EspSdk' do
+class ESPTest < ActiveSupport::TestCase
+  context 'ESP' do
     context '#env' do
       setup do
-        EspSdk.instance_variable_set(:@env, nil)
+        ESP.instance_variable_set(:@env, nil)
         ENV['ESP_ENV'] = nil
       end
 
       should 'return :production when ENV is not set' do
         ENV.expects(:[]).returns(nil).at_least_once
-        assert_equal :production, EspSdk.env
+        assert_equal :production, ESP.env
       end
 
       should 'return :release when ENV[ESP_ENV] is set to release' do
         ENV.expects(:[]).returns('release').at_least_once
-        assert_equal :release, EspSdk.env
+        assert_equal :release, ESP.env
       end
     end
 
     context '#production?' do
       should 'return true when the environment is :production' do
-        EspSdk.expects(:env).returns(:production)
-        assert EspSdk.production?
+        ESP.expects(:env).returns(:production)
+        assert ESP.production?
       end
 
       should 'return false when the environment is not :production' do
-        EspSdk.expects(:env).returns(:release)
-        refute EspSdk.production?
+        ESP.expects(:env).returns(:release)
+        refute ESP.production?
       end
     end
 
     context '#release?' do
       should 'return true when the environment is :release' do
-        EspSdk.expects(:env).returns(:release)
-        assert EspSdk.release?
+        ESP.expects(:env).returns(:release)
+        assert ESP.release?
       end
 
       should 'return false when the environment is not :release' do
-        EspSdk.expects(:env).returns(:test)
-        refute EspSdk.release?
+        ESP.expects(:env).returns(:test)
+        refute ESP.release?
       end
     end
 
     context '#development?' do
       should 'return true when the environment is :development' do
-        EspSdk.expects(:env).returns(:development)
-        assert EspSdk.development?
+        ESP.expects(:env).returns(:development)
+        assert ESP.development?
       end
 
       should 'return false when the environment is not :development' do
-        EspSdk.expects(:env).returns(:test)
-        refute EspSdk.development?
+        ESP.expects(:env).returns(:test)
+        refute ESP.development?
       end
     end
 
     context '#test?' do
       should 'return true when the environment is :test' do
-        EspSdk.expects(:env).returns(:test)
-        assert EspSdk.test?
+        ESP.expects(:env).returns(:test)
+        assert ESP.test?
       end
 
       should 'return false when the environment is not :test' do
-        EspSdk.expects(:env).returns(:production)
-        refute EspSdk.test?
+        ESP.expects(:env).returns(:production)
+        refute ESP.test?
       end
     end
   end

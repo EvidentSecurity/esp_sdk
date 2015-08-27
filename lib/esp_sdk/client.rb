@@ -1,23 +1,23 @@
 require 'rest_client'
 require_relative 'extensions/rest_client/request'
 
-module EspSdk
+module ESP
   # Client class for our endpoints. Every endpoint gets its own client.
   class Client
     attr_reader :config, :errors
 
-    def initialize(config)
-      @config = config
-    end
+    # def initialize(config)
+    #   @config = config
+    # end
 
-    def connect(url, type = :get, payload = {})
-      build_and_send_request(url, type, payload)
-    rescue RestClient::Unauthorized
-      raise EspSdk::Unauthorized, 'Unauthorized request'
-    rescue RestClient::UnprocessableEntity => e
-      body = JSON.load(e.response.body) if e.response.body.present?
-      check_errors(body)
-    end
+    # def connect(url, type = :get, payload = {})
+    #   build_and_send_request(url, type, payload)
+    # rescue RestClient::Unauthorized
+    #   raise ESP::Unauthorized, 'Unauthorized request'
+    # rescue RestClient::UnprocessableEntity => e
+    #   body = JSON.load(e.response.body) if e.response.body.present?
+    #   check_errors(body)
+    # end
 
     private
 
@@ -50,7 +50,7 @@ module EspSdk
 
       fail TokenExpired, 'Token has expired' if @errors.any? { |error| error.to_s.include?('Token has expired') }
       fail RecordNotFound, 'Record not found' if @errors.any? { |error| error.to_s.include?('Record not found') }
-      fail EspSdk::Exception, "#{@errors.join('. ')}"
+      fail ESP::Exception, "#{@errors.join('. ')}"
     end
   end
 end

@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/EvidentSecurity/esp_sdk/badge.svg)](https://coveralls.io/r/EvidentSecurity/esp_sdk)
 [![Gem Version](https://badge.fury.io/rb/esp_sdk.svg)](http://badge.fury.io/rb/esp_sdk)
 
-# EspSdk
+# ESP
 
 A Ruby interface for calling the [Evident.io](https://www.evident.io) API.
 

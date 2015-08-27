@@ -1,4 +1,4 @@
-module EspSdk
+module ESP
   class Configure
     attr_accessor :token, :email, :version, :token_expires_at, :end_point, :domain
 
@@ -17,9 +17,9 @@ module EspSdk
 
     def domain
       return @domain if @domain.present?
-      if EspSdk.production?
+      if ESP.production?
         self.domain = 'https://api.evident.io'
-      elsif EspSdk.release?
+      elsif ESP.release?
         self.domain = 'https://api-rel.evident.io'
       else
         self.domain = 'http://0.0.0.0:3000'

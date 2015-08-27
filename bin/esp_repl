@@ -40,7 +40,7 @@ opt_parser = OptionParser.new do |opt|
 end
 
 opt_parser.parse!
-repl = EspSdk::Repl.new(options)
+repl = ESP::Repl.new(options)
 
 if options[:console]
   require 'artii'
@@ -50,7 +50,7 @@ if options[:console]
   artii = Artii::Base.new(font: 'slant')
   print <<-banner
 #{artii.asciify('E.S.P')}
-Evident Security Platform REPL #{EspSdk::VERSION}
+Evident Security Platform REPL #{ESP::VERSION}
 Copyright (c) 2013-#{Time.now.year} Evident Security, All Rights Reserved.
 http://www.evident.io
 banner

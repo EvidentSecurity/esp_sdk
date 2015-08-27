@@ -4,9 +4,9 @@ class BaseTest < ActiveSupport::TestCase
   context 'Base' do
     setup do
       # Stub the token setup for our configuration object
-      EspSdk::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
-      @config = EspSdk::Configure.new(email: 'test@evident.io')
-      @base = EspSdk::EndPoints::Base.new(@config)
+      ESP::Configure.any_instance.expects(:token_setup).returns(nil).at_least_once
+      @config = ESP::Configure.new(email: 'test@evident.io')
+      @base = ESP::Base.new(@config)
     end
 
     context '#next_page' do
@@ -31,7 +31,7 @@ class BaseTest < ActiveSupport::TestCase
         WebMock.stub_request(:get, 'http://0.0.0.0:3000/api/v1/base?page=2')
           .to_return(body: [{ stub: 'page2' }].to_json)
 
-        @base = EspSdk::EndPoints::Base.new(@config)
+        @base = ESP::Base.new(@config)
         @base.list
         @base.next_page
 
@@ -116,8 +116,8 @@ class BaseTest < ActiveSupport::TestCase
         assert_nil @base.send(:validate_id, id: 1)
       end
 
-      should 'raise EspSdk::MissingAttribute for a missing id' do
-        e = assert_raises EspSdk::MissingAttribute do
+      should 'raise ESP::MissingAttribute for a missing id' do
+        e = assert_raises ESP::MissingAttribute do
           @base.send(:validate_id, {})
         end
 
@@ -128,24 +128,24 @@ class BaseTest < ActiveSupport::TestCase
     context '#id_url' do
       should 'return a valid id url for the test environment' do
         # Test through a different endpoint to get a valid URL
-        EspSdk.instance_variable_set(:@env, :development)
-        external_account = EspSdk::EndPoints::ExternalAccounts.new(@config)
+        ESP.instance_variable_set(:@env, :development)
+        external_account = ESP::ExternalAccounts.new(@config)
         assert_equal 'http://0.0.0.0:3000/api/v1/external_accounts/1', external_account.send(:id_url, 1)
       end
 
       should 'return a valid id url for the release environment' do
-        EspSdk.instance_variable_set(:@env, :release)
-        config = EspSdk::Configure.new(email: 'test@evident.io')
+        ESP.instance_variable_set(:@env, :release)
+        config = ESP::Configure.new(email: 'test@evident.io')
         # Test through a different endpoint to get a valid URL
-        external_account = EspSdk::EndPoints::ExternalAccounts.new(config)
+        external_account = ESP::ExternalAccounts.new(config)
         assert_equal 'https://api-rel.evident.io/api/v1/external_accounts/1', external_account.send(:id_url, 1)
       end
 
       should 'return a valid id url for the production environment' do
-        EspSdk.instance_variable_set(:@env, :production)
-        config = EspSdk::Configure.new(email: 'test@evident.io')
+        ESP.instance_variable_set(:@env, :production)
+        config = ESP::Configure.new(email: 'test@evident.io')
         # Test through a different endpoint to get a valid URL
-        external_account = EspSdk::EndPoints::ExternalAccounts.new(config)
+        external_account = ESP::ExternalAccounts.new(config)
         assert_equal 'https://api.evident.io/api/v1/external_accounts/1', external_account.send(:id_url, 1)
       end
     end
@@ -153,24 +153,24 @@ class BaseTest < ActiveSupport::TestCase
     context '#base_url' do
       should 'return a valid base url for the development environment' do
         # Test through a different endpoint to get a valid URL
-        EspSdk.instance_variable_set(:@env, :development)
-        external_account = EspSdk::EndPoints::ExternalAccounts.new(@config)
+        ESP.instance_variable_set(:@env, :development)
+        external_account = ESP::ExternalAccounts.new(@config)
         assert_equal 'http://0.0.0.0:3000/api/v1/external_accounts', external_account.send(:base_url)
       end
 
       should 'return a valid base url for the release environment' do
-        EspSdk.expects(:release?).returns(true)
-        config = EspSdk::Configure.new(email: 'test@evident.io')
+        ESP.expects(:release?).returns(true)
+        config = ESP::Configure.new(email: 'test@evident.io')
         # Test through a different endpoint to get a valid URL
-        external_account = EspSdk::EndPoints::ExternalAccounts.new(config)
+        external_account = ESP::ExternalAccounts.new(config)
         assert_equal 'https://api-rel.evident.io/api/v1/external_accounts', external_account.send(:base_url)
       end
 
       should 'return a valid base url for the production environment' do
-        EspSdk.expects(:production?).returns(true)
-        config = EspSdk::Configure.new(email: 'test@evident.io')
+        ESP.expects(:production?).returns(true)
+        config = ESP::Configure.new(email: 'test@evident.io')
         # Test through a different endpoint to get a valid URL
-        external_account = EspSdk::EndPoints::ExternalAccounts.new(config)
+        external_account = ESP::ExternalAccounts.new(config)
         assert_equal 'https://api.evident.io/api/v1/external_accounts', external_account.send(:base_url)
       end
     end
