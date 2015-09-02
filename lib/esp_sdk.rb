@@ -27,6 +27,7 @@ module ESP
   autoload :Alert, File.expand_path(File.dirname(__FILE__) + '/esp_sdk/resources/alert')
   autoload :RawAlert, File.expand_path(File.dirname(__FILE__) + '/esp_sdk/resources/raw_alert')
   autoload :Dashboard, File.expand_path(File.dirname(__FILE__) + '/esp_sdk/resources/dashboard')
+  autoload :CloudTrailEvent, File.expand_path(File.dirname(__FILE__) + '/esp_sdk/resources/cloud_trail_event')
   module Suppressions
     autoload :UniqueIdentifier, File.expand_path(File.dirname(__FILE__) + '/esp_sdk/resources/suppressions/unique_identifier')
     autoload :Signature, File.expand_path(File.dirname(__FILE__) + '/esp_sdk/resources/suppressions/signature')

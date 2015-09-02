@@ -1,5 +1,7 @@
 module ESP
   class Alert < ESP::Resource
+    has_many :cloud_trail_events, class_name: 'ESP::CloudTrailEvent'
+
     def save
       fail ESP::NotImplemented
     end
