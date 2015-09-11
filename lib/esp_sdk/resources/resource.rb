@@ -23,10 +23,10 @@ module ESP
     private
 
     def add_foreign_keys
-      return unless attributes['links'].present?
-      attributes['links'].attributes.each do |assoc, object|
-        unless object.linkage.is_a? Array
-          attributes["#{assoc}_id"] = object.linkage.try(:id)
+      return unless attributes['relationships'].present?
+      attributes['relationships'].attributes.each do |assoc, object|
+        unless object.data.is_a? Array
+          attributes["#{assoc}_id"] = object.data.try(:id)
         end
       end
     end

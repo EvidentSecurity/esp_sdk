@@ -12,6 +12,14 @@ module ESP
       Stat.for_report(id)
     end
 
+    def self.create_for_team(team_id)
+      raise ArgumentError, "expected a team_id" unless team_id.present?
+      response = connection.post "#{prefix}teams/#{team_id}/report.json"
+      response.body
+    rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid => error
+      new.tap { |report| report.load_remote_errors(error, true) }
+    end
+
     def save
       fail ESP::NotImplemented
     end
