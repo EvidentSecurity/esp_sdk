@@ -1,7 +1,7 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'esp_sdk/version'
+require 'esp/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'esp_sdk'
@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activeresource', '~> 4.0.0'
   spec.add_dependency 'api-auth'
   spec.add_dependency 'rest-client' # , '~> 1.7.3'
-  spec.add_dependency 'pry'
   spec.add_dependency 'awesome_print'
   spec.add_dependency 'artii'
+  spec.add_dependency 'catpix'
 end
