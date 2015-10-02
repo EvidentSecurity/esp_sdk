@@ -15,7 +15,8 @@ module ESP
         end
 
         should 'set the HMAC needed Authorization header' do
-          ESP::Credentials.access_key_id ||= 'creds'
+          ESP::Credentials.access_key_id ||= 'access_key_id'
+          ESP::Credentials.secret_access_key ||= 'secret_access_key'
           stub_request(:get, %r{teams/3.json*}).to_return(body: json(:team))
 
           ESP::Team.find(3)
