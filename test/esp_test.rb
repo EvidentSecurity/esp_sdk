@@ -10,10 +10,12 @@ class ESPTest < ActiveSupport::TestCase
       teardown do
         ESP.instance_variable_set(:@env, nil)
         ENV['ESP_ENV'] = 'test'
+        ENV['RAILS_ENV'] = 'test'
       end
 
       should 'return production when ENV is not set' do
         ENV['ESP_ENV'] = nil
+        ENV['RAILS_ENV'] = nil
         assert_predicate ESP.env, :production?
       end
 
