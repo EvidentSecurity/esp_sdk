@@ -3,30 +3,20 @@ module ESP
     belongs_to :organization, class_name: 'ESP::Organization'
     has_many :contact_requests, class_name: 'ESP::ContactRequest'
 
-    def sub_organizations
-      SubOrganization.where(sub_organizations_filter)
-    end
-
-    def teams
-      Team.where(teams_filter)
-    end
-
     def save
-      fail ESP::NotImplemented
+      fail ESP::NotImplementedError
     end
 
     def destroy
-      fail ESP::NotImplemented
+      fail ESP::NotImplementedError
     end
 
-    private
-
-    def sub_organizations_filter
-      { q: { id_in: links.sub_organizations.linkage.collect(&:id) } }
+    def sub_organizations
+      SubOrganization.find(:all, params: { id: sub_organization_ids })
     end
 
-    def teams_filter
-      { q: { id_in: links.teams.linkage.collect(&:id) } }
+    def teams
+      Team.find(:all, params: { id: team_ids })
     end
   end
 end

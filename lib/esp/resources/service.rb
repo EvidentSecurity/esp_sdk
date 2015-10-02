@@ -3,11 +3,11 @@ module ESP
     has_many :signatures, class_name: 'ESP::Signature'
 
     def create
-      fail ESP::NotImplemented
+      fail ESP::NotImplementedError
     end
 
     def destroy
-      fail ESP::NotImplemented
+      fail ESP::NotImplementedError
     end
   end
 end

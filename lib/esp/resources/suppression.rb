@@ -3,19 +3,27 @@ module ESP
     belongs_to :organization, class_name: 'ESP::Organization'
     belongs_to :created_by, class_name: 'ESP::User'
 
-    def deactivate!
-      patch(:deactivate)
-      self.class.find(id)
-    rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid => error
-      self.class.new.tap { |suppression| suppression.load_remote_errors(error, true) }
-    end
-
     def save
-      fail ESP::NotImplemented
+      fail ESP::NotImplementedError
     end
 
     def destroy
-      fail ESP::NotImplemented
+      fail ESP::NotImplementedError
+    end
+
+    def deactivate!
+      return self if deactivate
+      self.message = errors.full_messages.join(' ')
+      fail(ActiveResource::ResourceInvalid.new(self)) # rubocop:disable Style/RaiseArgs
+    end
+
+    def deactivate
+      patch(:deactivate).tap do |response|
+        load_attributes_from_response(response)
+      end
+    rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid, ActiveResource::UnauthorizedAccess => error
+      load_remote_errors(error, true)
+      false
     end
   end
 end

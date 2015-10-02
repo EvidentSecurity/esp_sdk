@@ -4,6 +4,14 @@ module ESP
     belongs_to :sub_organization, class_name: 'ESP::SubOrganization'
     belongs_to :team, class_name: 'ESP::Team'
 
+    def save
+      fail ESP::NotImplementedError
+    end
+
+    def destroy
+      fail ESP::NotImplementedError
+    end
+
     def alerts(params = {})
       ESP::Alert.for_report(id, params)
     end
@@ -12,20 +20,19 @@ module ESP
       Stat.for_report(id)
     end
 
-    def self.create_for_team(team_id)
-      raise ArgumentError, "expected a team_id" unless team_id.present?
+    def self.create_for_team!(team_id = nil)
+      result = create_for_team(team_id)
+      return result if result.errors.blank?
+      result.message = result.errors.full_messages.join(' ')
+      fail(ActiveResource::ResourceInvalid.new(result)) # rubocop:disable Style/RaiseArgs
+    end
+
+    def self.create_for_team(team_id = nil)
+      fail ArgumentError, "You must supply a team id." unless team_id.present?
       response = connection.post "#{prefix}teams/#{team_id}/report.json"
-      response.body
+      new(format.decode(response.body), true)
     rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid => error
       new.tap { |report| report.load_remote_errors(error, true) }
-    end
-
-    def save
-      fail ESP::NotImplemented
-    end
-
-    def destroy
-      fail ESP::NotImplemented
     end
   end
 end

@@ -3,43 +3,51 @@ module ESP
     has_many :cloud_trail_events, class_name: 'ESP::CloudTrailEvent'
 
     def save
-      fail ESP::NotImplemented
+      fail ESP::NotImplementedError
     end
 
     def destroy
-      fail ESP::NotImplemented
+      fail ESP::NotImplementedError
     end
 
-    def self.for_report(report_id, params = {})
-      raise ArgumentError, "expected a report_id" unless report_id.present?
+    def self.for_report(report_id = nil, params = {})
+      fail ArgumentError, "You must supply a report id." unless report_id.present?
       from = "#{prefix}reports/#{report_id}/alerts.json"
-      find_every(from: from, params: params).tap do |collection|
-        collection.from = from
-        collection.original_params = params
-      end
+      all(from: from, params: params)
     end
 
     def self.find(*arguments)
-      options = Hash(arguments.second)
-      return super if options[:from].present?
+      scope = arguments.slice!(0)
+      return super(scope) if scope.is_a? Numeric
+      options = (arguments.slice!(0) || {}).with_indifferent_access
+      return super(scope, options) if options[:from].present?
       params = options.fetch(:params, {}).with_indifferent_access
-      raise ArgumentError, "you must specify the report_id" unless params.has_key? :report_id
-      for_report(params.delete(:report_id), params)
+      report_id = params.delete(:report_id)
+      for_report(report_id, params)
     end
 
     def suppress_signature(reason = nil)
-      raise ArgumentError, "you must specify the reason" unless reason.present?
-      Suppressions::Signature.create(alert_id: id, reason: reason)
+      suppress(Suppression::Signature, reason)
     end
 
     def suppress_region(reason = nil)
-      raise ArgumentError, "you must specify the reason" unless reason.present?
-      Suppressions::Region.create(alert_id: id, reason: reason)
+      suppress(Suppression::Region, reason)
     end
 
     def suppress_unique_identifier(reason = nil)
-      raise ArgumentError, "you must specify the reason" unless reason.present?
-      Suppressions::UniqueIdentifier.create(alert_id: id, reason: reason)
+      suppress(Suppression::UniqueIdentifier, reason)
+    end
+
+    private
+
+    # Overriden because alerts does not use ransack for searching
+    def self.filters(params)
+      { filter: params }
+    end
+
+    def suppress(klass, reason)
+      fail ArgumentError, "You must specify the reason.".freeze unless reason.present?
+      klass.create(alert_id: id, reason: reason)
     end
   end
 end

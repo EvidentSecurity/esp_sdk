@@ -1,28 +1,26 @@
 module ESP
   class CloudTrailEvent < ESP::Resource
-    def self.for_alert(alert_id, params = {})
-      raise ArgumentError, "expected a alert_id" unless alert_id.present?
-      from = "#{prefix}alerts/#{alert_id}/cloud_trail_events.json"
-      find_every(from: from, params: params).tap do |collection|
-        collection.from = from
-        collection.original_params = params
-      end
-    end
-
-    def self.find(*arguments)
-      options = Hash(arguments.second)
-      return super if options[:from].present?
-      params = options.fetch(:params, {}).with_indifferent_access
-      raise ArgumentError, "you must specify the alert_id" unless params.has_key? :alert_id
-      for_alert(params.delete(:alert_id), params)
-    end
-
     def save
-      fail ESP::NotImplemented
+      fail ESP::NotImplementedError
     end
 
     def destroy
-      fail ESP::NotImplemented
+      fail ESP::NotImplementedError
+    end
+
+    def self.for_alert(alert_id = nil)
+      fail ArgumentError, "You must supply an alert id." unless alert_id.present?
+      from = "#{prefix}alerts/#{alert_id}/cloud_trail_events.json"
+      find(:all, from: from)
+    end
+
+    def self.find(*arguments)
+      scope = arguments.slice!(0)
+      options = (arguments.slice!(0) || {}).with_indifferent_access
+      return super(scope, options) if options[:from].present?
+      params = options.fetch(:params, {}).with_indifferent_access
+      alert_id = params.delete(:alert_id)
+      for_alert(alert_id)
     end
   end
 end

@@ -3,15 +3,55 @@ module ESP
     self.site = ESP::SITE[ESP.env.to_sym]
     self.format = ActiveResource::Formats::JsonAPIFormat
     with_api_auth(ESP::Credentials.access_key_id, ESP::Credentials.secret_access_key)
-    headers["Content-Type"] = self.format.mime_type
+    headers["Content-Type"] = format.mime_type
 
     self.collection_parser = ActiveResource::PaginatedCollection
 
-    # Pass a json_api compliant hash to the api.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
+
+    # Pass a json api compliant hash to the api.
     def serializable_hash(*)
-      { 'data' => { 'type' => self.class.to_s.demodulize.underscore.pluralize,
-                    'attributes' => attributes.except('id', 'type', 'created_at', 'updated_at', 'links') } }.tap do |h|
-        h['data']['id'] = id unless new?
+      h = attributes.extract!('included')
+      h['data'] = { 'type' => self.class.to_s.demodulize.underscore.pluralize,
+                    'attributes' => attributes.except('id', 'type', 'created_at', 'updated_at', 'relationships') }
+      h['data']['id'] = id if id.present?
+      h
+    end
+
+    def self.find(*arguments)
+      scope = arguments.slice!(0)
+      options = (arguments.slice!(0) || {}).with_indifferent_access
+      if options[:params].present?
+        page = options[:params][:page] ? { page: options[:params].delete(:page) } : {}
+        options[:params].merge!(options[:params].delete(:filter)) if options[:params][:filter]
+        options[:params] = filters(options[:params]).merge!(page)
+      end
+      super(scope, options).tap do |object|
+        make_pageable object, options
+      end
+    end
+
+    def self.filters(params)
+      h = {}.tap do |filters|
+        params.each do |attr, value|
+          if value.is_a? Enumerable
+            filters["#{attr.sub(/_in$/, '')}_in"] = value
+          else
+            filters["#{attr.sub(/_eq$/, '')}_eq"] = value
+          end
+        end
+      end
+      { filter: h }
+    end
+
+    def self.make_pageable(object, options)
+      return object unless object.is_a? ActiveResource::PaginatedCollection
+      # Need to set from so paginated collection can use it for page calls.
+      object.tap do |collection|
+        collection.from = options['from']
+        collection.original_params = options['params']
       end
     end
   end

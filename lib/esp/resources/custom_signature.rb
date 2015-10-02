@@ -1,55 +1,54 @@
 module ESP
   class CustomSignature < ESP::Resource
+    belongs_to :service, class_name: 'ESP::Service'
+    belongs_to :organization, class_name: 'ESP::Organization'
+
+    def self.run_sanity_test!(params = {})
+      result = run_sanity_test(params)
+      return result if result.is_a?(ActiveResource::Collection)
+      result.message = result.errors.full_messages.join(' ')
+      fail(ActiveResource::ResourceInvalid.new(result)) # rubocop:disable Style/RaiseArgs
+    end
+
     def self.run_sanity_test(params = {})
-      submit_and_load(ESP::Alert, new(params))
+      params = params.with_indifferent_access
+      params[:regions] = Array(params[:regions])
+      new(params).run action: 'run_sanity_test'
     end
 
-    def self.run_raw_sanity_test(params = {})
-      submit_and_load(ESP::RawAlert, new(params))
+    def run!(params = {})
+      result = run(params)
+      return result if result.is_a?(ActiveResource::Collection)
+      result.message = result.errors.full_messages.join(' ')
+      fail(ActiveResource::ResourceInvalid.new(result)) # rubocop:disable Style/RaiseArgs
     end
 
-    def run(external_account_id = nil, regions = [])
-      attributes['external_account_id'] ||= external_account_id
-      attributes['regions'] ||= Array(regions)
-      submit_and_load(ESP::Alert)
-    end
+    def run(params = {})
+      params = params.with_indifferent_access
 
-    def run_raw(external_account_id = nil, regions = [])
-      attributes['external_account_id'] ||= external_account_id
-      attributes['regions'] ||= Array(regions)
-      submit_and_load(ESP::RawAlert)
+      attributes['external_account_id'] ||= params[:external_account_id]
+      attributes['regions'] ||= Array(params[:regions])
+
+      fail ArgumentError, "You must supply an external_account_id." unless external_account_id.present?
+
+      response = connection.post endpoint(params[:action]), to_json
+      ESP::Alert.send(:instantiate_collection, self.class.format.decode(response.body))
+    rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid => error
+      self.class.new.tap { |signature| signature.load_remote_errors(error, true) }
     end
 
     private
 
-    def submit_and_load(klass)
-      original_prefix = self.class.prefix
-      self.class.prefix += "external_account/:external_account_id/"
-      prefix_options[:external_account_id] = external_account_id
-      response = post(:run_existing, {}, body = to_json)
-      self.class.parse_response(response, klass)
-    rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid => error
-      self.class.new.tap { |signature| signature.load_remote_errors(error, true) }
-    ensure
-      self.class.prefix = original_prefix
-    end
-
-    def self.submit_and_load(klass, signature)
-      original_prefix = self.prefix
-      self.prefix += "external_account/:external_account_id/"
-      response = post(:run_sanity_test, { external_account_id: signature.external_account_id }, body = signature.to_json)
-      parse_response(response, klass)
-    rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid => error
-      new.tap { |signature| signature.load_remote_errors(error, true) }
-    ensure
-      self.prefix = original_prefix
-    end
-
-    def self.parse_response(response, klass)
-      ActiveResource::Collection.new(format.decode(response.body)).tap do |parser|
-        parser.resource_class = klass
-        parser.original_params = {}
-      end.collect! { |record| klass.new(record, true) }
+    def endpoint(action)
+      action ||= 'run_existing'.freeze
+      case action
+      when 'run_existing'.freeze
+        "#{self.class.prefix}external_account/#{external_account_id}/custom_signatures/#{id}/#{action}.json"
+      when 'run_sanity_test'
+        "#{self.class.prefix}external_account/#{external_account_id}/custom_signatures/#{action}.json"
+      else
+        fail 'Invalid action'
+      end
     end
   end
 end
