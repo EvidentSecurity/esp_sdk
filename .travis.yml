@@ -1,11 +1,15 @@
+sudo: false
+cache: bundler
 language: ruby
 rvm:
   - 2.0.0
-  - 2.1.1
-  - 2.2.1
-cache: bundler
+  - 2.1
+  - 2.2
 script:
   - bundle exec rake test
+  - bundle exec rake coveralls:push
+  - bundle exec rubocop
+
 addons:
   code_climate:
     repo_token: 73b22e855ca36fc2ab337552731c44437923bdf96780beb01c04c0fe2775f7a1

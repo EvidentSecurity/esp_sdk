@@ -3,27 +3,27 @@ module ESP
     belongs_to :service, class_name: 'ESP::Service'
     belongs_to :organization, class_name: 'ESP::Organization'
 
-    def self.run_sanity_test!(params = {})
+    def self.run_sanity_test!(params = {}) # rubocop:disable Style/OptionHash
       result = run_sanity_test(params)
       return result if result.is_a?(ActiveResource::Collection)
       result.message = result.errors.full_messages.join(' ')
       fail(ActiveResource::ResourceInvalid.new(result)) # rubocop:disable Style/RaiseArgs
     end
 
-    def self.run_sanity_test(params = {})
+    def self.run_sanity_test(params = {}) # rubocop:disable Style/OptionHash
       params = params.with_indifferent_access
       params[:regions] = Array(params[:regions])
       new(params).run action: 'run_sanity_test'
     end
 
-    def run!(params = {})
+    def run!(params = {}) # rubocop:disable Style/OptionHash
       result = run(params)
       return result if result.is_a?(ActiveResource::Collection)
       result.message = result.errors.full_messages.join(' ')
       fail(ActiveResource::ResourceInvalid.new(result)) # rubocop:disable Style/RaiseArgs
     end
 
-    def run(params = {})
+    def run(params = {}) # rubocop:disable Style/OptionHash
       params = params.with_indifferent_access
 
       attributes['external_account_id'] ||= params[:external_account_id]

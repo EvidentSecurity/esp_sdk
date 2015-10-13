@@ -12,7 +12,7 @@ module ESP
       fail ESP::NotImplementedError
     end
 
-    def alerts(params = {})
+    def alerts(params = {}) # rubocop:disable Style/OptionHash
       ESP::Alert.for_report(id, params)
     end
 

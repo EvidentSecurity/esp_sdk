@@ -2,14 +2,14 @@ module ESP
   class Signature < ESP::Resource
     belongs_to :service, class_name: 'ESP::Service'
 
-    def self.run!(params = {})
+    def self.run!(params = {}) # rubocop:disable Style/OptionHash
       result = run(params)
       return result if result.is_a?(ActiveResource::Collection)
       result.message = result.errors.full_messages.join(' ')
       fail(ActiveResource::ResourceInvalid.new(result)) # rubocop:disable Style/RaiseArgs
     end
 
-    def self.run(params = {})
+    def self.run(params = {}) # rubocop:disable Style/OptionHash
       params = params.with_indifferent_access
       params[:regions] = Array(params[:regions])
 
