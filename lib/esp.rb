@@ -1,7 +1,38 @@
 module ESP
+  def self.access_key_id=(access_key_id)
+    @access_key_id = access_key_id
+    ESP::Resource.hmac_access_id = access_key_id
+  end
+
+  def self.access_key_id
+    @access_key_id || ENV['ESP_ACCESS_KEY_ID']
+  end
+
+  def self.secret_access_key=(secret_access_key)
+    @secret_access_key = secret_access_key
+    ESP::Resource.hmac_secret_key = secret_access_key
+  end
+
+  def self.secret_access_key
+    @secret_access_key || ENV['ESP_SECRET_ACCESS_KEY']
+  end
+
   SITE = { development: "http://localhost:3000/api/v2".freeze,
            test: "http://localhost:3000/api/v2".freeze,
            production: "http://esp.evident.io/api/v2".freeze }.freeze
+
+  def self.site=(site)
+    @site = site
+    ESP::Resource.site = site
+  end
+
+  def self.site
+    @site || SITE[ESP.env.to_sym]
+  end
+
+  def self.configure
+    yield self
+  end
 
   # Default environment is production
   def self.env
