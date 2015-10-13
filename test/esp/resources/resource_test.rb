@@ -15,14 +15,17 @@ module ESP
         end
 
         should 'set the HMAC needed Authorization header' do
-          ESP::Credentials.access_key_id ||= 'access_key_id'
-          ESP::Credentials.secret_access_key ||= 'secret_access_key'
+          ESP::Credentials.access_key_id ||= ApiAuth.generate_secret_key
+          ESP::Credentials.secret_access_key ||= ApiAuth.generate_secret_key
+          ESP::Team.hmac_access_id = ESP::Credentials.access_key_id
+          ESP::Team.hmac_secret_key = ESP::Credentials.secret_access_key
           stub_request(:get, %r{teams/3.json*}).to_return(body: json(:team))
 
           ESP::Team.find(3)
 
           assert_requested(:get, %r{teams/3.json*}) do |req|
-            assert_match(/APIAuth #{ESP::Credentials.access_key_id}/, req.headers['Authorization'])
+            # Remove non word chars to prevent regex matching errors.
+            assert_match(/APIAuth#{ESP::Credentials.access_key_id.gsub(/\W/, '')}/, req.headers['Authorization'].gsub(/\W/, ''))
           end
         end
 

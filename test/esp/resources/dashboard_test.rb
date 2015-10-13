@@ -52,10 +52,11 @@ module ESP
         should 'call the api passing the time param and return an array of dashboard objects' do
           stub_request(:get, %r{dashboard/timewarp.json*}).to_return(body: json_list(:dashboard, 2))
 
-          dashboard = ESP::Dashboard.timewarp(2.hours.ago)
+          start_time = 2.hours.ago
+          dashboard = ESP::Dashboard.timewarp(start_time)
 
           assert_requested(:get, %r{dashboard/timewarp.json*}) do |req|
-            assert_equal "filter[time]=#{2.hours.ago.to_i}", URI.unescape(req.uri.query)
+            assert_equal "filter[time]=#{start_time.to_i}", URI.unescape(req.uri.query)
           end
           assert_equal ESP::Dashboard, dashboard.resource_class
         end
