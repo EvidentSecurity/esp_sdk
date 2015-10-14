@@ -56,15 +56,15 @@ module ESP
           custom_signature = build(:custom_signature, external_account_id: 3)
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
-          response = mock(body: error_response)
-          error.expects(:response).returns(response)
+          response = mock(body: error_response, code: '400')
+          error.stubs(:response).returns(response)
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
           stub_request(:post, %r{external_account/#{custom_signature.external_account_id}/custom_signatures/run_sanity_test.json*}).to_return(body: json_list(:alert, 2))
 
           error = assert_raises ActiveResource::ResourceInvalid do
             ESP::CustomSignature.run_sanity_test!(external_account_id: 3, regions: 'param2', language: custom_signature.language, signature: custom_signature.signature)
           end
-          assert_equal "Failed.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
+          assert_equal "Failed.  Response code = 400.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
         end
       end
 
@@ -99,8 +99,8 @@ module ESP
           custom_signature = build(:custom_signature, external_account_id: 3)
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
-          response = mock(body: error_response)
-          error.expects(:response).returns(response)
+          response = mock(body: error_response, code: '400')
+          error.stubs(:response).returns(response)
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
           stub_request(:post, %r{external_account/#{custom_signature.external_account_id}/custom_signatures/run_sanity_test.json*}).to_return(body: json_list(:alert, 2))
 
@@ -140,15 +140,15 @@ module ESP
           custom_signature = build(:custom_signature, external_account_id: 3)
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
-          response = mock(body: error_response)
-          error.expects(:response).returns(response)
+          response = mock(body: error_response, code: '400')
+          error.stubs(:response).returns(response)
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
           stub_request(:post, %r{external_account/#{custom_signature.external_account_id}/custom_signatures/#{custom_signature.id}/run_existing.json*}).to_return(body: json_list(:alert, 2))
 
           error = assert_raises ActiveResource::ResourceInvalid do
             custom_signature.run!(regions: 'param2')
           end
-          assert_equal "Failed.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
+          assert_equal "Failed.  Response code = 400.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
         end
       end
 
@@ -181,8 +181,8 @@ module ESP
           custom_signature = build(:custom_signature, external_account_id: 3)
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
-          response = mock(body: error_response)
-          error.expects(:response).returns(response)
+          response = mock(body: error_response, code: '400')
+          error.stubs(:response).returns(response)
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
           stub_request(:post, %r{external_account/#{custom_signature.external_account_id}/custom_signatures/#{custom_signature.id}/run_existing.json*}).to_return(body: json_list(:alert, 2))
 

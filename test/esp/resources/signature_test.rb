@@ -39,8 +39,8 @@ module ESP
         should 'not throw an error if an error is returned' do
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
-          response = mock(body: error_response)
-          error.expects(:response).returns(response)
+          response = mock(body: error_response, code: '400')
+          error.stubs(:response).returns(response)
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
 
           assert_nothing_raised do
@@ -75,15 +75,15 @@ module ESP
         should 'throw an error if an error is returned' do
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
-          response = mock(body: error_response)
-          error.expects(:response).returns(response)
+          response = mock(body: error_response, code: '400')
+          error.stubs(:response).returns(response)
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
 
           error = assert_raises ActiveResource::ResourceInvalid do
             result = ESP::Signature.run!(external_account_id: 3, signature_name: 'param1', regions: 'param2')
             assert_equal JSON.parse(error_response)['errors'].first['title'], result.errors.full_messages.first
           end
-          assert_equal "Failed.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
+          assert_equal "Failed.  Response code = 400.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
         end
       end
 

@@ -23,6 +23,7 @@ module ESP
       end
     rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid, ActiveResource::UnauthorizedAccess => error
       load_remote_errors(error, true)
+      self.code = error.response.code
       false
     end
   end

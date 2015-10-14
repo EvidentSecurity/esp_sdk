@@ -10,10 +10,10 @@ module ESP
       fail ESP::NotImplementedError
     end
 
-    def self.for_report(report_id = nil, params = {}) # rubocop:disable Style/OptionHash
+    def self.for_report(report_id = nil, arguments = {})
       fail ArgumentError, "You must supply a report id." unless report_id.present?
       from = "#{prefix}reports/#{report_id}/alerts.json"
-      all(from: from, params: params)
+      all(from: from, params: arguments)
     end
 
     def self.find(*arguments)

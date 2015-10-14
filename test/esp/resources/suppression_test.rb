@@ -56,8 +56,8 @@ module ESP
           s = build(:suppression)
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
-          response = mock(body: error_response)
-          error.expects(:response).returns(response)
+          response = mock(body: error_response, code: '400')
+          error.stubs(:response).returns(response)
           s.expects(:patch).raises(error)
 
           assert_nothing_raised do
@@ -73,14 +73,14 @@ module ESP
           s = build(:suppression)
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
-          response = mock(body: error_response)
-          error.expects(:response).returns(response)
+          response = mock(body: error_response, code: '400')
+          error.stubs(:response).returns(response)
           s.expects(:patch).raises(error)
 
           error = assert_raises ActiveResource::ResourceInvalid do
             s.deactivate!
           end
-          assert_equal "Failed.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
+          assert_equal "Failed.  Response code = 400.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
         end
       end
 

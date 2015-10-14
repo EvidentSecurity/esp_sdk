@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class ESP::Dashboard - ESPSDK</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/esp/resources/dashboard.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  
+</nav>
+
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-find">::find</a>
+    
+    <li ><a href="#method-c-recent">::recent</a>
+    
+    <li ><a href="#method-c-timewarp">::timewarp</a>
+    
+    <li ><a href="#method-i-destroy">#destroy</a>
+    
+    <li ><a href="#method-i-save">#save</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../README_md.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../ActiveResource.html">ActiveResource</a>
+  
+    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
+  
+    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
+  
+    <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
+  
+    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
+  
+    <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
+  
+    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
+  
+    <li><a href="../ESP.html">ESP</a>
+  
+    <li><a href="../ESP/Alert.html">ESP::Alert</a>
+  
+    <li><a href="../ESP/CloudTrailEvent.html">ESP::CloudTrailEvent</a>
+  
+    <li><a href="../ESP/ContactRequest.html">ESP::ContactRequest</a>
+  
+    <li><a href="../ESP/CustomSignature.html">ESP::CustomSignature</a>
+  
+    <li><a href="../ESP/Dashboard.html">ESP::Dashboard</a>
+  
+    <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
+  
+    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
+  
+    <li><a href="../ESP/Organization.html">ESP::Organization</a>
+  
+    <li><a href="../ESP/Report.html">ESP::Report</a>
+  
+    <li><a href="../ESP/Resource.html">ESP::Resource</a>
+  
+    <li><a href="../ESP/Service.html">ESP::Service</a>
+  
+    <li><a href="../ESP/Signature.html">ESP::Signature</a>
+  
+    <li><a href="../ESP/Stat.html">ESP::Stat</a>
+  
+    <li><a href="../ESP/SubOrganization.html">ESP::SubOrganization</a>
+  
+    <li><a href="../ESP/Suppression.html">ESP::Suppression</a>
+  
+    <li><a href="../ESP/Suppression/Region.html">ESP::Suppression::Region</a>
+  
+    <li><a href="../ESP/Suppression/Signature.html">ESP::Suppression::Signature</a>
+  
+    <li><a href="../ESP/Suppression/UniqueIdentifier.html">ESP::Suppression::UniqueIdentifier</a>
+  
+    <li><a href="../ESP/Team.html">ESP::Team</a>
+  
+    <li><a href="../ESP/User.html">ESP::User</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class ESP::Dashboard</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-find" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find</span><span
+            class="method-args">(*)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span>)
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>, <span class="ruby-string">&#39;Regular ARELlike methods are disabled.  Use either the .recent or .timewarp method.&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find-method -->
+
+    
+      <div id="method-c-recent" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">recent</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="recent-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recent</span>
+  <span class="ruby-comment"># call find_every directly since find is overriden/not implemented</span>
+  <span class="ruby-identifier">find_every</span> <span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{prefix}dashboard/recent.#{format.extension}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- recent-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- recent-method -->
+
+    
+      <div id="method-c-timewarp" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">timewarp</span><span
+            class="method-args">(start_of_window = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="timewarp-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">timewarp</span>(<span class="ruby-identifier">start_of_window</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply a start time.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">start_of_window</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">start_of_window</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Time</span>)
+  <span class="ruby-comment"># call find_every directly since find is overriden/not implemented</span>
+  <span class="ruby-identifier">find_every</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{prefix}dashboard/timewarp.#{format.extension}&quot;</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">filter</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">time</span><span class="ruby-operator">:</span> <span class="ruby-identifier">start_of_window</span>.<span class="ruby-identifier">to_i</span> } })
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- timewarp-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- timewarp-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- destroy-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destroy-method -->
+
+    
+      <div id="method-i-save" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">save</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="save-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- save-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- save-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

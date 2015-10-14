@@ -110,8 +110,8 @@ module ESP
           stub_request(:post, %r{teams/3/report.json*}).to_return(body: json(:report))
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
-          response = mock(body: error_response)
-          error.expects(:response).returns(response)
+          response = mock(body: error_response, code: '400')
+          error.stubs(:response).returns(response)
           ESP::Report.connection.expects(:post).raises(error)
 
           assert_nothing_raised do
@@ -142,14 +142,14 @@ module ESP
           stub_request(:post, %r{teams/3/report.json*}).to_return(body: json(:report))
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
-          response = mock(body: error_response)
-          error.expects(:response).returns(response)
+          response = mock(body: error_response, code: '400')
+          error.stubs(:response).returns(response)
           ESP::Report.connection.expects(:post).raises(error)
 
           error = assert_raises ActiveResource::ResourceInvalid do
             ESP::Report.create_for_team!(3)
           end
-          assert_equal "Failed.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
+          assert_equal "Failed.  Response code = 400.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
         end
       end
 

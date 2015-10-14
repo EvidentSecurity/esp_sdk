@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class ActiveResource::PaginatedCollection - ESPSDK</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/esp/extensions/active_resource/paginated_collection.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveResource::Collection
+  
+</nav>
+
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-current_page_number">#current_page_number</a>
+    
+    <li ><a href="#method-i-first_page">#first_page</a>
+    
+    <li ><a href="#method-i-first_page-21">#first_page!</a>
+    
+    <li ><a href="#method-i-last_page">#last_page</a>
+    
+    <li ><a href="#method-i-last_page-21">#last_page!</a>
+    
+    <li ><a href="#method-i-last_page-3F">#last_page?</a>
+    
+    <li ><a href="#method-i-last_page_number">#last_page_number</a>
+    
+    <li ><a href="#method-i-next_page">#next_page</a>
+    
+    <li ><a href="#method-i-next_page-21">#next_page!</a>
+    
+    <li ><a href="#method-i-next_page-3F">#next_page?</a>
+    
+    <li ><a href="#method-i-next_page_number">#next_page_number</a>
+    
+    <li ><a href="#method-i-page">#page</a>
+    
+    <li ><a href="#method-i-page-21">#page!</a>
+    
+    <li ><a href="#method-i-parse_pagination_links">#parse_pagination_links</a>
+    
+    <li ><a href="#method-i-previous_page">#previous_page</a>
+    
+    <li ><a href="#method-i-previous_page-21">#previous_page!</a>
+    
+    <li ><a href="#method-i-previous_page-3F">#previous_page?</a>
+    
+    <li ><a href="#method-i-previous_page_number">#previous_page_number</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../README_md.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../ActiveResource.html">ActiveResource</a>
+  
+    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
+  
+    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
+  
+    <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
+  
+    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
+  
+    <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
+  
+    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
+  
+    <li><a href="../ESP.html">ESP</a>
+  
+    <li><a href="../ESP/Alert.html">ESP::Alert</a>
+  
+    <li><a href="../ESP/CloudTrailEvent.html">ESP::CloudTrailEvent</a>
+  
+    <li><a href="../ESP/ContactRequest.html">ESP::ContactRequest</a>
+  
+    <li><a href="../ESP/CustomSignature.html">ESP::CustomSignature</a>
+  
+    <li><a href="../ESP/Dashboard.html">ESP::Dashboard</a>
+  
+    <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
+  
+    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
+  
+    <li><a href="../ESP/Organization.html">ESP::Organization</a>
+  
+    <li><a href="../ESP/Report.html">ESP::Report</a>
+  
+    <li><a href="../ESP/Resource.html">ESP::Resource</a>
+  
+    <li><a href="../ESP/Service.html">ESP::Service</a>
+  
+    <li><a href="../ESP/Signature.html">ESP::Signature</a>
+  
+    <li><a href="../ESP/Stat.html">ESP::Stat</a>
+  
+    <li><a href="../ESP/SubOrganization.html">ESP::SubOrganization</a>
+  
+    <li><a href="../ESP/Suppression.html">ESP::Suppression</a>
+  
+    <li><a href="../ESP/Suppression/Region.html">ESP::Suppression::Region</a>
+  
+    <li><a href="../ESP/Suppression/Signature.html">ESP::Suppression::Signature</a>
+  
+    <li><a href="../ESP/Suppression/UniqueIdentifier.html">ESP::Suppression::UniqueIdentifier</a>
+  
+    <li><a href="../ESP/Team.html">ESP::Team</a>
+  
+    <li><a href="../ESP/User.html">ESP::User</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class ActiveResource::PaginatedCollection</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-from" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">from</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-last_page_params" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">last_page_params</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-next_page_params" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">next_page_params</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-previous_page_params" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">previous_page_params</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(elements = [])</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">elements</span> = [])
+  <span class="ruby-comment"># If a collection is sent without the pagination links, then elements will just be an array</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Hash</span>
+    <span class="ruby-keyword">super</span>(<span class="ruby-identifier">elements</span>[<span class="ruby-string">&#39;data&#39;</span>])
+    <span class="ruby-identifier">parse_pagination_links</span>(<span class="ruby-identifier">elements</span>[<span class="ruby-string">&#39;links&#39;</span>])
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">super</span>(<span class="ruby-identifier">elements</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-current_page_number" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">current_page_number</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="current_page_number-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">current_page_number</span>
+  (<span class="ruby-identifier">previous_page_number</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>).<span class="ruby-identifier">to_s</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- current_page_number-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- current_page_number-method -->
+
+    
+      <div id="method-i-first_page" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">first_page</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="first_page-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">first_page</span>
+  <span class="ruby-identifier">previous_page?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">resource_class</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-identifier">from</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">page</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">number</span><span class="ruby-operator">:</span> <span class="ruby-value">1</span> } }) <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- first_page-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- first_page-method -->
+
+    
+      <div id="method-i-first_page-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">first_page!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="first_page-21-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">first_page!</span>
+  <span class="ruby-identifier">first_page</span>.<span class="ruby-identifier">tap</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span> <span class="ruby-identifier">update_self</span>(<span class="ruby-identifier">page</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- first_page-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- first_page-21-method -->
+
+    
+      <div id="method-i-last_page" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">last_page</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="last_page-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">last_page</span>
+  <span class="ruby-operator">!</span><span class="ruby-identifier">last_page?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">resource_class</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-identifier">from</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> <span class="ruby-identifier">last_page_params</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- last_page-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- last_page-method -->
+
+    
+      <div id="method-i-last_page-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">last_page!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="last_page-21-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">last_page!</span>
+  <span class="ruby-identifier">last_page</span>.<span class="ruby-identifier">tap</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span> <span class="ruby-identifier">update_self</span>(<span class="ruby-identifier">page</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- last_page-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- last_page-21-method -->
+
+    
+      <div id="method-i-last_page-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">last_page?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="last_page-3F-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 94</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">last_page?</span>
+  <span class="ruby-identifier">last_page_number</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- last_page-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- last_page-3F-method -->
+
+    
+      <div id="method-i-last_page_number" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">last_page_number</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="last_page_number-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 82</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">last_page_number</span>
+  <span class="ruby-constant">Hash</span>(<span class="ruby-identifier">last_page_params</span>).<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;page&#39;</span>, {}).<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;number&#39;</span>, <span class="ruby-keyword">nil</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- last_page_number-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- last_page_number-method -->
+
+    
+      <div id="method-i-next_page" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">next_page</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="next_page-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">next_page</span>
+  <span class="ruby-identifier">next_page?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">resource_class</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-identifier">from</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> <span class="ruby-identifier">next_page_params</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- next_page-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- next_page-method -->
+
+    
+      <div id="method-i-next_page-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">next_page!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="next_page-21-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">next_page!</span>
+  <span class="ruby-identifier">next_page</span>.<span class="ruby-identifier">tap</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span> <span class="ruby-identifier">update_self</span>(<span class="ruby-identifier">page</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- next_page-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- next_page-21-method -->
+
+    
+      <div id="method-i-next_page-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">next_page?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="next_page-3F-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">next_page?</span>
+  <span class="ruby-operator">!</span><span class="ruby-identifier">next_page_number</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- next_page-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- next_page-3F-method -->
+
+    
+      <div id="method-i-next_page_number" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">next_page_number</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="next_page_number-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">next_page_number</span>
+  <span class="ruby-constant">Hash</span>(<span class="ruby-identifier">next_page_params</span>).<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;page&#39;</span>, {}).<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;number&#39;</span>, <span class="ruby-keyword">nil</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- next_page_number-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- next_page_number-method -->
+
+    
+      <div id="method-i-page" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">page</span><span
+            class="method-args">(page_number = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="page-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">page</span>(<span class="ruby-identifier">page_number</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply a page number.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">page_number</span>.<span class="ruby-identifier">present?</span>
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Page number cannot be less than 1.&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">page_number</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Page number cannot be greater than the last page number.&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">page_number</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">last_page_number</span>.<span class="ruby-identifier">to_i</span>
+  <span class="ruby-identifier">page_number</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">current_page_number</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">resource_class</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-identifier">from</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">page</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">number</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page_number</span>, <span class="ruby-identifier">size</span><span class="ruby-operator">:</span> (<span class="ruby-identifier">next_page_params</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">previous_page_params</span>)[<span class="ruby-string">&#39;page&#39;</span>][<span class="ruby-string">&#39;size&#39;</span>] } }) <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- page-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- page-method -->
+
+    
+      <div id="method-i-page-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">page!</span><span
+            class="method-args">(page_number)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="page-21-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">page!</span>(<span class="ruby-identifier">page_number</span>)
+  <span class="ruby-identifier">page</span>(<span class="ruby-identifier">page_number</span>).<span class="ruby-identifier">tap</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span> <span class="ruby-identifier">update_self</span>(<span class="ruby-identifier">page</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- page-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- page-21-method -->
+
+    
+      <div id="method-i-parse_pagination_links" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse_pagination_links</span><span
+            class="method-args">(links)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parse_pagination_links-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_pagination_links</span>(<span class="ruby-identifier">links</span>)
+  <span class="ruby-ivar">@next_page_params</span> = <span class="ruby-identifier">links</span>[<span class="ruby-string">&#39;next&#39;</span>] <span class="ruby-operator">?</span> <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Utils</span>.<span class="ruby-identifier">parse_nested_query</span>(<span class="ruby-constant">CGI</span>.<span class="ruby-identifier">unescape</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">links</span>[<span class="ruby-string">&#39;next&#39;</span>]).<span class="ruby-identifier">query</span>)) <span class="ruby-operator">:</span> {}
+  <span class="ruby-ivar">@previous_page_params</span> = <span class="ruby-identifier">links</span>[<span class="ruby-string">&#39;prev&#39;</span>] <span class="ruby-operator">?</span> <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Utils</span>.<span class="ruby-identifier">parse_nested_query</span>(<span class="ruby-constant">CGI</span>.<span class="ruby-identifier">unescape</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">links</span>[<span class="ruby-string">&#39;prev&#39;</span>]).<span class="ruby-identifier">query</span>)) <span class="ruby-operator">:</span> {}
+  <span class="ruby-ivar">@last_page_params</span> = <span class="ruby-identifier">links</span>[<span class="ruby-string">&#39;last&#39;</span>] <span class="ruby-operator">?</span> <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Utils</span>.<span class="ruby-identifier">parse_nested_query</span>(<span class="ruby-constant">CGI</span>.<span class="ruby-identifier">unescape</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">links</span>[<span class="ruby-string">&#39;last&#39;</span>]).<span class="ruby-identifier">query</span>)) <span class="ruby-operator">:</span> {}
+  <span class="ruby-comment"># The last page may not contain the full per page number of records, and will therefore come back with an incorrect size since the</span>
+  <span class="ruby-comment"># size is based on the collection size.  This will mess up further calls to previous_page or first page so remove the size so it will bring back the default size.</span>
+  <span class="ruby-identifier">previous_page_params</span>[<span class="ruby-string">&#39;page&#39;</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-string">&#39;size&#39;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">last_page?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">previous_page_params</span>[<span class="ruby-string">&#39;page&#39;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- parse_pagination_links-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- parse_pagination_links-method -->
+
+    
+      <div id="method-i-previous_page" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">previous_page</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="previous_page-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">previous_page</span>
+  <span class="ruby-identifier">previous_page?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">resource_class</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-identifier">from</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> <span class="ruby-identifier">previous_page_params</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- previous_page-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- previous_page-method -->
+
+    
+      <div id="method-i-previous_page-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">previous_page!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="previous_page-21-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">previous_page!</span>
+  <span class="ruby-identifier">previous_page</span>.<span class="ruby-identifier">tap</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span> <span class="ruby-identifier">update_self</span>(<span class="ruby-identifier">page</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- previous_page-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- previous_page-21-method -->
+
+    
+      <div id="method-i-previous_page-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">previous_page?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="previous_page-3F-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">previous_page?</span>
+  <span class="ruby-operator">!</span><span class="ruby-identifier">previous_page_number</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- previous_page-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- previous_page-3F-method -->
+
+    
+      <div id="method-i-previous_page_number" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">previous_page_number</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="previous_page_number-source">
+            <pre><span class="ruby-comment"># File lib/esp/extensions/active_resource/paginated_collection.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">previous_page_number</span>
+  <span class="ruby-constant">Hash</span>(<span class="ruby-identifier">previous_page_params</span>).<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;page&#39;</span>, {}).<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;number&#39;</span>, <span class="ruby-keyword">nil</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- previous_page_number-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- previous_page_number-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

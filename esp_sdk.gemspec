@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock'
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'factory_girl'
+  spec.add_development_dependency 'rdoc'
 
   spec.add_dependency 'activeresource', '~> 4.0.0'
   spec.add_dependency 'api-auth'

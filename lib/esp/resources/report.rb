@@ -12,8 +12,8 @@ module ESP
       fail ESP::NotImplementedError
     end
 
-    def alerts(params = {}) # rubocop:disable Style/OptionHash
-      ESP::Alert.for_report(id, params)
+    def alerts(arguments = {})
+      ESP::Alert.for_report(id, arguments)
     end
 
     def stat
@@ -32,7 +32,10 @@ module ESP
       response = connection.post "#{prefix}teams/#{team_id}/report.json"
       new(format.decode(response.body), true)
     rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid => error
-      new.tap { |report| report.load_remote_errors(error, true) }
+      new.tap do |report|
+        report.load_remote_errors(error, true)
+        report.code = error.response.code
+      end
     end
   end
 end
