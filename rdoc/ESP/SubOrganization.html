@@ -61,13 +61,37 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
     
     
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
     
+    <li ><a href="#method-c-create">::create</a>
+    
+    <li ><a href="#method-c-find">::find</a>
+    
+    <li ><a href="#method-i-destroy">#destroy</a>
+    
+    <li ><a href="#method-i-external_accounts">#external_accounts</a>
+    
+    <li ><a href="#method-i-organization">#organization</a>
+    
+    <li ><a href="#method-i-reports">#reports</a>
+    
+    <li ><a href="#method-i-save">#save</a>
+    
+    <li ><a href="#method-i-teams">#teams</a>
+    
+  </ul>
+</nav>
+
   </div>
 
   <div id="project-metadata">
@@ -88,17 +112,9 @@
   
     <li><a href="../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../ESP.html">ESP</a>
   
@@ -114,13 +130,9 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
   
@@ -169,6 +181,298 @@
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-create" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            create(attributes={})
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Create a <a href="SubOrganization.html">SubOrganization</a>.</p>
+
+<h4 id="method-c-create-label-Valid+Attributes">Valid Attributes<span><a href="#method-c-create-label-Valid+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>name</code></p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/sub_organization.rb, line 33</span>
+    </pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
+      <div id="method-c-find" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            find(id)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Find a <a href="SubOrganization.html">SubOrganization</a> by id</p>
+          
+          
+
+          
+          <div class="method-source-code" id="find-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/sub_organization.rb, line 24</span>
+    </pre>
+          </div><!-- find-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Delete a <a href="SubOrganization.html">SubOrganization</a>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/sub_organization.rb, line 46</span>
+  </pre>
+          </div><!-- destroy-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destroy-method -->
+
+    
+      <div id="method-i-external_accounts" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">external_accounts</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The collection of <a
+href="SubOrganization.html#method-i-external_accounts">#external_accounts</a>
+that belong to the sub organization.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="external_accounts-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/sub_organization.rb, line 13</span>
+<span class="ruby-identifier">has_many</span> <span class="ruby-value">:external_accounts</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::ExternalAccount&#39;</span>
+</pre>
+          </div><!-- external_accounts-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- external_accounts-method -->
+
+    
+      <div id="method-i-organization" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">organization</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The organization this sub organization belongs to.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="organization-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/sub_organization.rb, line 5</span>
+<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:organization</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Organization&#39;</span>
+</pre>
+          </div><!-- organization-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- organization-method -->
+
+    
+      <div id="method-i-reports" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reports</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The collection of reports that belong to the sub organization.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reports-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/sub_organization.rb, line 17</span>
+<span class="ruby-identifier">has_many</span> <span class="ruby-value">:reports</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Report&#39;</span>
+</pre>
+          </div><!-- reports-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reports-method -->
+
+    
+      <div id="method-i-save" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            save
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            new(attributes={}).save
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Create and update a <a href="SubOrganization.html">SubOrganization</a>.</p>
+
+<h4 id="method-i-save-label-Valid+Attributes">Valid Attributes<span><a href="#method-i-save-label-Valid+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>name</code></p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="save-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/sub_organization.rb, line 44</span>
+    </pre>
+          </div><!-- save-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- save-method -->
+
+    
+      <div id="method-i-teams" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">teams</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The collection of teams that belong to the sub organization.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="teams-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/sub_organization.rb, line 9</span>
+<span class="ruby-identifier">has_many</span> <span class="ruby-value">:teams</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Team&#39;</span>
+</pre>
+          </div><!-- teams-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- teams-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->

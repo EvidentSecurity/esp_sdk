@@ -1,40 +1,63 @@
 module ESP
+  # Manually set the access_key_id you created from https://esp.evident.io/settings/api_keys.
+  #
+  # You can optionally set the `ESP_ACCESS_KEY_ID` environment variable.
   def self.access_key_id=(access_key_id)
     @access_key_id = access_key_id
     ESP::Resource.hmac_access_id = access_key_id
   end
 
+  # Reads the `ESP_ACCESS_KEY_ID` environment variable if ::access_key_id was not set manually.
   def self.access_key_id
     @access_key_id || ENV['ESP_ACCESS_KEY_ID']
   end
 
+  # Manually set the secret_access_key you created from https://esp.evident.io/settings/api_keys.
+  #
+  # You can optionally set the `ESP_SECRET_ACCESS_KEY` environment variable.
   def self.secret_access_key=(secret_access_key)
     @secret_access_key = secret_access_key
     ESP::Resource.hmac_secret_key = secret_access_key
   end
 
+  # Reads the `ESP_SECRET_ACCESS_KEY` environment variable if ::secret_access_key was not set manually.
   def self.secret_access_key
     @secret_access_key || ENV['ESP_SECRET_ACCESS_KEY']
   end
 
   SITE = { development: "http://localhost:3000/api/v2".freeze,
            test: "http://localhost:3000/api/v2".freeze,
-           production: "http://esp.evident.io/api/v2".freeze }.freeze
+           production: "http://esp.evident.io/api/v2".freeze }.freeze # :nodoc:
 
+  # Users of the Evident.io marketplace appliance application will need to set the site/url for their instance.
+  #
+  # ==== Attribute
+  #
+  # * +site+ - The url for the installed appliance instance.
   def self.site=(site)
     @site = site
     ESP::Resource.site = site
   end
 
+  # The site the SDK will hit.
   def self.site
     @site || SITE[ESP.env.to_sym]
   end
 
+  # For use in a Rails initializer to set the ::access_key_id, ::secret_access_key and ::site.
+  #
+  # ==== Example
+  #
+  #   ESP.configure do |config|
+  #     config.access_key_id = <your key>
+  #     config.secret_access_key = <your secret key>
+  #     config.site = <url to your appliance instance>
+  #   end
   def self.configure
     yield self
   end
 
-  # Default environment is production
+  # Default environment is production which will set ::site to "http://esp.evident.io/api/v2".
   def self.env
     @env ||= ActiveSupport::StringInquirer.new(ENV['ESP_ENV'] || ENV['RAILS_ENV'] || 'production')
   end

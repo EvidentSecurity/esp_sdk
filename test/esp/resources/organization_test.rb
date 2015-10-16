@@ -3,6 +3,24 @@ require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
 module ESP
   class OrganizationTest < ActiveSupport::TestCase
     context ESP::Organization do
+      context '#create' do
+        should 'not be implemented' do
+          organization = build(:organization)
+          assert_raises ESP::NotImplementedError do
+            organization.save
+          end
+        end
+      end
+
+      context '#destroy' do
+        should 'not be implemented' do
+          organization = build(:organization)
+          assert_raises ESP::NotImplementedError do
+            organization.destroy
+          end
+        end
+      end
+
       context '#teams' do
         should 'call the api' do
           organization = build(:organization)
@@ -142,26 +160,12 @@ module ESP
         end
 
         context '#CRUD' do
-          should 'be able to create, update and destroy' do
-            organization = ESP::Organization.new(name: 'bob')
-
-            assert_predicate organization, :new?
-
-            organization.save
-
-            refute_predicate organization, :new?
-
-            organization.name = 'jim'
-            organization.save
+          should 'be able to update' do
+            @organization.name = @organization.name
+            @organization.save
 
             assert_nothing_raised do
-              ESP::Organization.find(organization.id)
-            end
-
-            organization.destroy
-
-            assert_raises ActiveResource::ResourceInvalid do
-              ESP::Organization.find(organization.id)
+              ESP::Organization.find(@organization.id)
             end
           end
         end

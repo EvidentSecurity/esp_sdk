@@ -187,8 +187,8 @@ module ESP
           stub_request(:post, %r{external_account/#{custom_signature.external_account_id}/custom_signatures/#{custom_signature.id}/run_existing.json*}).to_return(body: json_list(:alert, 2))
 
           assert_nothing_raised do
-            result = custom_signature.run(regions: 'param2')
-            assert_equal JSON.parse(error_response)['errors'].first['title'], result.errors.full_messages.first
+            custom_signature.run(regions: 'param2')
+            assert_equal JSON.parse(error_response)['errors'].first['title'], custom_signature.errors.full_messages.first
           end
         end
       end
@@ -247,9 +247,9 @@ module ESP
           end
 
           should 'return errors' do
-            signature = @custom_signature.run(external_account_id: 999)
+            @custom_signature.run(external_account_id: 999)
 
-            assert_equal "Couldn't find ExternalAccount", signature.errors.full_messages.first
+            assert_equal "Couldn't find ExternalAccount", @custom_signature.errors.full_messages.first
           end
         end
 

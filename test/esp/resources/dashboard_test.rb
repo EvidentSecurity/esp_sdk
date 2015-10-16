@@ -48,20 +48,6 @@ module ESP
         end
       end
 
-      context '.timewarp' do
-        should 'call the api passing the time param and return an array of dashboard objects' do
-          stub_request(:get, %r{dashboard/timewarp.json*}).to_return(body: json_list(:dashboard, 2))
-
-          start_time = 2.hours.ago
-          dashboard = ESP::Dashboard.timewarp(start_time)
-
-          assert_requested(:get, %r{dashboard/timewarp.json*}) do |req|
-            assert_equal "filter[time]=#{start_time.to_i}", URI.unescape(req.uri.query)
-          end
-          assert_equal ESP::Dashboard, dashboard.resource_class
-        end
-      end
-
       context 'live calls' do
         setup do
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
@@ -75,21 +61,6 @@ module ESP
         context '.recent' do
           should 'return an array of contact_requests' do
             dashboards = ESP::Dashboard.recent
-
-            assert_equal ESP::Dashboard, dashboards.resource_class
-          end
-        end
-
-        context '.timewarp' do
-          should 'raise an error if start_of_window is not provided' do
-            error = assert_raises ArgumentError do
-              ESP::Dashboard.timewarp
-            end
-            assert_equal "You must supply a start time.", error.message
-          end
-
-          should 'return an array of contact_requests' do
-            dashboards = ESP::Dashboard.timewarp(2.hours.ago)
 
             assert_equal ESP::Dashboard, dashboards.resource_class
           end

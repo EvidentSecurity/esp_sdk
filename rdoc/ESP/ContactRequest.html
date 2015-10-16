@@ -61,13 +61,29 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
     
     
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
     
+    <li ><a href="#method-c-find">::find</a>
+    
+    <li ><a href="#method-i-create-28attributes">#create(attributes</a>
+    
+    <li ><a href="#method-i-destroy">#destroy</a>
+    
+    <li ><a href="#method-i-update">#update</a>
+    
+  </ul>
+</nav>
+
   </div>
 
   <div id="project-metadata">
@@ -88,17 +104,9 @@
   
     <li><a href="../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../ESP.html">ESP</a>
   
@@ -114,13 +122,9 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
   
@@ -169,6 +173,166 @@
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-find" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find</span><span
+            class="method-args">(*)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Not Implemented. You cannot search for <a
+href="ContactRequest.html">ContactRequest</a>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="find-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/contact_request.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span>)
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-create-28attributes" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create(attributes</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Create a contact request.</p>
+
+<h4 id="method-i-create-28attributes-label-Attributes">Attributes<span><a href="#method-i-create-28attributes-label-Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>user_id</code> - Required. The id of the user the request is for.</p>
+</li><li>
+<p><code>description</code> - Required. A description of the request.</p>
+</li><li>
+<p><code>title</code> - Required. The brief title/summary of the request.</p>
+</li><li>
+<p><code>request_type</code> - Required. Valid values are support, feature.</p>
+</li></ul>
+
+<h4 id="method-i-create-28attributes-label-Example">Example<span><a href="#method-i-create-28attributes-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<pre>contact request = ESP::ContactRequest.create(user_id: 5, request_type: &#39;feature&#39;, title: &#39;My great feature idea&#39;, description: &#39;This is my idea for a really useful feature...&#39;)</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="create-28attributes-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/contact_request.rb, line 31</span>
+  </pre>
+          </div><!-- create-28attributes-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-28attributes-method -->
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Not Implemented. You cannot destroy a <a
+href="ContactRequest.html">ContactRequest</a>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/contact_request.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- destroy-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destroy-method -->
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Not Implemented. You cannot update a <a
+href="ContactRequest.html">ContactRequest</a>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/contact_request.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->

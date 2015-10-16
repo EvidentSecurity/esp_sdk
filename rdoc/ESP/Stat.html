@@ -61,7 +61,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
@@ -106,17 +106,9 @@
   
     <li><a href="../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../ESP.html">ESP</a>
   
@@ -132,13 +124,9 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
   
@@ -204,13 +192,13 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot search for a <a href="Stat.html">Stat</a>.</p>
           
           
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 3</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 4</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span>)
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>, <span class="ruby-string">&#39;Regular ARELlike methods are disabled.  Use either the .for_report or .latest_for_teams method.&#39;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -237,13 +225,13 @@
 
         <div class="method-description">
           
-          
+          <p>Returns the stats for the given report</p>
           
           
 
           
           <div class="method-source-code" id="for_report-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 15</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_report</span>(<span class="ruby-identifier">report_id</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply a report id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">report_id</span>.<span class="ruby-identifier">present?</span>
   <span class="ruby-comment"># call find_one directly since find is overriden/not implemented</span>
@@ -272,13 +260,13 @@
 
         <div class="method-description">
           
-          
+          <p>Returns the most recent report for each of your teams</p>
           
           
 
           
           <div class="method-source-code" id="latest_for_teams-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 21</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">latest_for_teams</span>
   <span class="ruby-comment"># call find_every directly since find is overriden/not implemented</span>
   <span class="ruby-identifier">find_every</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-value">:latest_for_teams</span>)
@@ -312,13 +300,13 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot delete a <a href="Stat.html">Stat</a>.</p>
           
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 11</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -345,13 +333,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot create or update a <a
+href="Stat.html">Stat</a>.</p>
           
           
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 7</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>

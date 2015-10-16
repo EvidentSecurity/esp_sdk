@@ -61,7 +61,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
@@ -76,8 +76,6 @@
     <li ><a href="#method-c-find">::find</a>
     
     <li ><a href="#method-c-recent">::recent</a>
-    
-    <li ><a href="#method-c-timewarp">::timewarp</a>
     
     <li ><a href="#method-i-destroy">#destroy</a>
     
@@ -106,17 +104,9 @@
   
     <li><a href="../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../ESP.html">ESP</a>
   
@@ -132,13 +122,9 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
   
@@ -204,15 +190,18 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot search for <a
+href="Suppression/Region.html">Suppression::Region</a>.</p>
+
+<p>Regular ARELlike methods are disabled.</p>
           
           
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 3</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 6</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span>)
-  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>, <span class="ruby-string">&#39;Regular ARELlike methods are disabled.  Use either the .recent or .timewarp method.&#39;</span>
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>, <span class="ruby-string">&#39;Regular ARELlike methods are disabled.  Use either the .recent method.&#39;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- find-source -->
           
@@ -237,15 +226,22 @@
 
         <div class="method-description">
           
-          
+          <p>Returns a <a href="Dashboard.html">Dashboard</a> object with data from
+reports run in the last 2 hours</p>
+
+<h4 id="method-c-recent-label-Note">Note<span><a href="#method-c-recent-label-Note">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p>The dashboard is used internally for the dashboard page on esp.evident.io
+and is therefore not considered part of the public API and may change
+without notice.</p>
           
           
 
           
           <div class="method-source-code" id="recent-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 15</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recent</span>
-  <span class="ruby-comment"># call find_every directly since find is overriden/not implemented</span>
+  <span class="ruby-comment"># call find_every directly since find is overridden/not implemented</span>
   <span class="ruby-identifier">find_every</span> <span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{prefix}dashboard/recent.#{format.extension}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- recent-source -->
@@ -256,41 +252,6 @@
 
         
       </div><!-- recent-method -->
-
-    
-      <div id="method-c-timewarp" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">timewarp</span><span
-            class="method-args">(start_of_window = nil)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="timewarp-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 20</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">timewarp</span>(<span class="ruby-identifier">start_of_window</span> = <span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply a start time.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">start_of_window</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">start_of_window</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Time</span>)
-  <span class="ruby-comment"># call find_every directly since find is overriden/not implemented</span>
-  <span class="ruby-identifier">find_every</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{prefix}dashboard/timewarp.#{format.extension}&quot;</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">filter</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">time</span><span class="ruby-operator">:</span> <span class="ruby-identifier">start_of_window</span>.<span class="ruby-identifier">to_i</span> } })
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- timewarp-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- timewarp-method -->
 
     
     </section><!-- public-class-method-details -->
@@ -312,13 +273,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot destroy a <a
+href="Dashboard.html">Dashboard</a>.</p>
           
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 11</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -345,13 +307,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot create or update a <a
+href="Dashboard.html">Dashboard</a>.</p>
           
           
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 7</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>

@@ -61,7 +61,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="../Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
@@ -73,9 +73,13 @@
 
   <ul class="link-list">
     
+    <li ><a href="#method-c-create">::create</a>
+    
     <li ><a href="#method-c-find">::find</a>
     
     <li ><a href="#method-i-destroy">#destroy</a>
+    
+    <li ><a href="#method-i-save">#save</a>
     
     <li ><a href="#method-i-update">#update</a>
     
@@ -102,17 +106,9 @@
   
     <li><a href="../../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../../ESP.html">ESP</a>
   
@@ -128,13 +124,9 @@
   
     <li><a href="../../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../../ESP/Service.html">ESP::Service</a>
   
@@ -187,6 +179,51 @@
       <h3 class="section-header">Public Class Methods</h3>
 
     
+      <div id="method-c-create" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            create(alert_id: 5, reason: &#39;My very good reason for creating this suppression&#39;)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Create a suppression for a unique identifier.</p>
+
+<p>Pass an <code>alert_id</code>, the suppression will be created based on
+that alert.</p>
+
+<h4 id="method-c-create-label-Attributes">Attributes<span><a href="#method-c-create-label-Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>alert_id</code> - Required. The id for the alert you want to create a
+suppression for.</p>
+</li><li>
+<p><code>reason</code> - Required. The reason for creating the suppression.</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 36</span>
+      </pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
       <div id="method-c-find" class="method-detail ">
         
         <div class="method-heading">
@@ -200,13 +237,18 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot search for <a
+href="UniqueIdentifier.html">Suppression::UniqueIdentifier</a>.</p>
+
+<p>Regular ARELlike methods are disabled.  Use the <a
+href="../Suppression.html">ESP::Suppression</a> object to search
+suppressions.</p>
           
           
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 6</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span>)
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>, <span class="ruby-string">&#39;Regular ARELlike methods are disabled.  Use the ESP::Suppression object to search suppressions&#39;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -239,13 +281,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot destroy a <a
+href="UniqueIdentifier.html">Suppression::UniqueIdentifier</a>.</p>
           
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -257,6 +300,58 @@
 
         
       </div><!-- destroy-method -->
+
+    
+      <div id="method-i-save" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            save
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            new(alert_id: 5, reason: &#39;My very good reason for creating this suppression&#39;).save
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Create a suppression for a unique identifier.</p>
+
+<p>Set an <code>alert_id</code>, the suppression will be created based on that
+alert.</p>
+
+<h4 id="method-i-save-label-Attributes">Attributes<span><a href="#method-i-save-label-Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>alert_id</code> - Required. The id for the alert you want to create a
+suppression for.</p>
+</li><li>
+<p><code>reason</code> - Required. The reason for creating the suppression.</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="save-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 49</span>
+    </pre>
+          </div><!-- save-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- save-method -->
 
     
       <div id="method-i-update" class="method-detail ">
@@ -272,13 +367,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot update a <a
+href="UniqueIdentifier.html">Suppression::UniqueIdentifier</a>.</p>
           
           
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 10</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>

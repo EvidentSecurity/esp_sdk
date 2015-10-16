@@ -66,7 +66,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
@@ -77,6 +77,8 @@
   <h3 class="section-header">Methods</h3>
 
   <ul class="link-list">
+    
+    <li ><a href="#method-c-find">::find</a>
     
     <li ><a href="#method-i-deactivate">#deactivate</a>
     
@@ -109,17 +111,9 @@
   
     <li><a href="../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../ESP.html">ESP</a>
   
@@ -135,13 +129,9 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
   
@@ -190,6 +180,46 @@
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-find" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            find(id)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Find a Suppressoin by id</p>
+          
+          
+
+          
+          <div class="method-source-code" id="find-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 42</span>
+  </pre>
+          </div><!-- find-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
@@ -207,13 +237,15 @@
 
         <div class="method-description">
           
-          
+          <p>Deactivate the current suppression instance. The current object will be
+updated with the new status if successful. If not successful, populates its
+errors object.</p>
           
           
 
           
           <div class="method-source-code" id="deactivate-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 20</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">deactivate</span>
   <span class="ruby-identifier">patch</span>(<span class="ruby-value">:deactivate</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">response</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">load_attributes_from_response</span>(<span class="ruby-identifier">response</span>)
@@ -246,13 +278,15 @@
 
         <div class="method-description">
           
-          
+          <p>Deactivate the current suppression instance. The current object will be
+updated with the new status if successful. Throws an error if not
+successful.</p>
           
           
 
           
           <div class="method-source-code" id="deactivate-21-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">deactivate!</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">deactivate</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">message</span> = <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)
@@ -281,13 +315,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot destroy a <a
+href="Suppression.html">Suppression</a>.</p>
           
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 10</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -314,13 +349,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot create or update a <a
+href="Suppression.html">Suppression</a>.</p>
           
           
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 6</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>

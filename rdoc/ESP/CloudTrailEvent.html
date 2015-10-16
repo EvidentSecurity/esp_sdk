@@ -61,7 +61,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
@@ -72,8 +72,6 @@
   <h3 class="section-header">Methods</h3>
 
   <ul class="link-list">
-    
-    <li class="calls-super" ><a href="#method-c-find">::find</a>
     
     <li ><a href="#method-c-for_alert">::for_alert</a>
     
@@ -104,17 +102,9 @@
   
     <li><a href="../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../ESP.html">ESP</a>
   
@@ -130,13 +120,9 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
   
@@ -189,49 +175,6 @@
       <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="method-c-find" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">find</span><span
-            class="method-args">(*arguments)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-            <div class="method-calls-super">
-              Calls superclass method
-              <a href="Resource.html#method-c-find">ESP::Resource.find</a>
-            </div>
-          
-
-          
-          <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 17</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>)
-  <span class="ruby-identifier">scope</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>)
-  <span class="ruby-identifier">options</span> = (<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">with_indifferent_access</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">super</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">options</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:from</span>].<span class="ruby-identifier">present?</span>
-  <span class="ruby-identifier">params</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:params</span>, {}).<span class="ruby-identifier">with_indifferent_access</span>
-  <span class="ruby-identifier">alert_id</span> = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:alert_id</span>)
-  <span class="ruby-identifier">for_alert</span>(<span class="ruby-identifier">alert_id</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- find-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- find-method -->
-
-    
       <div id="method-c-for_alert" class="method-detail ">
         
         <div class="method-heading">
@@ -245,13 +188,24 @@
 
         <div class="method-description">
           
-          
+          <p>Returns a paginated collection of cloud trail events for the given alert_id
+Convenience method to use instead of ::find since an alert_id is required
+to return cloud trail events.</p>
+
+<h4 id="method-c-for_alert-label-Attributes">Attributes<span><a href="#method-c-for_alert-label-Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>alert_id</code> - The ID for the alert for wanted cloud trail events.</p>
+</li></ul>
+
+<h4 id="method-c-for_alert-label-Example">Example<span><a href="#method-c-for_alert-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<pre>alerts = ESP::CloudTrailEvent.for_alert(1194)</pre>
           
           
 
           
           <div class="method-source-code" id="for_alert-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 11</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_alert</span>(<span class="ruby-identifier">alert_id</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply an alert id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">alert_id</span>.<span class="ruby-identifier">present?</span>
   <span class="ruby-identifier">from</span> = <span class="ruby-node">&quot;#{prefix}alerts/#{alert_id}/cloud_trail_events.json&quot;</span>
@@ -286,13 +240,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot destroy a an <a
+href="CloudTrailEvent.html">CloudTrailEvent</a>.</p>
           
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 7</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -319,13 +274,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot create or update a <a
+href="CloudTrailEvent.html">CloudTrailEvent</a>.</p>
           
           
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 3</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 4</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>

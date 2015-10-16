@@ -61,7 +61,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
@@ -73,9 +73,17 @@
 
   <ul class="link-list">
     
-    <li class="calls-super" ><a href="#method-i-create">#create</a>
+    <li ><a href="#method-c-create">::create</a>
     
     <li ><a href="#method-i-generate_external_id">#generate_external_id</a>
+    
+    <li ><a href="#method-i-organization">#organization</a>
+    
+    <li ><a href="#method-i-save">#save</a>
+    
+    <li ><a href="#method-i-sub_organization">#sub_organization</a>
+    
+    <li ><a href="#method-i-team">#team</a>
     
   </ul>
 </nav>
@@ -100,17 +108,9 @@
   
     <li><a href="../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../ESP.html">ESP</a>
   
@@ -126,13 +126,9 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
   
@@ -181,39 +177,49 @@
 
     <!-- Methods -->
     
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="method-i-create" class="method-detail ">
+      <div id="method-c-create" class="method-detail ">
+        
         
         <div class="method-heading">
-          <span class="method-name">create</span><span
-            class="method-args">()</span>
+          <span class="method-callseq">
+            create(attributes={})
+          </span>
           
           <span class="method-click-advice">click to toggle source</span>
           
         </div>
         
+        
 
         <div class="method-description">
           
+          <p>Create an <a href="ExternalAccount.html">ExternalAccount</a>.</p>
+
+<h4 id="method-c-create-label-Attributes">Attributes<span><a href="#method-c-create-label-Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>arn</code></p>
+</li><li>
+<p><code>external_id</code> - Will be set by calling <a
+href="ExternalAccount.html#method-i-generate_external_id">generate_external_id</a>
+if not already set.</p>
+</li><li>
+<p><code>nickname</code></p>
+</li><li>
+<p><code>sub_organization_id</code></p>
+</li><li>
+<p><code>team_id</code></p>
+</li></ul>
           
-          
-          
-            <div class="method-calls-super">
-              Calls superclass method
-              
-            </div>
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 11</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-  <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;external_id&#39;</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">generate_external_id</span>
-  <span class="ruby-keyword">super</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 40</span>
+    </pre>
           </div><!-- create-source -->
           
         </div>
@@ -222,6 +228,12 @@
 
         
       </div><!-- create-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
 
     
       <div id="method-i-generate_external_id" class="method-detail ">
@@ -237,13 +249,15 @@
 
         <div class="method-description">
           
-          
+          <p>Helper to generate an external id. Called automatically when creating an <a
+href="ExternalAccount.html">ExternalAccount</a> if <code>external_id</code>
+is not already set.</p>
           
           
 
           
           <div class="method-source-code" id="generate_external_id-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 7</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 17</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">generate_external_id</span>
   <span class="ruby-constant">SecureRandom</span>.<span class="ruby-identifier">uuid</span>
 <span class="ruby-keyword">end</span></pre>
@@ -255,6 +269,160 @@
 
         
       </div><!-- generate_external_id-method -->
+
+    
+      <div id="method-i-organization" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">organization</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The organization the external account belongs to.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="organization-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 5</span>
+<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:organization</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Organization&#39;</span>
+</pre>
+          </div><!-- organization-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- organization-method -->
+
+    
+      <div id="method-i-save" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            save
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            new(nickname: &#39;nickname&#39;, arn: &#39;arn&#39;, sub_organization_id: 2, team_id: 3).save
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Create or update an <a href="ExternalAccount.html">ExternalAccount</a>.</p>
+
+<h4 id="method-i-save-label-Attributes">Attributes<span><a href="#method-i-save-label-Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>arn</code></p>
+</li><li>
+<p><code>external_id</code> - Will be set by calling <a
+href="ExternalAccount.html#method-i-generate_external_id">generate_external_id</a>
+if not already set.</p>
+</li><li>
+<p><code>nickname</code></p>
+</li><li>
+<p><code>sub_organization_id</code></p>
+</li><li>
+<p><code>team_id</code></p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="save-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 54</span>
+  </pre>
+          </div><!-- save-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- save-method -->
+
+    
+      <div id="method-i-sub_organization" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sub_organization</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The <a
+href="ExternalAccount.html#method-i-sub_organization">#sub_organization</a>
+the external account belongs to.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="sub_organization-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 9</span>
+<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:sub_organization</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::SubOrganization&#39;</span>
+</pre>
+          </div><!-- sub_organization-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- sub_organization-method -->
+
+    
+      <div id="method-i-team" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">team</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The team the external account belongs to.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="team-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 13</span>
+<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:team</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Team&#39;</span>
+</pre>
+          </div><!-- team-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- team-method -->
 
     
     </section><!-- public-instance-method-details -->

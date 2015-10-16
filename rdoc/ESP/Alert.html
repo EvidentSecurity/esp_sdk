@@ -61,7 +61,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
@@ -73,9 +73,9 @@
 
   <ul class="link-list">
     
-    <li class="calls-super" ><a href="#method-c-find">::find</a>
-    
     <li ><a href="#method-c-for_report">::for_report</a>
+    
+    <li ><a href="#method-i-cloud_trail_events">#cloud_trail_events</a>
     
     <li ><a href="#method-i-destroy">#destroy</a>
     
@@ -110,17 +110,9 @@
   
     <li><a href="../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../ESP.html">ESP</a>
   
@@ -136,13 +128,9 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
   
@@ -195,55 +183,11 @@
       <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="method-c-find" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">find</span><span
-            class="method-args">(*arguments)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-            <div class="method-calls-super">
-              Calls superclass method
-              <a href="Resource.html#method-c-find">ESP::Resource.find</a>
-            </div>
-          
-
-          
-          <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 19</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>)
-  <span class="ruby-identifier">scope</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">super</span>(<span class="ruby-identifier">scope</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
-  <span class="ruby-identifier">options</span> = (<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">with_indifferent_access</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">super</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">options</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:from</span>].<span class="ruby-identifier">present?</span>
-  <span class="ruby-identifier">params</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:params</span>, {}).<span class="ruby-identifier">with_indifferent_access</span>
-  <span class="ruby-identifier">report_id</span> = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:report_id</span>)
-  <span class="ruby-identifier">for_report</span>(<span class="ruby-identifier">report_id</span>, <span class="ruby-identifier">params</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- find-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- find-method -->
-
-    
       <div id="method-c-for_report" class="method-detail ">
         
         <div class="method-heading">
           <span class="method-name">for_report</span><span
-            class="method-args">(report_id = nil, params = {})</span>
+            class="method-args">(report_id = nil, arguments = {})</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -252,17 +196,63 @@
 
         <div class="method-description">
           
-          
+          <p>Returns a paginated collection of alerts for the given report_id
+Convenience method to use instead of ::find since a report_id is required
+to return alerts.</p>
+
+<h4 id="method-c-for_report-label-Attributes">Attributes<span><a href="#method-c-for_report-label-Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>report_id</code> - The ID for the report for wanted alerts.</p>
+</li><li>
+<p><code>arguments</code> - An optional hash of search criteria to filter the
+returned collection.</p>
+</li></ul>
+
+<p>Valid arguments are</p>
+<ul><li>
+<p><code>region_id</code> - Return only alerts for this region.</p>
+</li><li>
+<p><code>status</code> - Return only alerts for the give status(es).  Valid
+values are fail, warn, error, pass, info</p>
+</li><li>
+<p><code>first_seen</code> - Return only alerts first seen after this time. 
+Format: “2015-10-15 10:29:45”</p>
+</li><li>
+<p><code>suppressed</code> - Return only suppressed alerts</p>
+</li><li>
+<p><code>team_id</code> - Return only alerts for the given team.</p>
+</li><li>
+<p><code>external_account_id</code> - Return only alerts for the given
+external id.</p>
+</li><li>
+<p><code>service_id</code> - Return only alerts on signatures with the given
+service.</p>
+</li><li>
+<p><code>signature_severity</code> - Return only alerts for signatures with
+the given risk_level.  Valid values are Low, Medium, High</p>
+</li><li>
+<p><code>signature_name</code> - Return only alerts for signatures with hte
+given name.</p>
+</li><li>
+<p><code>resource</code> - Return only alerts for the given resource or tag.</p>
+</li><li>
+<p><code>signature_identifier</code> - Return only alerts for signatures with
+the given identifier.</p>
+</li></ul>
+
+<h4 id="method-c-for_report-label-Example">Example<span><a href="#method-c-for_report-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<pre>alerts = ESP::Alert.for_report(54, status: &#39;fail&#39;, signature_severity: &#39;High&#39;)</pre>
           
           
 
           
           <div class="method-source-code" id="for_report-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 13</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_report</span>(<span class="ruby-identifier">report_id</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">params</span> = {}) <span class="ruby-comment"># rubocop:disable Style/OptionHash</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_report</span>(<span class="ruby-identifier">report_id</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">arguments</span> = {})
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply a report id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">report_id</span>.<span class="ruby-identifier">present?</span>
   <span class="ruby-identifier">from</span> = <span class="ruby-node">&quot;#{prefix}reports/#{report_id}/alerts.json&quot;</span>
-  <span class="ruby-identifier">all</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-identifier">from</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>)
+  <span class="ruby-identifier">all</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-identifier">from</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> <span class="ruby-identifier">arguments</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- for_report-source -->
           
@@ -280,6 +270,38 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-cloud_trail_events" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cloud_trail_events</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the cloud trail events associated with this alert.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="cloud_trail_events-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 5</span>
+<span class="ruby-identifier">has_many</span> <span class="ruby-value">:cloud_trail_events</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::CloudTrailEvent&#39;</span>
+</pre>
+          </div><!-- cloud_trail_events-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- cloud_trail_events-method -->
+
+    
       <div id="method-i-destroy" class="method-detail ">
         
         <div class="method-heading">
@@ -293,13 +315,13 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot destroy a an <a href="Alert.html">Alert</a>.</p>
           
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 9</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -326,13 +348,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot create or update an <a
+href="Alert.html">Alert</a>.</p>
           
           
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 5</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -359,13 +382,18 @@
 
         <div class="method-description">
           
-          
+          <p>Suppress the region associated with this alert.</p>
+
+<h4 id="method-i-suppress_region-label-Attribute">Attribute<span><a href="#method-i-suppress_region-label-Attribute">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>reason</code> - The reason for creating the suppression.</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="suppress_region-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 33</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 68</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_region</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">Region</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -392,13 +420,18 @@
 
         <div class="method-description">
           
-          
+          <p>Suppress the signature associated with this alert.</p>
+
+<h4 id="method-i-suppress_signature-label-Attribute">Attribute<span><a href="#method-i-suppress_signature-label-Attribute">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>reason</code> - The reason for creating the suppression.</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="suppress_signature-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 29</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_signature</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -425,13 +458,18 @@
 
         <div class="method-description">
           
-          
+          <p>Suppress the unique identifier associated with this alert.</p>
+
+<h4 id="method-i-suppress_unique_identifier-label-Attribute">Attribute<span><a href="#method-i-suppress_unique_identifier-label-Attribute">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>reason</code> - The reason for creating the suppression.</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="suppress_unique_identifier-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 37</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_unique_identifier</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">UniqueIdentifier</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>

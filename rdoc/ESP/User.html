@@ -61,7 +61,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
@@ -73,7 +73,13 @@
 
   <ul class="link-list">
     
+    <li ><a href="#method-c-create">::create</a>
+    
+    <li ><a href="#method-c-find">::find</a>
+    
     <li ><a href="#method-i-destroy">#destroy</a>
+    
+    <li ><a href="#method-i-organization">#organization</a>
     
     <li ><a href="#method-i-save">#save</a>
     
@@ -104,17 +110,9 @@
   
     <li><a href="../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../ESP.html">ESP</a>
   
@@ -130,13 +128,9 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
   
@@ -185,6 +179,77 @@
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Not Implemented. You cannot create a <a href="User.html">User</a>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 36</span>
+  </pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
+      <div id="method-c-find" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            find(id)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Find a <a href="User.html">User</a> by id</p>
+          
+          
+
+          
+          <div class="method-source-code" id="find-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 34</span>
+    </pre>
+          </div><!-- find-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
@@ -202,13 +267,13 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot destroy a <a href="User.html">User</a>.</p>
           
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 10</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -220,6 +285,38 @@
 
         
       </div><!-- destroy-method -->
+
+    
+      <div id="method-i-organization" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">organization</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The organization this user belongs to.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="organization-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 5</span>
+<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:organization</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Organization&#39;</span>
+</pre>
+          </div><!-- organization-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- organization-method -->
 
     
       <div id="method-i-save" class="method-detail ">
@@ -235,13 +332,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot create or update a <a
+href="User.html">User</a>.</p>
           
           
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 6</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -268,13 +366,13 @@
 
         <div class="method-description">
           
-          
+          <p>The collection of sub organizations that belong to the user.</p>
           
           
 
           
           <div class="method-source-code" id="sub_organizations-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">sub_organizations</span>
   <span class="ruby-constant">SubOrganization</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">sub_organization_ids</span> })
 <span class="ruby-keyword">end</span></pre>
@@ -301,13 +399,13 @@
 
         <div class="method-description">
           
-          
+          <p>The collection of teams that belong to the user.</p>
           
           
 
           
           <div class="method-source-code" id="teams-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 18</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">teams</span>
   <span class="ruby-constant">Team</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">team_ids</span> })
 <span class="ruby-keyword">end</span></pre>

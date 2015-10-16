@@ -1,5 +1,5 @@
 module ESP
-  class Resource < ActiveResource::Base
+  class Resource < ActiveResource::Base # :nodoc:
     self.site = ESP.site
     self.format = ActiveResource::Formats::JsonAPIFormat
     with_api_auth(ESP.access_key_id, ESP.secret_access_key)

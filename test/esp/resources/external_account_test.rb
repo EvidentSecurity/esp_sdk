@@ -101,7 +101,7 @@ module ESP
         context '#CRUD' do
           should 'be able to create, update and destroy' do
             # We can't randomly generate a valid arn, so we can't create on to be destroyed, but we can make the calls and test errors.
-            external_account = ESP::ExternalAccount.create(name: 'bob', arn: @external_account.arn, sub_organization_id: @external_account.sub_organization_id, team_id: @external_account.team_id)
+            external_account = ESP::ExternalAccount.create(nickname: 'bob', arn: @external_account.arn, sub_organization_id: @external_account.sub_organization_id, team_id: @external_account.team_id)
 
             assert_predicate external_account, :new?
             assert_contains external_account.errors, "The account for this ARN is already being checked by Dev"

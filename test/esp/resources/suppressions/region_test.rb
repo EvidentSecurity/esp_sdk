@@ -34,13 +34,11 @@ module ESP
           should 'call the api' do
             stub_request(:post, %r{suppressions/regions.json*}).to_return(body: json(:suppression_region))
 
-            suppression = ESP::Suppression::Region.create(signature_ids: [4, 2], custom_signature_ids: [3], regions: ['us_east_1'], external_account_ids: [5], reason: 'because')
+            suppression = ESP::Suppression::Region.create(regions: ['us_east_1'], external_account_ids: [5], reason: 'because')
 
             assert_requested(:post, %r{suppressions/regions.json*}) do |req|
               body = JSON.parse(req.body)
               assert_equal 'because', body['data']['attributes']['reason']
-              assert_equal [4, 2], body['data']['attributes']['signature_ids']
-              assert_equal [3], body['data']['attributes']['custom_signature_ids']
               assert_equal ['us_east_1'], body['data']['attributes']['regions']
               assert_equal [5], body['data']['attributes']['external_account_ids']
             end

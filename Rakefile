@@ -16,5 +16,7 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.title    = 'ESPSDK'
   rdoc.options << '--line-numbers'
   rdoc.rdoc_files.include('README.md')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+  rdoc.rdoc_files.include('lib/esp/resources/**/*.rb')
+  rdoc.rdoc_files.include('lib/esp/extensions/active_resource/paginated_collection.rb')
+  rdoc.rdoc_files.include('lib/esp.rb')
 end

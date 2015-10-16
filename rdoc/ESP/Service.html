@@ -61,7 +61,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
@@ -73,9 +73,13 @@
 
   <ul class="link-list">
     
-    <li ><a href="#method-i-create">#create</a>
+    <li ><a href="#method-c-find">::find</a>
     
     <li ><a href="#method-i-destroy">#destroy</a>
+    
+    <li ><a href="#method-i-save">#save</a>
+    
+    <li ><a href="#method-i-signatures">#signatures</a>
     
   </ul>
 </nav>
@@ -100,17 +104,9 @@
   
     <li><a href="../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../ESP.html">ESP</a>
   
@@ -126,13 +122,9 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
   
@@ -181,41 +173,48 @@
 
     <!-- Methods -->
     
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="method-i-create" class="method-detail ">
+      <div id="method-c-find" class="method-detail ">
+        
         
         <div class="method-heading">
-          <span class="method-name">create</span><span
-            class="method-args">()</span>
+          <span class="method-callseq">
+            find(id)
+          </span>
           
           <span class="method-click-advice">click to toggle source</span>
           
         </div>
         
+        
 
         <div class="method-description">
           
-          
+          <p>Find a <a href="Service.html">Service</a> by id</p>
           
           
 
           
-          <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 5</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- create-source -->
+          <div class="method-source-code" id="find-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 22</span>
+  </pre>
+          </div><!-- find-source -->
           
         </div>
 
         
 
         
-      </div><!-- create-method -->
+      </div><!-- find-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
 
     
       <div id="method-i-destroy" class="method-detail ">
@@ -231,13 +230,13 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot destroy a <a href="Service.html">Service</a>.</p>
           
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 9</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -249,6 +248,72 @@
 
         
       </div><!-- destroy-method -->
+
+    
+      <div id="method-i-save" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">save</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Not Implemented. You cannot create or update a <a
+href="Service.html">Service</a>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="save-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- save-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- save-method -->
+
+    
+      <div id="method-i-signatures" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">signatures</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The collection of signatures associated with this service.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="signatures-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 5</span>
+<span class="ruby-identifier">has_many</span> <span class="ruby-value">:signatures</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Signature&#39;</span>
+</pre>
+          </div><!-- signatures-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- signatures-method -->
 
     
     </section><!-- public-instance-method-details -->

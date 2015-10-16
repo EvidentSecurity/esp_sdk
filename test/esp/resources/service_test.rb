@@ -53,12 +53,9 @@ module ESP
           end
         end
 
-        context '#Read and Update' do
-          should 'be able to create, update and destroy' do
+        context '#CRUD' do
+          should 'be able to read' do
             assert_not_nil @service, @service.inspect
-
-            @service.name = @service.name
-            assert_predicate @service, :save
           end
         end
       end

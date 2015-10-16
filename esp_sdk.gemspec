@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Evident.io']
   spec.email         = ['support@evident.io']
   spec.summary       = "SDK for interacting with the ESP API."
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/EvidentSecurity/esp_sdk'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")

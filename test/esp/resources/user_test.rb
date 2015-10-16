@@ -29,19 +29,6 @@ module ESP
         end
       end
 
-      context '#contact_requests' do
-        should 'call the api' do
-          u = build(:user)
-          stub_request(:get, /contact_requests.json*/).to_return(body: json_list(:contact_request, 2))
-
-          u.contact_requests
-
-          assert_requested(:get, /contact_requests.json*/) do |req|
-            assert_equal "filter[user_id_eq]=#{u.id}", URI.unescape(req.uri.query)
-          end
-        end
-      end
-
       context '#organization' do
         should 'call the api' do
           u = build(:user, organization_id: 1)
@@ -87,15 +74,6 @@ module ESP
 
         teardown do
           WebMock.disable_net_connect!
-        end
-
-        context '#contact_requests' do
-          should 'return an array of contact_requests' do
-            u = ESP::User.last
-            contact_requests = u.contact_requests
-
-            assert_equal ESP::ContactRequest, contact_requests.resource_class
-          end
         end
 
         context '#organization' do

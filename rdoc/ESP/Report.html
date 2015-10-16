@@ -61,7 +61,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="Resource.html">ESP::Resource</a>
+  <p class="link">ESP::Resource
   
 </nav>
 
@@ -81,9 +81,15 @@
     
     <li ><a href="#method-i-destroy">#destroy</a>
     
+    <li ><a href="#method-i-organization">#organization</a>
+    
     <li ><a href="#method-i-save">#save</a>
     
     <li ><a href="#method-i-stat">#stat</a>
+    
+    <li ><a href="#method-i-sub_organization">#sub_organization</a>
+    
+    <li ><a href="#method-i-team">#team</a>
     
   </ul>
 </nav>
@@ -108,17 +114,9 @@
   
     <li><a href="../ActiveResource.html">ActiveResource</a>
   
-    <li><a href="../ActiveResource/ConnectionError.html">ActiveResource::ConnectionError</a>
-  
-    <li><a href="../ActiveResource/Errors.html">ActiveResource::Errors</a>
-  
     <li><a href="../ActiveResource/Formats.html">ActiveResource::Formats</a>
   
-    <li><a href="../ActiveResource/Formats/JsonAPIFormat.html">ActiveResource::Formats::JsonAPIFormat</a>
-  
     <li><a href="../ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
-  
-    <li><a href="../ActiveResource/Validations.html">ActiveResource::Validations</a>
   
     <li><a href="../ESP.html">ESP</a>
   
@@ -134,13 +132,9 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
-    <li><a href="../ESP/NotImplementedError.html">ESP::NotImplementedError</a>
-  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Report.html">ESP::Report</a>
-  
-    <li><a href="../ESP/Resource.html">ESP::Resource</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
   
@@ -206,13 +200,20 @@
 
         <div class="method-description">
           
-          
+          <p>Enqueue a report to be run for the given team. Returns a <a
+href="Report.html">Report</a> object with a status of &#39;queued&#39; and
+an id Periodically check the API</p>
+
+<pre>ESP::Report.find(&lt;id&gt;)</pre>
+
+<p>until status is &#39;complete&#39;. If not successful, returns a <a
+href="Report.html">Report</a> object with the errors object populated.</p>
           
           
 
           
           <div class="method-source-code" id="create_for_team-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 30</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_for_team</span>(<span class="ruby-identifier">team_id</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply a team id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">team_id</span>.<span class="ruby-identifier">present?</span>
   <span class="ruby-identifier">response</span> = <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">post</span> <span class="ruby-node">&quot;#{prefix}teams/#{team_id}/report.json&quot;</span>
@@ -246,13 +247,19 @@
 
         <div class="method-description">
           
-          
+          <p>Enqueue a report to be run for the given team. Returns a <a
+href="Report.html">Report</a> object with a status of &#39;queued&#39; and
+an id Periodically check the API</p>
+
+<pre>ESP::Report.find(&lt;id&gt;)</pre>
+
+<p>until status is &#39;complete&#39;. Throws an error if not successful.</p>
           
           
 
           
           <div class="method-source-code" id="create_for_team-21-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 23</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_for_team!</span>(<span class="ruby-identifier">team_id</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">result</span> = <span class="ruby-identifier">create_for_team</span>(<span class="ruby-identifier">team_id</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">result</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">blank?</span>
@@ -279,7 +286,7 @@
         
         <div class="method-heading">
           <span class="method-name">alerts</span><span
-            class="method-args">(params = {})</span>
+            class="method-args">(arguments = {})</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -288,15 +295,58 @@
 
         <div class="method-description">
           
-          
+          <p>Returns a paginated collection of alerts for the report</p>
+
+<h4 id="method-i-alerts-label-Attributes">Attributes<span><a href="#method-i-alerts-label-Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>arguments</code> - An optional hash of search criteria to filter the
+returned collection.</p>
+</li></ul>
+
+<p>Valid arguments are</p>
+<ul><li>
+<p><code>region_id</code> - Return only alerts for this region.</p>
+</li><li>
+<p><code>status</code> - Return only alerts for the give status(es).  Valid
+values are fail, warn, error, pass, info</p>
+</li><li>
+<p><code>first_seen</code> - Return only alerts first seen after this time. 
+Format: “2015-10-15 10:29:45”</p>
+</li><li>
+<p><code>suppressed</code> - Return only suppressed alerts</p>
+</li><li>
+<p><code>team_id</code> - Return only alerts for the given team.</p>
+</li><li>
+<p><code>external_account_id</code> - Return only alerts for the given
+external id.</p>
+</li><li>
+<p><code>service_id</code> - Return only alerts on signatures with the given
+service.</p>
+</li><li>
+<p><code>signature_severity</code> - Return only alerts for signatures with
+the given risk_level.  Valid values are Low, Medium, High</p>
+</li><li>
+<p><code>signature_name</code> - Return only alerts for signatures with hte
+given name.</p>
+</li><li>
+<p><code>resource</code> - Return only alerts for the given resource or tag.</p>
+</li><li>
+<p><code>signature_identifier</code> - Return only alerts for signatures with
+the given identifier.</p>
+</li></ul>
+
+<h4 id="method-i-alerts-label-Example">Example<span><a href="#method-i-alerts-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<pre>report = ESP::Report.find(345)
+alerts = report.alerts(status: &#39;fail&#39;, signature_severity: &#39;High&#39;)</pre>
           
           
 
           
           <div class="method-source-code" id="alerts-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">alerts</span>(<span class="ruby-identifier">params</span> = {}) <span class="ruby-comment"># rubocop:disable Style/OptionHash</span>
-  <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Alert</span>.<span class="ruby-identifier">for_report</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">params</span>)
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">alerts</span>(<span class="ruby-identifier">arguments</span> = {})
+  <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Alert</span>.<span class="ruby-identifier">for_report</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">arguments</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- alerts-source -->
           
@@ -321,13 +371,13 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot destroy a <a href="Report.html">Report</a>.</p>
           
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 11</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -339,6 +389,38 @@
 
         
       </div><!-- destroy-method -->
+
+    
+      <div id="method-i-organization" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">organization</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The organization the report belongs to.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="organization-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 5</span>
+<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:organization</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Organization&#39;</span>
+</pre>
+          </div><!-- organization-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- organization-method -->
 
     
       <div id="method-i-save" class="method-detail ">
@@ -354,13 +436,14 @@
 
         <div class="method-description">
           
-          
+          <p>Not Implemented. You cannot create or update a <a
+href="Report.html">Report</a>.</p>
           
           
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 7</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -387,13 +470,13 @@
 
         <div class="method-description">
           
-          
+          <p>Returns the stats for this report</p>
           
           
 
           
           <div class="method-source-code" id="stat-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 82</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">stat</span>
   <span class="ruby-constant">Stat</span>.<span class="ruby-identifier">for_report</span>(<span class="ruby-identifier">id</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -405,6 +488,71 @@
 
         
       </div><!-- stat-method -->
+
+    
+      <div id="method-i-sub_organization" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sub_organization</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The <a href="Report.html#method-i-sub_organization">#sub_organization</a>
+the report belongs to.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="sub_organization-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 9</span>
+<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:sub_organization</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::SubOrganization&#39;</span>
+</pre>
+          </div><!-- sub_organization-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- sub_organization-method -->
+
+    
+      <div id="method-i-team" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">team</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The team the report belongs to.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="team-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 13</span>
+<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:team</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Team&#39;</span>
+</pre>
+          </div><!-- team-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- team-method -->
 
     
     </section><!-- public-instance-method-details -->
