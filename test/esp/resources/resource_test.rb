@@ -57,7 +57,7 @@ module ESP
           end
         end
 
-        context '#find' do
+        context '.find' do
           should 'call the show method when finding by single id' do
             stub_request(:get, %r{teams/3.json*}).to_return(body: json(:team))
 
@@ -66,7 +66,7 @@ module ESP
             assert_requested(:get, %r{teams/3.json*})
           end
 
-          should 'build query string inside filter param and ad _q when single value' do
+          should 'build query string inside filter param and ad _eq when single value' do
             stub_request(:get, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.find(:all, params: { id: 3 })
@@ -102,6 +102,30 @@ module ESP
             query = Rack::Utils.parse_nested_query(CGI.unescape(req.uri.query))
             assert_equal true, query.key?('filter')
             assert_equal '2', query['page']['number']
+          end
+        end
+
+        should 'add the include option to param' do
+          stub_request(:get, /teams.json*/).to_return(body: json_list(:team, 2))
+
+          ESP::Team.find(:all, include: 'organization')
+
+          assert_requested(:get, /teams.json*/) do |req|
+            query = Rack::Utils.parse_nested_query(CGI.unescape(req.uri.query))
+            assert_equal true, query.key?('include')
+            assert_equal 'organization', query['include']
+          end
+        end
+
+        should 'add the include option to param when finding by id' do
+          stub_request(:get, %r{teams/2.json*}).to_return(body: json_list(:team, 2))
+
+          ESP::Team.find(2, include: 'organization')
+
+          assert_requested(:get, %r{teams/2.json*}) do |req|
+            query = Rack::Utils.parse_nested_query(CGI.unescape(req.uri.query))
+            assert_equal true, query.key?('include')
+            assert_equal 'organization', query['include']
           end
         end
 

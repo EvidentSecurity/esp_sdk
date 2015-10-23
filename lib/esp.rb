@@ -84,4 +84,9 @@ module ESP
     autoload :Signature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/suppression/signature')
     autoload :Region, File.expand_path(File.dirname(__FILE__) + '/esp/resources/suppression/region')
   end
+  class Stat
+    autoload :CustomSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat/custom_signature')
+    autoload :Signature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat/signature')
+    autoload :Region, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat/region')
+  end
 end

@@ -16,7 +16,11 @@ module ActiveResource
       decoded = decoded_errors(json)
       errors = {}
       decoded.each do |error|
-        errors.merge!(error['message']) if error['message']
+        next unless error['meta']
+        error['meta'].map do |attr, message|
+          errors[attr] ||= []
+          errors[attr] << message
+        end
       end
       if errors.present?
         from_hash errors, save_cache

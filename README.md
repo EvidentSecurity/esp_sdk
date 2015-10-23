@@ -105,20 +105,20 @@ Use the `attributes` method to get a list of all available attributes that each 
 
 ```ruby
 espsdk:003:0> team = ESP::Team.find(1)
-espsdk:004:0> team.attributes # =>
-{
-                      "id" => "1",
-                    "type" => "teams",
-           "relationships" => #<ESP::Team::Relationships:0x007fdf1b451710 @attributes={"sub_organization"=>#<ESP::SubOrganization:0x007fdf1b450d60 @attributes={"data"=>#<ESP::SubOrganization::Data:0x007fdf1b450978 @attributes={"id"=>"1", "type"=>"sub_organizations"}, @prefix_options={}, @persisted=true>, "links"=>#<ESP::SubOrganization::Links:0x007fdf1b4503b0 @attributes={"related"=>"http://localhost:3000/api/v2/sub_organizations/1.json"}, @prefix_options={}, @persisted=true>}, @prefix_options={}, @persisted=true>, "organization"=>#<ESP::Organization:0x007fdf1b45bbc0 @attributes={"data"=>#<ESP::Organization::Data:0x007fdf1b45b7d8 @attributes={"id"=>"1", "type"=>"organizations"}, @prefix_options={}, @persisted=true>, "links"=>#<ESP::Organization::Links:0x007fdf1b45b210 @attributes={"related"=>"http://localhost:3000/api/v2/organizations/1.json"}, @prefix_options={}, @persisted=true>}, @prefix_options={}, @persisted=true>, "external_accounts"=>#<ESP::Team::Relationships::ExternalAccounts:0x007fdf1b45a040 @attributes={"data"=>[#<ESP::Team::Relationships::ExternalAccounts::Datum:0x007fdf1b458830 @attributes={"id"=>"1", "type"=>"external_accounts"}, @prefix_options={}, @persisted=true>], "links"=>#<ESP::Team::Links:0x007fdf1b463e38 @attributes={"related"=>"http://localhost:3000/api/v2/external_accounts.json"}, @prefix_options={}, @persisted=true>}, @prefix_options={}, @persisted=true>}, @prefix_options={}, @persisted=true>,
-                    "name" => "Default Team",
-              "created_at" => "2015-09-23T14:37:48.000Z",
-              "updated_at" => "2015-09-23T14:37:48.000Z",
-     "sub_organization_id" => "1",
-         "organization_id" => "1",
-    "external_account_ids" => [
-        [0] "1"
-    ]
-}
+espsdk:004:0> team.attributes
+# => {
+# =>                       "id" => "1",
+# =>                     "type" => "teams",
+# =>            "relationships" => #<ESP::Team::Relationships:0x007fdf1b451710 @attributes={"sub_organization"=>#<ESP::SubOrganization:0x007fdf1b450d60 @attributes={"data"=>#<ESP::SubOrganization::Data:0x007fdf1b450978 @attributes={"id"=>"1", "type"=>"sub_organizations"}, @prefix_options={}, @persisted=true>, "links"=>#<ESP::SubOrganization::Links:0x007fdf1b4503b0 @attributes={"related"=>"http://localhost:3000/api/v2/sub_organizations/1.json"}, @prefix_options={}, @persisted=true>}, @prefix_options={}, @persisted=true>, "organization"=>#<ESP::Organization:0x007fdf1b45bbc0 @attributes={"data"=>#<ESP::Organization::Data:0x007fdf1b45b7d8 @attributes={"id"=>"1", "type"=>"organizations"}, @prefix_options={}, @persisted=true>, "links"=>#<ESP::Organization::Links:0x007fdf1b45b210 @attributes={"related"=>"http://localhost:3000/api/v2/organizations/1.json"}, @prefix_options={}, @persisted=true>}, @prefix_options={}, @persisted=true>, "external_accounts"=>#<ESP::Team::Relationships::ExternalAccounts:0x007fdf1b45a040 @attributes={"data"=>[#<ESP::Team::Relationships::ExternalAccounts::Datum:0x007fdf1b458830 @attributes={"id"=>"1", "type"=>"external_accounts"}, @prefix_options={}, @persisted=true>], "links"=>#<ESP::Team::Links:0x007fdf1b463e38 @attributes={"related"=>"http://localhost:3000/api/v2/external_accounts.json"}, @prefix_options={}, @persisted=true>}, @prefix_options={}, @persisted=true>}, @prefix_options={}, @persisted=true>,
+# =>                     "name" => "Default Team",
+# =>               "created_at" => "2015-09-23T14:37:48.000Z",
+# =>               "updated_at" => "2015-09-23T14:37:48.000Z",
+# =>      "sub_organization_id" => "1",
+# =>          "organization_id" => "1",
+# =>     "external_account_ids" => [
+# =>         [0] "1"
+# =>     ]
+# => }
 ```
     
 ## Errors
@@ -126,36 +126,38 @@ Active Resource objects have an errors collection, just like Active Record objec
 validation issues, you can check the errors object to see what went wrong.
 
 ```ruby
-espsdk:003:0> t = ESP::Team.create(organization_id: nil, sub_organization_id: nil)
-espsdk:003:0> t.errors # =>
-{
-    :base => [
-        [0] "Organization can't be blank",
-        [1] "Sub organization can't be blank",
-        [2] "Name can't be blank"
-    ]
-}
+espsdk:003:0> t = ESP::Team.create(name: '')
+espsdk:003:0> t.errors
+# => {
+# =>     :base => [
+# =>         [0] "Organization can't be blank",
+# =>         [1] "Sub organization can't be blank"
+# =>     ],
+# =>     :name => [
+# =>         [0] "can't be blank"
+# =>     ]
+# => }
 ```
     
 The errors will be in the :base key rather than the corresponding attribute key, since we have not defined a schema for the objects
 in order to stay more loosely coupled to the API.
 
 ```ruby
-espsdk:003:0> t.errors.full_messages # =>
-[
-    [0] "Organization can't be blank",
-    [1] "Sub organization can't be blank",
-    [2] "Name can't be blank"
-]
+espsdk:003:0> t.errors.full_messages
+# => [
+# =>     [0] "Organization can't be blank",
+# =>     [1] "Sub organization can't be blank",
+# =>     [2] "Name can't be blank"
+# => ]
 ```
 
 When an error is thrown, you can rescue the error and check the error message:
 
 ```ruby
 espsdk:003:0> c = ESP::CustomSignature.find(435)
-espsdk:003:0> c.run!(external_account_id: 999) # =>
-ActiveResource::ResourceInvalid: Failed.  Response code = 422.  Response message = Couldn't find ExternalAccount.
-	from /Users/kevintyll/evident/esp_sdk/lib/esp/resources/custom_signature.rb:23:in `run!'
+espsdk:003:0> c.run!(external_account_id: 999)
+# =>  ActiveResource::ResourceInvalid: Failed.  Response code = 422.  Response message = Couldn't find ExternalAccount. 
+# =>    from /Users/kevintyll/evident/esp_sdk/lib/esp/resources/custom_signature.rb:23:in `run!'
 
 begin
   c.run!(external_account_id: 999)
@@ -188,6 +190,30 @@ espsdk:004:0> page4 = alerts.page(4)
 espsdk:004:0> alerts.current_page_number # => "25"
 espsdk:004:0> page4.current_page_number # => "4"
 ```
+    
+## Associated Objects
+Most of the objects in the Evident.io SDK have a corresponding API call associated with it.  That means if you call an object's
+association, then that will make another API call.  For example:
+
+```ruby
+espsdk:004:0> external_account = ESP::ExternalAccount.find(3)
+espsdk:004:0> organization = external_account.organization
+espsdk:004:0> sub_organization = external_account.sub_organization
+espsdk:004:0> team = external_account.team
+```
+
+The above code will make 4 calls to the Evident.io API.  1 each for the external account, organization, sub_organization and team.
+The [JSON API Specification](http://jsonapi.org/format/#fetching-includes), which the Evident.io API tries to follow, provides
+a means for returning nested objects in a single call.  With the SDK, that can be done by providing a comma separated string
+of the relations wanted in an +include+ option.
+
+```ruby
+espsdk:004:0> external_account = ESP::ExternalAccount.find(3, include: 'organization,sub_orgnanization,team')
+```
+
+With that call, organization, sub_organization and team will all come back in the response, and calling, `external_account.organization`,
+`external_account.sub_organization` and `external_account.team`, will not make another API call.  Most objects' find method accepts the
++include+ option.
     
 See the [**Documentation**](http://www.rubydoc.info/gems/esp_sdk/ESP/ActiveResource/PaginatedCollection.html) for all the pagination methods available.
 

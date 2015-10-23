@@ -13,7 +13,7 @@ module ESP
     belongs_to :team, class_name: 'ESP::Team'
 
     # Not Implemented. You cannot create or update a Report.
-    def save
+    def update
       fail ESP::NotImplementedError
     end
 
@@ -24,32 +24,18 @@ module ESP
 
     # Enqueue a report to be run for the given team.
     # Returns a Report object with a status of 'queued' and an id
+    # ==== Attribute
+    #
+    # +team_id+ - The team to create the report for.
+    #
     # Periodically check the API
     #   ESP::Report.find(<id>)
     # until status is 'complete'.
-    # Throws an error if not successful.
-    def self.create_for_team!(team_id = nil)
-      result = create_for_team(team_id)
-      return result if result.errors.blank?
-      result.message = result.errors.full_messages.join(' ')
-      fail(ActiveResource::ResourceInvalid.new(result)) # rubocop:disable Style/RaiseArgs
-    end
-
-    # Enqueue a report to be run for the given team.
-    # Returns a Report object with a status of 'queued' and an id
-    # Periodically check the API
-    #   ESP::Report.find(<id>)
-    # until status is 'complete'.
+    #
     # If not successful, returns a Report object with the errors object populated.
-    def self.create_for_team(team_id = nil)
-      fail ArgumentError, "You must supply a team id." unless team_id.present?
-      response = connection.post "#{prefix}teams/#{team_id}/report.json"
-      new(format.decode(response.body), true)
-    rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid => error
-      new.tap do |report|
-        report.load_remote_errors(error, true)
-        report.code = error.response.code
-      end
+    def self.create(arguments = {})
+      fail ArgumentError, "You must supply a team id." unless arguments.with_indifferent_access[:team_id].present?
+      super
     end
 
     # Returns a paginated collection of alerts for the report

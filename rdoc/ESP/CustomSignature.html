@@ -77,9 +77,9 @@
     
     <li ><a href="#method-c-find">::find</a>
     
-    <li ><a href="#method-c-run_sanity_test">::run_sanity_test</a>
+    <li ><a href="#method-c-run">::run</a>
     
-    <li ><a href="#method-c-run_sanity_test-21">::run_sanity_test!</a>
+    <li ><a href="#method-c-run-21">::run!</a>
     
     <li ><a href="#method-i-organization">#organization</a>
     
@@ -88,8 +88,6 @@
     <li ><a href="#method-i-run-21">#run!</a>
     
     <li ><a href="#method-i-save">#save</a>
-    
-    <li ><a href="#method-i-service">#service</a>
     
   </ul>
 </nav>
@@ -141,6 +139,12 @@
     <li><a href="../ESP/Signature.html">ESP::Signature</a>
   
     <li><a href="../ESP/Stat.html">ESP::Stat</a>
+  
+    <li><a href="../ESP/Stat/CustomSignature.html">ESP::Stat::CustomSignature</a>
+  
+    <li><a href="../ESP/Stat/Region.html">ESP::Stat::Region</a>
+  
+    <li><a href="../ESP/Stat/Signature.html">ESP::Stat::Signature</a>
   
     <li><a href="../ESP/SubOrganization.html">ESP::SubOrganization</a>
   
@@ -219,8 +223,6 @@
 </li><li>
 <p><code>active</code></p>
 </li><li>
-<p><code>service_id</code></p>
-</li><li>
 <p><code>language</code></p>
 </li><li>
 <p><code>identifier</code></p>
@@ -230,7 +232,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 118</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 113</span>
     </pre>
           </div><!-- create-source -->
           
@@ -264,7 +266,7 @@
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 101</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 97</span>
     </pre>
           </div><!-- find-source -->
           
@@ -276,10 +278,10 @@
       </div><!-- find-method -->
 
     
-      <div id="method-c-run_sanity_test" class="method-detail ">
+      <div id="method-c-run" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">run_sanity_test</span><span
+          <span class="method-name">run</span><span
             class="method-args">(arguments = {})</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -294,7 +296,7 @@ custom signature. Returns a collection of alerts. If not successful,
 returns a <a href="CustomSignature.html">CustomSignature</a> object with
 the errors object populated.</p>
 
-<h4 id="method-c-run_sanity_test-label-Valid+Arguments">Valid Arguments<span><a href="#method-c-run_sanity_test-label-Valid+Arguments">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h4 id="method-c-run-label-Valid+Arguments">Valid Arguments<span><a href="#method-c-run-label-Valid+Arguments">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 <ul><li>
 <p><code>external_account_id</code> - The external account to run the custom
 signature against.</p>
@@ -307,34 +309,34 @@ values are ruby, javascript</p>
 <p><code>regions</code> - An array of regions to run the custom signature in</p>
 </li></ul>
 
-<h4 id="method-c-run_sanity_test-label-Example">Example<span><a href="#method-c-run_sanity_test-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h4 id="method-c-run-label-Example">Example<span><a href="#method-c-run-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
-<pre>alerts = ESP::CustomSignature.run_sanity_test(external_account_id: 3, regions: [&#39;us_east_1&#39;], language: &#39;ruby&#39;, signature: &#39;signature code written in ruby&#39;)</pre>
+<pre>alerts = ESP::CustomSignature.run(external_account_id: 3, regions: [&#39;us_east_1&#39;], language: &#39;ruby&#39;, signature: &#39;signature code written in ruby&#39;)</pre>
           
           
 
           
-          <div class="method-source-code" id="run_sanity_test-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 44</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">run_sanity_test</span>(<span class="ruby-identifier">arguments</span> = {})
+          <div class="method-source-code" id="run-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">run</span>(<span class="ruby-identifier">arguments</span> = {})
   <span class="ruby-identifier">arguments</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">with_indifferent_access</span>
   <span class="ruby-identifier">arguments</span>[<span class="ruby-value">:regions</span>] = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">arguments</span>[<span class="ruby-value">:regions</span>])
-  <span class="ruby-identifier">new</span>(<span class="ruby-identifier">arguments</span>).<span class="ruby-identifier">run</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;run_sanity_test&#39;</span>
+  <span class="ruby-identifier">new</span>(<span class="ruby-identifier">arguments</span>).<span class="ruby-identifier">run</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- run_sanity_test-source -->
+          </div><!-- run-source -->
           
         </div>
 
         
 
         
-      </div><!-- run_sanity_test-method -->
+      </div><!-- run-method -->
 
     
-      <div id="method-c-run_sanity_test-21" class="method-detail ">
+      <div id="method-c-run-21" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">run_sanity_test!</span><span
+          <span class="method-name">run!</span><span
             class="method-args">(arguments = {})</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -348,7 +350,7 @@ values are ruby, javascript</p>
 custom signature. Returns a collection of alerts. Throws an error if not
 successful.</p>
 
-<h4 id="method-c-run_sanity_test-21-label-Valid+Arguments">Valid Arguments<span><a href="#method-c-run_sanity_test-21-label-Valid+Arguments">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h4 id="method-c-run-21-label-Valid+Arguments">Valid Arguments<span><a href="#method-c-run-21-label-Valid+Arguments">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 <ul><li>
 <p><code>external_account_id</code> - The external account to run the custom
 signature against.</p>
@@ -361,29 +363,29 @@ values are ruby, javascript</p>
 <p><code>regions</code> - An array of regions to run the custom signature in</p>
 </li></ul>
 
-<h4 id="method-c-run_sanity_test-21-label-Example">Example<span><a href="#method-c-run_sanity_test-21-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h4 id="method-c-run-21-label-Example">Example<span><a href="#method-c-run-21-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
-<pre>alerts = ESP::CustomSignature.run_sanity_test!(external_account_id: 3, regions: [&#39;us_east_1&#39;], language: &#39;ruby&#39;, signature: &#39;signature code written in ruby&#39;)</pre>
+<pre>alerts = ESP::CustomSignature.run!(external_account_id: 3, regions: [&#39;us_east_1&#39;], language: &#39;ruby&#39;, signature: &#39;signature code written in ruby&#39;)</pre>
           
           
 
           
-          <div class="method-source-code" id="run_sanity_test-21-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 24</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">run_sanity_test!</span>(<span class="ruby-identifier">arguments</span> = {})
-  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">run_sanity_test</span>(<span class="ruby-identifier">arguments</span>)
+          <div class="method-source-code" id="run-21-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">run!</span>(<span class="ruby-identifier">arguments</span> = {})
+  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">run</span>(<span class="ruby-identifier">arguments</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">result</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">Collection</span>)
   <span class="ruby-identifier">result</span>.<span class="ruby-identifier">message</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)
   <span class="ruby-identifier">fail</span>(<span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">ResourceInvalid</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">result</span>)) <span class="ruby-comment"># rubocop:disable Style/RaiseArgs</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- run_sanity_test-21-source -->
+          </div><!-- run-21-source -->
           
         </div>
 
         
 
         
-      </div><!-- run_sanity_test-21-method -->
+      </div><!-- run-21-method -->
 
     
     </section><!-- public-class-method-details -->
@@ -411,7 +413,7 @@ values are ruby, javascript</p>
 
           
           <div class="method-source-code" id="organization-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 9</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 5</span>
 <span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:organization</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Organization&#39;</span>
 </pre>
           </div><!-- organization-source -->
@@ -451,22 +453,21 @@ signature against.</p>
 
 <h4 id="method-i-run-label-Example">Example<span><a href="#method-i-run-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
-<pre>alerts = ESP::CustomSignature.run(external_account_id: 3, regions: [&#39;us_east_1&#39;])</pre>
+<pre>custom_signature = ESP::CustomSignature.find(365)
+alerts = custom_signature.run(external_account_id: 3, regions: [&#39;us_east_1&#39;])</pre>
           
           
 
           
           <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 79</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 77</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">arguments</span> = {})
   <span class="ruby-identifier">arguments</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">with_indifferent_access</span>
 
   <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;external_account_id&#39;</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-value">:external_account_id</span>]
   <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;regions&#39;</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">Array</span>(<span class="ruby-identifier">arguments</span>[<span class="ruby-value">:regions</span>])
 
-  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply an external_account_id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">external_account_id</span>.<span class="ruby-identifier">present?</span>
-
-  <span class="ruby-identifier">response</span> = <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">post</span> <span class="ruby-identifier">endpoint</span>(<span class="ruby-identifier">arguments</span>[<span class="ruby-value">:action</span>]), <span class="ruby-identifier">to_json</span>
+  <span class="ruby-identifier">response</span> = <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">post</span> <span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">to_json</span>
   <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Alert</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:instantiate_collection</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">decode</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>))
 <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">BadRequest</span>, <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">ResourceInvalid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">error</span>
   <span class="ruby-identifier">load_remote_errors</span>(<span class="ruby-identifier">error</span>, <span class="ruby-keyword">true</span>)
@@ -509,13 +510,14 @@ signature against.</p>
 
 <h4 id="method-i-run-21-label-Example">Example<span><a href="#method-i-run-21-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
-<pre>alerts = ESP::CustomSignature.run!(external_account_id: 3, regions: [&#39;us_east_1&#39;])</pre>
+<pre>custom_signature = ESP::CustomSignature.find(365)
+alerts = custom_signature.run!(external_account_id: 3, regions: [&#39;us_east_1&#39;])</pre>
           
           
 
           
           <div class="method-source-code" id="run-21-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 61</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">run!</span>(<span class="ruby-identifier">arguments</span> = {})
   <span class="ruby-identifier">result</span> = <span class="ruby-identifier">run</span>(<span class="ruby-identifier">arguments</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">result</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">Collection</span>)
@@ -571,8 +573,6 @@ signature against.</p>
 </li><li>
 <p><code>active</code></p>
 </li><li>
-<p><code>service_id</code></p>
-</li><li>
 <p><code>language</code></p>
 </li><li>
 <p><code>identifier</code></p>
@@ -582,7 +582,7 @@ signature against.</p>
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 137</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 131</span>
     </pre>
           </div><!-- save-source -->
           
@@ -592,38 +592,6 @@ signature against.</p>
 
         
       </div><!-- save-method -->
-
-    
-      <div id="method-i-service" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">service</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>The service associated with this custom signature.</p>
-          
-          
-
-          
-          <div class="method-source-code" id="service-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/custom_signature.rb, line 5</span>
-<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:service</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Service&#39;</span>
-</pre>
-          </div><!-- service-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- service-method -->
 
     
     </section><!-- public-instance-method-details -->

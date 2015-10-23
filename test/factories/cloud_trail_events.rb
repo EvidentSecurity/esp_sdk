@@ -3,23 +3,14 @@ FactoryGirl.define do
     skip_create
 
     sequence(:id) { |n| n }
-    type "contact_requests"
+    type "cloud_trail_events"
     title "test2"
-    request_type "Support"
-    description "description"
-    created_at { Time.current }
-    updated_at { Time.current }
-    relationships do
-      { user: {
-        data: {
-          type: "users",
-          id: "23"
-        },
-        links: {
-          related: "http://localhost:3000/api/v2/users/23.json"
-        }
-      }
-      }
-    end
+    event_id "1"
+    event_name "1"
+    event_time "2015-10-16T19:07:24.434Z"
+    raw_event { { test: "event data" } }
+    username "johndoe"
+    ip_address "123.0.0.123"
+    user_agent "Chrome"
   end
 end

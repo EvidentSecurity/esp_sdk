@@ -138,6 +138,12 @@
   
     <li><a href="../ESP/Stat.html">ESP::Stat</a>
   
+    <li><a href="../ESP/Stat/CustomSignature.html">ESP::Stat::CustomSignature</a>
+  
+    <li><a href="../ESP/Stat/Region.html">ESP::Stat::Region</a>
+  
+    <li><a href="../ESP/Stat/Signature.html">ESP::Stat::Signature</a>
+  
     <li><a href="../ESP/SubOrganization.html">ESP::SubOrganization</a>
   
     <li><a href="../ESP/Suppression.html">ESP::Suppression</a>
@@ -393,7 +399,7 @@ href="Alert.html">Alert</a>.</p>
 
           
           <div class="method-source-code" id="suppress_region-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 68</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 67</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_region</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">Region</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -431,7 +437,7 @@ href="Alert.html">Alert</a>.</p>
 
           
           <div class="method-source-code" id="suppress_signature-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 60</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_signature</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -469,7 +475,7 @@ href="Alert.html">Alert</a>.</p>
 
           
           <div class="method-source-code" id="suppress_unique_identifier-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 76</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_unique_identifier</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">UniqueIdentifier</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>

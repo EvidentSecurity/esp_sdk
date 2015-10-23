@@ -28,6 +28,10 @@ module ESP
         options[:params].merge!(options[:params].delete(:filter)) if options[:params][:filter]
         options[:params] = filters(options[:params]).merge!(page)
       end
+      if options[:include].present?
+        options[:params] ||= {}
+        options[:params].merge!(options.extract!(:include))
+      end
       super(scope, options).tap do |object|
         make_pageable object, options
       end

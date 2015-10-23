@@ -33,7 +33,7 @@ module ESP
     #
     # * +arn+
     # * +external_id+ - Will be set by calling #generate_external_id if not already set.
-    # * +nickname+
+    # * +name+
     # * +sub_organization_id+
     # * +team_id+
 
@@ -44,12 +44,12 @@ module ESP
     #
     # * +arn+
     # * +external_id+ - Will be set by calling #generate_external_id if not already set.
-    # * +nickname+
+    # * +name+
     # * +sub_organization_id+
     # * +team_id+
     #
     # :call-seq:
     #   save
-    #   new(nickname: 'nickname', arn: 'arn', sub_organization_id: 2, team_id: 3).save
+    #   new(name: 'name', arn: 'arn', sub_organization_id: 2, team_id: 3).save
   end
 end

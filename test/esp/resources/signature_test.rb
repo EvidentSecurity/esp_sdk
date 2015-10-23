@@ -14,29 +14,23 @@ module ESP
         end
       end
 
-      context '.run' do
+      context '#run' do
         should 'call the api and pass params' do
-          stub_request(:post, %r{external_account/3/signatures/run.json*}).to_return(body: json_list(:alert, 2))
+          signature = build(:signature)
+          stub_request(:post, %r{signatures/#{signature.id}/run.json*}).to_return(body: json_list(:alert, 2))
 
-          alerts = ESP::Signature.run(external_account_id: 3, signature_name: 'param1', regions: 'param2')
+          alerts = signature.run(external_account_id: 3, regions: 'param2')
 
-          assert_requested(:post, %r{external_account/3/signatures/run.json}) do |req|
+          assert_requested(:post, %r{signatures/#{signature.id}/run.json}) do |req|
             body = JSON.parse req.body
-            assert_equal 'param1', body['data']['attributes']['signature_name']
+            assert_equal 3, body['data']['attributes']['external_account_id']
             assert_equal ['param2'], body['data']['attributes']['regions']
           end
           assert_equal ESP::Alert, alerts.resource_class
         end
 
-        should 'raise an error if external_account_id is not provided' do
-          error = assert_raises ArgumentError do
-            ESP::Signature.run(signature_name: 'param1', regions: 'param2')
-          end
-
-          assert_equal "You must supply an external_account_id.", error.message
-        end
-
         should 'not throw an error if an error is returned' do
+          signature = build(:signature)
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
           response = mock(body: error_response, code: '400')
@@ -44,7 +38,7 @@ module ESP
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
 
           assert_nothing_raised do
-            result = ESP::Signature.run(external_account_id: 3, signature_name: 'param1', regions: 'param2')
+            result = signature.run(external_account_id: 3, regions: 'param2')
             assert_equal JSON.parse(error_response)['errors'].first['title'], result.errors.full_messages.first
           end
         end
@@ -52,27 +46,21 @@ module ESP
 
       context '.run!' do
         should 'call the api and pass params' do
-          stub_request(:post, %r{external_account/3/signatures/run.json*}).to_return(body: json_list(:alert, 2))
+          signature = build(:signature)
+          stub_request(:post, %r{signatures/#{signature.id}/run.json*}).to_return(body: json_list(:alert, 2))
 
-          alerts = ESP::Signature.run!(external_account_id: 3, signature_name: 'param1', regions: 'param2')
+          alerts = signature.run!(external_account_id: 3, regions: 'param2')
 
-          assert_requested(:post, %r{external_account/3/signatures/run.json}) do |req|
+          assert_requested(:post, %r{signatures/#{signature.id}/run.json}) do |req|
             body = JSON.parse req.body
-            assert_equal 'param1', body['data']['attributes']['signature_name']
+            assert_equal 3, body['data']['attributes']['external_account_id']
             assert_equal ['param2'], body['data']['attributes']['regions']
           end
           assert_equal ESP::Alert, alerts.resource_class
         end
 
-        should 'raise an error if external_account_id is not provided' do
-          error = assert_raises ArgumentError do
-            ESP::Signature.run!(signature_name: 'param1', regions: 'param2')
-          end
-
-          assert_equal "You must supply an external_account_id.", error.message
-        end
-
         should 'throw an error if an error is returned' do
+          signature = build(:signature)
           error = ActiveResource::BadRequest.new('')
           error_response = json(:error)
           response = mock(body: error_response, code: '400')
@@ -80,20 +68,10 @@ module ESP
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
 
           error = assert_raises ActiveResource::ResourceInvalid do
-            result = ESP::Signature.run!(external_account_id: 3, signature_name: 'param1', regions: 'param2')
+            result = signature.run!(external_account_id: 3, regions: 'param2')
             assert_equal JSON.parse(error_response)['errors'].first['title'], result.errors.full_messages.first
           end
           assert_equal "Failed.  Response code = 400.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
-        end
-      end
-
-      context '.names' do
-        should 'call the api' do
-          stub_names = stub_request(:get, %r{signatures/signature_names.json*}).to_return(body: { data: %w(name1 name2) }.to_json)
-
-          ESP::Signature.names
-
-          assert_requested(stub_names)
         end
       end
 
@@ -120,29 +98,21 @@ module ESP
 
         context '#run' do
           should 'return alerts' do
-            name = ESP::Signature.names.first
+            signature = ESP::Signature.first
             external_account_id = ESP::ExternalAccount.last.id
 
-            alerts = ESP::Signature.run(external_account_id: external_account_id, signature_name: name, regions: 'us_east_1')
+            alerts = signature.run(external_account_id: external_account_id, regions: 'us_east_1')
 
             assert_equal ESP::Alert, alerts.resource_class
           end
 
           should 'return errors' do
-            name = ESP::Signature.names.first
+            signature = ESP::Signature.first
             external_account_id = 999
 
-            signature = ESP::Signature.run(external_account_id: external_account_id, signature_name: name, regions: ['us_east_1'])
+            signature = signature.run(external_account_id: external_account_id, regions: ['us_east_1'])
 
             assert_equal "Couldn't find ExternalAccount", signature.errors.full_messages.first
-          end
-        end
-
-        context '.names' do
-          should 'return the list of names' do
-            names = ESP::Signature.names
-
-            assert_equal Array, names.class
           end
         end
 

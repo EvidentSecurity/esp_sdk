@@ -71,7 +71,7 @@ module ActiveResource
 
               error = ActiveResource::BadRequest.new(response)
 
-              assert_equal "Failed.  Response code = 200.  Response message = Name can't be blank Description can't be blank.", error.message
+              assert_equal "Failed.  Response code = 200.  Response message = Name can't be blank Name is invalid Description can't be blank.", error.message
             end
 
             should 'have the generic message if there is not reponse body' do

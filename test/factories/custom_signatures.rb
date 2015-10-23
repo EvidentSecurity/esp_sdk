@@ -23,16 +23,7 @@ FactoryGirl.define do
         links: {
           related: "http://test.host/api/v2/organizations/1003.json"
         }
-      },
-        service: {
-          data: {
-            type: "services",
-            id: "1004"
-          },
-          links: {
-            related: "http://test.host/api/v2/services/1004.json"
-          }
-        }
+      }
       }
     end
   end

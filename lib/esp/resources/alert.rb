@@ -42,12 +42,10 @@ module ESP
       all(from: from, params: arguments)
     end
 
-    # Used internally by ::for_report
-    def self.find(*arguments) # :nodoc:
+    def self.find(*arguments)
       scope = arguments.slice!(0)
-      return super(scope) if scope.is_a? Numeric
       options = (arguments.slice!(0) || {}).with_indifferent_access
-      return super(scope, options) if options[:from].present?
+      return super(scope, options) if scope.is_a?(Numeric) || options[:from].present?
       params = options.fetch(:params, {}).with_indifferent_access
       report_id = params.delete(:report_id)
       for_report(report_id, params)

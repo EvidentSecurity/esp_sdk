@@ -3,17 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
 module ESP
   class ReportTest < ActiveSupport::TestCase
     context ESP::Report do
-      context '#create' do
-        should 'not be implemented' do
-          assert_raises ESP::NotImplementedError do
-            ESP::Report.create(status: 'queued')
-          end
-        end
-      end
-
       context '#update' do
         should 'not be implemented' do
           r = build(:report)
+          r.stubs(:new?).returns(false)
 
           assert_raises ESP::NotImplementedError do
             r.save
@@ -89,67 +82,35 @@ module ESP
         end
       end
 
-      context '.create_for_team' do
+      context '.create' do
         should 'raise an error if team_id is not provided' do
           error = assert_raises ArgumentError do
-            ESP::Report.create_for_team
+            ESP::Report.create
           end
           assert_equal "You must supply a team id.", error.message
         end
 
         should 'call api and return a report' do
-          stubbed_report = stub_request(:post, %r{teams/3/report.json*}).to_return(body: json(:report))
+          stubbed_report = stub_request(:post, /reports.json*/).to_return(body: json(:report))
 
-          report = ESP::Report.create_for_team(3)
+          report = ESP::Report.create(team_id: 3)
 
           assert_requested(stubbed_report)
           assert_equal ESP::Report, report.class
         end
 
         should 'call the api and return an error if an error is returned' do
-          stub_request(:post, %r{teams/3/report.json*}).to_return(body: json(:report))
-          error = ActiveResource::BadRequest.new('')
+          stub_request(:post, /reports.json*/).to_return(body: json(:report))
+          error = ActiveResource::ResourceInvalid.new('oh boy')
           error_response = json(:error)
-          response = mock(body: error_response, code: '400')
+          response = mock(body: error_response)
           error.stubs(:response).returns(response)
           ESP::Report.connection.expects(:post).raises(error)
 
           assert_nothing_raised do
-            r = ESP::Report.create_for_team(3)
+            r = ESP::Report.create(team_id: 3)
             assert_equal JSON.parse(error_response)['errors'].first['title'], r.errors.full_messages.first
           end
-        end
-      end
-
-      context '.create_for_team!' do
-        should 'raise an error if team_id is not provided' do
-          error = assert_raises ArgumentError do
-            ESP::Report.create_for_team!
-          end
-          assert_equal "You must supply a team id.", error.message
-        end
-
-        should 'call api and return a report' do
-          stubbed_report = stub_request(:post, %r{teams/3/report.json*}).to_return(body: json(:report))
-
-          report = ESP::Report.create_for_team!(3)
-
-          assert_requested(stubbed_report)
-          assert_equal ESP::Report, report.class
-        end
-
-        should 'call the api and throw an error if an error is returned' do
-          stub_request(:post, %r{teams/3/report.json*}).to_return(body: json(:report))
-          error = ActiveResource::BadRequest.new('')
-          error_response = json(:error)
-          response = mock(body: error_response, code: '400')
-          error.stubs(:response).returns(response)
-          ESP::Report.connection.expects(:post).raises(error)
-
-          error = assert_raises ActiveResource::ResourceInvalid do
-            ESP::Report.create_for_team!(3)
-          end
-          assert_equal "Failed.  Response code = 400.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
         end
       end
 
@@ -205,10 +166,10 @@ module ESP
           end
         end
 
-        context '.create_for_team' do
+        context '.create' do
           should 'return an error if a bad team_id is passed' do
             assert_nothing_raised do
-              r = ESP::Report.create_for_team(999)
+              r = ESP::Report.create(team_id: 999)
               assert_equal "Couldn't find Team", r.errors.full_messages.first
             end
           end

@@ -11,10 +11,13 @@ FactoryGirl.define do
       errors do
         [{ status: '401',
            title: "Name can't be blank",
-           message: { name: ["can't be blank", "is invalid"] } },
+           meta: { name: "can't be blank" } },
+         { status: '401',
+           title: "Name is invalid",
+           meta: { name: "is invalid" } },
          { status: '401',
            title: "Description can't be blank",
-           message: { description: ["can't be blank"] } }]
+           meta: { description: "can't be blank" } }]
       end
     end
   end

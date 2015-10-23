@@ -57,6 +57,7 @@
       <li><a href="#label-Everything+is+an+Object">Everything is an Object</a>
       <li><a href="#label-Errors">Errors</a>
       <li><a href="#label-Pagination">Pagination</a>
+      <li><a href="#label-Associated+Objects">Associated Objects</a>
       <li><a href="#label-Available+Objects">Available Objects</a>
       <li><a href="#label-Console">Console</a>
       <li><a href="#label-Contributing">Contributing</a>
@@ -110,6 +111,12 @@
     <li><a href="./ESP/Signature.html">ESP::Signature</a>
   
     <li><a href="./ESP/Stat.html">ESP::Stat</a>
+  
+    <li><a href="./ESP/Stat/CustomSignature.html">ESP::Stat::CustomSignature</a>
+  
+    <li><a href="./ESP/Stat/Region.html">ESP::Stat::Region</a>
+  
+    <li><a href="./ESP/Stat/Signature.html">ESP::Stat::Signature</a>
   
     <li><a href="./ESP/SubOrganization.html">ESP::SubOrganization</a>
   
@@ -256,20 +263,20 @@ exact same calls you would expect to use with Active Record.</p>
 attributes that each object has.</p>
 
 <pre class="ruby"><span class="ruby-identifier">espsdk</span>:<span class="ruby-value">003</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">team</span> = <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Team</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">1</span>)
-<span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">team</span>.<span class="ruby-identifier">attributes</span> <span class="ruby-comment"># =&gt;</span>
-{
-                      <span class="ruby-string">&quot;id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;1&quot;</span>,
-                    <span class="ruby-string">&quot;type&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;teams&quot;</span>,
-           <span class="ruby-string">&quot;relationships&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-comment">#&lt;ESP::Team::Relationships:0x007fdf1b451710 @attributes={&quot;sub_organization&quot;=&gt;#&lt;ESP::SubOrganization:0x007fdf1b450d60 @attributes={&quot;data&quot;=&gt;#&lt;ESP::SubOrganization::Data:0x007fdf1b450978 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;sub_organizations&quot;}, @prefix_options={}, @persisted=true&gt;, &quot;links&quot;=&gt;#&lt;ESP::SubOrganization::Links:0x007fdf1b4503b0 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/sub_organizations/1.json&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;, &quot;organization&quot;=&gt;#&lt;ESP::Organization:0x007fdf1b45bbc0 @attributes={&quot;data&quot;=&gt;#&lt;ESP::Organization::Data:0x007fdf1b45b7d8 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;organizations&quot;}, @prefix_options={}, @persisted=true&gt;, &quot;links&quot;=&gt;#&lt;ESP::Organization::Links:0x007fdf1b45b210 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/organizations/1.json&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;, &quot;external_accounts&quot;=&gt;#&lt;ESP::Team::Relationships::ExternalAccounts:0x007fdf1b45a040 @attributes={&quot;data&quot;=&gt;[#&lt;ESP::Team::Relationships::ExternalAccounts::Datum:0x007fdf1b458830 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;external_accounts&quot;}, @prefix_options={}, @persisted=true&gt;], &quot;links&quot;=&gt;#&lt;ESP::Team::Links:0x007fdf1b463e38 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/external_accounts.json&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;,</span>
-                    <span class="ruby-string">&quot;name&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Default Team&quot;</span>,
-              <span class="ruby-string">&quot;created_at&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;2015-09-23T14:37:48.000Z&quot;</span>,
-              <span class="ruby-string">&quot;updated_at&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;2015-09-23T14:37:48.000Z&quot;</span>,
-     <span class="ruby-string">&quot;sub_organization_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;1&quot;</span>,
-         <span class="ruby-string">&quot;organization_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;1&quot;</span>,
-    <span class="ruby-string">&quot;external_account_ids&quot;</span> =<span class="ruby-operator">&gt;</span> [
-        [<span class="ruby-value">0</span>] <span class="ruby-string">&quot;1&quot;</span>
-    ]
-}
+<span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">team</span>.<span class="ruby-identifier">attributes</span>
+<span class="ruby-comment"># =&gt; {</span>
+<span class="ruby-comment"># =&gt;                       &quot;id&quot; =&gt; &quot;1&quot;,</span>
+<span class="ruby-comment"># =&gt;                     &quot;type&quot; =&gt; &quot;teams&quot;,</span>
+<span class="ruby-comment"># =&gt;            &quot;relationships&quot; =&gt; #&lt;ESP::Team::Relationships:0x007fdf1b451710 @attributes={&quot;sub_organization&quot;=&gt;#&lt;ESP::SubOrganization:0x007fdf1b450d60 @attributes={&quot;data&quot;=&gt;#&lt;ESP::SubOrganization::Data:0x007fdf1b450978 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;sub_organizations&quot;}, @prefix_options={}, @persisted=true&gt;, &quot;links&quot;=&gt;#&lt;ESP::SubOrganization::Links:0x007fdf1b4503b0 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/sub_organizations/1.json&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;, &quot;organization&quot;=&gt;#&lt;ESP::Organization:0x007fdf1b45bbc0 @attributes={&quot;data&quot;=&gt;#&lt;ESP::Organization::Data:0x007fdf1b45b7d8 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;organizations&quot;}, @prefix_options={}, @persisted=true&gt;, &quot;links&quot;=&gt;#&lt;ESP::Organization::Links:0x007fdf1b45b210 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/organizations/1.json&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;, &quot;external_accounts&quot;=&gt;#&lt;ESP::Team::Relationships::ExternalAccounts:0x007fdf1b45a040 @attributes={&quot;data&quot;=&gt;[#&lt;ESP::Team::Relationships::ExternalAccounts::Datum:0x007fdf1b458830 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;external_accounts&quot;}, @prefix_options={}, @persisted=true&gt;], &quot;links&quot;=&gt;#&lt;ESP::Team::Links:0x007fdf1b463e38 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/external_accounts.json&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;,</span>
+<span class="ruby-comment"># =&gt;                     &quot;name&quot; =&gt; &quot;Default Team&quot;,</span>
+<span class="ruby-comment"># =&gt;               &quot;created_at&quot; =&gt; &quot;2015-09-23T14:37:48.000Z&quot;,</span>
+<span class="ruby-comment"># =&gt;               &quot;updated_at&quot; =&gt; &quot;2015-09-23T14:37:48.000Z&quot;,</span>
+<span class="ruby-comment"># =&gt;      &quot;sub_organization_id&quot; =&gt; &quot;1&quot;,</span>
+<span class="ruby-comment"># =&gt;          &quot;organization_id&quot; =&gt; &quot;1&quot;,</span>
+<span class="ruby-comment"># =&gt;     &quot;external_account_ids&quot; =&gt; [</span>
+<span class="ruby-comment"># =&gt;         [0] &quot;1&quot;</span>
+<span class="ruby-comment"># =&gt;     ]</span>
+<span class="ruby-comment"># =&gt; }</span>
 </pre>
 
 <h2 id="label-Errors">Errors<span><a href="#label-Errors">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
@@ -279,15 +286,17 @@ objects. If the API call returns a non fatal response, like
 validation
 issues, you can check the errors object to see what went wrong.</p>
 
-<pre class="ruby"><span class="ruby-identifier">espsdk</span>:<span class="ruby-value">003</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">t</span> = <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Team</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">organization_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">sub_organization_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>)
-<span class="ruby-identifier">espsdk</span>:<span class="ruby-value">003</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">errors</span> <span class="ruby-comment"># =&gt;</span>
-{
-    :<span class="ruby-identifier">base</span> =<span class="ruby-operator">&gt;</span> [
-        [<span class="ruby-value">0</span>] <span class="ruby-string">&quot;Organization can&#39;t be blank&quot;</span>,
-        [<span class="ruby-value">1</span>] <span class="ruby-string">&quot;Sub organization can&#39;t be blank&quot;</span>,
-        [<span class="ruby-value">2</span>] <span class="ruby-string">&quot;Name can&#39;t be blank&quot;</span>
-    ]
-}
+<pre class="ruby"><span class="ruby-identifier">espsdk</span>:<span class="ruby-value">003</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">t</span> = <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Team</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>)
+<span class="ruby-identifier">espsdk</span>:<span class="ruby-value">003</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">errors</span>
+<span class="ruby-comment"># =&gt; {</span>
+<span class="ruby-comment"># =&gt;     :base =&gt; [</span>
+<span class="ruby-comment"># =&gt;         [0] &quot;Organization can&#39;t be blank&quot;,</span>
+<span class="ruby-comment"># =&gt;         [1] &quot;Sub organization can&#39;t be blank&quot;</span>
+<span class="ruby-comment"># =&gt;     ],</span>
+<span class="ruby-comment"># =&gt;     :name =&gt; [</span>
+<span class="ruby-comment"># =&gt;         [0] &quot;can&#39;t be blank&quot;</span>
+<span class="ruby-comment"># =&gt;     ]</span>
+<span class="ruby-comment"># =&gt; }</span>
 </pre>
 
 <p>The errors will be in the :base key rather than the corresponding attribute
@@ -295,21 +304,21 @@ key, since we have not defined a schema for the objects
 in order to stay
 more loosely coupled to the API.</p>
 
-<pre class="ruby"><span class="ruby-identifier">espsdk</span>:<span class="ruby-value">003</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span> <span class="ruby-comment"># =&gt;</span>
-[
-    [<span class="ruby-value">0</span>] <span class="ruby-string">&quot;Organization can&#39;t be blank&quot;</span>,
-    [<span class="ruby-value">1</span>] <span class="ruby-string">&quot;Sub organization can&#39;t be blank&quot;</span>,
-    [<span class="ruby-value">2</span>] <span class="ruby-string">&quot;Name can&#39;t be blank&quot;</span>
-]
+<pre class="ruby"><span class="ruby-identifier">espsdk</span>:<span class="ruby-value">003</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>
+<span class="ruby-comment"># =&gt; [</span>
+<span class="ruby-comment"># =&gt;     [0] &quot;Organization can&#39;t be blank&quot;,</span>
+<span class="ruby-comment"># =&gt;     [1] &quot;Sub organization can&#39;t be blank&quot;,</span>
+<span class="ruby-comment"># =&gt;     [2] &quot;Name can&#39;t be blank&quot;</span>
+<span class="ruby-comment"># =&gt; ]</span>
 </pre>
 
 <p>When an error is thrown, you can rescue the error and check the error
 message:</p>
 
 <pre class="ruby"><span class="ruby-identifier">espsdk</span>:<span class="ruby-value">003</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">c</span> = <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">CustomSignature</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">435</span>)
-<span class="ruby-identifier">espsdk</span>:<span class="ruby-value">003</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">run!</span>(<span class="ruby-identifier">external_account_id</span><span class="ruby-operator">:</span> <span class="ruby-value">999</span>) <span class="ruby-comment"># =&gt;</span>
-<span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">ResourceInvalid</span><span class="ruby-operator">:</span> <span class="ruby-constant">Failed</span>.  <span class="ruby-constant">Response</span> <span class="ruby-identifier">code</span> = <span class="ruby-value">422</span>.  <span class="ruby-constant">Response</span> <span class="ruby-identifier">message</span> = <span class="ruby-constant">Couldn</span><span class="ruby-string">&#39;t find ExternalAccount.
-        from /Users/kevintyll/evident/esp_sdk/lib/esp/resources/custom_signature.rb:23:in `run!&#39;</span>
+<span class="ruby-identifier">espsdk</span>:<span class="ruby-value">003</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">run!</span>(<span class="ruby-identifier">external_account_id</span><span class="ruby-operator">:</span> <span class="ruby-value">999</span>)
+<span class="ruby-comment"># =&gt;  ActiveResource::ResourceInvalid: Failed.  Response code = 422.  Response message = Couldn&#39;t find ExternalAccount. </span>
+<span class="ruby-comment"># =&gt;    from /Users/kevintyll/evident/esp_sdk/lib/esp/resources/custom_signature.rb:23:in `run!&#39;</span>
 
 <span class="ruby-keyword">begin</span>
   <span class="ruby-identifier">c</span>.<span class="ruby-identifier">run!</span>(<span class="ruby-identifier">external_account_id</span><span class="ruby-operator">:</span> <span class="ruby-value">999</span>)
@@ -350,6 +359,41 @@ original object.</p>
 <span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">alerts</span>.<span class="ruby-identifier">current_page_number</span> <span class="ruby-comment"># =&gt; &quot;25&quot;</span>
 <span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">page4</span>.<span class="ruby-identifier">current_page_number</span> <span class="ruby-comment"># =&gt; &quot;4&quot;</span>
 </pre>
+
+<h2 id="label-Associated+Objects">Associated Objects<span><a href="#label-Associated+Objects">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>Most of the objects in the Evident.io SDK have a corresponding API call
+associated with it. That means if you call an object&#39;s
+association,
+then that will make another API call. For example:</p>
+
+<pre class="ruby"><span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">external_account</span> = <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">ExternalAccount</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">3</span>)
+<span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">organization</span> = <span class="ruby-identifier">external_account</span>.<span class="ruby-identifier">organization</span>
+<span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sub_organization</span> = <span class="ruby-identifier">external_account</span>.<span class="ruby-identifier">sub_organization</span>
+<span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">team</span> = <span class="ruby-identifier">external_account</span>.<span class="ruby-identifier">team</span>
+</pre>
+
+<p>The above code will make 4 calls to the Evident.io API. 1 each for the
+external account, organization, sub_organization and team.
+The <a
+href="http://jsonapi.org/format/#fetching-includes">JSON API
+Specification</a>, which the Evident.io API tries to follow, provides
+a
+means for returning nested objects in a single call. With the SDK, that can
+be done by providing a comma separated string
+of the relations wanted in an
+<code>include</code> option.</p>
+
+<pre class="ruby"><span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">external_account</span> = <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">ExternalAccount</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">3</span>, <span class="ruby-identifier">include</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;organization,sub_orgnanization,team&#39;</span>)
+</pre>
+
+<p>With that call, organization, sub_organization and team will all come back
+in the response, and calling,
+<code>external_account.organization</code>,
+<code>external_account.sub_organization</code>
+and <code>external_account.team</code>, will not make another API call.
+Most objects&#39; find method accepts the
+<code>include</code> option.</p>
 
 <p>See the <a
 href="http://www.rubydoc.info/gems/esp_sdk/ESP/ActiveResource/PaginatedCollection.html">Documentation</a>

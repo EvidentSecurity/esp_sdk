@@ -11,25 +11,6 @@ FactoryGirl.define do
     metadata { { abc: 123 } }
     started_at { Time.current }
     ended_at nil
-    suppression do
-      {
-        id: nil,
-        reason: nil,
-        user_email: nil
-      }
-    end
-    tags do
-      [
-        {
-          key: "Name",
-          value: "abc123"
-        },
-        {
-          key: "Name",
-          value: "abc123"
-        }
-      ]
-    end
     relationships do
       {
         external_account: {
@@ -59,6 +40,15 @@ FactoryGirl.define do
         custom_signature: {
           data: nil
         },
+        suppression: {
+          data: {
+            id: "1",
+            type: "suppressions"
+          },
+          links: {
+            related: "http://test.host/api/v2/suppressions/1.json"
+          }
+        },
         cloud_trail_events: {
           data: [
             {
@@ -69,6 +59,18 @@ FactoryGirl.define do
           links: {
             related: "http://test.host/api/v2/alerts/1017/cloud_trail_events.json"
           }
+        },
+        tags: {
+          data: [
+            {
+              id: "1",
+              type: "tags"
+            },
+            {
+              id: "2",
+              type: "tags"
+            }
+          ]
         }
       }
     end
@@ -160,6 +162,70 @@ FactoryGirl.define do
             username: "johndoe",
             ip_address: "123.0.0.123",
             user_agent: "Chrome"
+          }
+        },
+        {
+          id: "1",
+          type: "suppressions",
+          attributes: {
+            created_at: "2015-10-16T18:34:19.464Z",
+            reason: "I dont like this",
+            status: "setup",
+            updated_at: "2015-10-16T18:34:19.464Z",
+            configuration: {
+              suppression_type: "regions",
+              resource: nil,
+              regions: [
+                {
+                  id: "4",
+                  type: "regions",
+                  attributes: {
+                    code: "us_east_test_4"
+                  }
+                }
+              ],
+              external_accounts: []
+            }
+          },
+          relationships: {
+            organization: {
+              data: {
+                id: "4",
+                type: "organizations"
+              },
+              links: {
+                related: "http://test.host/api/v2/organizations/4.json"
+              }
+            },
+            created_by: {
+              data: {
+                id: "1",
+                type: "users"
+              },
+              links: {
+                related: "http://test.host/api/v2/users/1.json"
+              }
+            }
+          }
+        },
+        {
+          id: "1",
+          type: "tags",
+          attributes: {
+            key: "Name",
+            value: "abc123",
+            created_at: "2015-10-16T18:34:19.569Z",
+            updated_at: "2015-10-16T18:34:19.569Z"
+          }
+        },
+        {
+          id: "2",
+          type: "tags",
+          attributes: {
+            key: "Name",
+            value: "abc123",
+            created_at: "2015-10-16T18:34:19.571Z",
+            updated_at: "2015-10-16T18:34:19.571Z"
           }
         }
       ]

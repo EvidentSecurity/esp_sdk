@@ -1,10 +1,6 @@
 module ESP
   class CustomSignature < ESP::Resource
     ##
-    # The service associated with this custom signature.
-    belongs_to :service, class_name: 'ESP::Service'
-
-    ##
     # The organization this custom signature belongs to.
     belongs_to :organization, class_name: 'ESP::Organization'
 
@@ -20,9 +16,9 @@ module ESP
     # * +regions+ - An array of regions to run the custom signature in
     #
     # ==== Example
-    #   alerts = ESP::CustomSignature.run_sanity_test!(external_account_id: 3, regions: ['us_east_1'], language: 'ruby', signature: 'signature code written in ruby')
-    def self.run_sanity_test!(arguments = {})
-      result = run_sanity_test(arguments)
+    #   alerts = ESP::CustomSignature.run!(external_account_id: 3, regions: ['us_east_1'], language: 'ruby', signature: 'signature code written in ruby')
+    def self.run!(arguments = {})
+      result = run(arguments)
       return result if result.is_a?(ActiveResource::Collection)
       result.message = result.errors.full_messages.join(' ')
       fail(ActiveResource::ResourceInvalid.new(result)) # rubocop:disable Style/RaiseArgs
@@ -40,11 +36,11 @@ module ESP
     # * +regions+ - An array of regions to run the custom signature in
     #
     # ==== Example
-    #   alerts = ESP::CustomSignature.run_sanity_test(external_account_id: 3, regions: ['us_east_1'], language: 'ruby', signature: 'signature code written in ruby')
-    def self.run_sanity_test(arguments = {})
+    #   alerts = ESP::CustomSignature.run(external_account_id: 3, regions: ['us_east_1'], language: 'ruby', signature: 'signature code written in ruby')
+    def self.run(arguments = {})
       arguments = arguments.with_indifferent_access
       arguments[:regions] = Array(arguments[:regions])
-      new(arguments).run action: 'run_sanity_test'
+      new(arguments).run
     end
 
     # Run this custom signature instance.
@@ -57,7 +53,8 @@ module ESP
     # * +regions+ - An array of regions to run the custom signature in
     #
     # ==== Example
-    #   alerts = ESP::CustomSignature.run!(external_account_id: 3, regions: ['us_east_1'])
+    #   custom_signature = ESP::CustomSignature.find(365)
+    #   alerts = custom_signature.run!(external_account_id: 3, regions: ['us_east_1'])
     def run!(arguments = {})
       result = run(arguments)
       return result if result.is_a?(ActiveResource::Collection)
@@ -75,16 +72,15 @@ module ESP
     # * +regions+ - An array of regions to run the custom signature in
     #
     # ==== Example
-    #   alerts = ESP::CustomSignature.run(external_account_id: 3, regions: ['us_east_1'])
+    #   custom_signature = ESP::CustomSignature.find(365)
+    #   alerts = custom_signature.run(external_account_id: 3, regions: ['us_east_1'])
     def run(arguments = {})
       arguments = arguments.with_indifferent_access
 
       attributes['external_account_id'] ||= arguments[:external_account_id]
       attributes['regions'] ||= Array(arguments[:regions])
 
-      fail ArgumentError, "You must supply an external_account_id." unless external_account_id.present?
-
-      response = connection.post endpoint(arguments[:action]), to_json
+      response = connection.post endpoint, to_json
       ESP::Alert.send(:instantiate_collection, self.class.format.decode(response.body))
     rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid => error
       load_remote_errors(error, true)
@@ -111,7 +107,6 @@ module ESP
     # * +description+
     # * +signature+
     # * +active+
-    # * +service_id+
     # * +language+
     # * +identifier+
 
@@ -126,7 +121,6 @@ module ESP
     # * +description+
     # * +signature+
     # * +active+
-    # * +service_id+
     # * +language+
     # * +identifier+
     #
@@ -139,15 +133,11 @@ module ESP
 
     private
 
-    def endpoint(action)
-      action ||= 'run_existing'.freeze
-      case action
-      when 'run_existing'.freeze
-        "#{self.class.prefix}external_account/#{external_account_id}/custom_signatures/#{id}/#{action}.json"
-      when 'run_sanity_test'
-        "#{self.class.prefix}external_account/#{external_account_id}/custom_signatures/#{action}.json"
+    def endpoint
+      if id.present?
+        "#{self.class.prefix}custom_signatures/#{id}/run.json"
       else
-        fail 'Invalid action'
+        "#{self.class.prefix}custom_signatures/run.json"
       end
     end
   end
