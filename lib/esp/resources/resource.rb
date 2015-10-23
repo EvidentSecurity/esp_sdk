@@ -23,15 +23,7 @@ module ESP
     def self.find(*arguments)
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access
-      if options[:params].present?
-        page = options[:params][:page] ? { page: options[:params].delete(:page) } : {}
-        options[:params].merge!(options[:params].delete(:filter)) if options[:params][:filter]
-        options[:params] = filters(options[:params]).merge!(page)
-      end
-      if options[:include].present?
-        options[:params] ||= {}
-        options[:params].merge!(options.extract!(:include))
-      end
+      arrange_options(options)
       super(scope, options).tap do |object|
         make_pageable object, options
       end
@@ -56,6 +48,18 @@ module ESP
       object.tap do |collection|
         collection.from = options['from']
         collection.original_params = options['params']
+      end
+    end
+
+    def self.arrange_options(options)
+      if options[:params].present?
+        page = options[:params][:page] ? { page: options[:params].delete(:page) } : {}
+        options[:params].merge!(options[:params].delete(:filter)) if options[:params][:filter]
+        options[:params] = filters(options[:params]).merge!(page)
+      end
+      if options[:include].present?
+        options[:params] ||= {}
+        options[:params].merge!(options.extract!(:include))
       end
     end
   end

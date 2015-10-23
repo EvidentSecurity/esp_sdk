@@ -13,19 +13,12 @@ module ActiveResource
 
   class Errors
     def from_json_api(json, save_cache = false)
-      decoded = decoded_errors(json)
-      errors = {}
-      decoded.each do |error|
-        next unless error['meta']
-        error['meta'].map do |attr, message|
-          errors[attr] ||= []
-          errors[attr] << message
-        end
-      end
+      raw_errors = decoded_errors(json)
+      errors = meta_errors(raw_errors)
       if errors.present?
         from_hash errors, save_cache
       else
-        from_array decoded.map { |e| e['title'] }
+        from_array raw_errors.map { |e| e['title'] }
       end
     end
 
@@ -35,6 +28,18 @@ module ActiveResource
       Array((Hash(ActiveSupport::JSON.decode(json)))['errors'])
     rescue
       []
+    end
+
+    def meta_errors(raw_errors)
+      {}.tap do |errors|
+        raw_errors.each do |error|
+          next unless error['meta']
+          error['meta'].map do |attr, message|
+            errors[attr] ||= []
+            errors[attr] << message
+          end
+        end
+      end
     end
   end
 end
