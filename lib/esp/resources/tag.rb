@@ -1,31 +1,31 @@
 module ESP
-  class CloudTrailEvent < ESP::Resource
-    # Not Implemented. You cannot create or update a CloudTrailEvent.
+  class Tag < ESP::Resource
+    # Not Implemented. You cannot create or update a Tag.
     def save
       fail ESP::NotImplementedError
     end
 
-    # Not Implemented. You cannot destroy a CloudTrailEvent.
+    # Not Implemented. You cannot destroy a Tag.
     def destroy
       fail ESP::NotImplementedError
     end
 
-    # Returns a paginated collection of cloud trail events for the given alert_id
-    # Convenience method to use instead of ::find since an alert_id is required to return cloud trail events.
+    # Returns a paginated collection of tags for the given alert_id
+    # Convenience method to use instead of ::find since an alert_id is required to return tags.
     #
     # ==== Attributes
     #
-    # * +alert_id+ - The ID for the alert for wanted cloud trail events.
+    # * +alert_id+ - The ID for the alert for wanted tags.
     #
     # ==== Example
-    #   alerts = ESP::CloudTrailEvent.for_alert(1194)
+    #   alerts = ESP::Tag.for_alert(1194)
     def self.for_alert(alert_id = nil)
       fail ArgumentError, "You must supply an alert id." unless alert_id.present?
-      from = "#{prefix}alerts/#{alert_id}/cloud_trail_events.json"
+      from = "#{prefix}alerts/#{alert_id}/tags.json"
       find(:all, from: from)
     end
 
-    # Find a CloudTrailEvent by id
+    # Find a Tag by id
     # :call-seq:
     #  find(id)
     def self.find(*arguments)

@@ -4,6 +4,16 @@ module ESP
     # The service this signature belongs to.
     belongs_to :service, class_name: 'ESP::Service'
 
+    # Not Implemented. You cannot create or update a Signature.
+    def save
+      fail ESP::NotImplementedError
+    end
+
+    # Not Implemented. You cannot destroy a Signature.
+    def destroy
+      fail ESP::NotImplementedError
+    end
+
     # Run this signature.
     # Returns a collection of alerts.
     # Throws an error if not successful.
@@ -47,5 +57,11 @@ module ESP
       self.code = error.response.code
       self
     end
+
+    ##
+    # :singleton-method: find
+    # Find a Signature by id
+    # :call-seq:
+    #  find(id)
   end
 end

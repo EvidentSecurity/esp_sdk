@@ -50,12 +50,21 @@ module ESP
       context '.find' do
         should 'throw an error if alert_id is not supplied' do
           error = assert_raises ArgumentError do
-            ESP::CloudTrailEvent.find(4)
+            ESP::CloudTrailEvent.find(:all, params: { id: 3 })
           end
           assert_equal 'You must supply an alert id.', error.message
         end
 
-        should 'call the api' do
+        should 'call the show api and return an event if searching by id' do
+          stub_event = stub_request(:get, %r{cloud_trail_events/5.json*}).to_return(body: json(:cloud_trail_event))
+
+          event = ESP::CloudTrailEvent.find(5)
+
+          assert_requested(stub_event)
+          assert_equal ESP::CloudTrailEvent, event.class
+        end
+
+        should 'call the api and return events when alert_id is supplied' do
           stub_event = stub_request(:get, %r{alerts/5/cloud_trail_events.json*}).to_return(body: json_list(:cloud_trail_event, 2))
 
           events = ESP::CloudTrailEvent.find(:all, params: { alert_id: 5 })

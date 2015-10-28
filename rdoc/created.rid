@@ -1,17 +1,18 @@
-Thu, 22 Oct 2015 12:09:24 -0400
+Wed, 28 Oct 2015 13:49:14 -0400
 README.md	Thu, 22 Oct 2015 12:09:19 -0400
-lib/esp/resources/alert.rb	Thu, 22 Oct 2015 10:39:59 -0400
-lib/esp/resources/cloud_trail_event.rb	Thu, 15 Oct 2015 10:47:26 -0400
+lib/esp/resources/alert.rb	Wed, 28 Oct 2015 12:42:45 -0400
+lib/esp/resources/cloud_trail_event.rb	Wed, 28 Oct 2015 13:38:21 -0400
 lib/esp/resources/concerns/stat_totals.rb	Wed, 21 Oct 2015 15:13:14 -0400
 lib/esp/resources/contact_request.rb	Thu, 15 Oct 2015 12:21:28 -0400
 lib/esp/resources/custom_signature.rb	Tue, 20 Oct 2015 14:28:52 -0400
 lib/esp/resources/dashboard.rb	Thu, 15 Oct 2015 13:42:05 -0400
 lib/esp/resources/external_account.rb	Wed, 21 Oct 2015 15:52:13 -0400
 lib/esp/resources/organization.rb	Fri, 16 Oct 2015 11:07:48 -0400
+lib/esp/resources/region.rb	Wed, 28 Oct 2015 13:23:41 -0400
 lib/esp/resources/report.rb	Mon, 19 Oct 2015 11:33:06 -0400
-lib/esp/resources/resource.rb	Thu, 22 Oct 2015 10:48:16 -0400
+lib/esp/resources/resource.rb	Fri, 23 Oct 2015 10:10:28 -0400
 lib/esp/resources/service.rb	Thu, 15 Oct 2015 16:07:32 -0400
-lib/esp/resources/signature.rb	Tue, 20 Oct 2015 14:28:52 -0400
+lib/esp/resources/signature.rb	Wed, 28 Oct 2015 13:09:13 -0400
 lib/esp/resources/stat.rb	Wed, 21 Oct 2015 15:15:59 -0400
 lib/esp/resources/stat/custom_signature.rb	Wed, 21 Oct 2015 15:15:59 -0400
 lib/esp/resources/stat/region.rb	Wed, 21 Oct 2015 15:15:59 -0400
@@ -21,7 +22,8 @@ lib/esp/resources/suppression.rb	Fri, 16 Oct 2015 11:06:14 -0400
 lib/esp/resources/suppression/region.rb	Thu, 15 Oct 2015 13:20:07 -0400
 lib/esp/resources/suppression/signature.rb	Thu, 15 Oct 2015 13:19:38 -0400
 lib/esp/resources/suppression/unique_identifier.rb	Thu, 15 Oct 2015 13:22:46 -0400
+lib/esp/resources/tag.rb	Wed, 28 Oct 2015 13:49:11 -0400
 lib/esp/resources/team.rb	Fri, 16 Oct 2015 11:10:40 -0400
 lib/esp/resources/user.rb	Fri, 16 Oct 2015 11:40:13 -0400
 lib/esp/extensions/active_resource/paginated_collection.rb	Thu, 15 Oct 2015 09:21:02 -0400
-lib/esp.rb	Wed, 21 Oct 2015 11:56:39 -0400
+lib/esp.rb	Wed, 28 Oct 2015 09:24:35 -0400

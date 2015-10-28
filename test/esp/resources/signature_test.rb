@@ -14,6 +14,32 @@ module ESP
         end
       end
 
+      context '#create' do
+        should 'not be implemented' do
+          assert_raises ESP::NotImplementedError do
+            ESP::Signature.create(name: 'test')
+          end
+        end
+      end
+
+      context '#update' do
+        should 'not be implemented' do
+          signature = build(:signature)
+          assert_raises ESP::NotImplementedError do
+            signature.save
+          end
+        end
+      end
+
+      context '#destroy' do
+        should 'not be implemented' do
+          s = build(:signature)
+          assert_raises ESP::NotImplementedError do
+            s.destroy
+          end
+        end
+      end
+
       context '#run' do
         should 'call the api and pass params' do
           signature = build(:signature)
@@ -117,28 +143,14 @@ module ESP
         end
 
         context '#CRUD' do
-          should 'be able to create, update and destroy' do
-            service_id = ESP::Service.last.id
-            signature = ESP::Signature.new(name: 'bob', identifier: 'identifier', provider: 'provider', scope: 'scope', risk_level: 'Low', description: 'description', resolution: 'resolution', service_id: service_id)
+          should 'be able to read' do
+            signature = ESP::Signature.last
 
-            assert_predicate signature, :new?
+            assert_not_nil signature
 
-            signature.save
+            signature = ESP::Signature.find(signature.id)
 
-            refute_predicate signature, :new?
-
-            signature.name = 'jim'
-            signature.save
-
-            assert_nothing_raised do
-              ESP::Signature.find(signature.id)
-            end
-
-            signature.destroy
-
-            assert_raises ActiveResource::ResourceInvalid do
-              ESP::Signature.find(signature.id)
-            end
+            assert_not_nil signature
           end
         end
       end

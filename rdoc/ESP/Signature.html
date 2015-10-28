@@ -73,9 +73,15 @@
 
   <ul class="link-list">
     
+    <li ><a href="#method-c-find">::find</a>
+    
+    <li ><a href="#method-i-destroy">#destroy</a>
+    
     <li ><a href="#method-i-run">#run</a>
     
     <li ><a href="#method-i-run-21">#run!</a>
+    
+    <li ><a href="#method-i-save">#save</a>
     
     <li ><a href="#method-i-service">#service</a>
     
@@ -122,6 +128,8 @@
   
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
+    <li><a href="../ESP/Region.html">ESP::Region</a>
+  
     <li><a href="../ESP/Report.html">ESP::Report</a>
   
     <li><a href="../ESP/Service.html">ESP::Service</a>
@@ -145,6 +153,8 @@
     <li><a href="../ESP/Suppression/Signature.html">ESP::Suppression::Signature</a>
   
     <li><a href="../ESP/Suppression/UniqueIdentifier.html">ESP::Suppression::UniqueIdentifier</a>
+  
+    <li><a href="../ESP/Tag.html">ESP::Tag</a>
   
     <li><a href="../ESP/Team.html">ESP::Team</a>
   
@@ -177,8 +187,82 @@
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-find" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            find(id)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Find a <a href="Signature.html">Signature</a> by id</p>
+          
+          
+
+          
+          <div class="method-source-code" id="find-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 66</span>
+  </pre>
+          </div><!-- find-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Not Implemented. You cannot destroy a <a
+href="Signature.html">Signature</a>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- destroy-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destroy-method -->
 
     
       <div id="method-i-run" class="method-detail ">
@@ -215,7 +299,7 @@ alerts = signature.run(external_account_id: 3, regions: [&#39;us_east_1&#39;])</
 
           
           <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 38</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">arguments</span> = {})
   <span class="ruby-identifier">arguments</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">with_indifferent_access</span>
   <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;external_account_id&#39;</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-value">:external_account_id</span>]
@@ -271,7 +355,7 @@ alerts = signature.run(external_account_id: 3, regions: [&#39;us_east_1&#39;])</
 
           
           <div class="method-source-code" id="run-21-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">run!</span>(<span class="ruby-identifier">arguments</span> = {})
   <span class="ruby-identifier">result</span> = <span class="ruby-identifier">run</span>(<span class="ruby-identifier">arguments</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">result</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">Collection</span>)
@@ -286,6 +370,40 @@ alerts = signature.run(external_account_id: 3, regions: [&#39;us_east_1&#39;])</
 
         
       </div><!-- run-21-method -->
+
+    
+      <div id="method-i-save" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">save</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Not Implemented. You cannot create or update a <a
+href="Signature.html">Signature</a>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="save-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- save-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- save-method -->
 
     
       <div id="method-i-service" class="method-detail ">

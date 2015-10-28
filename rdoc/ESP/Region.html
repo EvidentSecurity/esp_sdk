@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class ESP::User - ESPSDK</title>
+<title>class ESP::Region - ESPSDK</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -49,7 +49,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/esp/resources/user.rb
+    <li>lib/esp/resources/region.rb
   </ul>
 </nav>
 
@@ -73,19 +73,11 @@
 
   <ul class="link-list">
     
-    <li ><a href="#method-c-create">::create</a>
-    
     <li ><a href="#method-c-find">::find</a>
     
     <li ><a href="#method-i-destroy">#destroy</a>
     
-    <li ><a href="#method-i-organization">#organization</a>
-    
     <li ><a href="#method-i-save">#save</a>
-    
-    <li ><a href="#method-i-sub_organizations">#sub_organizations</a>
-    
-    <li ><a href="#method-i-teams">#teams</a>
     
   </ul>
 </nav>
@@ -169,7 +161,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class ESP::User</h1>
+  <h1 class="class">class ESP::Region</h1>
 
   <div id="description" class="description">
     
@@ -193,37 +185,6 @@
       <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="method-c-create" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">create</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Not Implemented. You cannot create a <a href="User.html">User</a>.</p>
-          
-          
-
-          
-          <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 36</span>
-  </pre>
-          </div><!-- create-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- create-method -->
-
-    
       <div id="method-c-find" class="method-detail ">
         
         
@@ -240,14 +201,14 @@
 
         <div class="method-description">
           
-          <p>Find a <a href="User.html">User</a> by id</p>
+          <p>Find a <a href="Region.html">Region</a> by id</p>
           
           
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 34</span>
-    </pre>
+            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 18</span>
+  </pre>
           </div><!-- find-source -->
           
         </div>
@@ -277,13 +238,14 @@
 
         <div class="method-description">
           
-          <p>Not Implemented. You cannot destroy a <a href="User.html">User</a>.</p>
+          <p>Not Implemented. You cannot destroy a an <a
+href="CloudTrailEvent.html">CloudTrailEvent</a>.</p>
           
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 13</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -295,38 +257,6 @@
 
         
       </div><!-- destroy-method -->
-
-    
-      <div id="method-i-organization" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">organization</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>The organization this user belongs to.</p>
-          
-          
-
-          
-          <div class="method-source-code" id="organization-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 5</span>
-<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:organization</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Organization&#39;</span>
-</pre>
-          </div><!-- organization-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- organization-method -->
 
     
       <div id="method-i-save" class="method-detail ">
@@ -343,13 +273,13 @@
         <div class="method-description">
           
           <p>Not Implemented. You cannot create or update a <a
-href="User.html">User</a>.</p>
+href="CloudTrailEvent.html">CloudTrailEvent</a>.</p>
           
           
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 8</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 4</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -361,72 +291,6 @@ href="User.html">User</a>.</p>
 
         
       </div><!-- save-method -->
-
-    
-      <div id="method-i-sub_organizations" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">sub_organizations</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>The collection of sub organizations that belong to the user.</p>
-          
-          
-
-          
-          <div class="method-source-code" id="sub_organizations-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 19</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">sub_organizations</span>
-  <span class="ruby-constant">SubOrganization</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">sub_organization_ids</span> })
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- sub_organizations-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- sub_organizations-method -->
-
-    
-      <div id="method-i-teams" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">teams</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>The collection of teams that belong to the user.</p>
-          
-          
-
-          
-          <div class="method-source-code" id="teams-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 25</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">teams</span>
-  <span class="ruby-constant">Team</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">team_ids</span> })
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- teams-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- teams-method -->
 
     
     </section><!-- public-instance-method-details -->

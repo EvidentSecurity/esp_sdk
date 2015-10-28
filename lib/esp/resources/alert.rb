@@ -1,8 +1,32 @@
 module ESP
   class Alert < ESP::Resource
     ##
-    # Returns the cloud trail events associated with this alert.
+    # Returns the external account associated with this alert.
+    belongs_to :external_account, class_name: 'ESP::ExternalAccount'
+
+    ##
+    # Returns the region associated with this alert.
+    belongs_to :region, class_name: 'ESP::Region'
+
+    ##
+    # Returns the region associated with this alert.  Either a signature or custom signature but not both will be present.
+    belongs_to :signature, class_name: 'ESP::Signature'
+
+    ##
+    # Returns the custom signature associated with this alert.  Either a signature or custom signature but not both will be present.
+    belongs_to :custom_signature, class_name: 'ESP::CustomSignature'
+
+    ##
+    # Returns the suppression associated with this alert.  If present the alert was suppressed.
+    belongs_to :suppression, class_name: 'ESP::Suppression'
+
+    ##
+    # Returns the cloud trail events associated with this alert.  These may be added up to 10 minutes after the alert was created
     has_many :cloud_trail_events, class_name: 'ESP::CloudTrailEvent'
+
+    ##
+    # Returns the tags associated with this alert.
+    has_many :tags, class_name: 'ESP::Tag'
 
     # Not Implemented. You cannot create or update an Alert.
     def save
@@ -42,6 +66,9 @@ module ESP
       all(from: from, params: arguments)
     end
 
+    # Find an Alert by id
+    # :call-seq:
+    #  find(id)
     def self.find(*arguments)
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access
