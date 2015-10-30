@@ -13,9 +13,9 @@ module ESP
     # Returns a paginated collection of cloud trail events for the given alert_id
     # Convenience method to use instead of ::find since an alert_id is required to return cloud trail events.
     #
-    # ==== Attributes
+    # ==== Parameter
     #
-    # * +alert_id+ - The ID for the alert for wanted cloud trail events.
+    # +alert_id+ | Required | The ID of the alert to retrieve cloud trail events for
     #
     # ==== Example
     #   alerts = ESP::CloudTrailEvent.for_alert(1194)
@@ -26,6 +26,11 @@ module ESP
     end
 
     # Find a CloudTrailEvent by id
+    #
+    # ==== Parameter
+    #
+    # +id+ | Required | The ID of the cloud trail event to retrieve
+    #
     # :call-seq:
     #  find(id)
     def self.find(*arguments)

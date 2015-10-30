@@ -25,12 +25,20 @@ module ESP
       #
       # Pass an +alert_id+, the suppression will be created based on that alert.
       #
+      # :call-seq:
+      #   create(attributes={})
+      #
+      # ==== Parameter
+      #
+      # +attributes+ | Required | A hash of unique identifier suppression attributes
+      #
       # ==== Attributes
       #
-      # * +alert_id+ - Required. The id for the alert you want to create a suppression for.
-      # * +reason+ - Required. The reason for creating the suppression.
+      # +alert_id+ | Required | The id for the alert you want to create a suppression for.
       #
-      # :call-seq:
+      # +reason+ | Required | The reason for creating the suppression.
+      #
+      # ==== Example
       #   create(alert_id: 5, reason: 'My very good reason for creating this suppression')
 
       # :method: save
@@ -40,12 +48,13 @@ module ESP
       #
       # ==== Attributes
       #
-      # * +alert_id+ - Required. The id for the alert you want to create a suppression for.
-      # * +reason+ - Required. The reason for creating the suppression.
+      # +alert_id+ | Required | The id for the alert you want to create a suppression for.
       #
-      # :call-seq:
-      #   save
-      #   new(alert_id: 5, reason: 'My very good reason for creating this suppression').save
+      # +reason+ | Required | The reason for creating the suppression.
+      #
+      # ==== Example
+      #   suppression = new(alert_id: 5, reason: 'My very good reason for creating this suppression')
+      #   suppression.save
     end
   end
 end

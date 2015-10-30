@@ -142,6 +142,24 @@ module ESP
         end
       end
 
+      context '#suppress' do
+        should 'call the api' do
+          stub_request(:post, %r{suppressions/signatures.json*}).to_return(body: json(:suppression_signature))
+          custom_signature = build(:custom_signature)
+
+          suppression = custom_signature.suppress(regions: ['us_east_1'], external_account_ids: [5], reason: 'because')
+
+          assert_requested(:post, %r{suppressions/signatures.json*}) do |req|
+            body = JSON.parse(req.body)
+            assert_equal 'because', body['data']['attributes']['reason']
+            assert_equal [custom_signature.id], body['data']['attributes']['custom_signature_ids']
+            assert_equal ['us_east_1'], body['data']['attributes']['regions']
+            assert_equal [5], body['data']['attributes']['external_account_ids']
+          end
+          assert_equal ESP::Suppression::Signature, suppression.class
+        end
+      end
+
       context 'live calls' do
         setup do
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
@@ -212,7 +230,7 @@ module ESP
 
             custom_signature.destroy
 
-            assert_raises ActiveResource::ResourceInvalid do
+            assert_raises ActiveResource::ResourceNotFound do
               ESP::CustomSignature.find(custom_signature.id)
             end
           end

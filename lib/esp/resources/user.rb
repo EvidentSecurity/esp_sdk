@@ -26,10 +26,19 @@ module ESP
       Team.find(:all, params: { id: team_ids })
     end
 
+    ##
     # :singleton-method: find
     # Find a User by id
+    #
+    # ==== Parameter
+    #
+    # +id+ | Required | The ID of the user to retrieve
+    #
     # :call-seq:
     #  find(id)
+
+    # :singleton-method: all
+    # Return a paginated User list
 
     # :singleton-method: create
     # Not Implemented. You cannot create a User.

@@ -26,7 +26,7 @@ module ESP
     # Returns a Report object with a status of 'queued' and an id
     # ==== Attribute
     #
-    # +team_id+ - The team to create the report for.
+    # +team_id+ | Required | The ID of the team to create a report for
     #
     # Periodically check the API
     #   ESP::Report.find(<id>)
@@ -36,25 +36,39 @@ module ESP
     def self.create(arguments = {})
       fail ArgumentError, "You must supply a team id." unless arguments.with_indifferent_access[:team_id].present?
       super
+    rescue ActiveResource::ResourceNotFound => error
+      new(arguments).tap { |r| r.load_remote_errors(error, true) }
     end
 
     # Returns a paginated collection of alerts for the report
     #
-    # ==== Attributes
+    # ==== Parameters
     #
-    # * +arguments+ - An optional hash of search criteria to filter the returned collection.
-    # Valid arguments are
-    # * +region_id+ - Return only alerts for this region.
-    # * +status+ - Return only alerts for the give status(es).  Valid values are fail, warn, error, pass, info
-    # * +first_seen+ - Return only alerts first seen after this time.  Format: "2015-10-15 10:29:45"
-    # * +suppressed+ - Return only suppressed alerts
-    # * +team_id+ - Return only alerts for the given team.
-    # * +external_account_id+ - Return only alerts for the given external id.
-    # * +service_id+ - Return only alerts on signatures with the given service.
-    # * +signature_severity+ - Return only alerts for signatures with the given risk_level.  Valid values are Low, Medium, High
-    # * +signature_name+ - Return only alerts for signatures with hte given name.
-    # * +resource+ - Return only alerts for the given resource or tag.
-    # * +signature_identifier+ - Return only alerts for signatures with the given identifier.
+    # +arguments+ | Not Required | An optional hash of search criteria to filter the returned collection
+    #
+    # ===== Valid Arguments
+    #
+    # +region_id+ | Not Required | Return only alerts for this region.
+    #
+    # +status+ | Not Required | Return only alerts for the give status(es).  Valid values are fail, warn, error, pass, info
+    #
+    # +first_seen+ | Not Required | Return only alerts that have started within a number of hours of the report. For example, first_seen of 3 will return alerts that started showing up within the last 3 hours of the report.
+    #
+    # +suppressed+ | Not Required | Return only suppressed alerts
+    #
+    # +team_id+ | Not Required | Return only alerts for the given team.
+    #
+    # +external_account_id+ | Not Required | Return only alerts for the given external id.
+    #
+    # +service_id+ | Not Required | Return only alerts on signatures with the given service.
+    #
+    # +signature_severity+ | Not Required | Return only alerts for signatures with the given risk_level.  Valid values are Low, Medium, High
+    #
+    # +signature_name+ | Not Required | Return only alerts for signatures with the given name.
+    #
+    # +resource+ | Not Required | Return only alerts for the given resource or tag.
+    #
+    # +signature_identifier+ | Not Required | Return only alerts for signatures with the given identifier.
     #
     # ==== Example
     #
@@ -68,5 +82,19 @@ module ESP
     def stat
       Stat.for_report(id)
     end
+
+    ##
+    # :singleton-method: find
+    # Find a Report by id
+    #
+    # ==== Parameter
+    #
+    # +id+ | Required | The ID of the report to retrieve
+    #
+    # :call-seq:
+    #  find(id)
+
+    # :singleton-method: all
+    # Return a paginated Report list
   end
 end

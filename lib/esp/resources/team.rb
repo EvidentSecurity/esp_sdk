@@ -26,36 +26,52 @@ module ESP
       Report.create_for_team(id)
     end
 
+    ##
     # :singleton-method: find
     # Find a Team by id
+    #
+    # ==== Parameter
+    #
+    # +id+ | Required | The ID of the team to retrieve
+    #
     # :call-seq:
     #  find(id)
+
+    # :singleton-method: all
+    # Return a paginated Team list
 
     # :singleton-method: create
     # Create a Team.
     # :call-seq:
     #   create(attributes={})
     #
+    # ==== Parameter
+    #
+    # +attributes+ | Required | A hash of team attributes
+    #
     # ==== Valid Attributes
     #
-    # * +name+
-    # * +sub_organization_id+
+    # +sub_organization_id+ | Required | The ID of the sub organization to attach this team to
+    #
+    # +name+ | Required | The name of the team
 
     # :method: save
     # Create and update a Team.
     #
     # ==== Valid Attributes when updating
     #
-    # * +name+
+    # +name+ | Required | The new name of the team
     #
     # ==== Valid Attributes when creating
     #
-    # * +name+
-    # * +sub_organization_id+
+    # +sub_organization_id+ | Required | The ID of the sub organization to attach this team to
     #
-    # :call-seq:
-    #   save
-    #   new(attributes={}).save
+    # +name+ | Required | The name of the team
+    #
+    # ==== Example
+    #
+    #  team = ESP::Team.new(name: "Team Name", sub_organization_id: 9)
+    #  team.save
 
     # :method: destroy
     # Delete a Team.

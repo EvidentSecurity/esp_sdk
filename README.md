@@ -75,7 +75,7 @@ end
 ## Everything is an Object
 
 The Evident.io SDK uses Active Resource, so the DSL acts very much like Active Record providing by default, the standard CRUD actions
-`find`, `create`, `update`, `destroy`, only instead of a database as the data store, it makes calls to the Evident.io API.  Not all
+`find`, `all`, `create`, `update`, `destroy`, only instead of a database as the data store, it makes calls to the Evident.io API.  Not all
 methods are available for all ESP objects.  See the [documentation](http://www.rubydoc.info/gems/esp_sdk) to see all the methods 
 available for each object.
 So, for instance, to get a report by ID:
@@ -225,6 +225,7 @@ See the [**Documentation**](http://www.rubydoc.info/gems/esp_sdk/ESP/ActiveResou
 * [ESP::Dashboard](http://www.rubydoc.info/gems/esp_sdk/ESP/Dashboard.html)
 * [ESP::ExternalAccount](http://www.rubydoc.info/gems/esp_sdk/ESP/ExternalAccount.html)
 * [ESP::Organization](http://www.rubydoc.info/gems/esp_sdk/ESP/Organization.html)
+* [ESP::Region](http://www.rubydoc.info/gems/esp_sdk/ESP/Region.html)
 * [ESP::Report](http://www.rubydoc.info/gems/esp_sdk/ESP/Report.html)
 * [ESP::Service](http://www.rubydoc.info/gems/esp_sdk/ESP/Service.html)
 * [ESP::Signature](http://www.rubydoc.info/gems/esp_sdk/ESP/Signature.html)
@@ -234,6 +235,7 @@ See the [**Documentation**](http://www.rubydoc.info/gems/esp_sdk/ESP/ActiveResou
 * [ESP::Suppression::Region](http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression::Region.html)
 * [ESP::Suppression::Signature](http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression::Signature.html)
 * [ESP::Suppression::UniqueIdentifier](http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression::UniqueIdentifier.html)
+* [ESP::Tag](http://www.rubydoc.info/gems/esp_sdk/ESP/Tag.html)
 * [ESP::Team](http://www.rubydoc.info/gems/esp_sdk/ESP/Team.html)
 * [ESP::User](http://www.rubydoc.info/gems/esp_sdk/ESP/User.html)
 

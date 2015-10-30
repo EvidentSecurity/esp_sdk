@@ -16,30 +16,52 @@ module ESP
     # The collection of reports that belong to the sub organization.
     has_many :reports, class_name: 'ESP::Report'
 
+    ##
     # :singleton-method: find
     # Find a SubOrganization by id
+    #
+    # ==== Parameter
+    #
+    # +id+ | Required | The ID of the sub organization to retrieve
+    #
     # :call-seq:
     #  find(id)
+
+    # :singleton-method: all
+    # Return a paginated SubOrganization list
 
     # :singleton-method: create
     # Create a SubOrganization.
     # :call-seq:
     #   create(attributes={})
     #
-    # ==== Valid Attributes
+    # ==== Parameters
     #
-    # * +name+
+    # +attributes+ | Required | A hash of run arguments
+    #
+    # ===== Valid Attributes
+    #
+    # +name+ | Required | The name of the sub organization
+    #
+    # ==== Example
+    #
+    #  sub_organization = ESP::SubOrganization.create(name: "Sub Organization Name")
 
     # :method: save
     # Create and update a SubOrganization.
     #
-    # ==== Valid Attributes
+    # ==== Parameters
     #
-    # * +name+
+    # +attributes+ | Required | A hash of run arguments
     #
-    # :call-seq:
-    #   save
-    #   new(attributes={}).save
+    # ===== Valid Attributes
+    #
+    # +name+ | Required | The name of the sub organization
+    #
+    # ==== Example
+    #
+    #  sub_organization = ESP::SubOrganization.new(name: "Sub Organization Name")
+    #  sub_organization.save
 
     # :method: destroy
     # Delete a SubOrganization.

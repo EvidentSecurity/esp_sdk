@@ -14,7 +14,7 @@ module ESP
     # Pass a json api compliant hash to the api.
     def serializable_hash(*)
       h = attributes.extract!('included')
-      h['data'] = { 'type' => self.class.to_s.demodulize.underscore.pluralize,
+      h['data'] = { 'type' => self.class.to_s.underscore.sub('esp/','').pluralize,
                     'attributes' => attributes.except('id', 'type', 'created_at', 'updated_at', 'relationships') }
       h['data']['id'] = id if id.present?
       h

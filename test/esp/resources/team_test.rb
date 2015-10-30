@@ -129,7 +129,7 @@ module ESP
 
             team.destroy
 
-            assert_raises ActiveResource::ResourceInvalid do
+            assert_raises ActiveResource::ResourceNotFound do
               ESP::Team.find(team.id)
             end
           end

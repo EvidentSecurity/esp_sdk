@@ -41,22 +41,35 @@ module ESP
     # Returns a paginated collection of alerts for the given report_id
     # Convenience method to use instead of ::find since a report_id is required to return alerts.
     #
-    # ==== Attributes
+    # ==== Parameters
     #
-    # * +report_id+ - The ID for the report for wanted alerts.
-    # * +arguments+ - An optional hash of search criteria to filter the returned collection.
-    # Valid arguments are
-    # * +region_id+ - Return only alerts for this region.
-    # * +status+ - Return only alerts for the give status(es).  Valid values are fail, warn, error, pass, info
-    # * +first_seen+ - Return only alerts first seen after this time.  Format: "2015-10-15 10:29:45"
-    # * +suppressed+ - Return only suppressed alerts
-    # * +team_id+ - Return only alerts for the given team.
-    # * +external_account_id+ - Return only alerts for the given external id.
-    # * +service_id+ - Return only alerts on signatures with the given service.
-    # * +signature_severity+ - Return only alerts for signatures with the given risk_level.  Valid values are Low, Medium, High
-    # * +signature_name+ - Return only alerts for signatures with hte given name.
-    # * +resource+ - Return only alerts for the given resource or tag.
-    # * +signature_identifier+ - Return only alerts for signatures with the given identifier.
+    # +report_id+ | Required | The ID of the report to retrieve alerts for
+    #
+    # +arguments+ | Not Required | An optional hash of search criteria to filter the returned collection
+    #
+    # ===== Valid Arguments
+    #
+    # +region_id+ | Not Required | Return only alerts for this region.
+    #
+    # +status+ | Not Required | Return only alerts for the give status(es).  Valid values are fail, warn, error, pass, info
+    #
+    # +first_seen+ | Not Required | Return only alerts that have started within a number of hours of the report. For example, first_seen of 3 will return alerts that started showing up within the last 3 hours of the report.
+    #
+    # +suppressed+ | Not Required | Return only suppressed alerts
+    #
+    # +team_id+ | Not Required | Return only alerts for the given team.
+    #
+    # +external_account_id+ | Not Required | Return only alerts for the given external id.
+    #
+    # +service_id+ | Not Required | Return only alerts on signatures with the given service.
+    #
+    # +signature_severity+ | Not Required | Return only alerts for signatures with the given risk_level.  Valid values are Low, Medium, High
+    #
+    # +signature_name+ | Not Required | Return only alerts for signatures with the given name.
+    #
+    # +resource+ | Not Required | Return only alerts for the given resource or tag.
+    #
+    # +signature_identifier+ | Not Required | Return only alerts for signatures with the given identifier.
     #
     # ==== Example
     #   alerts = ESP::Alert.for_report(54, status: 'fail', signature_severity: 'High')
@@ -67,6 +80,11 @@ module ESP
     end
 
     # Find an Alert by id
+    #
+    # ==== Parameter
+    #
+    # +id+ | Required | The ID of the alert to retrieve
+    #
     # :call-seq:
     #  find(id)
     def self.find(*arguments)
@@ -79,25 +97,25 @@ module ESP
     end
 
     # Suppress the signature associated with this alert.
-    # ==== Attribute
+    # ==== Parameter
     #
-    # * +reason+ - The reason for creating the suppression.
+    # +reason+ | Required | The reason for creating the suppression.
     def suppress_signature(reason = nil)
       suppress(Suppression::Signature, reason)
     end
 
     # Suppress the region associated with this alert.
-    # ==== Attribute
+    # ==== Parameter
     #
-    # * +reason+ - The reason for creating the suppression.
+    # +reason+ | Required | The reason for creating the suppression.
     def suppress_region(reason = nil)
       suppress(Suppression::Region, reason)
     end
 
     # Suppress the unique identifier associated with this alert.
-    # ==== Attribute
+    # ==== Parameter
     #
-    # * +reason+ - The reason for creating the suppression.
+    # +reason+ | Required | The reason for creating the suppression.
     def suppress_unique_identifier(reason = nil)
       suppress(Suppression::UniqueIdentifier, reason)
     end

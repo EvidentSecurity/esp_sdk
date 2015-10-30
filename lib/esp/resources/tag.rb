@@ -13,9 +13,9 @@ module ESP
     # Returns a paginated collection of tags for the given alert_id
     # Convenience method to use instead of ::find since an alert_id is required to return tags.
     #
-    # ==== Attributes
+    # ==== Parameter
     #
-    # * +alert_id+ - The ID for the alert for wanted tags.
+    # * +alert_id+ | Required | The ID of the alert to list tags for
     #
     # ==== Example
     #   alerts = ESP::Tag.for_alert(1194)
@@ -26,6 +26,11 @@ module ESP
     end
 
     # Find a Tag by id
+    #
+    # ==== Parameter
+    #
+    # +id+ | Required | The ID of the tag to retrieve
+    #
     # :call-seq:
     #  find(id)
     def self.find(*arguments)

@@ -37,33 +37,59 @@ module ESP
       #
       # If you pass an +alert_id+, include the +reason+ and all other params will be ignored, and the suppression will be created based on that alert.
       #
-      # ==== Attributes
-      #
-      # * +alert_id+ - Required if creating a suppression for an alert. The id for the alert you want to create a suppression for.
-      # * +regions+ - Required if not creating a suppression for an alert.  An array of regions to suppress.
-      # * +external_account_ids+ - Required if not creating a suppression for an alert.  An Array of the external account ids to suppress the regions on.
-      # * +reason+ - Required.  The reason for creating the suppression.
-      #
       # :call-seq:
-      #   create(alert_id: 5, reason: 'My very good reason for creating this suppression')
+      #   create(attributes={})
+      #
+      # ==== Parameter
+      #
+      # +attributes+ | Required | A hash of region suppression attributes
+      #
+      # ===== Valid Attributes When Not Creating for Alert
+      #
+      # +regions+ | Required | An array of region names to suppress.
+      #
+      # +external_account_ids+ | Required | An Array of the external accounts identified by +external_account_id+ to suppress the signature or custom signature on.
+      #
+      # +reason+ | Required | The reason for creating the suppression.
+      #
+      # ==== Example
       #   create(regions: ['us_east_1'], external_account_ids: [5], reason: 'My very good reason for creating this suppression')
+      #
+      # ===== Valid Attributes When Creating for Alert
+      #
+      # +alert_id+ | Required | The id for the alert you want to create a suppression for.
+      #
+      # +reason+ | Required | The reason for creating the suppression.
+      #
+      # ==== Example
+      #   create(alert_id: 5, reason: 'My very good reason for creating this suppression')
 
       # :method: save
       # Create a suppression for a region.
       #
       # If you set an +alert_id+, set the +reason+ and all other params will be ignored, and the suppression will be created based on that alert.
       #
-      # ==== Attributes
+      # ===== Valid Attributes When Not Creating for Alert
       #
-      # * +alert_id+ - Required if creating a suppression for an alert. The id for the alert you want to create a suppression for.
-      # * +regions+ - Required if not creating a suppression for an alert.  An array of regions to suppress.
-      # * +external_account_ids+ - Required if not creating a suppression for an alert.  An Array of the external account ids to suppress the regions on.
-      # * +reason+ - Required.  The reason for creating the suppression.
+      # +regions+ | Required | An array of region names to suppress.
       #
-      # :call-seq:
-      #   save
-      #   new(alert_id: 5, reason: 'My very good reason for creating this suppression').save
-      #   new(regions: ['us_east_1'], external_account_ids: [5], reason: 'My very good reason for creating this suppression').save
+      # +external_account_ids+ | Required | An Array of the external accounts identified by +external_account_id+ to suppress the signature or custom signature on.
+      #
+      # +reason+ | Required | The reason for creating the suppression.
+      #
+      # ==== Example
+      #   suppression = new(regions: ['us_east_1'], external_account_ids: [5], reason: 'My very good reason for creating this suppression')
+      #   suppression.save
+      #
+      # ===== Valid Attributes When Creating for Alert
+      #
+      # +alert_id+ | Required | The id for the alert you want to create a suppression for.
+      #
+      # +reason+ | Required | The reason for creating the suppression.
+      #
+      # ==== Example
+      #   suppression = new(alert_id: 5, reason: 'My very good reason for creating this suppression')
+      #   suppression.save
     end
   end
 end

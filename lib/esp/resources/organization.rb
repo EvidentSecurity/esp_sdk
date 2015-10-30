@@ -34,10 +34,19 @@ module ESP
       fail ESP::NotImplementedError
     end
 
+    ##
     # :singleton-method: find
-    # Find an Organization by id
+    # Find a Organization by id
+    #
+    # ==== Parameter
+    #
+    # +id+ | Required | The ID of the organization to retrieve
+    #
     # :call-seq:
     #  find(id)
+
+    # :singleton-method: all
+    # Return a paginated Organization list
 
     # :singleton-method: create
     # Not Implemented. You cannot create an Organization.
@@ -47,10 +56,6 @@ module ESP
     #
     # ==== Valid Attributes
     #
-    # * +name+
-    #
-    # :call-seq:
-    #   save
-    #   new(attributes={}).save
+    # +name+ | Not Required | The new name of the organization
   end
 end

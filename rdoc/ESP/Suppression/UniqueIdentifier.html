@@ -194,7 +194,7 @@
         
         <div class="method-heading">
           <span class="method-callseq">
-            create(alert_id: 5, reason: &#39;My very good reason for creating this suppression&#39;)
+            create(attributes={})
           </span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -210,19 +210,27 @@
 <p>Pass an <code>alert_id</code>, the suppression will be created based on
 that alert.</p>
 
+<h4 id="method-c-create-label-Parameter">Parameter<span><a href="#method-c-create-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>attributes</code> | Required | A hash of unique identifier
+suppression attributes</p>
+
 <h4 id="method-c-create-label-Attributes">Attributes<span><a href="#method-c-create-label-Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
-<ul><li>
-<p><code>alert_id</code> - Required. The id for the alert you want to create a
-suppression for.</p>
-</li><li>
-<p><code>reason</code> - Required. The reason for creating the suppression.</p>
-</li></ul>
+
+<p><code>alert_id</code> | Required | The id for the alert you want to create
+a suppression for.</p>
+
+<p><code>reason</code> | Required | The reason for creating the suppression.</p>
+
+<h4 id="method-c-create-label-Example">Example<span><a href="#method-c-create-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<pre>create(alert_id: 5, reason: &#39;My very good reason for creating this suppression&#39;)</pre>
           
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 36</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 44</span>
       </pre>
           </div><!-- create-source -->
           
@@ -314,23 +322,13 @@ href="UniqueIdentifier.html">Suppression::UniqueIdentifier</a>.</p>
     
       <div id="method-i-save" class="method-detail ">
         
-        
         <div class="method-heading">
-          <span class="method-callseq">
-            save
-          </span>
+          <span class="method-name">save</span><span
+            class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
         </div>
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            new(alert_id: 5, reason: &#39;My very good reason for creating this suppression&#39;).save
-          </span>
-          
-        </div>
-        
         
 
         <div class="method-description">
@@ -341,18 +339,22 @@ href="UniqueIdentifier.html">Suppression::UniqueIdentifier</a>.</p>
 alert.</p>
 
 <h4 id="method-i-save-label-Attributes">Attributes<span><a href="#method-i-save-label-Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
-<ul><li>
-<p><code>alert_id</code> - Required. The id for the alert you want to create a
-suppression for.</p>
-</li><li>
-<p><code>reason</code> - Required. The reason for creating the suppression.</p>
-</li></ul>
+
+<p><code>alert_id</code> | Required | The id for the alert you want to create
+a suppression for.</p>
+
+<p><code>reason</code> | Required | The reason for creating the suppression.</p>
+
+<h4 id="method-i-save-label-Example">Example<span><a href="#method-i-save-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<pre>suppression = new(alert_id: 5, reason: &#39;My very good reason for creating this suppression&#39;)
+suppression.save</pre>
           
           
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 49</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression/unique_identifier.rb, line 58</span>
     </pre>
           </div><!-- save-source -->
           

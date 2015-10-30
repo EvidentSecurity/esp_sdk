@@ -224,6 +224,10 @@
         <div class="method-description">
           
           <p>Find an <a href="Alert.html">Alert</a> by id</p>
+
+<h4 id="method-c-find-label-Parameter">Parameter<span><a href="#method-c-find-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>id</code> | Required | The ID of the alert to retrieve</p>
           
           
             <div class="method-calls-super">
@@ -234,7 +238,7 @@
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 72</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 90</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>)
   <span class="ruby-identifier">scope</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>)
   <span class="ruby-identifier">options</span> = (<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">with_indifferent_access</span>
@@ -271,45 +275,48 @@ Convenience method to use instead of <a
 href="Alert.html#method-c-find">::find</a> since a report_id is required to
 return alerts.</p>
 
-<h4 id="method-c-for_report-label-Attributes">Attributes<span><a href="#method-c-for_report-label-Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
-<ul><li>
-<p><code>report_id</code> - The ID for the report for wanted alerts.</p>
-</li><li>
-<p><code>arguments</code> - An optional hash of search criteria to filter the
-returned collection.</p>
-</li></ul>
+<h4 id="method-c-for_report-label-Parameters">Parameters<span><a href="#method-c-for_report-label-Parameters">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
-<p>Valid arguments are</p>
-<ul><li>
-<p><code>region_id</code> - Return only alerts for this region.</p>
-</li><li>
-<p><code>status</code> - Return only alerts for the give status(es).  Valid
-values are fail, warn, error, pass, info</p>
-</li><li>
-<p><code>first_seen</code> - Return only alerts first seen after this time. 
-Format: “2015-10-15 10:29:45”</p>
-</li><li>
-<p><code>suppressed</code> - Return only suppressed alerts</p>
-</li><li>
-<p><code>team_id</code> - Return only alerts for the given team.</p>
-</li><li>
-<p><code>external_account_id</code> - Return only alerts for the given
-external id.</p>
-</li><li>
-<p><code>service_id</code> - Return only alerts on signatures with the given
-service.</p>
-</li><li>
-<p><code>signature_severity</code> - Return only alerts for signatures with
-the given risk_level.  Valid values are Low, Medium, High</p>
-</li><li>
-<p><code>signature_name</code> - Return only alerts for signatures with hte
-given name.</p>
-</li><li>
-<p><code>resource</code> - Return only alerts for the given resource or tag.</p>
-</li><li>
-<p><code>signature_identifier</code> - Return only alerts for signatures with
-the given identifier.</p>
-</li></ul>
+<p><code>report_id</code> | Required | The ID of the report to retrieve alerts
+for</p>
+
+<p><code>arguments</code> | Not Required | An optional hash of search criteria
+to filter the returned collection</p>
+
+<h5 id="method-c-for_report-label-Valid+Arguments">Valid Arguments<span><a href="#method-c-for_report-label-Valid+Arguments">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
+
+<p><code>region_id</code> | Not Required | Return only alerts for this region.</p>
+
+<p><code>status</code> | Not Required | Return only alerts for the give
+status(es).  Valid values are fail, warn, error, pass, info</p>
+
+<p><code>first_seen</code> | Not Required | Return only alerts that have
+started within a number of hours of the report. For example, first_seen of
+3 will return alerts that started showing up within the last 3 hours of the
+report.</p>
+
+<p><code>suppressed</code> | Not Required | Return only suppressed alerts</p>
+
+<p><code>team_id</code> | Not Required | Return only alerts for the given
+team.</p>
+
+<p><code>external_account_id</code> | Not Required | Return only alerts for
+the given external id.</p>
+
+<p><code>service_id</code> | Not Required | Return only alerts on signatures
+with the given service.</p>
+
+<p><code>signature_severity</code> | Not Required | Return only alerts for
+signatures with the given risk_level.  Valid values are Low, Medium, High</p>
+
+<p><code>signature_name</code> | Not Required | Return only alerts for
+signatures with the given name.</p>
+
+<p><code>resource</code> | Not Required | Return only alerts for the given
+resource or tag.</p>
+
+<p><code>signature_identifier</code> | Not Required | Return only alerts for
+signatures with the given identifier.</p>
 
 <h4 id="method-c-for_report-label-Example">Example<span><a href="#method-c-for_report-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
@@ -319,7 +326,7 @@ the given identifier.</p>
 
           
           <div class="method-source-code" id="for_report-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 63</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_report</span>(<span class="ruby-identifier">report_id</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">arguments</span> = {})
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply a report id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">report_id</span>.<span class="ruby-identifier">present?</span>
   <span class="ruby-identifier">from</span> = <span class="ruby-node">&quot;#{prefix}reports/#{report_id}/alerts.json&quot;</span>
@@ -586,16 +593,15 @@ custom signature but not both will be present.</p>
           
           <p>Suppress the region associated with this alert.</p>
 
-<h4 id="method-i-suppress_region-label-Attribute">Attribute<span><a href="#method-i-suppress_region-label-Attribute">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
-<ul><li>
-<p><code>reason</code> - The reason for creating the suppression.</p>
-</li></ul>
+<h4 id="method-i-suppress_region-label-Parameter">Parameter<span><a href="#method-i-suppress_region-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>reason</code> | Required | The reason for creating the suppression.</p>
           
           
 
           
           <div class="method-source-code" id="suppress_region-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 93</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 111</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_region</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">Region</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -624,16 +630,15 @@ custom signature but not both will be present.</p>
           
           <p>Suppress the signature associated with this alert.</p>
 
-<h4 id="method-i-suppress_signature-label-Attribute">Attribute<span><a href="#method-i-suppress_signature-label-Attribute">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
-<ul><li>
-<p><code>reason</code> - The reason for creating the suppression.</p>
-</li></ul>
+<h4 id="method-i-suppress_signature-label-Parameter">Parameter<span><a href="#method-i-suppress_signature-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>reason</code> | Required | The reason for creating the suppression.</p>
           
           
 
           
           <div class="method-source-code" id="suppress_signature-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 85</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_signature</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -662,16 +667,15 @@ custom signature but not both will be present.</p>
           
           <p>Suppress the unique identifier associated with this alert.</p>
 
-<h4 id="method-i-suppress_unique_identifier-label-Attribute">Attribute<span><a href="#method-i-suppress_unique_identifier-label-Attribute">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
-<ul><li>
-<p><code>reason</code> - The reason for creating the suppression.</p>
-</li></ul>
+<h4 id="method-i-suppress_unique_identifier-label-Parameter">Parameter<span><a href="#method-i-suppress_unique_identifier-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>reason</code> | Required | The reason for creating the suppression.</p>
           
           
 
           
           <div class="method-source-code" id="suppress_unique_identifier-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 101</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 119</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_unique_identifier</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">UniqueIdentifier</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>

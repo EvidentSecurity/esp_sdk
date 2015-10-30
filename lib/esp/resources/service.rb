@@ -17,7 +17,15 @@ module ESP
     ##
     # :singleton-method: find
     # Find a Service by id
+    #
+    # ==== Parameter
+    #
+    # +id+ | Required | The ID of the service to retrieve
+    #
     # :call-seq:
     #  find(id)
+
+    # :singleton-method: all
+    # Return a paginated Service list
   end
 end

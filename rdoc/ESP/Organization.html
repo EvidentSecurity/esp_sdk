@@ -73,6 +73,8 @@
 
   <ul class="link-list">
     
+    <li ><a href="#method-c-all">::all</a>
+    
     <li ><a href="#method-c-create">::create</a>
     
     <li ><a href="#method-c-find">::find</a>
@@ -199,6 +201,37 @@
       <h3 class="section-header">Public Class Methods</h3>
 
     
+      <div id="method-c-all" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">all</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return a paginated <a href="Organization.html">Organization</a> list</p>
+          
+          
+
+          
+          <div class="method-source-code" id="all-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 51</span>
+    </pre>
+          </div><!-- all-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- all-method -->
+
+    
       <div id="method-c-create" class="method-detail ">
         
         <div class="method-heading">
@@ -219,7 +252,7 @@ href="Organization.html">Organization</a>.</p>
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 45</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 54</span>
     </pre>
           </div><!-- create-source -->
           
@@ -247,13 +280,17 @@ href="Organization.html">Organization</a>.</p>
 
         <div class="method-description">
           
-          <p>Find an <a href="Organization.html">Organization</a> by id</p>
+          <p>Find a <a href="Organization.html">Organization</a> by id</p>
+
+<h4 id="method-c-find-label-Parameter">Parameter<span><a href="#method-c-find-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>id</code> | Required | The ID of the organization to retrieve</p>
           
           
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 42</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 48</span>
     </pre>
           </div><!-- find-source -->
           
@@ -405,23 +442,13 @@ that belong to the organization.</p>
     
       <div id="method-i-save" class="method-detail ">
         
-        
         <div class="method-heading">
-          <span class="method-callseq">
-            save
-          </span>
+          <span class="method-name">save</span><span
+            class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
         </div>
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            new(attributes={}).save
-          </span>
-          
-        </div>
-        
         
 
         <div class="method-description">
@@ -429,15 +456,14 @@ that belong to the organization.</p>
           <p>Update an <a href="Organization.html">Organization</a>.</p>
 
 <h4 id="method-i-save-label-Valid+Attributes">Valid Attributes<span><a href="#method-i-save-label-Valid+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
-<ul><li>
-<p><code>name</code></p>
-</li></ul>
+
+<p><code>name</code> | Not Required | The new name of the organization</p>
           
           
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 55</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 60</span>
   </pre>
           </div><!-- save-source -->
           

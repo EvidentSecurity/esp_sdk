@@ -24,32 +24,66 @@ module ESP
       super
     end
 
+    ##
+    # :singleton-method: find
+    # Find an ExternalAccount by id
+    #
+    # ==== Parameter
+    #
+    # +id+ | Required | The ID of the external account to retrieve
+    #
+    # :call-seq:
+    #  find(id)
+
+    # :singleton-method: all
+    # Return a paginated CustomSignature list
+
     # :singleton-method: create
     # Create an ExternalAccount.
     # :call-seq:
     #   create(attributes={})
     #
-    # ==== Attributes
+    # ==== Parameter
     #
-    # * +arn+
-    # * +external_id+ - Will be set by calling #generate_external_id if not already set.
-    # * +name+
-    # * +sub_organization_id+
-    # * +team_id+
+    # +attributes+ | Required | A hash of external account attributes
+    #
+    # ===== Valid Attributes
+    #
+    # +arn+ | Required | Amazon Resource Name for the IAM role
+    #
+    # +external_id+ | Required | External identifier set on the role.  This will be set by calling #generate_external_id if not already set.
+    #
+    # +name+ | Not Required |  The name for this external account
+    #
+    # +sub_organization_id+ | Required | The ID of the sub organization the external account will belong to
+    #
+    # +team_id+ | Required | The ID of the team the external account will belong to
+    #
+    # ==== Example
+    #
+    #  external_account = ESP::ExternalAccount.create(arn: 'arn:from:aws', external_id: 'c40e6af4-a5a0-422a-9a42-3d7d236c3428', sub_organization_id: 4, team_id: 8)
 
     # :method: save
     # Create or update an ExternalAccount.
     #
-    # ==== Attributes
+    # ===== Valid Attributes
     #
-    # * +arn+
-    # * +external_id+ - Will be set by calling #generate_external_id if not already set.
-    # * +name+
-    # * +sub_organization_id+
-    # * +team_id+
+    # +arn+ | Required | Amazon Resource Name for the IAM role
     #
-    # :call-seq:
-    #   save
-    #   new(name: 'name', arn: 'arn', sub_organization_id: 2, team_id: 3).save
+    # +external_id+ | Required | External identifier set on the role.  This will be set by calling #generate_external_id if not already set.
+    #
+    # +name+ | Not Required |  The name for this external account
+    #
+    # +sub_organization_id+ | Required | The ID of the sub organization the external account will belong to
+    #
+    # +team_id+ | Required | The ID of the team the external account will belong to
+    #
+    # ==== Example
+    #
+    #  external_account = ESP::ExternalAccount.new(arn: 'arn:from:aws', external_id: 'c40e6af4-a5a0-422a-9a42-3d7d236c3428', sub_organization_id: 4, team_id: 8)
+    #  external_account.save
+
+    # :method: destroy
+    # Delete a CustomSignature
   end
 end

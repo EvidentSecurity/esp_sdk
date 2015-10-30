@@ -1,4 +1,5 @@
 module ESP
+  # Use contact requests to send a support or feature request to Evident.io.
   class ContactRequest < ESP::Resource
     # Not Implemented. You cannot search for ContactRequest.
     def self.find(*)
@@ -15,18 +16,27 @@ module ESP
       fail ESP::NotImplementedError
     end
 
-    # :method: create(attributes = {})
+    # :method: create(attributes={})
     # Create a contact request.
     #
-    # ==== Attributes
+    # ==== Parameter
     #
-    # * +user_id+ - Required. The id of the user the request is for.
-    # * +description+ - Required. A description of the request.
-    # * +title+ - Required. The brief title/summary of the request.
-    # * +request_type+ - Required. Valid values are support, feature.
+    # +attributes+ | Required | A hash of contact request attributes
+    #
+    # ===== Valid Attributes
+    #
+    # +title+ | Required | Subject of your message
+    #
+    # +description+ | Required | Body of your message
+    #
+    # +request_type+ | Required | Type of contact request. Supported values are `support` for support requests and `feature` for a feature request
+    #
+    #
+    # :call-seq:
+    #  create(attributes={})
     #
     # ==== Example
     #
-    #   contact request = ESP::ContactRequest.create(user_id: 5, request_type: 'feature', title: 'My great feature idea', description: 'This is my idea for a really useful feature...')
+    #   contact_request = ESP::ContactRequest.create(request_type: 'feature', title: 'My great feature idea', description: 'This is my idea for a really useful feature...')
   end
 end

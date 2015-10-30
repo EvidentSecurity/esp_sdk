@@ -116,7 +116,7 @@ module ESP
 
             sub_organization.destroy
 
-            assert_raises ActiveResource::ResourceInvalid do
+            assert_raises ActiveResource::ResourceNotFound do
               ESP::SubOrganization.find(sub_organization.id)
             end
           end

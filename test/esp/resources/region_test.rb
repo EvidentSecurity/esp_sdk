@@ -40,6 +40,23 @@ module ESP
         end
       end
 
+      context '#suppress' do
+        should 'call the api' do
+          stub_request(:post, %r{suppressions/regions.json*}).to_return(body: json(:suppression_region))
+          region = build(:region)
+
+          suppression = region.suppress(external_account_ids: [5], reason: 'because')
+
+          assert_requested(:post, %r{suppressions/regions.json*}) do |req|
+            body = JSON.parse(req.body)
+            assert_equal 'because', body['data']['attributes']['reason']
+            assert_equal [region.code], body['data']['attributes']['regions']
+            assert_equal [5], body['data']['attributes']['external_account_ids']
+          end
+          assert_equal ESP::Suppression::Region, suppression.class
+        end
+      end
+
       context 'live calls' do
         setup do
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
