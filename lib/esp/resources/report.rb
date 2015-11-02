@@ -80,7 +80,7 @@ module ESP
 
     # Returns the stats for this report
     def stat
-      Stat.for_report(id)
+      ESP::Stat.for_report(id)
     end
 
     ##

@@ -81,6 +81,8 @@
     
     <li ><a href="#method-i-save">#save</a>
     
+    <li ><a href="#method-i-suppress">#suppress</a>
+    
   </ul>
 </nav>
 
@@ -134,11 +136,11 @@
   
     <li><a href="../ESP/Stat.html">ESP::Stat</a>
   
-    <li><a href="../ESP/Stat/CustomSignature.html">ESP::Stat::CustomSignature</a>
+    <li><a href="../ESP/StatCustomSignature.html">ESP::StatCustomSignature</a>
   
-    <li><a href="../ESP/Stat/Region.html">ESP::Stat::Region</a>
+    <li><a href="../ESP/StatRegion.html">ESP::StatRegion</a>
   
-    <li><a href="../ESP/Stat/Signature.html">ESP::Stat::Signature</a>
+    <li><a href="../ESP/StatSignature.html">ESP::StatSignature</a>
   
     <li><a href="../ESP/SubOrganization.html">ESP::SubOrganization</a>
   
@@ -206,7 +208,7 @@
 
           
           <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 26</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 45</span>
   </pre>
           </div><!-- all-source -->
           
@@ -244,7 +246,7 @@
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 24</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 43</span>
     </pre>
           </div><!-- find-source -->
           
@@ -328,6 +330,56 @@ href="CloudTrailEvent.html">CloudTrailEvent</a>.</p>
 
         
       </div><!-- save-method -->
+
+    
+      <div id="method-i-suppress" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">suppress</span><span
+            class="method-args">(arguments = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Create a suppression for this region.</p>
+
+<h4 id="method-i-suppress-label-Parameter">Parameter<span><a href="#method-i-suppress-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>arguments</code> | Required | A hash of region suppression attributes</p>
+
+<h5 id="method-i-suppress-label-Valid+Arguments">Valid Arguments<span><a href="#method-i-suppress-label-Valid+Arguments">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
+
+<p><code>external_account_ids</code> | Required | An Array of the external
+accounts identified by <code>external_account_id</code> to suppress the
+signature or custom signature on.</p>
+
+<p><code>reason</code> | Required | The reason for creating the suppression.</p>
+
+<h4 id="method-i-suppress-label-Example">Example<span><a href="#method-i-suppress-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<pre>suppress(external_account_ids: [5], reason: &#39;My very good reason for creating this suppression&#39;)</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="suppress-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress</span>(<span class="ruby-identifier">arguments</span> = {})
+  <span class="ruby-identifier">arguments</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">with_indifferent_access</span>
+  <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">Region</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">regions</span><span class="ruby-operator">:</span> [<span class="ruby-identifier">code</span>], <span class="ruby-identifier">external_account_ids</span><span class="ruby-operator">:</span> <span class="ruby-constant">Array</span>(<span class="ruby-identifier">arguments</span>[<span class="ruby-value">:external_account_ids</span>]), <span class="ruby-identifier">reason</span><span class="ruby-operator">:</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-value">:reason</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- suppress-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- suppress-method -->
 
     
     </section><!-- public-instance-method-details -->

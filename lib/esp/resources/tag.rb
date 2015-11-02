@@ -15,7 +15,7 @@ module ESP
     #
     # ==== Parameter
     #
-    # * +alert_id+ | Required | The ID of the alert to list tags for
+    # +alert_id+ | Required | The ID of the alert to list tags for
     #
     # ==== Example
     #   alerts = ESP::Tag.for_alert(1194)

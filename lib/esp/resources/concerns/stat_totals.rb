@@ -1,4 +1,14 @@
 module ESP::StatTotals # :nodoc:
+  # Not Implemented. You cannot create or update a Stat.
+  def save
+    fail ESP::NotImplementedError
+  end
+
+  # Not Implemented. You cannot delete a Stat.
+  def destroy
+    fail ESP::NotImplementedError
+  end
+
   # We only add new_1w* and old* fields as the new_1w field includes the counts from new_1h and new_1d.
   def total
     attributes.select { |a, _v| a.match(/new_1w|old/) }.values.reduce(:+)

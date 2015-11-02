@@ -3,6 +3,50 @@ require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
 module ESP
   class StatTest < ActiveSupport::TestCase
     context ESP::Stat do
+      context '#report' do
+        should 'call the api' do
+          stat = build(:stat, report_id: 3)
+          stubbed_report = stub_request(:get, %r{reports/#{stat.report_id}.json*}).to_return(body: json(:report))
+
+          stat.report
+
+          assert_requested(stubbed_report)
+        end
+      end
+
+      context '#regions' do
+        should 'call the api for the stat' do
+          stat = build(:stat)
+          stubbed_regions = stub_request(:get, %r{stats/#{stat.id}/regions.json*}).to_return(body: json_list(:stat_region, 2))
+
+          stat.regions
+
+          assert_requested(stubbed_regions)
+        end
+      end
+
+      context '#signatures' do
+        should 'call the api for the stat' do
+          stat = build(:stat)
+          stubbed_signatures = stub_request(:get, %r{stats/#{stat.id}/signatures.json*}).to_return(body: json_list(:stat_signature, 2))
+
+          stat.signatures
+
+          assert_requested(stubbed_signatures)
+        end
+      end
+
+      context '#custom_signatures' do
+        should 'call the api for the stat' do
+          stat = build(:stat)
+          stubbed_custom_signatures = stub_request(:get, %r{stats/#{stat.id}/custom_signatures.json*}).to_return(body: json_list(:stat_custom_signature, 2))
+
+          stat.custom_signatures
+
+          assert_requested(stubbed_custom_signatures)
+        end
+      end
+
       context '#find' do
         should 'not be implemented' do
           assert_raises ESP::NotImplementedError do

@@ -72,7 +72,6 @@ module ESP
   autoload :User, File.expand_path(File.dirname(__FILE__) + '/esp/resources/user')
   autoload :Signature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/signature')
   autoload :CustomSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/custom_signature')
-  autoload :Stat, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat')
   autoload :Service, File.expand_path(File.dirname(__FILE__) + '/esp/resources/service')
   autoload :Alert, File.expand_path(File.dirname(__FILE__) + '/esp/resources/alert')
   autoload :RawAlert, File.expand_path(File.dirname(__FILE__) + '/esp/resources/raw_alert')
@@ -86,9 +85,8 @@ module ESP
     autoload :Signature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/suppression/signature')
     autoload :Region, File.expand_path(File.dirname(__FILE__) + '/esp/resources/suppression/region')
   end
-  class Stat
-    autoload :CustomSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat/custom_signature')
-    autoload :Signature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat/signature')
-    autoload :Region, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat/region')
-  end
+  autoload :Stat, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat')
+  autoload :StatCustomSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_custom_signature')
+  autoload :StatSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_signature')
+  autoload :StatRegion, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_region')
 end

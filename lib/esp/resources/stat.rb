@@ -1,23 +1,36 @@
-# class note
-
 module ESP
   class Stat < ESP::Resource
     include ESP::StatTotals
 
+    ##
+    # The report these stats are for.
+    belongs_to :report, class_name: 'ESP::Report'
+
+    ##
+    # The stats for each region associated with this stat object.
+    has_many :regions, class_name: 'ESP::StatRegion'
+
+    ##
+    # The stats for each signature associated with this stat object.
+    has_many :signatures, class_name: 'ESP::StatSignature'
+
+    ##
+    # The stats for each custom signature associated with this stat object.
+    has_many :custom_signatures, class_name: 'ESP::StatCustomSignature'
+
     # Not Implemented. You cannot search for a Stat.
     def self.find(*)
-      fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use either the .for_report or .latest_for_teams method.'
+      fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use either the ESP::Stat.for_report or ESP::Stat.latest_for_teams method.'
     end
 
+    # :singleton-method: create
+    # Not Implemented. You cannot create a Stat.
+
+    # :method: save
     # Not Implemented. You cannot create or update a Stat.
-    def save
-      fail ESP::NotImplementedError
-    end
 
+    # :method: destroy
     # Not Implemented. You cannot delete a Stat.
-    def destroy
-      fail ESP::NotImplementedError
-    end
 
     # Returns all the stats of all the alerts for a report identified by the report_id parameter. Said report contains all statistics for this alert triggered from signatures contained in all regions for the selected hour.
     def self.for_report(report_id = nil)

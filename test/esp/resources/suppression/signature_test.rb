@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../../test_helper')
 
 module ESP
-  module Suppressions
+  class Suppression
     class SignatureTest < ActiveSupport::TestCase
       context ESP::Suppression::Signature do
         context '#find' do
