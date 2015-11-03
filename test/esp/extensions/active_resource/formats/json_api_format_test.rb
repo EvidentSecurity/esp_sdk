@@ -7,13 +7,13 @@ module ActiveResource
         context '# decode' do
           context 'with ESP::Suppression' do
             should 'parse nested objects correctly' do
-              suppression = build(:suppression)
-              stub_request(:get, /suppressions*/).to_return(body: json_list(:suppression, 1))
-              parsed_suppression = ESP::Suppression.last # decode is called when parsing the response
+              json = json(:alert)
+              parsed_json = JSON.parse(json)
+              stub_request(:get, %r{alerts/5.json*}).to_return(body: json)
 
-              assert_equal suppression.attributes['configuration']['regions'].first['attributes']['code'], parsed_suppression.configuration.regions.first.code
-              assert_equal suppression.attributes['configuration']['external_accounts'].first['attributes']['name'], parsed_suppression.configuration.external_accounts.first.name
-              assert_equal suppression.attributes['configuration']['external_accounts'].first['relationships']['organization']['data']['id'], parsed_suppression.configuration.external_accounts.first.organization_id
+              alert = ESP::Alert.find(5)
+
+              assert_equal parsed_json['data']['attributes']['metadata']['abc'], alert.metadata.abc
             end
           end
 

@@ -6,65 +6,10 @@ FactoryGirl.define do
     type "suppressions"
     created_at { Time.current }
     reason "I said"
+    resource ''
+    suppression_type "regions"
     status "active"
     updated_at { Time.current }
-    configuration do
-      { suppression_type: "regions",
-        resource: nil,
-        regions: [
-          {
-            id: "7",
-            type: "regions",
-            attributes: {
-              code: "us_east_1"
-            }
-          }
-        ],
-        external_accounts: [
-          {
-            id: "2",
-            type: "external_accounts",
-            attributes: {
-              account: "762160981991",
-              arn: "arn:aws:iam::762160981991:role/Evident-Service-Role-Kevin",
-              created_at: Time.current,
-              external_id: "913310e7-6a9c-49f7-bd69-120721ec1122",
-              name: "Dev",
-              updated_at: Time.current
-            },
-            relationships: {
-              organization: {
-                data: {
-                  type: "organizations",
-                  id: "1"
-                },
-                links: {
-                  related: "http://localhost:3000/api/v2/organizations/1.json"
-                }
-              },
-              sub_organization: {
-                data: {
-                  type: "sub_organizations",
-                  id: "1"
-                },
-                links: {
-                  related: "http://localhost:3000/api/v2/sub_organizations/1.json"
-                }
-              },
-              team: {
-                data: {
-                  type: "teams",
-                  id: "1"
-                },
-                links: {
-                  related: "http://localhost:3000/api/v2/teams/1.json"
-                }
-              }
-            }
-          }
-        ]
-      }
-    end
     relationships do
       { organization: {
         data: {
@@ -83,6 +28,42 @@ FactoryGirl.define do
           links: {
             related: "http://localhost:3000/api/v2/users/23.json"
           }
+        },
+        regions: {
+          data: [
+            {
+              id: "1",
+              type: "regions"
+            }
+          ],
+          links: {
+            related: "http://test.host/api/v2/regions.json?filter%5Bsuppressions_id_eq%5D=4"
+          }
+        },
+        external_accounts: {
+          data: [
+            {
+              id: "1015",
+              type: "external_accounts"
+            }
+          ],
+          links: {
+            related: "http://test.host/api/v2/external_accounts.json?filter%5Bsuppressions_id_eq%5D=4"
+          }
+        },
+        signatures: {
+          data: [
+            {
+              id: "6",
+              type: "signatures"
+            }
+          ],
+          links: {
+            related: "http://test.host/api/v2/signatures.json?filter%5Bid_in%5D%5B%5D=6"
+          }
+        },
+        custom_signatures: {
+          data: []
         }
       }
     end

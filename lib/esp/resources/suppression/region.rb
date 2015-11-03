@@ -50,6 +50,8 @@ module ESP
       #
       # +external_account_ids+ | Required | An Array of the external accounts identified by +external_account_id+ to suppress the signature or custom signature on.
       #
+      # +resource+ | Not Required | The resource string this suppression will suppress alerts for.
+      #
       # +reason+ | Required | The reason for creating the suppression.
       #
       # ==== Example
@@ -74,6 +76,8 @@ module ESP
       # +regions+ | Required | An array of region names to suppress.
       #
       # +external_account_ids+ | Required | An Array of the external accounts identified by +external_account_id+ to suppress the signature or custom signature on.
+      #
+      # +resource+ | Not Required | The resource string this suppression will suppress alerts for.
       #
       # +reason+ | Required | The reason for creating the suppression.
       #

@@ -87,15 +87,23 @@
     
     <li ><a href="#method-i-created_by">#created_by</a>
     
+    <li ><a href="#method-i-custom_signatures">#custom_signatures</a>
+    
     <li ><a href="#method-i-deactivate">#deactivate</a>
     
     <li ><a href="#method-i-deactivate-21">#deactivate!</a>
     
     <li ><a href="#method-i-destroy">#destroy</a>
     
+    <li ><a href="#method-i-external_accounts">#external_accounts</a>
+    
     <li ><a href="#method-i-organization">#organization</a>
     
+    <li ><a href="#method-i-regions">#regions</a>
+    
     <li ><a href="#method-i-save">#save</a>
+    
+    <li ><a href="#method-i-signatures">#signatures</a>
     
   </ul>
 </nav>
@@ -222,7 +230,7 @@
 
           
           <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 58</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 85</span>
   </pre>
           </div><!-- all-source -->
           
@@ -260,7 +268,7 @@
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 56</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 83</span>
     </pre>
           </div><!-- find-source -->
           
@@ -310,6 +318,40 @@
       </div><!-- created_by-method -->
 
     
+      <div id="method-i-custom_signatures" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">custom_signatures</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The custom signatures being suppressed.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="custom_signatures-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">custom_signatures</span>
+  <span class="ruby-keyword">return</span> [] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:custom_signature_ids</span>
+  <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">CustomSignature</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">custom_signature_ids</span> })
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- custom_signatures-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- custom_signatures-method -->
+
+    
       <div id="method-i-deactivate" class="method-detail ">
         
         <div class="method-heading">
@@ -333,7 +375,7 @@ errors object.</p>
 
           
           <div class="method-source-code" id="deactivate-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 35</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 62</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">deactivate</span>
   <span class="ruby-identifier">patch</span>(<span class="ruby-value">:deactivate</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">response</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">load_attributes_from_response</span>(<span class="ruby-identifier">response</span>)
@@ -376,7 +418,7 @@ successful.</p>
 
           
           <div class="method-source-code" id="deactivate-21-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 25</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">deactivate!</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">deactivate</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">message</span> = <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)
@@ -412,7 +454,7 @@ href="Suppression.html">Suppression</a>.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 17</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -424,6 +466,38 @@ href="Suppression.html">Suppression</a>.</p>
 
         
       </div><!-- destroy-method -->
+
+    
+      <div id="method-i-external_accounts" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">external_accounts</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The external accounts affected by this suppression.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="external_accounts-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 17</span>
+<span class="ruby-identifier">has_many</span> <span class="ruby-value">:external_accounts</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::ExternalAccount&#39;</span>
+</pre>
+          </div><!-- external_accounts-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- external_accounts-method -->
 
     
       <div id="method-i-organization" class="method-detail ">
@@ -458,6 +532,38 @@ href="Suppression.html">Suppression</a>.</p>
       </div><!-- organization-method -->
 
     
+      <div id="method-i-regions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">regions</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The regions affected by this suppression.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="regions-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 13</span>
+<span class="ruby-identifier">has_many</span> <span class="ruby-value">:regions</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Region&#39;</span>
+</pre>
+          </div><!-- regions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- regions-method -->
+
+    
       <div id="method-i-save" class="method-detail ">
         
         <div class="method-heading">
@@ -478,7 +584,7 @@ href="Suppression.html">Suppression</a>.</p>
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 12</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -490,6 +596,40 @@ href="Suppression.html">Suppression</a>.</p>
 
         
       </div><!-- save-method -->
+
+    
+      <div id="method-i-signatures" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">signatures</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The signatures being suppressed.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="signatures-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">signatures</span>
+  <span class="ruby-keyword">return</span> [] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:signature_ids</span>
+  <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">signature_ids</span> })
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- signatures-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- signatures-method -->
 
     
     </section><!-- public-instance-method-details -->

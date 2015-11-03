@@ -51,6 +51,58 @@ module ESP
         end
       end
 
+      context '#regions' do
+        should 'call the api for the report and the passed in params' do
+          suppression = build(:suppression)
+          stub_request(:get, /regions.json*/).to_return(body: json_list(:region, 2))
+
+          suppression.regions
+
+          assert_requested(:get, /regions.json*/) do |req|
+            assert_equal "filter[suppressions_id_eq]=#{suppression.id}", URI.unescape(req.uri.query)
+          end
+        end
+      end
+
+      context '#external_accounts' do
+        should 'call the api for the report and the passed in params' do
+          suppression = build(:suppression)
+          stub_request(:get, /external_accounts.json*/).to_return(body: json_list(:external_account, 2))
+
+          suppression.external_accounts
+
+          assert_requested(:get, /external_accounts.json*/) do |req|
+            assert_equal "filter[suppressions_id_eq]=#{suppression.id}", URI.unescape(req.uri.query)
+          end
+        end
+      end
+
+      context '#signatures' do
+        should 'call the api for the report and the passed in params' do
+          suppression = build(:suppression, signature_ids: [1, 2])
+          stub_request(:get, /signatures.json*/).to_return(body: json_list(:signature, 2))
+
+          suppression.signatures
+
+          assert_requested(:get, /signatures.json*/) do |req|
+            assert_equal "filter[id_in][0]=#{suppression.signature_ids.first}&filter[id_in][1]=#{suppression.signature_ids.second}", URI.unescape(req.uri.query)
+          end
+        end
+      end
+
+      context '#custom_signatures' do
+        should 'call the api for the report and the passed in params' do
+          suppression = build(:suppression, custom_signature_ids: [1, 2])
+          stub_request(:get, /custom_signatures.json*/).to_return(body: json_list(:custom_signature, 2))
+
+          suppression.custom_signatures
+
+          assert_requested(:get, /custom_signatures.json*/) do |req|
+            assert_equal "filter[id_in][0]=#{suppression.custom_signature_ids.first}&filter[id_in][1]=#{suppression.custom_signature_ids.second}", URI.unescape(req.uri.query)
+          end
+        end
+      end
+
       context '#deactivate' do
         should 'call the api and not throw an error if an error is returned' do
           s = build(:suppression)
@@ -109,6 +161,38 @@ module ESP
             u = @s.created_by
 
             assert_equal @s.created_by_id, u.id
+          end
+        end
+
+        context '#regions' do
+          should 'return regions' do
+            r = @s.regions
+
+            assert_equal @s.relationships.regions.data.map(&:id).sort, r.map(&:id).sort
+          end
+        end
+
+        context '#external_accounts' do
+          should 'return external_accounts' do
+            e = @s.external_accounts
+
+            assert_equal @s.relationships.external_accounts.data.map(&:id).sort, e.map(&:id).sort
+          end
+        end
+
+        context '#signatures' do
+          should 'return signatures' do
+            s = @s.signatures
+
+            assert_equal @s.relationships.signatures.data.map(&:id).sort, s.map(&:id).sort
+          end
+        end
+
+        context '#custom_signatures' do
+          should 'return custom_signatures' do
+            cs = @s.custom_signatures
+
+            assert_equal @s.relationships.custom_signatures.data.map(&:id).sort, cs.map(&:id).sort
           end
         end
 
