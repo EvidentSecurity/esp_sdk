@@ -1,4 +1,4 @@
-Tue, 03 Nov 2015 14:19:30 -0500
+Tue, 03 Nov 2015 15:42:05 -0500
 README.md	Thu, 29 Oct 2015 10:43:41 -0400
 lib/esp/resources/alert.rb	Thu, 29 Oct 2015 16:53:12 -0400
 lib/esp/resources/cloud_trail_event.rb	Thu, 29 Oct 2015 10:02:33 -0400
@@ -13,9 +13,10 @@ lib/esp/resources/report.rb	Mon, 02 Nov 2015 14:31:09 -0500
 lib/esp/resources/resource.rb	Tue, 03 Nov 2015 13:35:33 -0500
 lib/esp/resources/service.rb	Thu, 29 Oct 2015 14:59:41 -0400
 lib/esp/resources/signature.rb	Fri, 30 Oct 2015 12:55:39 -0400
-lib/esp/resources/stat.rb	Mon, 02 Nov 2015 16:35:30 -0500
+lib/esp/resources/stat.rb	Tue, 03 Nov 2015 15:38:35 -0500
 lib/esp/resources/stat_custom_signature.rb	Mon, 02 Nov 2015 16:18:07 -0500
 lib/esp/resources/stat_region.rb	Mon, 02 Nov 2015 16:18:07 -0500
+lib/esp/resources/stat_service.rb	Tue, 03 Nov 2015 15:34:19 -0500
 lib/esp/resources/stat_signature.rb	Mon, 02 Nov 2015 16:18:07 -0500
 lib/esp/resources/sub_organization.rb	Fri, 30 Oct 2015 10:54:44 -0400
 lib/esp/resources/suppression.rb	Tue, 03 Nov 2015 12:41:55 -0500
@@ -26,4 +27,4 @@ lib/esp/resources/tag.rb	Mon, 02 Nov 2015 16:18:07 -0500
 lib/esp/resources/team.rb	Fri, 30 Oct 2015 11:04:06 -0400
 lib/esp/resources/user.rb	Fri, 30 Oct 2015 12:22:59 -0400
 lib/esp/extensions/active_resource/paginated_collection.rb	Thu, 15 Oct 2015 09:21:02 -0400
-lib/esp.rb	Mon, 02 Nov 2015 16:12:49 -0500
+lib/esp.rb	Tue, 03 Nov 2015 15:36:43 -0500

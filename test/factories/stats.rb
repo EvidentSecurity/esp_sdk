@@ -99,6 +99,14 @@ FactoryGirl.define do
             }
           ]
         },
+        services: {
+          data: [
+            {
+              id: "3",
+              type: "stat_services"
+            }
+          ]
+        },
         signatures: {
           data: [
             {

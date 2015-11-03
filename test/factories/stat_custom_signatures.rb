@@ -84,7 +84,7 @@ FactoryGirl.define do
       { custom_signature: {
         data:
           {
-            id: "3",
+            id: "1",
             type: "custom_signatures"
           },
         links: {

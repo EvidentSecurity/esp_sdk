@@ -11,6 +11,10 @@ module ESP
     has_many :regions, class_name: 'ESP::StatRegion'
 
     ##
+    # The stats for each service associated with this stat object.
+    has_many :services, class_name: 'ESP::StatService'
+
+    ##
     # The stats for each signature associated with this stat object.
     has_many :signatures, class_name: 'ESP::StatSignature'
 

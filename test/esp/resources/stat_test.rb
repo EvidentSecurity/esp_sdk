@@ -25,6 +25,17 @@ module ESP
         end
       end
 
+      context '#services' do
+        should 'call the api for the stat' do
+          stat = build(:stat)
+          stubbed_services = stub_request(:get, %r{stats/#{stat.id}/services.json*}).to_return(body: json_list(:stat_service, 2))
+
+          stat.services
+
+          assert_requested(stubbed_services)
+        end
+      end
+
       context '#signatures' do
         should 'call the api for the stat' do
           stat = build(:stat)

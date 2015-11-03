@@ -89,4 +89,5 @@ module ESP
   autoload :StatCustomSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_custom_signature')
   autoload :StatSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_signature')
   autoload :StatRegion, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_region')
+  autoload :StatService, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_service')
 end

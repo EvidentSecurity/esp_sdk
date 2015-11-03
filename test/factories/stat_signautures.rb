@@ -84,7 +84,7 @@ FactoryGirl.define do
       { signature: {
         data:
           {
-            id: "3",
+            id: "1",
             type: "signatures"
           },
         links: {

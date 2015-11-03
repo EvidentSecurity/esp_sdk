@@ -1,9 +1,9 @@
 FactoryGirl.define do
-  factory :stat_region, class: 'ESP::StatRegion' do
+  factory :stat_service, class: 'ESP::StatService' do
     skip_create
 
     sequence(:id) { |n| n }
-    type "stat_regions"
+    type "stat_services"
 
     new_1h_high_pass 3
     new_1d_high_pass 0
@@ -81,14 +81,14 @@ FactoryGirl.define do
     suppressed_medium_info 2
     suppressed_low_info 1
     relationships do
-      { region: {
+      { service: {
         data:
           {
-            id: "3",
-            type: "regions"
+            id: "1",
+            type: "services"
           },
         links: {
-          related: "http://test.host/api/v2/regions/3.json"
+          related: "http://test.host/api/v2/services/1.json"
         }
       }
       }
