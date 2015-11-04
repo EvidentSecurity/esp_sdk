@@ -55,19 +55,26 @@ Get your HMAC keys from the Evident.io website, [esp.evident.io](https://esp.evi
 
 ## Appliance Users
 
-Users of Evident.io's AWS marketplace appliance will need to set the site for their appliance instance.
+Users of Evident.io's AWS marketplace appliance will need to set the host for their appliance instance.
 You can set this directly:
 
 ```ruby
-ESP.site = <url to your appliance instance>
+ESP.host = <host for appliance instance>
 ```
       
 or, if in a Rails application, you can use the configure block in an initializer:
 
 ```ruby
 ESP.configure do |config|
-  config.site = <url to your appliance instance>
+  config.host = <host for appliance instance>
 end
+```
+
+Alternatively, the site can also be set with an environment variable.
+
+
+```
+export ESP_HOST=<host for appliance instance>
 ```
 
 # Usage

@@ -25,23 +25,25 @@ module ESP
     @secret_access_key || ENV['ESP_SECRET_ACCESS_KEY']
   end
 
-  SITE = { development: "http://localhost:3000/api/v2".freeze,
-           test: "http://localhost:3000/api/v2".freeze,
-           production: "http://esp.evident.io/api/v2".freeze }.freeze # :nodoc:
+  PATH = '/api/v2'.freeze
+
+  HOST = { development: "http://localhost:3000".freeze,
+           test: "http://localhost:3000".freeze,
+           production: "https://api.evident.io".freeze }.freeze # :nodoc:
 
   # Users of the Evident.io marketplace appliance application will need to set the site/url for their instance.
   #
   # ==== Attribute
   #
   # * +site+ - The url for the installed appliance instance.
-  def self.site=(site)
-    @site = site
+  def self.host=(host)
+    @host = host
     ESP::Resource.site = site
   end
 
   # The site the SDK will hit.
   def self.site
-    @site || SITE[ESP.env.to_sym]
+    "#{(@host || HOST[ESP.env.to_sym] || ENV['ESP_HOST'])}#{PATH}"
   end
 
   # For use in a Rails initializer to set the ::access_key_id, ::secret_access_key and ::site.
@@ -51,13 +53,13 @@ module ESP
   #   ESP.configure do |config|
   #     config.access_key_id = <your key>
   #     config.secret_access_key = <your secret key>
-  #     config.site = <url to your appliance instance>
+  #     config.host = <host of your appliance instance>
   #   end
   def self.configure
     yield self
   end
 
-  # Default environment is production which will set ::site to "http://esp.evident.io/api/v2".
+  # Default environment is production which will set ::site to "https://api.evident.io/api/v2".
   def self.env
     @env ||= ActiveSupport::StringInquirer.new(ENV['ESP_ENV'] || ENV['RAILS_ENV'] || 'production')
   end
