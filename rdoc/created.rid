@@ -1,5 +1,5 @@
-Tue, 03 Nov 2015 15:42:05 -0500
-README.md	Thu, 29 Oct 2015 10:43:41 -0400
+Wed, 04 Nov 2015 14:00:54 -0500
+README.md	Wed, 04 Nov 2015 13:25:46 -0500
 lib/esp/resources/alert.rb	Thu, 29 Oct 2015 16:53:12 -0400
 lib/esp/resources/cloud_trail_event.rb	Thu, 29 Oct 2015 10:02:33 -0400
 lib/esp/resources/concerns/stat_totals.rb	Mon, 02 Nov 2015 15:39:34 -0500
@@ -27,4 +27,4 @@ lib/esp/resources/tag.rb	Mon, 02 Nov 2015 16:18:07 -0500
 lib/esp/resources/team.rb	Fri, 30 Oct 2015 11:04:06 -0400
 lib/esp/resources/user.rb	Fri, 30 Oct 2015 12:22:59 -0400
 lib/esp/extensions/active_resource/paginated_collection.rb	Thu, 15 Oct 2015 09:21:02 -0400
-lib/esp.rb	Tue, 03 Nov 2015 15:36:43 -0500
+lib/esp.rb	Wed, 04 Nov 2015 14:00:47 -0500

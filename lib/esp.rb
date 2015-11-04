@@ -31,11 +31,11 @@ module ESP
            test: "http://localhost:3000".freeze,
            production: "https://api.evident.io".freeze }.freeze # :nodoc:
 
-  # Users of the Evident.io marketplace appliance application will need to set the site/url for their instance.
+  # Users of the Evident.io marketplace appliance application will need to set the host for their instance.
   #
   # ==== Attribute
   #
-  # * +site+ - The url for the installed appliance instance.
+  # * +host+ - The host for the installed appliance instance.
   def self.host=(host)
     @host = host
     ESP::Resource.site = site

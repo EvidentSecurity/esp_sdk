@@ -214,19 +214,23 @@ href="https://esp.evident.io/settings/api_keys">esp.evident.io</a></p>
 <h2 id="label-Appliance+Users">Appliance Users<span><a href="#label-Appliance+Users">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
 
 <p>Users of Evident.io&#39;s AWS marketplace appliance will need to set the
-site for their appliance instance.
+host for their appliance instance.
 You can set this directly:</p>
 
-<pre class="ruby"><span class="ruby-constant">ESP</span>.<span class="ruby-identifier">site</span> = <span class="ruby-operator">&lt;</span><span class="ruby-identifier">url</span> <span class="ruby-identifier">to</span> <span class="ruby-identifier">your</span> <span class="ruby-identifier">appliance</span> <span class="ruby-identifier">instance</span><span class="ruby-operator">&gt;</span>
+<pre class="ruby"><span class="ruby-constant">ESP</span>.<span class="ruby-identifier">host</span> = <span class="ruby-operator">&lt;</span><span class="ruby-identifier">host</span> <span class="ruby-keyword">for</span> <span class="ruby-identifier">appliance</span> <span class="ruby-identifier">instance</span><span class="ruby-operator">&gt;</span>
 </pre>
 
 <p>or, if in a Rails application, you can use the configure block in an
 initializer:</p>
 
 <pre class="ruby"><span class="ruby-constant">ESP</span>.<span class="ruby-identifier">configure</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">config</span><span class="ruby-operator">|</span>
-  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">site</span> = <span class="ruby-operator">&lt;</span><span class="ruby-identifier">url</span> <span class="ruby-identifier">to</span> <span class="ruby-identifier">your</span> <span class="ruby-identifier">appliance</span> <span class="ruby-identifier">instance</span><span class="ruby-operator">&gt;</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">host</span> = <span class="ruby-operator">&lt;</span><span class="ruby-identifier">host</span> <span class="ruby-keyword">for</span> <span class="ruby-identifier">appliance</span> <span class="ruby-identifier">instance</span><span class="ruby-operator">&gt;</span>
 <span class="ruby-keyword">end</span>
 </pre>
+
+<p>Alternatively, the site can also be set with an environment variable.</p>
+
+<pre>export ESP_HOST=&lt;host for appliance instance&gt;</pre>
 
 <h1 id="label-Usage">Usage<span><a href="#label-Usage">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
 
