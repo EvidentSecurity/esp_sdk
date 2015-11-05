@@ -7,9 +7,8 @@ module ESP
 
     self.collection_parser = ActiveResource::PaginatedCollection
 
-    def self.where(*)
-      fail ESP::NotImplementedError
-    end
+    # List of predicate that can be used for searching
+    PREDICATES = %w(m eq eq_any eq_all not_eq not_eq_any not_eq_all matches matches_any matches_all does_not_match does_not_match_any does_not_match_all lt lt_any lt_all lteq lteq_any lteq_all gt gt_any gt_all gteq gteq_any gteq_all in in_any in_all not_in not_in_any not_in_all cont cont_any cont_all not_cont not_cont_any not_cont_all start start_any start_all not_start not_start_any not_start_all end end_any end_all not_end not_end_any not_end_all true false present blank null not_null).freeze
 
     # Pass a json api compliant hash to the api.
     def serializable_hash(*)
@@ -32,11 +31,14 @@ module ESP
     def self.filters(params)
       h = {}.tap do |filters|
         params.each do |attr, value|
-          if value.is_a? Enumerable
-            filters["#{attr.sub(/_in$/, '')}_in"] = value
-          else
-            filters["#{attr.sub(/_eq$/, '')}_eq"] = value
+          unless PREDICATES.include?(attr.split('_').last)
+            attr = if value.is_a? Enumerable
+               "#{attr}_in"
+            else
+               "#{attr}_eq"
+            end
           end
+          filters[attr] = value
         end
       end
       { filter: h }
