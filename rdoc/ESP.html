@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module ESP - ESPSDK</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/esp.rb
+    <li>lib/esp/resources/alert.rb
+    <li>lib/esp/resources/cloud_trail_event.rb
+    <li>lib/esp/resources/concerns/stat_totals.rb
+    <li>lib/esp/resources/contact_request.rb
+    <li>lib/esp/resources/custom_signature.rb
+    <li>lib/esp/resources/dashboard.rb
+    <li>lib/esp/resources/external_account.rb
+    <li>lib/esp/resources/organization.rb
+    <li>lib/esp/resources/region.rb
+    <li>lib/esp/resources/report.rb
+    <li>lib/esp/resources/resource.rb
+    <li>lib/esp/resources/service.rb
+    <li>lib/esp/resources/signature.rb
+    <li>lib/esp/resources/stat.rb
+    <li>lib/esp/resources/stat_custom_signature.rb
+    <li>lib/esp/resources/stat_region.rb
+    <li>lib/esp/resources/stat_service.rb
+    <li>lib/esp/resources/stat_signature.rb
+    <li>lib/esp/resources/sub_organization.rb
+    <li>lib/esp/resources/suppression.rb
+    <li>lib/esp/resources/suppression/region.rb
+    <li>lib/esp/resources/suppression/signature.rb
+    <li>lib/esp/resources/suppression/unique_identifier.rb
+    <li>lib/esp/resources/tag.rb
+    <li>lib/esp/resources/team.rb
+    <li>lib/esp/resources/user.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-access_key_id">::access_key_id</a>
+    
+    <li ><a href="#method-c-access_key_id-3D">::access_key_id=</a>
+    
+    <li ><a href="#method-c-configure">::configure</a>
+    
+    <li ><a href="#method-c-env">::env</a>
+    
+    <li ><a href="#method-c-host-3D">::host=</a>
+    
+    <li ><a href="#method-c-secret_access_key">::secret_access_key</a>
+    
+    <li ><a href="#method-c-secret_access_key-3D">::secret_access_key=</a>
+    
+    <li ><a href="#method-c-site">::site</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_md.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ActiveResource.html">ActiveResource</a>
+  
+    <li><a href="./ActiveResource/Formats.html">ActiveResource::Formats</a>
+  
+    <li><a href="./ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
+  
+    <li><a href="./ESP.html">ESP</a>
+  
+    <li><a href="./ESP/Alert.html">ESP::Alert</a>
+  
+    <li><a href="./ESP/CloudTrailEvent.html">ESP::CloudTrailEvent</a>
+  
+    <li><a href="./ESP/ContactRequest.html">ESP::ContactRequest</a>
+  
+    <li><a href="./ESP/CustomSignature.html">ESP::CustomSignature</a>
+  
+    <li><a href="./ESP/Dashboard.html">ESP::Dashboard</a>
+  
+    <li><a href="./ESP/ExternalAccount.html">ESP::ExternalAccount</a>
+  
+    <li><a href="./ESP/Organization.html">ESP::Organization</a>
+  
+    <li><a href="./ESP/Region.html">ESP::Region</a>
+  
+    <li><a href="./ESP/Report.html">ESP::Report</a>
+  
+    <li><a href="./ESP/Service.html">ESP::Service</a>
+  
+    <li><a href="./ESP/Signature.html">ESP::Signature</a>
+  
+    <li><a href="./ESP/Stat.html">ESP::Stat</a>
+  
+    <li><a href="./ESP/StatCustomSignature.html">ESP::StatCustomSignature</a>
+  
+    <li><a href="./ESP/StatRegion.html">ESP::StatRegion</a>
+  
+    <li><a href="./ESP/StatService.html">ESP::StatService</a>
+  
+    <li><a href="./ESP/StatSignature.html">ESP::StatSignature</a>
+  
+    <li><a href="./ESP/SubOrganization.html">ESP::SubOrganization</a>
+  
+    <li><a href="./ESP/Suppression.html">ESP::Suppression</a>
+  
+    <li><a href="./ESP/Suppression/Region.html">ESP::Suppression::Region</a>
+  
+    <li><a href="./ESP/Suppression/Signature.html">ESP::Suppression::Signature</a>
+  
+    <li><a href="./ESP/Suppression/UniqueIdentifier.html">ESP::Suppression::UniqueIdentifier</a>
+  
+    <li><a href="./ESP/Tag.html">ESP::Tag</a>
+  
+    <li><a href="./ESP/Team.html">ESP::Team</a>
+  
+    <li><a href="./ESP/User.html">ESP::User</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module ESP</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="PATH">PATH
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-access_key_id" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">access_key_id</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Reads the `ESP_ACCESS_KEY_ID` environment variable if <a
+href="ESP.html#method-c-access_key_id">::access_key_id</a> was not set
+manually.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="access_key_id-source">
+            <pre><span class="ruby-comment"># File lib/esp.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">access_key_id</span>
+  <span class="ruby-ivar">@access_key_id</span> <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;ESP_ACCESS_KEY_ID&#39;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- access_key_id-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- access_key_id-method -->
+
+    
+      <div id="method-c-access_key_id-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">access_key_id=</span><span
+            class="method-args">(access_key_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Manually set the <a
+href="ESP.html#method-c-access_key_id">::access_key_id</a> you created from
+<a
+href="https://esp.evident.io/settings/api_keys">esp.evident.io/settings/api_keys</a>.</p>
+
+<p>You can optionally set the `ESP_ACCESS_KEY_ID` environment variable.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="access_key_id-3D-source">
+            <pre><span class="ruby-comment"># File lib/esp.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">access_key_id=</span>(<span class="ruby-identifier">access_key_id</span>)
+  <span class="ruby-ivar">@access_key_id</span> = <span class="ruby-identifier">access_key_id</span>
+  <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>.<span class="ruby-identifier">hmac_access_id</span> = <span class="ruby-identifier">access_key_id</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- access_key_id-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- access_key_id-3D-method -->
+
+    
+      <div id="method-c-configure" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">configure</span><span
+            class="method-args">() { |self| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>For use in a Rails initializer to set the <a
+href="ESP.html#method-c-access_key_id">::access_key_id</a>, <a
+href="ESP.html#method-c-secret_access_key">::secret_access_key</a> and <a
+href="ESP.html#method-c-site">::site</a>.</p>
+
+<h4 id="method-c-configure-label-Example">Example<span><a href="#method-c-configure-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span>.<span class="ruby-identifier">configure</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">config</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">access_key_id</span> = <span class="ruby-operator">&lt;</span><span class="ruby-identifier">your</span> <span class="ruby-identifier">key</span><span class="ruby-operator">&gt;</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">secret_access_key</span> = <span class="ruby-operator">&lt;</span><span class="ruby-identifier">your</span> <span class="ruby-identifier">secret</span> <span class="ruby-identifier">key</span><span class="ruby-operator">&gt;</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">host</span> = <span class="ruby-operator">&lt;</span><span class="ruby-identifier">host</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">your</span> <span class="ruby-identifier">appliance</span> <span class="ruby-identifier">instance</span><span class="ruby-operator">&gt;</span>
+<span class="ruby-keyword">end</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="configure-source">
+            <pre><span class="ruby-comment"># File lib/esp.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">configure</span>
+  <span class="ruby-keyword">yield</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- configure-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- configure-method -->
+
+    
+      <div id="method-c-env" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">env</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Default environment is production which will set <a
+href="ESP.html#method-c-site">::site</a> to “<a
+href="https://api.evident.io/api/v2">api.evident.io/api/v2</a>”.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="env-source">
+            <pre><span class="ruby-comment"># File lib/esp.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">env</span>
+  <span class="ruby-ivar">@env</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">StringInquirer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;ESP_ENV&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;RAILS_ENV&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&#39;production&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- env-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- env-method -->
+
+    
+      <div id="method-c-host-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">host=</span><span
+            class="method-args">(host)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Users of the Evident.io marketplace appliance application will need to set
+the host for their instance.</p>
+
+<h4 id="method-c-host-3D-label-Attribute">Attribute<span><a href="#method-c-host-3D-label-Attribute">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<ul><li>
+<p><code>host</code> - The host for the installed appliance instance.</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="host-3D-source">
+            <pre><span class="ruby-comment"># File lib/esp.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">host=</span>(<span class="ruby-identifier">host</span>)
+  <span class="ruby-ivar">@host</span> = <span class="ruby-identifier">host</span>
+  <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>.<span class="ruby-identifier">site</span> = <span class="ruby-identifier">site</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- host-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- host-3D-method -->
+
+    
+      <div id="method-c-secret_access_key" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">secret_access_key</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Reads the `ESP_SECRET_ACCESS_KEY` environment variable if <a
+href="ESP.html#method-c-secret_access_key">::secret_access_key</a> was not
+set manually.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="secret_access_key-source">
+            <pre><span class="ruby-comment"># File lib/esp.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">secret_access_key</span>
+  <span class="ruby-ivar">@secret_access_key</span> <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;ESP_SECRET_ACCESS_KEY&#39;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- secret_access_key-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- secret_access_key-method -->
+
+    
+      <div id="method-c-secret_access_key-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">secret_access_key=</span><span
+            class="method-args">(secret_access_key)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Manually set the <a
+href="ESP.html#method-c-secret_access_key">::secret_access_key</a> you
+created from <a
+href="https://esp.evident.io/settings/api_keys">esp.evident.io/settings/api_keys</a>.</p>
+
+<p>You can optionally set the `ESP_SECRET_ACCESS_KEY` environment variable.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="secret_access_key-3D-source">
+            <pre><span class="ruby-comment"># File lib/esp.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">secret_access_key=</span>(<span class="ruby-identifier">secret_access_key</span>)
+  <span class="ruby-ivar">@secret_access_key</span> = <span class="ruby-identifier">secret_access_key</span>
+  <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>.<span class="ruby-identifier">hmac_secret_key</span> = <span class="ruby-identifier">secret_access_key</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- secret_access_key-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- secret_access_key-3D-method -->
+
+    
+      <div id="method-c-site" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">site</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The site the SDK will hit.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="site-source">
+            <pre><span class="ruby-comment"># File lib/esp.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">site</span>
+  <span class="ruby-node">&quot;#{(@host || HOST[ESP.env.to_sym] || ENV[&#39;ESP_HOST&#39;])}#{PATH}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- site-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- site-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

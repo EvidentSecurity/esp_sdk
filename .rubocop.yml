@@ -89,7 +89,7 @@ Style/BlockComments:
 Style/BlockEndNewline:
   Enabled: true
 
-Style/Blocks:
+Style/BlockDelimiters:
   Enabled: true
 
 
@@ -236,10 +236,10 @@ Style/EvenOdd:
   Enabled: true
 
 Style/ExtraSpacing:
-  Enabled: false
+  Enabled: true
 
 Style/FileName:
-  Enabled: false
+  Enabled: true
   Exclude:
     - '**/Rakefile'
     - '**/Gemfile'
@@ -306,6 +306,10 @@ Style/IndentHash:
     - consistent
 
 Style/InfiniteLoop:
+  Enabled: true
+
+Style/InitialIndentation:
+  Description: Checks the indentation of the first non-blank non-comment line in a file.
   Enabled: true
 
 Style/Lambda:
@@ -405,12 +409,21 @@ Style/NumericLiterals:
 Style/OneLineConditional:
   Enabled: true
 
+Style/OptionalArguments:
+  Enabled: true
+
+Style/OptionHash:
+  Enabled: true
+
 Style/OpMethod:
   Enabled: true
 
 Style/ParenthesesAroundCondition:
   Enabled: true
   AllowSafeAssignment: true
+
+Style/ParallelAssignment:
+  Enabled: true
 
 Style/PercentLiteralDelimiters:
   Enabled: true
@@ -467,7 +480,10 @@ Style/RedundantSelf:
 
 Style/RegexpLiteral:
   Enabled: true
-  MaxSlashes: 1
+
+Style/RescueEnsureAlignment:
+  Description: 'Align rescues and ensures correctly.'
+  Enabled: true
 
 Style/RescueModifier:
   Enabled: true
@@ -478,6 +494,12 @@ Style/SelfAssignment:
 Style/Semicolon:
   Enabled: true
   AllowAsExpressionSeparator: false
+
+Style/Send:
+  Description: 'Prefer `Object#__send__` or `Object#public_send` to `send`, as `send` may overlap with existing methods.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#prefer-public-send'
+  # TODO: enable this
+  Enabled: false
 
 Style/SignalException:
   Enabled: true
@@ -582,11 +604,14 @@ Style/SpaceInsideParens:
 Style/SpaceInsideRangeLiteral:
   Enabled: true
 
+Style/SpaceInsideStringInterpolation:
+  Enabled: true
+
 Style/SpecialGlobalVars:
   Enabled: true
 
 Style/StringLiterals:
-  Enabled: true
+  Enabled: false
   EnforcedStyle: single_quotes
   SupportedStyles:
     - single_quotes
@@ -617,6 +642,9 @@ Style/TrailingComma:
   SupportedStyles:
     - comma
     - no_comma
+
+Style/TrailingUnderscoreVariable:
+  Enabled: true
 
 Style/TrailingWhitespace:
   Enabled: true
@@ -654,7 +682,7 @@ Style/UnneededCapitalW:
 Style/UnneededPercentQ:
   Enabled: true
 
-Style/UnneededPercentX:
+Style/CommandLiteral:
   Enabled: true
 
 Style/VariableInterpolation:
@@ -722,6 +750,9 @@ Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 10
 
+Metrics/ModuleLength:
+  Enabled: true
+
 Metrics/ParameterLists:
   Enabled: true
   Max: 5
@@ -748,6 +779,9 @@ Lint/AssignmentInCondition:
 Lint/BlockAlignment:
   Enabled: true
 
+Lint/CircularArgumentReference:
+  Enabled: true
+
 Lint/ConditionPosition:
   Enabled: true
 
@@ -765,6 +799,9 @@ Lint/DeprecatedClassMethods:
   Enabled: true
 
 Lint/DuplicateMethods:
+  Enabled: true
+
+Lint/EachWithObjectArgument:
   Enabled: true
 
 Lint/ElseLayout:
@@ -792,6 +829,10 @@ Lint/EnsureReturn:
 Lint/Eval:
   Enabled: true
 
+Lint/FormatParameterMismatch:
+  Description: 'The number of parameters to format/sprint must match the fields.'
+  Enabled: true
+
 Lint/HandleExceptions:
   Enabled: true
 
@@ -805,6 +846,9 @@ Lint/LiteralInInterpolation:
   Enabled: true
 
 Lint/Loop:
+  Enabled: true
+
+Lint/NestedMethodDefinition:
   Enabled: true
 
 Lint/ParenthesesAsGroupedExpression:
@@ -826,6 +870,9 @@ Lint/StringConversionInInterpolation:
   Enabled: true
 
 Lint/UnderscorePrefixedVariableName:
+  Enabled: true
+
+Lint/UnneededDisable:
   Enabled: true
 
 Lint/UnusedBlockArgument:
