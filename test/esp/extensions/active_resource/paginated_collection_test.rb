@@ -7,7 +7,7 @@ module ActiveResource
         context '#parse_pagination_links' do
           should 'not set the previous page or next page or last page when there is only 1 page' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 2, page: { number: 1, size: 20 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 2, page: { number: 1, size: 20 }))
 
             alerts = report.alerts
 
@@ -22,7 +22,7 @@ module ActiveResource
 
           should 'not set the previous page when on the first page' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 2, page: { number: 1, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 2, page: { number: 1, size: 1 }))
 
             alerts = report.alerts
 
@@ -37,7 +37,7 @@ module ActiveResource
 
           should 'not set the next or last page page when on the last page' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 2, page: { number: 2, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 2, page: { number: 2, size: 1 }))
 
             alerts = report.alerts
 
@@ -52,7 +52,7 @@ module ActiveResource
 
           should 'set the next, last and previous page page when not on the first or last page' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 }))
 
             alerts = report.alerts
 
@@ -67,7 +67,7 @@ module ActiveResource
 
           should 'set page size on each link' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 }))
 
             alerts = report.alerts
 
@@ -80,7 +80,7 @@ module ActiveResource
             # The last page may not contain the full per page number of records, and will therefore come back with an incorrect size since the
             # size is based on the collection size.  This will mess up further calls to previous_page or first page so remove the size so it will bring back the default size.
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 2 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 2 }))
 
             alerts = report.alerts
 
@@ -91,14 +91,14 @@ module ActiveResource
         context '#first_page' do
           should 'call the api with the original url and the page number 1 param' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
             alerts = report.alerts
 
             page = alerts.first_page
 
             assert_equal '1', page.current_page_number
             assert_equal '2', alerts.current_page_number # original object is unchanged
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               if req.uri.query.present? # The first call will not have query params, only the second call
                 assert_equal "page[number]=1", URI.unescape(req.uri.query)
               end
@@ -107,13 +107,13 @@ module ActiveResource
 
           should 'not call the api and return self if already on the first page' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
             alerts = report.alerts
 
             page = alerts.first_page
 
             assert_equal '1', page.current_page_number
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               assert_predicate req.uri.query, :blank? # It will only be called once to get the first page
             end
           end
@@ -122,13 +122,13 @@ module ActiveResource
         context '#first_page!' do
           should 'call the api with the original url and the page number 1 param and update itself' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
             alerts = report.alerts
 
             alerts.first_page!
 
             assert_equal '1', alerts.current_page_number
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               if req.uri.query.present? # The first call will not have query params, only the second call
                 assert_equal "page[number]=1", URI.unescape(req.uri.query)
               end
@@ -139,14 +139,14 @@ module ActiveResource
         context '#previous_page' do
           should 'call the api with the original url and the previous page number param' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
             alerts = report.alerts
 
             page = alerts.previous_page
 
             assert_equal '1', page.current_page_number
             assert_equal '2', alerts.current_page_number # original object is unchanged
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               if req.uri.query.present? # The first call will not have query params, only the second call
                 assert_equal "page[number]=1&page[size]=1", URI.unescape(req.uri.query)
               end
@@ -155,13 +155,13 @@ module ActiveResource
 
           should 'not call the api and return self if already on the first page' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
             alerts = report.alerts
 
             page = alerts.previous_page
 
             assert_equal '1', page.current_page_number
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               assert_predicate req.uri.query, :blank? # It will only be called once to get the first page
             end
           end
@@ -170,13 +170,13 @@ module ActiveResource
         context '#previous_page!' do
           should 'call the api with the original url and the previous page number param and update itself' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 1, size: 1 }))
             alerts = report.alerts
 
             alerts.previous_page!
 
             assert_equal '1', alerts.current_page_number
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               if req.uri.query.present? # The first call will not have query params, only the second call
                 assert_equal "page[number]=1&page[size]=1", URI.unescape(req.uri.query)
               end
@@ -187,14 +187,14 @@ module ActiveResource
         context '#next_page' do
           should 'call the api with the original url and the next page number param' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
             alerts = report.alerts
 
             page = alerts.next_page
 
             assert_equal '3', page.current_page_number
             assert_equal '2', alerts.current_page_number # original object is unchanged
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               if req.uri.query.present? # The first call will not have query params, only the second call
                 assert_equal "page[number]=3&page[size]=1", URI.unescape(req.uri.query)
               end
@@ -203,13 +203,13 @@ module ActiveResource
 
           should 'not call the api and return self if already on the last page' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
             alerts = report.alerts
 
             page = alerts.next_page
 
             assert_equal '3', page.current_page_number
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               assert_predicate req.uri.query, :blank? # It will only be called once to get the first page
             end
           end
@@ -218,13 +218,13 @@ module ActiveResource
         context '#next_page!' do
           should 'call the api with the original url and the next page number param and update itself' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
             alerts = report.alerts
 
             alerts.next_page!
 
             assert_equal '3', alerts.current_page_number
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               if req.uri.query.present? # The first call will not have query params, only the second call
                 assert_equal "page[number]=3&page[size]=1", URI.unescape(req.uri.query)
               end
@@ -235,14 +235,14 @@ module ActiveResource
         context '#last_page' do
           should 'call the api with the original url and the last page number param' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
             alerts = report.alerts
 
             page = alerts.last_page
 
             assert_equal '3', page.current_page_number
             assert_equal '2', alerts.current_page_number # original object is unchanged
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               if req.uri.query.present? # The first call will not have query params, only the second call
                 assert_equal "page[number]=3&page[size]=1", URI.unescape(req.uri.query)
               end
@@ -251,13 +251,13 @@ module ActiveResource
 
           should 'not call the api and return self if already on the last page' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
             alerts = report.alerts
 
             page = alerts.last_page
 
             assert_equal '3', page.current_page_number
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               assert_predicate req.uri.query, :blank? # It will only be called once to get the first page
             end
           end
@@ -266,13 +266,13 @@ module ActiveResource
         context '#last_page!' do
           should 'call the api with the original url and the last page number param and update itself' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
             alerts = report.alerts
 
             alerts.last_page!
 
             assert_equal '3', alerts.current_page_number
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               if req.uri.query.present? # The first call will not have query params, only the second call
                 assert_equal "page[number]=3&page[size]=1", URI.unescape(req.uri.query)
               end
@@ -283,7 +283,7 @@ module ActiveResource
         context '#page' do
           should 'raise an error if the page number is not given' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
             alerts = report.alerts
 
             error = assert_raises ArgumentError do
@@ -294,7 +294,7 @@ module ActiveResource
 
           should 'raise an error if the page number is not a positive number' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
             alerts = report.alerts
 
             error = assert_raises ArgumentError do
@@ -305,7 +305,7 @@ module ActiveResource
 
           should 'raise an error if the page number is greater than the last page number' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
             alerts = report.alerts
 
             error = assert_raises ArgumentError do
@@ -316,14 +316,14 @@ module ActiveResource
 
           should 'call the api with the original url and the page number param' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
             alerts = report.alerts
 
             page = alerts.page(3)
 
             assert_equal '3', page.current_page_number
             assert_equal '2', alerts.current_page_number # original object is unchanged
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               if req.uri.query.present? # The first call will not have query params, only the second call
                 assert_equal "page[number]=3&page[size]=1", URI.unescape(req.uri.query)
               end
@@ -332,13 +332,13 @@ module ActiveResource
 
           should 'not call the api and return self if already on that page' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 }))
             alerts = report.alerts
 
             page = alerts.page(2)
 
             assert_equal '2', page.current_page_number
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               assert_predicate req.uri.query, :blank? # It will only be called once to get the first page
             end
           end
@@ -347,13 +347,13 @@ module ActiveResource
         context '#page!' do
           should 'call the api with the original url and the page number 1 param and update itself' do
             report = build(:report)
-            stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
+            stub_request(:get, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 3, page: { number: 2, size: 1 })).then.to_return(body: json_list(:alert, 3, page: { number: 3, size: 1 }))
             alerts = report.alerts
 
             alerts.page!(3)
 
             assert_equal '3', alerts.current_page_number
-            assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
+            assert_requested(:get, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               if req.uri.query.present? # The first call will not have query params, only the second call
                 assert_equal "page[number]=3&page[size]=1", URI.unescape(req.uri.query)
               end

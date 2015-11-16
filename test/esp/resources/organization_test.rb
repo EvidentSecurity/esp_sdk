@@ -24,11 +24,11 @@ module ESP
       context '#teams' do
         should 'call the api' do
           organization = build(:organization)
-          stub_request(:get, /teams.json*/).to_return(body: json_list(:organization, 2))
+          stub_request(:get, /teams.json_api*/).to_return(body: json_list(:organization, 2))
 
           organization.teams
 
-          assert_requested(:get, /teams.json*/) do |req|
+          assert_requested(:get, /teams.json_api*/) do |req|
             assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
           end
         end
@@ -37,11 +37,11 @@ module ESP
       context '#sub_organizations' do
         should 'call the api' do
           organization = build(:organization)
-          stub_request(:get, /sub_organizations.json*/).to_return(body: json_list(:sub_organization, 2))
+          stub_request(:get, /sub_organizations.json_api*/).to_return(body: json_list(:sub_organization, 2))
 
           organization.sub_organizations
 
-          assert_requested(:get, /sub_organizations.json*/) do |req|
+          assert_requested(:get, /sub_organizations.json_api*/) do |req|
             assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
           end
         end
@@ -50,11 +50,11 @@ module ESP
       context '#users' do
         should 'call the api' do
           organization = build(:organization)
-          stub_request(:get, /users.json*/).to_return(body: json_list(:user, 2))
+          stub_request(:get, /users.json_api*/).to_return(body: json_list(:user, 2))
 
           organization.users
 
-          assert_requested(:get, /users.json*/) do |req|
+          assert_requested(:get, /users.json_api*/) do |req|
             assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
           end
         end
@@ -63,11 +63,11 @@ module ESP
       context '#reports' do
         should 'call the api' do
           organization = build(:organization)
-          stub_request(:get, /reports.json*/).to_return(body: json_list(:report, 2))
+          stub_request(:get, /reports.json_api*/).to_return(body: json_list(:report, 2))
 
           organization.reports
 
-          assert_requested(:get, /reports.json*/) do |req|
+          assert_requested(:get, /reports.json_api*/) do |req|
             assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
           end
         end
@@ -76,11 +76,11 @@ module ESP
       context '#external_accounts' do
         should 'call the api' do
           organization = build(:organization)
-          stub_request(:get, /external_accounts.json*/).to_return(body: json_list(:external_account, 2))
+          stub_request(:get, /external_accounts.json_api*/).to_return(body: json_list(:external_account, 2))
 
           organization.external_accounts
 
-          assert_requested(:get, /external_accounts.json*/) do |req|
+          assert_requested(:get, /external_accounts.json_api*/) do |req|
             assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
           end
         end
@@ -89,11 +89,11 @@ module ESP
       context '#custom_signatures' do
         should 'call the api' do
           organization = build(:organization)
-          stub_request(:get, /custom_signatures.json*/).to_return(body: json_list(:custom_signature, 2))
+          stub_request(:get, /custom_signatures.json_api*/).to_return(body: json_list(:custom_signature, 2))
 
           organization.custom_signatures
 
-          assert_requested(:get, /custom_signatures.json*/) do |req|
+          assert_requested(:get, /custom_signatures.json_api*/) do |req|
             assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
           end
         end

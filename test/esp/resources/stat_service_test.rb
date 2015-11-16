@@ -13,7 +13,7 @@ module ESP
           end
 
           should 'call the api' do
-            stub_service = stub_request(:get, %r{stats/5/services.json*}).to_return(body: json_list(:stat_service, 2))
+            stub_service = stub_request(:get, %r{stats/5/services.json_api*}).to_return(body: json_list(:stat_service, 2))
 
             services = ESP::StatService.for_stat(5)
 
@@ -30,7 +30,7 @@ module ESP
           end
 
           should 'call the show api and return a service if searching by id' do
-            stub_service = stub_request(:get, %r{services/5.json*}).to_return(body: json(:stat_service))
+            stub_service = stub_request(:get, %r{services/5.json_api*}).to_return(body: json(:stat_service))
 
             service = ESP::StatService.find(5)
 
@@ -39,7 +39,7 @@ module ESP
           end
 
           should 'call the api and return services when stat_id is supplied' do
-            stub_service = stub_request(:get, %r{stats/5/services.json*}).to_return(body: json_list(:stat_service, 2))
+            stub_service = stub_request(:get, %r{stats/5/services.json_api*}).to_return(body: json_list(:stat_service, 2))
 
             services = ESP::StatService.find(:all, params: { stat_id: 5 })
 
@@ -78,7 +78,7 @@ module ESP
           should 'call the show api and return the service' do
             service_stat = ESP::StatService.new(service_id: 3)
 
-            stub_service = stub_request(:get, %r{services/#{service_stat.service_id}.json*}).to_return(body: json(:service))
+            stub_service = stub_request(:get, %r{services/#{service_stat.service_id}.json_api*}).to_return(body: json(:service))
 
             service = service_stat.service
 

@@ -32,7 +32,7 @@ module ESP
       context '#organization' do
         should 'call the api' do
           s = build(:suppression, organization_id: 1)
-          stub_org = stub_request(:get, %r{organizations/#{s.organization_id}.json*}).to_return(body: json(:organization))
+          stub_org = stub_request(:get, %r{organizations/#{s.organization_id}.json_api*}).to_return(body: json(:organization))
 
           s.organization
 
@@ -43,7 +43,7 @@ module ESP
       context '#created_by' do
         should 'call the api' do
           s = build(:suppression, created_by_id: 1)
-          stub_user = stub_request(:get, %r{users/#{s.created_by_id}.json*}).to_return(body: json(:user))
+          stub_user = stub_request(:get, %r{users/#{s.created_by_id}.json_api*}).to_return(body: json(:user))
 
           s.created_by
 
@@ -53,26 +53,26 @@ module ESP
 
       context '#regions' do
         should 'call the api for the report and the passed in params' do
-          suppression = build(:suppression)
-          stub_request(:get, /regions.json*/).to_return(body: json_list(:region, 2))
+          suppression = build(:suppression, region_ids: [1, 2])
+          stub_request(:get, /regions.json_api*/).to_return(body: json_list(:region, 2))
 
           suppression.regions
 
-          assert_requested(:get, /regions.json*/) do |req|
-            assert_equal "filter[suppressions_id_eq]=#{suppression.id}", URI.unescape(req.uri.query)
+          assert_requested(:get, /regions.json_api*/) do |req|
+            assert_equal "filter[id_in][0]=#{suppression.region_ids.first}&filter[id_in][1]=#{suppression.region_ids.second}", URI.unescape(req.uri.query)
           end
         end
       end
 
       context '#external_accounts' do
         should 'call the api for the report and the passed in params' do
-          suppression = build(:suppression)
-          stub_request(:get, /external_accounts.json*/).to_return(body: json_list(:external_account, 2))
+          suppression = build(:suppression, external_account_ids: [1, 2])
+          stub_request(:get, /external_accounts.json_api*/).to_return(body: json_list(:external_account, 2))
 
           suppression.external_accounts
 
-          assert_requested(:get, /external_accounts.json*/) do |req|
-            assert_equal "filter[suppressions_id_eq]=#{suppression.id}", URI.unescape(req.uri.query)
+          assert_requested(:get, /external_accounts.json_api*/) do |req|
+            assert_equal "filter[id_in][0]=#{suppression.external_account_ids.first}&filter[id_in][1]=#{suppression.external_account_ids.second}", URI.unescape(req.uri.query)
           end
         end
       end
@@ -80,11 +80,11 @@ module ESP
       context '#signatures' do
         should 'call the api for the report and the passed in params' do
           suppression = build(:suppression, signature_ids: [1, 2])
-          stub_request(:get, /signatures.json*/).to_return(body: json_list(:signature, 2))
+          stub_request(:get, /signatures.json_api*/).to_return(body: json_list(:signature, 2))
 
           suppression.signatures
 
-          assert_requested(:get, /signatures.json*/) do |req|
+          assert_requested(:get, /signatures.json_api*/) do |req|
             assert_equal "filter[id_in][0]=#{suppression.signature_ids.first}&filter[id_in][1]=#{suppression.signature_ids.second}", URI.unescape(req.uri.query)
           end
         end
@@ -93,11 +93,11 @@ module ESP
       context '#custom_signatures' do
         should 'call the api for the report and the passed in params' do
           suppression = build(:suppression, custom_signature_ids: [1, 2])
-          stub_request(:get, /custom_signatures.json*/).to_return(body: json_list(:custom_signature, 2))
+          stub_request(:get, /custom_signatures.json_api*/).to_return(body: json_list(:custom_signature, 2))
 
           suppression.custom_signatures
 
-          assert_requested(:get, /custom_signatures.json*/) do |req|
+          assert_requested(:get, /custom_signatures.json_api*/) do |req|
             assert_equal "filter[id_in][0]=#{suppression.custom_signature_ids.first}&filter[id_in][1]=#{suppression.custom_signature_ids.second}", URI.unescape(req.uri.query)
           end
         end

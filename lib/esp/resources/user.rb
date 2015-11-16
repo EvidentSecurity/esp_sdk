@@ -17,13 +17,13 @@ module ESP
     ##
     # The collection of sub organizations that belong to the user.
     def sub_organizations
-      SubOrganization.find(:all, params: { id: sub_organization_ids })
+      SubOrganization.where(id_in: sub_organization_ids)
     end
 
     ##
     # The collection of teams that belong to the user.
     def teams
-      Team.find(:all, params: { id: team_ids })
+      Team.where(id_in: team_ids)
     end
 
     ##

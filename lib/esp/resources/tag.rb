@@ -21,7 +21,7 @@ module ESP
     #   alerts = ESP::Tag.for_alert(1194)
     def self.for_alert(alert_id = nil)
       fail ArgumentError, "You must supply an alert id." unless alert_id.present?
-      from = "#{prefix}alerts/#{alert_id}/tags.json"
+      from = "#{prefix}alerts/#{alert_id}/tags.json_api"
       find(:all, from: from)
     end
 

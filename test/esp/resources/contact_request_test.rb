@@ -31,11 +31,11 @@ module ESP
 
       context '#create' do
         should 'call the api' do
-          stub_request(:post, /contact_requests.json*/).to_return(body: json(:contact_request))
+          stub_request(:post, /contact_requests.json_api*/).to_return(body: json(:contact_request))
 
           contact_request = ESP::ContactRequest.create(user_id: 5, request_type: 'feature', title: 'My great feature idea', description: 'This is my idea for a really useful feature...')
 
-          assert_requested(:post, /contact_requests.json*/) do |req|
+          assert_requested(:post, /contact_requests.json_api*/) do |req|
             body = JSON.parse(req.body)
             assert_equal 5, body['data']['attributes']['user_id']
             assert_equal 'feature', body['data']['attributes']['request_type']

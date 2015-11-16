@@ -11,7 +11,7 @@ module ActiveResource
             response = mock(body: error_response)
             error.expects(:response).returns(response)
             ActiveResource::Connection.any_instance.expects(:post).raises(error)
-            stub_request(:post, /teams.json*/).to_return(body: json_list(:alert, 2))
+            stub_request(:post, /teams.json_api*/).to_return(body: json_list(:alert, 2))
 
             team = ESP::Team.create
 
@@ -26,7 +26,7 @@ module ActiveResource
             response = mock(body: error_response)
             error.expects(:response).returns(response)
             ActiveResource::Connection.any_instance.expects(:post).raises(error)
-            stub_request(:post, /teams.json*/).to_return(body: json_list(:alert, 2))
+            stub_request(:post, /teams.json_api*/).to_return(body: json_list(:alert, 2))
 
             team = ESP::Team.create
 

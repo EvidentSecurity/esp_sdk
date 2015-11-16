@@ -6,7 +6,7 @@ module ESP
       context '#service' do
         should 'call the api' do
           s = build(:signature, service_id: 4)
-          stubbed_service = stub_request(:get, %r{services/#{s.service_id}.json*}).to_return(body: json(:service))
+          stubbed_service = stub_request(:get, %r{services/#{s.service_id}.json_api*}).to_return(body: json(:service))
 
           s.service
 
@@ -43,14 +43,14 @@ module ESP
       context '#run' do
         should 'call the api and pass params' do
           signature = build(:signature)
-          stub_request(:post, %r{signatures/#{signature.id}/run.json*}).to_return(body: json_list(:alert, 2))
+          stub_request(:post, %r{signatures/#{signature.id}/run.json_api*}).to_return(body: json_list(:alert, 2))
 
-          alerts = signature.run(external_account_id: 3, regions: 'param2')
+          alerts = signature.run(external_account_id: 3, region: 'param2')
 
           assert_requested(:post, %r{signatures/#{signature.id}/run.json}) do |req|
             body = JSON.parse req.body
             assert_equal 3, body['data']['attributes']['external_account_id']
-            assert_equal ['param2'], body['data']['attributes']['regions']
+            assert_equal 'param2', body['data']['attributes']['region']
           end
           assert_equal ESP::Alert, alerts.resource_class
         end
@@ -64,7 +64,7 @@ module ESP
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
 
           assert_nothing_raised do
-            result = signature.run(external_account_id: 3, regions: 'param2')
+            result = signature.run(external_account_id: 3, region: 'param2')
             assert_equal JSON.parse(error_response)['errors'].first['title'], result.errors.full_messages.first
           end
         end
@@ -73,14 +73,14 @@ module ESP
       context '.run!' do
         should 'call the api and pass params' do
           signature = build(:signature)
-          stub_request(:post, %r{signatures/#{signature.id}/run.json*}).to_return(body: json_list(:alert, 2))
+          stub_request(:post, %r{signatures/#{signature.id}/run.json_api*}).to_return(body: json_list(:alert, 2))
 
-          alerts = signature.run!(external_account_id: 3, regions: 'param2')
+          alerts = signature.run!(external_account_id: 3, region: 'param2')
 
           assert_requested(:post, %r{signatures/#{signature.id}/run.json}) do |req|
             body = JSON.parse req.body
             assert_equal 3, body['data']['attributes']['external_account_id']
-            assert_equal ['param2'], body['data']['attributes']['regions']
+            assert_equal 'param2', body['data']['attributes']['region']
           end
           assert_equal ESP::Alert, alerts.resource_class
         end
@@ -94,7 +94,7 @@ module ESP
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
 
           error = assert_raises ActiveResource::ResourceInvalid do
-            result = signature.run!(external_account_id: 3, regions: 'param2')
+            result = signature.run!(external_account_id: 3, region: 'param2')
             assert_equal JSON.parse(error_response)['errors'].first['title'], result.errors.full_messages.first
           end
           assert_equal "Failed.  Response code = 400.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
@@ -103,12 +103,12 @@ module ESP
 
       context '#suppress' do
         should 'call the api' do
-          stub_request(:post, %r{suppressions/signatures.json*}).to_return(body: json(:suppression_signature))
+          stub_request(:post, %r{suppressions/signatures.json_api*}).to_return(body: json(:suppression_signature))
           signature = build(:signature)
 
           suppression = signature.suppress(regions: ['us_east_1'], external_account_ids: [5], reason: 'because')
 
-          assert_requested(:post, %r{suppressions/signatures.json*}) do |req|
+          assert_requested(:post, %r{suppressions/signatures.json_api*}) do |req|
             body = JSON.parse(req.body)
             assert_equal 'because', body['data']['attributes']['reason']
             assert_equal [signature.id], body['data']['attributes']['signature_ids']
@@ -145,8 +145,9 @@ module ESP
             signature = ESP::Signature.first
             external_account_id = ESP::ExternalAccount.last.id
 
-            alerts = signature.run(external_account_id: external_account_id, regions: 'us_east_1')
+            alerts = signature.run(external_account_id: external_account_id, region: 'us_east_1')
 
+            puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** alerts.errors.full_messages = " + alerts.errors.full_messages.inspect
             assert_equal ESP::Alert, alerts.resource_class
           end
 
@@ -154,7 +155,7 @@ module ESP
             signature = ESP::Signature.first
             external_account_id = 999
 
-            signature = signature.run(external_account_id: external_account_id, regions: ['us_east_1'])
+            signature = signature.run(external_account_id: external_account_id, region: 'us_east_1')
 
             assert_equal "Couldn't find ExternalAccount", signature.errors.full_messages.first
           end

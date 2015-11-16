@@ -16,7 +16,7 @@ module ESP
     #   stats = ESP::StatService.for_stat(1194)
     def self.for_stat(stat_id = nil)
       fail ArgumentError, "You must supply a stat id." unless stat_id.present?
-      from = "#{prefix}stats/#{stat_id}/services.json"
+      from = "#{prefix}stats/#{stat_id}/services.json_api"
       find(:all, from: from)
     end
 

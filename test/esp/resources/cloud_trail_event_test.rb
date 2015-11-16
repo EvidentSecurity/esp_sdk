@@ -38,7 +38,7 @@ module ESP
         end
 
         should 'call the api' do
-          stub_event = stub_request(:get, %r{alerts/5/cloud_trail_events.json*}).to_return(body: json_list(:cloud_trail_event, 2))
+          stub_event = stub_request(:get, %r{alerts/5/cloud_trail_events.json_api*}).to_return(body: json_list(:cloud_trail_event, 2))
 
           events = ESP::CloudTrailEvent.for_alert(5)
 
@@ -56,7 +56,7 @@ module ESP
         end
 
         should 'call the show api and return an event if searching by id' do
-          stub_event = stub_request(:get, %r{cloud_trail_events/5.json*}).to_return(body: json(:cloud_trail_event))
+          stub_event = stub_request(:get, %r{cloud_trail_events/5.json_api*}).to_return(body: json(:cloud_trail_event))
 
           event = ESP::CloudTrailEvent.find(5)
 
@@ -65,7 +65,7 @@ module ESP
         end
 
         should 'call the api and return events when alert_id is supplied' do
-          stub_event = stub_request(:get, %r{alerts/5/cloud_trail_events.json*}).to_return(body: json_list(:cloud_trail_event, 2))
+          stub_event = stub_request(:get, %r{alerts/5/cloud_trail_events.json_api*}).to_return(body: json_list(:cloud_trail_event, 2))
 
           events = ESP::CloudTrailEvent.find(:all, params: { alert_id: 5 })
 

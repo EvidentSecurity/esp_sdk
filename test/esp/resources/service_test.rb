@@ -6,11 +6,11 @@ module ESP
       context '#signatures' do
         should 'call the api' do
           s = build(:service)
-          stub_request(:get, /signatures.json*/).to_return(body: json_list(:signature, 2))
+          stub_request(:get, /signatures.json_api*/).to_return(body: json_list(:signature, 2))
 
           s.signatures
 
-          assert_requested(:get, /signatures.json*/) do |req|
+          assert_requested(:get, /signatures.json_api*/) do |req|
             assert_equal "filter[service_id_eq]=#{s.id}", URI.unescape(req.uri.query)
           end
         end

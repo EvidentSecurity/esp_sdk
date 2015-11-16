@@ -6,7 +6,7 @@ module ESP
       context '#organization' do
         should 'call the api' do
           custom_signature = build(:custom_signature, organization_id: 4)
-          stubbed_organization = stub_request(:get, %r{organizations/#{custom_signature.organization_id}.json*}).to_return(body: json(:organization))
+          stubbed_organization = stub_request(:get, %r{organizations/#{custom_signature.organization_id}.json_api*}).to_return(body: json(:organization))
 
           custom_signature.organization
 
@@ -17,11 +17,11 @@ module ESP
       context '.run_sanity_test!' do
         should 'call the api and pass params' do
           custom_signature = build(:custom_signature, external_account_id: 3)
-          stub_request(:post, %r{custom_signatures/run.json*}).to_return(body: json_list(:alert, 2))
+          stub_request(:post, %r{custom_signatures/run.json_api*}).to_return(body: json_list(:alert, 2))
 
           alerts = ESP::CustomSignature.run!(external_account_id: 3, regions: 'param2', language: custom_signature.language, signature: custom_signature.signature)
 
-          assert_requested(:post, %r{custom_signatures/run.json*}) do |req|
+          assert_requested(:post, %r{custom_signatures/run.json_api*}) do |req|
             body = JSON.parse req.body
             assert_equal false, body['data'].key?('id')
             assert_equal ['param2'], body['data']['attributes']['regions']
@@ -38,7 +38,7 @@ module ESP
           response = mock(body: error_response, code: '400')
           error.stubs(:response).returns(response)
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
-          stub_request(:post, %r{custom_signatures/run.json*}).to_return(body: json_list(:alert, 2))
+          stub_request(:post, %r{custom_signatures/run.json_api*}).to_return(body: json_list(:alert, 2))
 
           error = assert_raises ActiveResource::ResourceInvalid do
             ESP::CustomSignature.run!(external_account_id: 3, regions: 'param2', language: custom_signature.language, signature: custom_signature.signature)
@@ -50,11 +50,11 @@ module ESP
       context '.run_sanity_test' do
         should 'call the api and pass params' do
           custom_signature = build(:custom_signature, external_account_id: 3)
-          stub_request(:post, %r{custom_signatures/run.json*}).to_return(body: json_list(:alert, 2))
+          stub_request(:post, %r{custom_signatures/run.json_api*}).to_return(body: json_list(:alert, 2))
 
           alerts = ESP::CustomSignature.run(external_account_id: 3, regions: 'param2', language: custom_signature.language, signature: custom_signature.signature)
 
-          assert_requested(:post, %r{custom_signatures/run.json*}) do |req|
+          assert_requested(:post, %r{custom_signatures/run.json_api*}) do |req|
             body = JSON.parse req.body
             assert_equal false, body['data'].key?('id')
             assert_equal ['param2'], body['data']['attributes']['regions']
@@ -71,7 +71,7 @@ module ESP
           response = mock(body: error_response, code: '400')
           error.stubs(:response).returns(response)
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
-          stub_request(:post, %r{custom_signatures/run.json*}).to_return(body: json_list(:alert, 2))
+          stub_request(:post, %r{custom_signatures/run.json_api*}).to_return(body: json_list(:alert, 2))
 
           assert_nothing_raised do
             result = ESP::CustomSignature.run(external_account_id: 3, regions: 'param2', language: custom_signature.language, signature: custom_signature.signature)
@@ -83,11 +83,11 @@ module ESP
       context '#run!' do
         should 'call the api and pass params' do
           custom_signature = build(:custom_signature, external_account_id: 3)
-          stub_request(:post, %r{custom_signatures/#{custom_signature.id}/run.json*}).to_return(body: json_list(:alert, 2))
+          stub_request(:post, %r{custom_signatures/#{custom_signature.id}/run.json_api*}).to_return(body: json_list(:alert, 2))
 
           alerts = custom_signature.run!(regions: 'param2')
 
-          assert_requested(:post, %r{custom_signatures/#{custom_signature.id}/run.json*}) do |req|
+          assert_requested(:post, %r{custom_signatures/#{custom_signature.id}/run.json_api*}) do |req|
             body = JSON.parse req.body
             assert_equal custom_signature.id, body['data']['id']
             assert_equal ['param2'], body['data']['attributes']['regions']
@@ -102,7 +102,7 @@ module ESP
           response = mock(body: error_response, code: '400')
           error.stubs(:response).returns(response)
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
-          stub_request(:post, %r{custom_signatures/#{custom_signature.id}/run.json*}).to_return(body: json_list(:alert, 2))
+          stub_request(:post, %r{custom_signatures/#{custom_signature.id}/run.json_api*}).to_return(body: json_list(:alert, 2))
 
           error = assert_raises ActiveResource::ResourceInvalid do
             custom_signature.run!(regions: 'param2')
@@ -114,11 +114,11 @@ module ESP
       context '#run' do
         should 'call the api and pass params' do
           custom_signature = build(:custom_signature, external_account_id: 3)
-          stub_request(:post, %r{custom_signatures/#{custom_signature.id}/run.json*}).to_return(body: json_list(:alert, 2))
+          stub_request(:post, %r{custom_signatures/#{custom_signature.id}/run.json_api*}).to_return(body: json_list(:alert, 2))
 
           alerts = custom_signature.run(regions: 'param2')
 
-          assert_requested(:post, %r{custom_signatures/#{custom_signature.id}/run.json*}) do |req|
+          assert_requested(:post, %r{custom_signatures/#{custom_signature.id}/run.json_api*}) do |req|
             body = JSON.parse req.body
             assert_equal custom_signature.id, body['data']['id']
             assert_equal ['param2'], body['data']['attributes']['regions']
@@ -133,7 +133,7 @@ module ESP
           response = mock(body: error_response, code: '400')
           error.stubs(:response).returns(response)
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
-          stub_request(:post, %r{custom_signatures/#{custom_signature.id}/run.json*}).to_return(body: json_list(:alert, 2))
+          stub_request(:post, %r{custom_signatures/#{custom_signature.id}/run.json_api*}).to_return(body: json_list(:alert, 2))
 
           assert_nothing_raised do
             custom_signature.run(regions: 'param2')
@@ -144,12 +144,12 @@ module ESP
 
       context '#suppress' do
         should 'call the api' do
-          stub_request(:post, %r{suppressions/signatures.json*}).to_return(body: json(:suppression_signature))
+          stub_request(:post, %r{suppressions/signatures.json_api*}).to_return(body: json(:suppression_signature))
           custom_signature = build(:custom_signature)
 
           suppression = custom_signature.suppress(regions: ['us_east_1'], external_account_ids: [5], reason: 'because')
 
-          assert_requested(:post, %r{suppressions/signatures.json*}) do |req|
+          assert_requested(:post, %r{suppressions/signatures.json_api*}) do |req|
             body = JSON.parse(req.body)
             assert_equal 'because', body['data']['attributes']['reason']
             assert_equal [custom_signature.id], body['data']['attributes']['custom_signature_ids']

@@ -31,7 +31,7 @@ module ESP
 
       context '.find' do
         should 'call the show api and return a region if searching by id' do
-          stub_region = stub_request(:get, %r{regions/5.json*}).to_return(body: json(:region))
+          stub_region = stub_request(:get, %r{regions/5.json_api*}).to_return(body: json(:region))
 
           region = ESP::Region.find(5)
 
@@ -42,12 +42,12 @@ module ESP
 
       context '#suppress' do
         should 'call the api' do
-          stub_request(:post, %r{suppressions/regions.json*}).to_return(body: json(:suppression_region))
+          stub_request(:post, %r{suppressions/regions.json_api*}).to_return(body: json(:suppression_region))
           region = build(:region)
 
           suppression = region.suppress(external_account_ids: [5], reason: 'because')
 
-          assert_requested(:post, %r{suppressions/regions.json*}) do |req|
+          assert_requested(:post, %r{suppressions/regions.json_api*}) do |req|
             body = JSON.parse(req.body)
             assert_equal 'because', body['data']['attributes']['reason']
             assert_equal [region.code], body['data']['attributes']['regions']

@@ -9,7 +9,7 @@ module ActiveResource
             should 'parse nested objects correctly' do
               json = json(:alert)
               parsed_json = JSON.parse(json)
-              stub_request(:get, %r{alerts/5.json*}).to_return(body: json)
+              stub_request(:get, %r{alerts/5.json_api*}).to_return(body: json)
 
               alert = ESP::Alert.find(5)
 
@@ -21,7 +21,7 @@ module ActiveResource
             should 'merge included objects' do
               json = json_list(:alert, 1)
               parsed_json = JSON.parse(json)
-              stub_request(:get, %r{reports/1/alerts.json*}).to_return(body: json)
+              stub_request(:get, %r{reports/1/alerts.json_api*}).to_return(body: json)
 
               alert = ESP::Alert.for_report(1).first
 
@@ -34,7 +34,7 @@ module ActiveResource
             should 'assign foreign keys' do
               json = json_list(:alert, 1)
               parsed_json = JSON.parse(json)
-              stub_request(:get, %r{reports/1/alerts.json*}).to_return(body: json)
+              stub_request(:get, %r{reports/1/alerts.json_api*}).to_return(body: json)
 
               alert = ESP::Alert.for_report(1).first
 

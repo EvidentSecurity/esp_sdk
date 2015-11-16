@@ -26,11 +26,11 @@ module ESP
     #
     # +external_account_id+ | Required | The ID of the external account to run this custom signature against
     #
-    # +regions+ | Required | Array of region names to run this custom signature against
+    # +region+ | Required | Region name to run this custom signature against
     #
     # ==== Example
     #   signature = ESP::Signature.find(3)
-    #   alerts = signature.run!(external_account_id: 3, regions: ['us_east_1'])
+    #   alerts = signature.run!(external_account_id: 3, region: 'us_east_1')
     def run!(arguments = {})
       result = run(arguments)
       return result if result.is_a?(ActiveResource::Collection)
@@ -50,17 +50,17 @@ module ESP
     #
     # +external_account_id+ | Required | The ID of the external account to run this custom signature against
     #
-    # +regions+ | Required | Array of region names to run this custom signature against
+    # +region+ | Required | Region name to run this custom signature against
     #
     # ==== Example
     #   signature = ESP::Signature.find(3)
-    #   alerts = signature.run(external_account_id: 3, regions: ['us_east_1'])
+    #   alerts = signature.run(external_account_id: 3, region: 'us_east_1')
     def run(arguments = {})
       arguments = arguments.with_indifferent_access
       attributes['external_account_id'] ||= arguments[:external_account_id]
-      attributes['regions'] ||= Array(arguments[:regions])
+      attributes['region'] ||= arguments[:region]
 
-      response = connection.post("#{self.class.prefix}signatures/#{id}/run.json", to_json)
+      response = connection.post("#{self.class.prefix}signatures/#{id}/run.json_api", to_json)
       ESP::Alert.send(:instantiate_collection, self.class.format.decode(response.body))
     rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid, ActiveResource::ResourceNotFound => error
       load_remote_errors(error, true)

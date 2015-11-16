@@ -32,11 +32,11 @@ module ESP
 
         context '#create' do
           should 'call the api' do
-            stub_request(:post, %r{suppressions/regions.json*}).to_return(body: json(:suppression_region))
+            stub_request(:post, %r{suppressions/regions.json_api*}).to_return(body: json(:suppression_region))
 
             suppression = ESP::Suppression::Region.create(regions: ['us_east_1'], external_account_ids: [5], reason: 'because')
 
-            assert_requested(:post, %r{suppressions/regions.json*}) do |req|
+            assert_requested(:post, %r{suppressions/regions.json_api*}) do |req|
               body = JSON.parse(req.body)
               assert_equal 'because', body['data']['attributes']['reason']
               assert_equal ['us_east_1'], body['data']['attributes']['regions']
@@ -47,11 +47,11 @@ module ESP
 
           context 'for alert' do
             should 'call the api' do
-              stub_request(:post, %r{suppressions/alert/5/regions.json*}).to_return(body: json(:suppression_region))
+              stub_request(:post, %r{suppressions/alert/5/regions.json_api*}).to_return(body: json(:suppression_region))
 
               suppression = ESP::Suppression::Region.create(alert_id: 5, reason: 'because')
 
-              assert_requested(:post, %r{suppressions/alert/5/regions.json*}) do |req|
+              assert_requested(:post, %r{suppressions/alert/5/regions.json_api*}) do |req|
                 body = JSON.parse(req.body)
                 assert_equal 'because', body['data']['attributes']['reason']
               end

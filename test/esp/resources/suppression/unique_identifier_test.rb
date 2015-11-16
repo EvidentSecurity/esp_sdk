@@ -32,11 +32,11 @@ module ESP
 
         context '#create' do
           should 'call the api' do
-            stub_request(:post, %r{suppressions/alert/5/unique_identifiers.json*}).to_return(body: json(:suppression_unique_identifier))
+            stub_request(:post, %r{suppressions/alert/5/unique_identifiers.json_api*}).to_return(body: json(:suppression_unique_identifier))
 
             suppression = ESP::Suppression::UniqueIdentifier.create(alert_id: 5, reason: 'because')
 
-            assert_requested(:post, %r{suppressions/alert/5/unique_identifiers.json*}) do |req|
+            assert_requested(:post, %r{suppressions/alert/5/unique_identifiers.json_api*}) do |req|
               body = JSON.parse(req.body)
               assert_equal 'because', body['data']['attributes']['reason']
             end

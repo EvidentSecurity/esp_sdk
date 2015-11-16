@@ -21,7 +21,7 @@ FactoryGirl.define do
           id: "1003"
         },
         links: {
-          related: "http://test.host/api/v2/organizations/1003.json"
+          related: "http://test.host/api/v2/organizations/1003.json_api"
         }
       }
       }

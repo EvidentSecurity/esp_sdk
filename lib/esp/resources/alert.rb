@@ -75,7 +75,7 @@ module ESP
     #   alerts = ESP::Alert.for_report(54, status: 'fail', signature_severity: 'High')
     def self.for_report(report_id = nil, arguments = {})
       fail ArgumentError, "You must supply a report id." unless report_id.present?
-      from = "#{prefix}reports/#{report_id}/alerts.json"
+      from = "#{prefix}reports/#{report_id}/alerts.json_api"
       all(from: from, params: arguments)
     end
 

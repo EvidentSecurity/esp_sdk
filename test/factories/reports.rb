@@ -14,7 +14,7 @@ FactoryGirl.define do
           id: "1"
         },
         links: {
-          related: "http://localhost:3000/api/v2/organizations/1.json"
+          related: "http://localhost:3000/api/v2/organizations/1.json_api"
         }
       },
         sub_organization: {
@@ -23,7 +23,7 @@ FactoryGirl.define do
             id: "1"
           },
           links: {
-            related: "http://localhost:3000/api/v2/sub_organizations/1.json"
+            related: "http://localhost:3000/api/v2/sub_organizations/1.json_api"
           }
         },
         team: {
@@ -32,7 +32,7 @@ FactoryGirl.define do
             id: "1"
           },
           links: {
-            related: "http://localhost:3000/api/v2/teams/1.json"
+            related: "http://localhost:3000/api/v2/teams/1.json_api"
           }
         },
         alerts: {
@@ -47,7 +47,7 @@ FactoryGirl.define do
             }
           ],
           links: {
-            related: "http://localhost:3000/api/v2/reports/55/alerts.json"
+            related: "http://localhost:3000/api/v2/reports/55/alerts.json_api"
           }
         }
       }

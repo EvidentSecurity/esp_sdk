@@ -6,7 +6,7 @@ module ESP
       context '#organization' do
         should 'call the api' do
           team = build(:team, organization_id: 4)
-          stub_org = stub_request(:get, %r{organizations/#{team.organization_id}.json*}).to_return(body: json(:organization))
+          stub_org = stub_request(:get, %r{organizations/#{team.organization_id}.json_api*}).to_return(body: json(:organization))
 
           team.organization
 
@@ -17,7 +17,7 @@ module ESP
       context '#sub_organization' do
         should 'call the api' do
           team = build(:team, sub_organization_id: 4)
-          stub_sub_org = stub_request(:get, %r{sub_organizations/#{team.sub_organization_id}.json*}).to_return(body: json(:sub_organization))
+          stub_sub_org = stub_request(:get, %r{sub_organizations/#{team.sub_organization_id}.json_api*}).to_return(body: json(:sub_organization))
 
           team.sub_organization
 
@@ -28,11 +28,11 @@ module ESP
       context '#external_accounts' do
         should 'call the api' do
           team = build(:team)
-          stub_request(:get, /external_accounts.json*/).to_return(body: json_list(:external_account, 2))
+          stub_request(:get, /external_accounts.json_api*/).to_return(body: json_list(:external_account, 2))
 
           team.external_accounts
 
-          assert_requested(:get, /external_accounts.json*/) do |req|
+          assert_requested(:get, /external_accounts.json_api*/) do |req|
             assert_equal "filter[team_id_eq]=#{team.id}", URI.unescape(req.uri.query)
           end
         end
@@ -41,11 +41,11 @@ module ESP
       context '#reports' do
         should 'call the api' do
           team = build(:team)
-          stub_request(:get, /reports.json*/).to_return(body: json_list(:report, 2))
+          stub_request(:get, /reports.json_api*/).to_return(body: json_list(:report, 2))
 
           team.reports
 
-          assert_requested(:get, /reports.json*/) do |req|
+          assert_requested(:get, /reports.json_api*/) do |req|
             assert_equal "filter[team_id_eq]=#{team.id}", URI.unescape(req.uri.query)
           end
         end

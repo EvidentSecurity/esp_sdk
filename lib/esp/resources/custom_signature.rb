@@ -215,9 +215,9 @@ module ESP
 
     def endpoint
       if id.present?
-        "#{self.class.prefix}custom_signatures/#{id}/run.json"
+        "#{self.class.prefix}custom_signatures/#{id}/run.json_api"
       else
-        "#{self.class.prefix}custom_signatures/run.json"
+        "#{self.class.prefix}custom_signatures/run.json_api"
       end
     end
   end

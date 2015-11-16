@@ -32,11 +32,11 @@ module ESP
 
         context '#create' do
           should 'call the api' do
-            stub_request(:post, %r{suppressions/signatures.json*}).to_return(body: json(:suppression_signature))
+            stub_request(:post, %r{suppressions/signatures.json_api*}).to_return(body: json(:suppression_signature))
 
             suppression = ESP::Suppression::Signature.create(signature_ids: [4, 2], custom_signature_ids: [3], regions: ['us_east_1'], external_account_ids: [5], reason: 'because')
 
-            assert_requested(:post, %r{suppressions/signatures.json*}) do |req|
+            assert_requested(:post, %r{suppressions/signatures.json_api*}) do |req|
               body = JSON.parse(req.body)
               assert_equal 'because', body['data']['attributes']['reason']
               assert_equal [4, 2], body['data']['attributes']['signature_ids']
@@ -49,11 +49,11 @@ module ESP
 
           context 'for alert' do
             should 'call the api' do
-              stub_request(:post, %r{suppressions/alert/5/signatures.json*}).to_return(body: json(:suppression_signature))
+              stub_request(:post, %r{suppressions/alert/5/signatures.json_api*}).to_return(body: json(:suppression_signature))
 
               suppression = ESP::Suppression::Signature.create(alert_id: 5, reason: 'because')
 
-              assert_requested(:post, %r{suppressions/alert/5/signatures.json*}) do |req|
+              assert_requested(:post, %r{suppressions/alert/5/signatures.json_api*}) do |req|
                 body = JSON.parse(req.body)
                 assert_equal 'because', body['data']['attributes']['reason']
               end

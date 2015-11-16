@@ -39,7 +39,7 @@ FactoryGirl.define do
                   type: "organizations"
                 },
                 links: {
-                  related: "http://localhost:3000/api/v2/organizations/1.json"
+                  related: "http://localhost:3000/api/v2/organizations/1.json_api"
                 }
               },
               sub_organization: {
@@ -48,7 +48,7 @@ FactoryGirl.define do
                   type: "sub_organizations"
                 },
                 links: {
-                  related: "http://localhost:3000/api/v2/sub_organizations/1.json"
+                  related: "http://localhost:3000/api/v2/sub_organizations/1.json_api"
                 }
               },
               team: {
@@ -57,7 +57,7 @@ FactoryGirl.define do
                   type: "teams"
                 },
                 links: {
-                  related: "http://localhost:3000/api/v2/teams/1.json"
+                  related: "http://localhost:3000/api/v2/teams/1.json_api"
                 }
               }
             }
@@ -72,7 +72,7 @@ FactoryGirl.define do
           type: "organizations"
         },
         links: {
-          related: "http://localhost:3000/api/v2/organizations/1.json"
+          related: "http://localhost:3000/api/v2/organizations/1.json_api"
         }
       },
         created_by: {
@@ -81,7 +81,7 @@ FactoryGirl.define do
             type: "users"
           },
           links: {
-            related: "http://localhost:3000/api/v2/users/1.json"
+            related: "http://localhost:3000/api/v2/users/1.json_api"
           }
         }
       }

@@ -13,7 +13,7 @@ module ESP
           end
 
           should 'call the api' do
-            stub_region = stub_request(:get, %r{stats/5/regions.json*}).to_return(body: json_list(:stat_region, 2))
+            stub_region = stub_request(:get, %r{stats/5/regions.json_api*}).to_return(body: json_list(:stat_region, 2))
 
             regions = ESP::StatRegion.for_stat(5)
 
@@ -30,7 +30,7 @@ module ESP
           end
 
           should 'call the show api and return a region if searching by id' do
-            stub_region = stub_request(:get, %r{regions/5.json*}).to_return(body: json(:stat_region))
+            stub_region = stub_request(:get, %r{regions/5.json_api*}).to_return(body: json(:stat_region))
 
             region = ESP::StatRegion.find(5)
 
@@ -39,7 +39,7 @@ module ESP
           end
 
           should 'call the api and return regions when stat_id is supplied' do
-            stub_region = stub_request(:get, %r{stats/5/regions.json*}).to_return(body: json_list(:stat_region, 2))
+            stub_region = stub_request(:get, %r{stats/5/regions.json_api*}).to_return(body: json_list(:stat_region, 2))
 
             regions = ESP::StatRegion.find(:all, params: { stat_id: 5 })
 
@@ -78,7 +78,7 @@ module ESP
           should 'call the show api and return the region' do
             region_stat = ESP::StatRegion.new(region_id: 3)
 
-            stub_region = stub_request(:get, %r{regions/#{region_stat.region_id}.json*}).to_return(body: json(:region))
+            stub_region = stub_request(:get, %r{regions/#{region_stat.region_id}.json_api*}).to_return(body: json(:region))
 
             region = region_stat.region
 

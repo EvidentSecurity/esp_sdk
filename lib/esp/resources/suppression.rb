@@ -10,24 +10,30 @@ module ESP
 
     ##
     # The regions affected by this suppression.
-    has_many :regions, class_name: 'ESP::Region'
+    def regions
+      return [] unless respond_to? :region_ids
+      ESP::Region.where(id_in: region_ids)
+    end
 
     ##
     # The external accounts affected by this suppression.
-    has_many :external_accounts, class_name: 'ESP::ExternalAccount'
+    def external_accounts
+      return [] unless respond_to? :external_account_ids
+      ESP::ExternalAccount.where(id_in: external_account_ids)
+    end
 
     ##
     # The signatures being suppressed.
     def signatures
       return [] unless respond_to? :signature_ids
-      ESP::Signature.find(:all, params: { id: signature_ids })
+      ESP::Signature.where(id_in: signature_ids)
     end
 
     ##
     # The custom signatures being suppressed.
     def custom_signatures
       return [] unless respond_to? :custom_signature_ids
-      ESP::CustomSignature.find(:all, params: { id: custom_signature_ids })
+      ESP::CustomSignature.where(id_in: custom_signature_ids)
     end
 
     # Overriden so the correct param is sent on the has_many relationships.  API needs this one to be plural.
