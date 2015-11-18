@@ -6,6 +6,11 @@ module ESP
       fail ESP::NotImplementedError
     end
 
+    # Not Implemented. You cannot search for ContactRequest.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
+
     # Not Implemented. You cannot update a ContactRequest.
     def update
       fail ESP::NotImplementedError

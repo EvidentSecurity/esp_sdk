@@ -39,15 +39,14 @@ module ESP
     end
 
     # Returns a paginated collection of alerts for the given report_id
-    # Convenience method to use instead of ::find since a report_id is required to return alerts.
     #
     # ==== Parameters
     #
-    # +report_id+ | Required | The ID of the report to retrieve alerts for
-    #
-    # +arguments+ | Not Required | An optional hash of search criteria to filter the returned collection
+    # +arguments+ | Required | An hash of search criteria to filter the returned collection. A `report_id must be proveded`
     #
     # ===== Valid Arguments
+    #
+    # +report_id+ | Required | The ID of the report to retrieve alerts for
     #
     # +region_id+ | Not Required | Return only alerts for this region.
     #
@@ -72,11 +71,12 @@ module ESP
     # +signature_identifier+ | Not Required | Return only alerts for signatures with the given identifier.
     #
     # ==== Example
-    #   alerts = ESP::Alert.for_report(54, status: 'fail', signature_severity: 'High')
-    def self.for_report(report_id = nil, arguments = {})
-      fail ArgumentError, "You must supply a report id." unless report_id.present?
-      from = "#{prefix}reports/#{report_id}/alerts.json_api"
-      all(from: from, params: arguments)
+    #   alerts = ESP::Alert.where(report_id: 54, status: 'fail', signature_severity: 'High')
+    def self.where(clauses = {})
+      clauses = clauses.with_indifferent_access
+      return super(clauses) if clauses[:from].present?
+      from = for_report(clauses.delete(:report_id))
+      super clauses.merge(from: from)
     end
 
     # Find an Alert by id
@@ -91,9 +91,14 @@ module ESP
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access
       return super(scope, options) if scope.is_a?(Numeric) || options[:from].present?
-      params = options.fetch(:params, {}).with_indifferent_access
-      report_id = params.delete(:report_id)
-      for_report(report_id, params)
+      params = options.fetch(:params, {})
+      from = for_report(params.delete(:report_id))
+      all(from: "#{from}.json_api", params: params)
+    end
+
+    def self.for_report(report_id) # :nodoc:
+      fail ArgumentError, "You must supply a report id." unless report_id.present?
+      "#{prefix}reports/#{report_id}/alerts"
     end
 
     # Suppress the signature associated with this alert.

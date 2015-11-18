@@ -4,6 +4,14 @@ module ESP
   class Stat
     class SignatureTest < ActiveSupport::TestCase
       context ESP::StatSignature do
+        context '.where' do
+          should 'not be implemented' do
+            assert_raises ESP::NotImplementedError do
+              StatSignature.where(id_eq: 2)
+            end
+          end
+        end
+
         context '.for_stat' do
           should 'throw an error if stat id is not supplied' do
             error = assert_raises ArgumentError do
@@ -98,9 +106,23 @@ module ESP
             WebMock.disable_net_connect!
           end
 
+          context '#signatures' do
+            should 'return signatures' do
+              report = ESP::Report.last
+              skip "Live DB does not have any reports.  Add a report with stats and run tests again." if report.blank?
+              stat = ESP::Stat.for_report(report.id)
+              signatures = stat.signatures
+
+              signature = signatures.first.signature
+
+              assert_equal ESP::Signature, signature.class
+              assert_equal signatures.first.signature.name, signature.name
+            end
+          end
+
           context '.for_stat' do
             should 'return tags for stat id' do
-              report = ESP::Report.find(:first, params: { status: 'complete' })
+              report = ESP::Report.find(:first, params: { id_eq: 1 })
               skip "make sure you have a complete report" unless report.present?
               stat_id = report.stat.id
               stats = ESP::StatSignature.for_stat(stat_id)

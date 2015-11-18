@@ -26,7 +26,7 @@ module ActiveResource
     #   alerts.current_page_number # => 5
     #   first_page.current_page_number # => 1
     def first_page
-      previous_page? ? resource_class.all(from: from, params: { page: { number: 1 } }) : self
+      previous_page? ? resource_class.where(original_params.merge({ from: from, page: { number: 1 } })) : self
     end
 
     # Updates the existing PaginatedCollection object with the first page of data when not on the first page.
@@ -49,7 +49,7 @@ module ActiveResource
     #   alerts.current_page_number # => 5
     #   previous_page.current_page_number # => 4
     def previous_page
-      previous_page? ? resource_class.all(from: from, params: previous_page_params) : self
+      previous_page? ? resource_class.where(original_params.merge(previous_page_params.merge(from: from))) : self
     end
 
     # Updates the existing PaginatedCollection object with the previous page of data when not on the first page.
@@ -72,7 +72,7 @@ module ActiveResource
     #   alerts.current_page_number # => 5
     #   next_page.current_page_number # => 6
     def next_page
-      next_page? ? resource_class.all(from: from, params: next_page_params) : self
+      next_page? ? resource_class.where(original_params.merge(next_page_params.merge(from: from))) : self
     end
 
     # Updates the existing PaginatedCollection object with the last page of data when not on the last page.
@@ -95,7 +95,7 @@ module ActiveResource
     #   alerts.current_page_number # => 5
     #   last_page.current_page_number # => 25
     def last_page
-      !last_page? ? resource_class.all(from: from, params: last_page_params) : self
+      !last_page? ? resource_class.where(original_params.merge(last_page_params.merge(from: from))) : self
     end
 
     # Updates the existing PaginatedCollection object with the last page of data when not on the last page.
@@ -125,7 +125,7 @@ module ActiveResource
       fail ArgumentError, "You must supply a page number." unless page_number.present?
       fail ArgumentError, "Page number cannot be less than 1." if page_number.to_i < 1
       fail ArgumentError, "Page number cannot be greater than the last page number." if page_number.to_i > last_page_number.to_i
-      page_number.to_i != current_page_number.to_i ? resource_class.all(from: from, params: { page: { number: page_number, size: (next_page_params || previous_page_params)['page']['size'] } }) : self
+      page_number.to_i != current_page_number.to_i ? resource_class.where(original_params.merge(from: from, page: { number: page_number, size: (next_page_params || previous_page_params)['page']['size'] })) : self
     end
 
     # Returns a new PaginatedCollection with the +page_number+ page of data when not already on page +page_number+.

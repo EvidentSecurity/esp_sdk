@@ -4,6 +4,14 @@ module ESP
   class Stat
     class ServiceTest < ActiveSupport::TestCase
       context ESP::StatService do
+        context '.where' do
+          should 'not be implemented' do
+            assert_raises ESP::NotImplementedError do
+              StatService.where(id_eq: 2)
+            end
+          end
+        end
+
         context '.for_stat' do
           should 'throw an error if stat id is not supplied' do
             error = assert_raises ArgumentError do
@@ -97,9 +105,23 @@ module ESP
             WebMock.disable_net_connect!
           end
 
+          context '#services' do
+            should 'return signatures' do
+              report = ESP::Report.last
+              skip "Live DB does not have any reports.  Add a report with stats and run tests again." if report.blank?
+              stat = ESP::Stat.for_report(report.id)
+              services = stat.services
+
+              service = services.first.service
+
+              assert_equal ESP::Service, service.class
+              assert_equal services.first.service.name, service.name
+            end
+          end
+
           context '.for_stat' do
             should 'return tags for stat id' do
-              report = ESP::Report.find(:first, params: { status: 'complete' })
+              report = ESP::Report.find(:first, params: { id_eq: 1 })
               skip "make sure you have a complete report" unless report.present?
               stat_id = report.stat.id
               stats = ESP::StatService.for_stat(stat_id)

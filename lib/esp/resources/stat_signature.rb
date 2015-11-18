@@ -5,6 +5,11 @@ module ESP
     # The signature these stats are for.
     belongs_to :signature, class_name: 'ESP::Signature'
 
+    # Not Implemented. You cannot search for a StatSignature.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
+
     # Returns a paginated collection of signature stats for the given stat_id
     # Convenience method to use instead of ::find since a stat_id is required to return signature stats.
     #

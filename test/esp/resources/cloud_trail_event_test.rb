@@ -3,6 +3,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
 module ESP
   class CloudTrailEventTest < ActiveSupport::TestCase
     context ESP::CloudTrailEvent do
+      context '.where' do
+        should 'not be implemented' do
+          assert_raises ESP::NotImplementedError do
+            ESP::CloudTrailEvent.where(id_eq: 2)
+          end
+        end
+      end
+
       context '#create' do
         should 'not be implemented' do
           assert_raises ESP::NotImplementedError do

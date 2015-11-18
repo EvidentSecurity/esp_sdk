@@ -2,6 +2,12 @@ module ESP
   class Suppression
     class Signature < ESP::Resource
       self.prefix += "suppressions/"
+      # Not Implemented. You cannot search for Suppression::Signature.
+      #
+      # Regular ARELlike methods are disabled.  Use the ESP::Suppression object to search suppressions.
+      def self.where(*)
+        fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use the ESP::Suppression object to search suppressions'
+      end
 
       # Not Implemented. You cannot search for Suppression::Signature.
       #

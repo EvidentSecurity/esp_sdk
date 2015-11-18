@@ -5,6 +5,11 @@ module ESP
     # The custom_signature these stats are for.
     belongs_to :custom_signature, class_name: 'ESP::CustomSignature'
 
+    # Not Implemented. You cannot search for a StatSignature.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
+
     # Returns a paginated collection of custom_signature stats for the given stat_id
     # Convenience method to use instead of ::find since a stat_id is required to return custom_signature stats.
     #

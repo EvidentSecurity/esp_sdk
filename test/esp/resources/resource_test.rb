@@ -142,20 +142,20 @@ module ESP
         end
 
         context '.where' do
-          should 'call the index method when finding by single id using post' do
-            stub_request(:post, %r{teams/search.json_api}).to_return(body: json_list(:team, 1))
+          should 'call the index method when finding by single id using put' do
+            stub_request(:put, /teams.json_api/).to_return(body: json_list(:team, 1))
 
             ESP::Team.where(id: 3)
 
-            assert_requested(:post, %r{teams/search.json_api})
+            assert_requested(:put, /teams.json_api/)
           end
 
           should 'build body inside filter param and ad _eq when single value' do
-            stub_request(:post, %r{teams/search.json_api*}).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(id: 3)
 
-            assert_requested(:post, %r{teams/search.json_api*}) do |req|
+            assert_requested(:put, /teams.json_api*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('filter')
               assert_equal true, body['filter'].key?('id_eq')
@@ -164,11 +164,11 @@ module ESP
           end
 
           should 'build body inside filter param and ad _in when multiple values' do
-            stub_request(:post, %r{teams/search.json_api*}).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(id: [3, 4])
 
-            assert_requested(:post, %r{teams/search.json_api*}) do |req|
+            assert_requested(:put, /teams.json_api*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('filter')
               assert_equal true, body['filter'].key?('id_in')
@@ -177,11 +177,11 @@ module ESP
           end
 
           should 'not put page parameter inside filter parameter' do
-            stub_request(:post, %r{teams/search.json_api*}).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(id: 3, page: { number: 2, size: 3 })
 
-            assert_requested(:post, %r{teams/search.json_api*}) do |req|
+            assert_requested(:put, /teams.json_api*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('filter')
               assert_equal 2, body['page']['number']
@@ -189,27 +189,78 @@ module ESP
           end
 
           should 'add the include option to param' do
-            stub_request(:post, %r{teams/search.json_api*}).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(id: 1, include: 'organization')
 
-            assert_requested(:post, %r{teams/search.json_api*}) do |req|
+            assert_requested(:put, /teams.json_api*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('include')
               assert_equal 'organization', body['include']
             end
           end
 
+          should 'add the sorts option to the params' do
+            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+
+            ESP::Team.where(name_cont: 'Team', sorts: 'created_at')
+
+            assert_requested(:put, /teams.json_api*/) do |req|
+              body = JSON.parse req.body
+              assert_equal true, body.key?('filter')
+              assert_equal 'Team', body['filter']['name_cont']
+              assert_equal 'created_at', body['filter']['sorts']
+            end
+          end
+
+          should 'add the combinator option to the params' do
+            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+
+            ESP::Team.where(name_cont: 'Team', id_eq: 3, m: :or)
+
+            assert_requested(:put, /teams.json_api*/) do |req|
+              body = JSON.parse req.body
+              assert_equal true, body.key?('filter')
+              assert_equal 'Team', body['filter']['name_cont']
+              assert_equal 3, body['filter']['id_eq']
+              assert_equal 'or', body['filter']['m']
+            end
+          end
+
+          should 'add _eq to attribute if predicate is not already appended' do
+            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+
+            ESP::Team.where(id: 3)
+
+            assert_requested(:put, /teams.json_api*/) do |req|
+              body = JSON.parse req.body
+              assert_equal true, body.key?('filter')
+              assert_equal true, body['filter'].key?("id_eq")
+            end
+          end
+
+          should 'add _in to array attribute if predicate is not already appended' do
+            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+
+            ESP::Team.where(id: [3])
+
+            assert_requested(:put, /teams.json_api*/) do |req|
+              body = JSON.parse req.body
+              assert_equal true, body.key?('filter')
+              assert_equal true, body['filter'].key?("id_in")
+            end
+          end
+
           ESP::Resource::PREDICATES.split('|').each do |predicate|
             next if predicate == 'm' # This is a special case
             should "not ransackize attributes that already have ransack predicate #{predicate} appended" do
-              stub_request(:post, %r{teams/search.json_api*}).to_return(body: json_list(:team, 2))
+              stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
 
               args = { page: { number: 2, size: 3 } }
               args["id_#{predicate}"] = 3
               ESP::Team.where(args)
 
-              assert_requested(:post, %r{teams/search.json_api*}) do |req|
+              assert_requested(:put, /teams.json_api*/) do |req|
                 body = JSON.parse req.body
                 assert_equal true, body.key?('filter')
                 assert_equal true, body['filter'].key?("id_#{predicate}")

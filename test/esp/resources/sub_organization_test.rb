@@ -97,6 +97,14 @@ module ESP
           end
         end
 
+        context '.where' do
+          should 'return sub_organization objects' do
+            sub_organizations = ESP::SubOrganization.where(id_eq: @sub_organization.id)
+
+            assert_equal ESP::SubOrganization, sub_organizations.resource_class
+          end
+        end
+
         context '#CRUD' do
           should 'be able to create, update and destroy' do
             sub_organization = ESP::SubOrganization.new(name: 'bob', organization_id: @sub_organization.organization_id)

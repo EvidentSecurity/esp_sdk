@@ -75,7 +75,7 @@ module ESP
     #   report = ESP::Report.find(345)
     #   alerts = report.alerts(status: 'fail', signature_severity: 'High')
     def alerts(arguments = {})
-      ESP::Alert.for_report(id, arguments)
+      ESP::Alert.where(arguments.merge(report_id: id))
     end
 
     # Returns the stats for this report

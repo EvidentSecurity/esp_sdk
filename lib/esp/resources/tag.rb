@@ -10,6 +10,11 @@ module ESP
       fail ESP::NotImplementedError
     end
 
+    # Not Implemented. You cannot search for a Tag.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
+
     # Returns a paginated collection of tags for the given alert_id
     # Convenience method to use instead of ::find since an alert_id is required to return tags.
     #

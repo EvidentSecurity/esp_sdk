@@ -1,5 +1,10 @@
 module ESP
   class CloudTrailEvent < ESP::Resource
+    # Not Implemented. You cannot search for a CloudTrailEvent.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
+
     # Not Implemented. You cannot create or update a CloudTrailEvent.
     def save
       fail ESP::NotImplementedError

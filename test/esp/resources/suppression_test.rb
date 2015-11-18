@@ -54,12 +54,13 @@ module ESP
       context '#regions' do
         should 'call the api for the report and the passed in params' do
           suppression = build(:suppression, region_ids: [1, 2])
-          stub_request(:get, /regions.json_api*/).to_return(body: json_list(:region, 2))
+          stub_request(:put, /regions.json_api*/).to_return(body: json_list(:region, 2))
 
           suppression.regions
 
-          assert_requested(:get, /regions.json_api*/) do |req|
-            assert_equal "filter[id_in][0]=#{suppression.region_ids.first}&filter[id_in][1]=#{suppression.region_ids.second}", URI.unescape(req.uri.query)
+          assert_requested(:put, /regions.json_api*/) do |req|
+            body = JSON.parse(req.body)
+            assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
       end
@@ -67,12 +68,13 @@ module ESP
       context '#external_accounts' do
         should 'call the api for the report and the passed in params' do
           suppression = build(:suppression, external_account_ids: [1, 2])
-          stub_request(:get, /external_accounts.json_api*/).to_return(body: json_list(:external_account, 2))
+          stub_request(:put, /external_accounts.json_api*/).to_return(body: json_list(:external_account, 2))
 
           suppression.external_accounts
 
-          assert_requested(:get, /external_accounts.json_api*/) do |req|
-            assert_equal "filter[id_in][0]=#{suppression.external_account_ids.first}&filter[id_in][1]=#{suppression.external_account_ids.second}", URI.unescape(req.uri.query)
+          assert_requested(:put, /external_accounts.json_api*/) do |req|
+            body = JSON.parse(req.body)
+            assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
       end
@@ -80,12 +82,13 @@ module ESP
       context '#signatures' do
         should 'call the api for the report and the passed in params' do
           suppression = build(:suppression, signature_ids: [1, 2])
-          stub_request(:get, /signatures.json_api*/).to_return(body: json_list(:signature, 2))
+          stub_request(:put, /signatures.json_api*/).to_return(body: json_list(:signature, 2))
 
           suppression.signatures
 
-          assert_requested(:get, /signatures.json_api*/) do |req|
-            assert_equal "filter[id_in][0]=#{suppression.signature_ids.first}&filter[id_in][1]=#{suppression.signature_ids.second}", URI.unescape(req.uri.query)
+          assert_requested(:put, /signatures.json_api*/) do |req|
+            body = JSON.parse(req.body)
+            assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
       end
@@ -93,12 +96,13 @@ module ESP
       context '#custom_signatures' do
         should 'call the api for the report and the passed in params' do
           suppression = build(:suppression, custom_signature_ids: [1, 2])
-          stub_request(:get, /custom_signatures.json_api*/).to_return(body: json_list(:custom_signature, 2))
+          stub_request(:put, /custom_signatures.json_api*/).to_return(body: json_list(:custom_signature, 2))
 
           suppression.custom_signatures
 
-          assert_requested(:get, /custom_signatures.json_api*/) do |req|
-            assert_equal "filter[id_in][0]=#{suppression.custom_signature_ids.first}&filter[id_in][1]=#{suppression.custom_signature_ids.second}", URI.unescape(req.uri.query)
+          assert_requested(:put, /custom_signatures.json_api*/) do |req|
+            body = JSON.parse(req.body)
+            assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
       end
@@ -218,6 +222,14 @@ module ESP
               assert_equal 'inactive', @s.status
               assert_contains @s.errors.full_messages.first, 'Access Denied' if status == 'inactive'
             end
+          end
+        end
+
+        context '.where' do
+          should 'return suppression objects' do
+            suppressions = ESP::Suppression.where(id_eq: @s.id)
+
+            assert_equal ESP::Suppression, suppressions.resource_class
           end
         end
       end

@@ -159,6 +159,14 @@ module ESP
           end
         end
 
+        context '.where' do
+          should 'return organization objects' do
+            organizations = ESP::Organization.where(id_eq: @organization.id)
+
+            assert_equal ESP::Organization, organizations.resource_class
+          end
+        end
+
         context '#CRUD' do
           should 'be able to update' do
             @organization.name = @organization.name

@@ -98,6 +98,14 @@ module ESP
           end
         end
 
+        context '.where' do
+          should 'return external_account objects' do
+            external_accounts = ESP::ExternalAccount.where(id_eq: @external_account.id)
+
+            assert_equal ESP::ExternalAccount, external_accounts.resource_class
+          end
+        end
+
         context '#CRUD' do
           should 'be able to create, update and destroy' do
             skip "There are to many dependencies to validate an external account to create or update one. Besides esp_web, esp_query has to be running and there must be valid AWS keys assigned as well."

@@ -23,6 +23,11 @@ module ESP
     has_many :custom_signatures, class_name: 'ESP::StatCustomSignature'
 
     # Not Implemented. You cannot search for a Stat.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
+
+    # Not Implemented. You cannot search for a Stat.
     def self.find(*)
       fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use either the ESP::Stat.for_report or ESP::Stat.latest_for_teams method.'
     end

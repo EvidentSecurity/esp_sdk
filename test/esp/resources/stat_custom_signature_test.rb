@@ -5,6 +5,14 @@ module ESP
     class CustomSignatureTest < ActiveSupport::TestCase
       context ESP::StatCustomSignature do
         context '.for_stat' do
+          context '.where' do
+            should 'not be implemented' do
+              assert_raises ESP::NotImplementedError do
+                StatCustomSignature.where(id_eq: 2)
+              end
+            end
+          end
+
           should 'throw an error if stat id is not supplied' do
             error = assert_raises ArgumentError do
               ESP::StatCustomSignature.for_stat
@@ -100,7 +108,7 @@ module ESP
 
           context '.for_stat' do
             should 'return tags for stat id' do
-              report = ESP::Report.find(:first, params: { status: 'complete' })
+              report = ESP::Report.find(:first, params: { id_eq: 1 })
               skip "make sure you have a complete report" unless report.present?
               stat_id = report.stat.id
               stats = ESP::StatCustomSignature.for_stat(stat_id)

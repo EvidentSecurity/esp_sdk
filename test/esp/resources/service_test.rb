@@ -4,6 +4,14 @@ module ESP
   class ServiceTest < ActiveSupport::TestCase
     context ESP::Service do
       context '#signatures' do
+        context '.where' do
+          should 'not be implemented' do
+            assert_raises ESP::NotImplementedError do
+              Tag.where(id_eq: 2)
+            end
+          end
+        end
+
         should 'call the api' do
           s = build(:service)
           stub_request(:get, /signatures.json_api*/).to_return(body: json_list(:signature, 2))

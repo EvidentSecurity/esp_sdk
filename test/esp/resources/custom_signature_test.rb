@@ -211,6 +211,14 @@ module ESP
           end
         end
 
+        context '.where' do
+          should 'return custom_signature objects' do
+            custom_signatures = ESP::CustomSignature.where(id_eq: @custom_signature.id)
+
+            assert_equal ESP::CustomSignature, custom_signatures.resource_class
+          end
+        end
+
         context '#CRUD' do
           should 'be able to create, update and destroy' do
             custom_signature = ESP::CustomSignature.new(@custom_signature.attributes)

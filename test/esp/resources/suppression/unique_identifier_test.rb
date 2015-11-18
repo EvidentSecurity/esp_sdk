@@ -4,6 +4,14 @@ module ESP
   class Suppression
     class UniqueIdentifierTest < ActiveSupport::TestCase
       context ESP::Suppression::UniqueIdentifier do
+        context '.where' do
+          should 'not be implemented' do
+            assert_raises ESP::NotImplementedError do
+              ESP::Suppression::UniqueIdentifier.where(id_eq: 2)
+            end
+          end
+        end
+
         context '#find' do
           should 'not be implemented' do
             assert_raises ESP::NotImplementedError do
