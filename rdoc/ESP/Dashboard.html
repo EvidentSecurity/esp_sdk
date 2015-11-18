@@ -77,6 +77,8 @@
     
     <li ><a href="#method-c-recent">::recent</a>
     
+    <li ><a href="#method-c-where">::where</a>
+    
     <li ><a href="#method-i-destroy">#destroy</a>
     
     <li ><a href="#method-i-save">#save</a>
@@ -213,7 +215,7 @@ href="Suppression/Region.html">Suppression::Region</a>.</p>
           <div class="method-source-code" id="find-source">
             <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 6</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span>)
-  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>, <span class="ruby-string">&#39;Regular ARELlike methods are disabled.  Use either the .recent method.&#39;</span>
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>, <span class="ruby-string">&#39;Regular ARELlike methods are disabled.  Use the .recent method.&#39;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- find-source -->
           
@@ -251,7 +253,7 @@ without notice.</p>
 
           
           <div class="method-source-code" id="recent-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 26</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recent</span>
   <span class="ruby-comment"># call find_every directly since find is overridden/not implemented</span>
   <span class="ruby-identifier">find_every</span> <span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{prefix}dashboard/recent.#{format.extension}&quot;</span>
@@ -264,6 +266,42 @@ without notice.</p>
 
         
       </div><!-- recent-method -->
+
+    
+      <div id="method-c-where" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">where</span><span
+            class="method-args">(*)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Not Implemented. You cannot search for <a
+href="Suppression/Region.html">Suppression::Region</a>.</p>
+
+<p>Regular ARELlike methods are disabled.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="where-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-operator">*</span>)
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>, <span class="ruby-string">&#39;Regular ARELlike methods are disabled.  Use the .recent method.&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- where-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- where-method -->
 
     
     </section><!-- public-class-method-details -->
@@ -292,7 +330,7 @@ href="Dashboard.html">Dashboard</a>.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 16</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -326,7 +364,7 @@ href="Dashboard.html">Dashboard</a>.</p>
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 11</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/dashboard.rb, line 18</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>

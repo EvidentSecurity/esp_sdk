@@ -83,6 +83,34 @@ module ESP
       ESP::Stat.for_report(id)
     end
 
+    # :singleton-method: where
+    # Return a paginated Report list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    #
+    # ==== Valid Equality Searchable Attributes
+    #
+    # +id+
+    #
+    # +created_at+
+    #
+    # ==== Valid Sortable Attributes
+    #
+    # +created_at+
+    #
+    # ==== Valid Searchable Relationships
+    #
+    # +organization+ | See Organization `where` for searchable attributes.
+    #
+    # +sub_organization+ | See SubOrganization `where` for searchable attributes.
+    #
+    # +team+ | See Team `where` for searchable attributes.
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a Report by id

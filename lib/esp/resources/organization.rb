@@ -34,6 +34,32 @@ module ESP
       fail ESP::NotImplementedError
     end
 
+    # :singleton-method: where
+    # Return a paginated Organization list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    #
+    # ==== Valid Equality Searchable Attributes
+    #
+    # +id+
+    #
+    # +name+
+    #
+    # ==== Valid Matching Searchable Attributes
+    #
+    # +name+
+    #
+    # ==== Valid Sortable Attributes
+    #
+    # +updated_at+
+    #
+    # +created_at+
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a Organization by id

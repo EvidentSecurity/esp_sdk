@@ -75,6 +75,42 @@ module ESP
       false
     end
 
+    # :singleton-method: where
+    # Return a paginated Suppression list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    #
+    # ==== Valid Equality Searchable Attributes
+    #
+    # +id+
+    #
+    # +resource+
+    #
+    # +suppression_type+ | Possible values are unique_identifiers, regions, and signatures
+    #
+    # ==== Valid Matching Searchable Attributes
+    #
+    # +resource+
+    #
+    # +suppression_type+ | Possible values are unique_identifiers, regions, and signatures
+    #
+    # ==== Valid Sortable Attributes
+    #
+    # +updated_at+
+    #
+    # ==== Valid Searchable Relationships
+    #
+    # +created_by+ | See User `where` for searchable attributes.
+    #
+    # +regions+ | See Region `where` for searchable attributes.
+    #
+    # +signatures+ | See Signature `where` for searchable attributes.
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a Suppression by id

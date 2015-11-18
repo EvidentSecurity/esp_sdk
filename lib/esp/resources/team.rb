@@ -26,6 +26,38 @@ module ESP
       Report.create_for_team(id)
     end
 
+    # :singleton-method: where
+    # Return a paginated Team list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    #
+    # ==== Valid Equality Searchable Attributes
+    #
+    # +id+
+    #
+    # +name+
+    #
+    # ==== Valid Matching Searchable Attributes
+    #
+    # +name+
+    #
+    # ==== Valid Sortable Attributes
+    #
+    # +updated_at+
+    #
+    # +created_at+
+    #
+    # ==== Valid Searchable Relationships
+    #
+    # +organization+ | See Organization `where` for searchable attributes.
+    #
+    # +sub_organizations+ | See SubOrganization `where` for searchable attributes.
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a Team by id

@@ -91,6 +91,8 @@
     
     <li ><a href="#method-c-latest_for_teams">::latest_for_teams</a>
     
+    <li ><a href="#method-c-where">::where</a>
+    
     <li ><a href="#method-i-custom_signatures">#custom_signatures</a>
     
     <li ><a href="#method-i-destroy">#destroy</a>
@@ -302,7 +304,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 33</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 38</span>
     </pre>
           </div><!-- create-source -->
           
@@ -333,7 +335,7 @@
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 26</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span>)
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>, <span class="ruby-string">&#39;Regular ARELlike methods are disabled.  Use either the ESP::Stat.for_report or ESP::Stat.latest_for_teams method.&#39;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -368,11 +370,11 @@ triggered from signatures contained in all regions for the selected hour.</p>
 
           
           <div class="method-source-code" id="for_report-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 40</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_report</span>(<span class="ruby-identifier">report_id</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply a report id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">report_id</span>.<span class="ruby-identifier">present?</span>
   <span class="ruby-comment"># call find_one directly since find is overriden/not implemented</span>
-  <span class="ruby-identifier">find_one</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{prefix}reports/#{report_id}/stats.json&quot;</span>)
+  <span class="ruby-identifier">find_one</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{prefix}reports/#{report_id}/stats.json_api&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- for_report-source -->
           
@@ -404,7 +406,7 @@ the given API key.</p>
 
           
           <div class="method-source-code" id="latest_for_teams-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 47</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">latest_for_teams</span>
   <span class="ruby-comment"># call find_every directly since find is overriden/not implemented</span>
   <span class="ruby-identifier">find_every</span>(<span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-value">:latest_for_teams</span>)
@@ -417,6 +419,39 @@ the given API key.</p>
 
         
       </div><!-- latest_for_teams-method -->
+
+    
+      <div id="method-c-where" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">where</span><span
+            class="method-args">(*)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Not Implemented. You cannot search for a <a href="Stat.html">Stat</a>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="where-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-operator">*</span>)
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- where-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- where-method -->
 
     
     </section><!-- public-class-method-details -->
@@ -476,7 +511,7 @@ the given API key.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 44</span>
     </pre>
           </div><!-- destroy-source -->
           
@@ -572,7 +607,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 36</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 41</span>
     </pre>
           </div><!-- save-source -->
           
@@ -697,7 +732,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 56</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 61</span>
     </pre>
           </div><!-- total-source -->
           
@@ -728,7 +763,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_error-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 64</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 69</span>
     </pre>
           </div><!-- total_error-source -->
           
@@ -759,7 +794,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_fail-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 60</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 65</span>
     </pre>
           </div><!-- total_fail-source -->
           
@@ -790,7 +825,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_info-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 66</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 71</span>
     </pre>
           </div><!-- total_info-source -->
           
@@ -821,7 +856,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1d-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 120</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 125</span>
     </pre>
           </div><!-- total_new_1d-source -->
           
@@ -852,7 +887,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1d_error-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 84</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 89</span>
     </pre>
           </div><!-- total_new_1d_error-source -->
           
@@ -883,7 +918,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1d_fail-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 80</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 85</span>
     </pre>
           </div><!-- total_new_1d_fail-source -->
           
@@ -914,7 +949,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1d_info-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 86</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 91</span>
     </pre>
           </div><!-- total_new_1d_info-source -->
           
@@ -945,7 +980,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1d_pass-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 78</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 83</span>
     </pre>
           </div><!-- total_new_1d_pass-source -->
           
@@ -976,7 +1011,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1d_warn-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 82</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 87</span>
     </pre>
           </div><!-- total_new_1d_warn-source -->
           
@@ -1007,7 +1042,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1h-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 118</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 123</span>
     </pre>
           </div><!-- total_new_1h-source -->
           
@@ -1038,7 +1073,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1h_error-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 74</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 79</span>
     </pre>
           </div><!-- total_new_1h_error-source -->
           
@@ -1069,7 +1104,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1h_fail-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 70</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 75</span>
     </pre>
           </div><!-- total_new_1h_fail-source -->
           
@@ -1100,7 +1135,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1h_info-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 76</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 81</span>
     </pre>
           </div><!-- total_new_1h_info-source -->
           
@@ -1131,7 +1166,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1h_pass-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 68</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 73</span>
     </pre>
           </div><!-- total_new_1h_pass-source -->
           
@@ -1162,7 +1197,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1h_warn-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 72</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 77</span>
     </pre>
           </div><!-- total_new_1h_warn-source -->
           
@@ -1193,7 +1228,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1w-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 122</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 127</span>
     </pre>
           </div><!-- total_new_1w-source -->
           
@@ -1224,7 +1259,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1w_error-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 92</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 97</span>
     </pre>
           </div><!-- total_new_1w_error-source -->
           
@@ -1255,7 +1290,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1w_fail-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 95</span>
     </pre>
           </div><!-- total_new_1w_fail-source -->
           
@@ -1286,7 +1321,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1w_info-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 94</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 99</span>
     </pre>
           </div><!-- total_new_1w_info-source -->
           
@@ -1317,7 +1352,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1w_pass-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 88</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 93</span>
     </pre>
           </div><!-- total_new_1w_pass-source -->
           
@@ -1348,7 +1383,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_new_1w_warn-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 96</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 101</span>
     </pre>
           </div><!-- total_new_1w_warn-source -->
           
@@ -1379,7 +1414,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_old-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 123</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 128</span>
   </pre>
           </div><!-- total_old-source -->
           
@@ -1410,7 +1445,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_old_error-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 104</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 109</span>
     </pre>
           </div><!-- total_old_error-source -->
           
@@ -1441,7 +1476,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_old_fail-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 98</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 103</span>
     </pre>
           </div><!-- total_old_fail-source -->
           
@@ -1472,7 +1507,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_old_info-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 106</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 111</span>
     </pre>
           </div><!-- total_old_info-source -->
           
@@ -1503,7 +1538,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_old_pass-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 100</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 105</span>
     </pre>
           </div><!-- total_old_pass-source -->
           
@@ -1534,7 +1569,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_old_warn-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 102</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 107</span>
     </pre>
           </div><!-- total_old_warn-source -->
           
@@ -1565,7 +1600,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_pass-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 58</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 63</span>
     </pre>
           </div><!-- total_pass-source -->
           
@@ -1596,7 +1631,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_suppressed-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 108</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 113</span>
     </pre>
           </div><!-- total_suppressed-source -->
           
@@ -1627,7 +1662,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_suppressed_error-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 116</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 121</span>
     </pre>
           </div><!-- total_suppressed_error-source -->
           
@@ -1658,7 +1693,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_suppressed_fail-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 112</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 117</span>
     </pre>
           </div><!-- total_suppressed_fail-source -->
           
@@ -1689,7 +1724,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_suppressed_pass-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 110</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 115</span>
     </pre>
           </div><!-- total_suppressed_pass-source -->
           
@@ -1720,7 +1755,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_suppressed_warn-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 119</span>
     </pre>
           </div><!-- total_suppressed_warn-source -->
           
@@ -1751,7 +1786,7 @@ href="Stat.html">Stat</a>.</p>
 
           
           <div class="method-source-code" id="total_warn-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/stat.rb, line 67</span>
     </pre>
           </div><!-- total_warn-source -->
           

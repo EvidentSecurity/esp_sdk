@@ -29,6 +29,26 @@ module ESP
       ESP::Suppression::Region.create(regions: [code], external_account_ids: Array(arguments[:external_account_ids]), reason: arguments[:reason])
     end
 
+    # :singleton-method: where
+    # Return a paginated Region list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    #
+    # ==== Valid Equality Searchable Attributes
+    #
+    # +id+
+    #
+    # +code+
+    #
+    # ==== Valid Matching Searchable Attributes
+    #
+    # +code+
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a Region by id

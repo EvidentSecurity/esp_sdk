@@ -79,6 +79,8 @@
     
     <li ><a href="#method-c-find">::find</a>
     
+    <li ><a href="#method-c-where">::where</a>
+    
     <li ><a href="#method-i-destroy">#destroy</a>
     
     <li ><a href="#method-i-generate_external_id">#generate_external_id</a>
@@ -218,7 +220,7 @@
 
           
           <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 41</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 79</span>
     </pre>
           </div><!-- all-source -->
           
@@ -277,7 +279,7 @@ will belong to</p>
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 66</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 104</span>
     </pre>
           </div><!-- create-source -->
           
@@ -315,7 +317,7 @@ will belong to</p>
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 38</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 76</span>
     </pre>
           </div><!-- find-source -->
           
@@ -325,6 +327,79 @@ will belong to</p>
 
         
       </div><!-- find-method -->
+
+    
+      <div id="method-c-where" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            where(clauses = {})
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Return a paginated <a href="ExternalAccount.html">ExternalAccount</a> list
+filtered by search parameters</p>
+
+<h4 id="method-c-where-label-Parameters">Parameters<span><a href="#method-c-where-label-Parameters">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>clauses</code> | Hash of attributes with appended predicates to
+search and sort by.</p>
+
+<h4 id="method-c-where-label-Valid+Equality+Searchable+Attributes">Valid Equality Searchable Attributes<span><a href="#method-c-where-label-Valid+Equality+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>id</code></p>
+
+<p><code>arn</code></p>
+
+<p><code>name</code></p>
+
+<h4 id="method-c-where-label-Valid+Matching+Searchable+Attributes">Valid Matching Searchable Attributes<span><a href="#method-c-where-label-Valid+Matching+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>name</code></p>
+
+<h4 id="method-c-where-label-Valid+Sortable+Attributes">Valid Sortable Attributes<span><a href="#method-c-where-label-Valid+Sortable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>updated_at</code></p>
+
+<p><code>created_at</code></p>
+
+<p><code>name</code></p>
+
+<h4 id="method-c-where-label-Valid+Searchable+Relationships">Valid Searchable Relationships<span><a href="#method-c-where-label-Valid+Searchable+Relationships">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>organization</code> | See <a
+href="Organization.html">Organization</a> `where` for searchable
+attributes.</p>
+
+<p><code>sub_organization</code> | See <a
+href="SubOrganization.html">SubOrganization</a> `where` for searchable
+attributes.</p>
+
+<p><code>team</code> | See <a href="Team.html">Team</a> `where` for searchable
+attributes.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="where-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 65</span>
+    </pre>
+          </div><!-- where-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- where-method -->
 
     
     </section><!-- public-class-method-details -->
@@ -352,7 +427,7 @@ will belong to</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 88</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 126</span>
   </pre>
           </div><!-- destroy-source -->
           
@@ -472,7 +547,7 @@ external_account.save</pre>
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 86</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/external_account.rb, line 124</span>
     </pre>
           </div><!-- save-source -->
           

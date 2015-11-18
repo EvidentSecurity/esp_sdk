@@ -79,6 +79,8 @@
     
     <li ><a href="#method-c-find">::find</a>
     
+    <li ><a href="#method-c-where">::where</a>
+    
     <li ><a href="#method-i-alerts">#alerts</a>
     
     <li ><a href="#method-i-destroy">#destroy</a>
@@ -220,7 +222,7 @@
 
           
           <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 99</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 127</span>
   </pre>
           </div><!-- all-source -->
           
@@ -314,7 +316,7 @@ the errors object populated.</p>
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 97</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 125</span>
     </pre>
           </div><!-- find-source -->
           
@@ -324,6 +326,69 @@ the errors object populated.</p>
 
         
       </div><!-- find-method -->
+
+    
+      <div id="method-c-where" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            where(clauses = {})
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Return a paginated <a href="Report.html">Report</a> list filtered by search
+parameters</p>
+
+<h4 id="method-c-where-label-Parameters">Parameters<span><a href="#method-c-where-label-Parameters">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>clauses</code> | Hash of attributes with appended predicates to
+search and sort by.</p>
+
+<h4 id="method-c-where-label-Valid+Equality+Searchable+Attributes">Valid Equality Searchable Attributes<span><a href="#method-c-where-label-Valid+Equality+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>id</code></p>
+
+<p><code>created_at</code></p>
+
+<h4 id="method-c-where-label-Valid+Sortable+Attributes">Valid Sortable Attributes<span><a href="#method-c-where-label-Valid+Sortable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>created_at</code></p>
+
+<h4 id="method-c-where-label-Valid+Searchable+Relationships">Valid Searchable Relationships<span><a href="#method-c-where-label-Valid+Searchable+Relationships">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>organization</code> | See <a
+href="Organization.html">Organization</a> `where` for searchable
+attributes.</p>
+
+<p><code>sub_organization</code> | See <a
+href="SubOrganization.html">SubOrganization</a> `where` for searchable
+attributes.</p>
+
+<p><code>team</code> | See <a href="Team.html">Team</a> `where` for searchable
+attributes.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="where-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 114</span>
+    </pre>
+          </div><!-- where-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- where-method -->
 
     
     </section><!-- public-class-method-details -->
@@ -398,7 +463,7 @@ alerts = report.alerts(status: &#39;fail&#39;, signature_severity: &#39;High&#39
           <div class="method-source-code" id="alerts-source">
             <pre><span class="ruby-comment"># File lib/esp/resources/report.rb, line 77</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">alerts</span>(<span class="ruby-identifier">arguments</span> = {})
-  <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Alert</span>.<span class="ruby-identifier">for_report</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">arguments</span>)
+  <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Alert</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">report_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">id</span>))
 <span class="ruby-keyword">end</span></pre>
           </div><!-- alerts-source -->
           

@@ -77,6 +77,8 @@
     
     <li ><a href="#method-c-find">::find</a>
     
+    <li ><a href="#method-c-where">::where</a>
+    
     <li ><a href="#method-i-destroy">#destroy</a>
     
     <li ><a href="#method-i-save">#save</a>
@@ -210,7 +212,7 @@
 
           
           <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 45</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 65</span>
   </pre>
           </div><!-- all-source -->
           
@@ -248,7 +250,7 @@
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 43</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 63</span>
     </pre>
           </div><!-- find-source -->
           
@@ -258,6 +260,56 @@
 
         
       </div><!-- find-method -->
+
+    
+      <div id="method-c-where" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            where(clauses = {})
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Return a paginated <a href="Region.html">Region</a> list filtered by search
+parameters</p>
+
+<h4 id="method-c-where-label-Parameters">Parameters<span><a href="#method-c-where-label-Parameters">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>clauses</code> | Hash of attributes with appended predicates to
+search and sort by.</p>
+
+<h4 id="method-c-where-label-Valid+Equality+Searchable+Attributes">Valid Equality Searchable Attributes<span><a href="#method-c-where-label-Valid+Equality+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>id</code></p>
+
+<p><code>code</code></p>
+
+<h4 id="method-c-where-label-Valid+Matching+Searchable+Attributes">Valid Matching Searchable Attributes<span><a href="#method-c-where-label-Valid+Matching+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>code</code></p>
+          
+          
+
+          
+          <div class="method-source-code" id="where-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/region.rb, line 52</span>
+    </pre>
+          </div><!-- where-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- where-method -->
 
     
     </section><!-- public-class-method-details -->

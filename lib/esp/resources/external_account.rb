@@ -24,6 +24,44 @@ module ESP
       super
     end
 
+    # :singleton-method: where
+    # Return a paginated ExternalAccount list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    #
+    # ==== Valid Equality Searchable Attributes
+    #
+    # +id+
+    #
+    # +arn+
+    #
+    # +name+
+    #
+    # ==== Valid Matching Searchable Attributes
+    #
+    # +name+
+    #
+    # ==== Valid Sortable Attributes
+    #
+    # +updated_at+
+    #
+    # +created_at+
+    #
+    # +name+
+    #
+    # ==== Valid Searchable Relationships
+    #
+    # +organization+ | See Organization `where` for searchable attributes.
+    #
+    # +sub_organization+ | See SubOrganization `where` for searchable attributes.
+    #
+    # +team+ | See Team `where` for searchable attributes.
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find an ExternalAccount by id

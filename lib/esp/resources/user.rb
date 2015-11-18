@@ -26,6 +26,40 @@ module ESP
       Team.where(id_in: team_ids)
     end
 
+    # :singleton-method: where
+    # Return a paginated User list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    #
+    # ==== Valid Equality Searchable Attributes
+    #
+    # +id+
+    #
+    # +email+
+    #
+    # ==== Valid Matching Searchable Attributes
+    #
+    # +email+
+    #
+    # ==== Valid Sortable Attributes
+    #
+    # +updated_at+
+    #
+    # +created_at+
+    #
+    # ==== Valid Searchable Relationships
+    #
+    # +organization+ | See Organization `where` for searchable attributes.
+    #
+    # +sub_organizations+ | See SubOrganization `where` for searchable attributes.
+    #
+    # +teams+ | See Team `where` for searchable attributes.
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a User by id

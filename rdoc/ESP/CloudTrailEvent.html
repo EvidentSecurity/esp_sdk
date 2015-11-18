@@ -77,6 +77,8 @@
     
     <li ><a href="#method-c-for_alert">::for_alert</a>
     
+    <li ><a href="#method-c-where">::where</a>
+    
     <li ><a href="#method-i-destroy">#destroy</a>
     
     <li ><a href="#method-i-save">#save</a>
@@ -220,7 +222,7 @@
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 36</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>)
   <span class="ruby-identifier">scope</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>)
   <span class="ruby-identifier">options</span> = (<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">with_indifferent_access</span>
@@ -270,10 +272,10 @@ trail events for</p>
 
           
           <div class="method-source-code" id="for_alert-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 22</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_alert</span>(<span class="ruby-identifier">alert_id</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply an alert id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">alert_id</span>.<span class="ruby-identifier">present?</span>
-  <span class="ruby-identifier">from</span> = <span class="ruby-node">&quot;#{prefix}alerts/#{alert_id}/cloud_trail_events.json&quot;</span>
+  <span class="ruby-identifier">from</span> = <span class="ruby-node">&quot;#{prefix}alerts/#{alert_id}/cloud_trail_events.json_api&quot;</span>
   <span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-identifier">from</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- for_alert-source -->
@@ -284,6 +286,40 @@ trail events for</p>
 
         
       </div><!-- for_alert-method -->
+
+    
+      <div id="method-c-where" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">where</span><span
+            class="method-args">(*)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Not Implemented. You cannot search for a <a
+href="CloudTrailEvent.html">CloudTrailEvent</a>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="where-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-operator">*</span>)
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- where-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- where-method -->
 
     
     </section><!-- public-class-method-details -->
@@ -312,7 +348,7 @@ href="CloudTrailEvent.html">CloudTrailEvent</a>.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 9</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -346,7 +382,7 @@ href="CloudTrailEvent.html">CloudTrailEvent</a>.</p>
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 4</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>

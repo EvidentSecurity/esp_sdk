@@ -218,11 +218,223 @@ of the relations wanted in an +include+ option.
 espsdk:004:0> external_account = ESP::ExternalAccount.find(3, include: 'organization,sub_orgnanization,team')
 ```
 
+```ruby
+espsdk:004:0> external_account = ESP::ExternalAccount.where(id_eq: 3, include: 'organization,sub_organization,team')
+```
+
 With that call, organization, sub_organization and team will all come back in the response, and calling, `external_account.organization`,
 `external_account.sub_organization` and `external_account.team`, will not make another API call.  Most objects' find method accepts the
 +include+ option.
     
 See the [**Documentation**](http://www.rubydoc.info/gems/esp_sdk/ESP/ActiveResource/PaginatedCollection.html) for all the pagination methods available.
+
+## Filtering/Searching
+For objects that implement `where`, parameters can be passed that will filter the results based on the search criteria specified.
+The criteria that can be specified depends on the object.  Each object is documented whether it implements `where` or not,
+and if so, which attributes can be included in the search criteria.
+
+### Searching
+
+The primary method of searching is by using what is known as *predicates*.
+
+Predicates are used within Evident.io API search queries to determine what information to
+match. For instance, the `cont` predicate, when added to the `name` attribute, will check to see if `name`` contains a value using a wildcard query.
+
+```ruby
+ESP::Signature.where(name_cont: 'dns')
+#=> will return signatures `where name LIKE '%dns%'`
+```
+
+### OR Conditions
+
+You can also combine predicates for OR queries:
+
+```ruby
+ESP::Signature.where(name_or_description_cont: 'dns')
+#=> will return signatures `where name LIKE '%dns%' or description LIKE '%dns%'`
+```
+
+### Conditions on Relationships
+
+The syntax for queries on an associated relationship is to just append the association name to the attribute:
+
+```ruby
+ESP::Suppression.where(regions_code_eq: 'us_east_1')
+#=> will return suppressions that have a region relationship `where code = 'us_east_1'`
+```
+
+### Complex Filtering
+
+Add multiple attributes and predicates to form complex queries:
+
+```ruby
+ESP::Suppression.where(regions_code_start: 'us', created_by_email_eq: 'bob@mycompany.com', resource_not_null: '1')
+#=> will return suppressions that have a region relationship `where code LIKE 'us%'` and created_by relationship `where email = 'bob@mycompany.com'` and `resource IS NOT NULL`
+```
+
+You can also change the `combinator` for complex queries from the default `AND` to `OR` by adding the `m: 'or'` parameter
+
+```ruby
+ESP::Suppression.where(regions_code_start: 'us', created_by_email_eq: 'bob@mycompany.com', resource_not_null: '1', m: 'or')
+#=> will return suppressions that have a region relationship `where code LIKE 'us%'` **OR** created_by relationship `where email = 'bob@mycompany.com'` **OR** `resource IS NOT NULL`
+```
+
+### Bad Attributes
+
+**Please note:** any attempt to use a predicate for an attribute that does not exist will return a
+*422 (Unprocessable Entity)* response. For instance, this will not work:
+
+```ruby
+ESP::Suppression.where(bad_attribute_eq: 'something')
+#=> ActiveResource::ResourceInvalid: Failed.  Response code = 422.  Response message = Invalid search term bad_attribute_eq.
+```
+
+**Also note:** any attempt to use a predicate for an attribute that exists on the object, but is not a documented searchable attribute will _silently fail_
+and will be excluded from the search criteria.
+
+## Available Predicates
+
+Below is a list of the available predicates and their opposites.
+
+### eq (equals)
+
+The `eq` predicate returns all records where a field is *exactly* equal to a given value:
+
+```ruby
+ESP::Suppression.where(regions_code_eq: 'us_east_1')
+#=> will return suppressions that have a region relationship `where code = 'us_east_1'`
+```
+
+**Opposite: `not_eq`**
+
+### lt (less than)
+
+The `lt` predicate returns all records where a field is less than a given value:
+
+```ruby
+ESP::Report.where(created_at_lt: 1.hour.ago)
+#=> will return reports `where created_at < '2015-11-11 16:25:30'`
+```
+
+**Opposite: `gt` (greater than)**
+
+### lteq (less than or equal to)
+
+The `lteq` predicate returns all records where a field is less than *or equal to* a given value:
+
+```ruby
+ESP::Report.where(created_at_lteq: 1.hour.ago)
+#=> will return reports `where created_at <= '2015-11-11 16:25:30'`
+```
+
+**Opposite: `gteq` (greater than or equal to)**
+
+### in
+
+The `in` predicate returns all records where a field is within a specified list:
+
+```ruby
+ESP::Signature.where(risk_level_in: ['Low', 'Medium'])
+#=> will return signatures `where risk_level IN ('Low', 'Medium')`
+```
+
+**Opposite: `not_in`**
+
+### cont (contains)
+
+The `cont` predicate returns all records where a field contains a given value:
+
+```ruby
+ESP::Signature.where(name_cont: 'dns')
+#=> will return signatures `where name LIKE '%dns%'`
+```
+
+**Opposite: `not_cont`**
+
+**Please note:** This predicate is only available on attributes listed in the "Valid Matching Searchable Attributes"" section
+for each implemented `where` method.
+
+### cont_any (contains any)
+
+The `cont_any` predicate returns all records where a field contains any of given values:
+
+```ruby
+ESP::Signature.where(name_cont_any: ['dns', 'EC2'])
+#=> will return signatures `where name LIKE '%dns%' or name LIKE '%EC2%'`
+```
+
+**Opposite: `not_cont_any`**
+
+**Please note:** This predicate is only available on attributes listed in the "Valid Matching Searchable Attributes"" section
+for each implemented `where` method.
+
+
+### start (starts with)
+
+The `start` predicate returns all records where a field begins with a given value:
+
+```ruby
+ESP::Signature.where(name_start: 'dns')
+#=> will return signatures `where name LIKE 'dns%'`
+```
+
+**Opposite: `not_start`**
+
+**Please note:** This predicate is only available on attributes listed in the "Valid Matching Searchable Attributes"" section
+for each implemented `where` method.
+
+### end (ends with)
+
+The `end` predicate returns all records where a field ends with a given value:
+
+```ruby
+ESP::Signature.where(name_end: 'dns')
+#=> will return signatures `where name LIKE '%dns'`
+```
+
+**Opposite: `not_end`**
+
+**Please note:** This predicate is only available on attributes listed in the "Valid Matching Searchable Attributes"" section
+for each implemented `where` method.
+
+### present
+
+The `present` predicate returns all records where a field is present (not null and not a
+blank string).
+
+```ruby
+ESP::Signature.where(identifier_present: '1')
+#=> will return signatures `where identifier IS NOT NULL AND identifier != ''`
+```
+
+**Opposite: `blank`**
+
+### null
+
+The `null` predicate returns all records where a field is null:
+
+```ruby
+ESP::Signature.where(identifier_null: 1)
+#=> will return signatures `where identifier IS NULL`
+```
+
+**Opposite: `not_null`**
+
+## Sorting
+
+Lists can also be sorted by adding the `sorts` parameter with the field to sort by to the `filter` parameter.
+
+```ruby
+ESP::Signature.where(name_cont: 'dns', sort: 'risk_level desc')
+#=> will return signatures `where name LIKE '%dns%'` sorted by `risk_level` in descending order.
+```
+
+Lists can be sorted by multiple fields by specifying an ordered array.
+
+```ruby
+ESP::Signature.where(name_cont: 'dns', sorts: ['risk_level desc', 'created_at'])
+#=> will return signatures `where name LIKE '%dns%'` sorted by `risk_level` in descending order and then by `created_at` in ascending order.
+```
 
 ## Available Objects
 * [ESP::Alert](http://www.rubydoc.info/gems/esp_sdk/ESP/Alert.html)
@@ -237,6 +449,10 @@ See the [**Documentation**](http://www.rubydoc.info/gems/esp_sdk/ESP/ActiveResou
 * [ESP::Service](http://www.rubydoc.info/gems/esp_sdk/ESP/Service.html)
 * [ESP::Signature](http://www.rubydoc.info/gems/esp_sdk/ESP/Signature.html)
 * [ESP::Stat](http://www.rubydoc.info/gems/esp_sdk/ESP/Stat.html)
+* [ESP::Stat](http://www.rubydoc.info/gems/esp_sdk/ESP/StatCustomSignature.html)
+* [ESP::Stat](http://www.rubydoc.info/gems/esp_sdk/ESP/StatRegion.html)
+* [ESP::Stat](http://www.rubydoc.info/gems/esp_sdk/ESP/StatService.html)
+* [ESP::Stat](http://www.rubydoc.info/gems/esp_sdk/ESP/StatSignature.html)
 * [ESP::SubOrganization](http://www.rubydoc.info/gems/esp_sdk/ESP/SubOrganization.html)
 * [ESP::Suppression](http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression.html)
 * [ESP::Suppression::Region](http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression::Region.html)

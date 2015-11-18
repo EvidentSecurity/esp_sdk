@@ -16,6 +16,36 @@ module ESP
     # The collection of reports that belong to the sub organization.
     has_many :reports, class_name: 'ESP::Report'
 
+    # :singleton-method: where
+    # Return a paginated SubOrganization list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    #
+    # ==== Valid Equality Searchable Attributes
+    #
+    # +id+
+    #
+    # +name+
+    #
+    # ==== Valid Matching Searchable Attributes
+    #
+    # +name+
+    #
+    # ==== Valid Sortable Attributes
+    #
+    # +updated_at+
+    #
+    # +created_at+
+    #
+    # ==== Valid Searchable Relationships
+    #
+    # +organization+ | See Organization `where` for searchable attributes.
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a SubOrganization by id

@@ -79,6 +79,8 @@
     
     <li ><a href="#method-c-find">::find</a>
     
+    <li ><a href="#method-c-where">::where</a>
+    
     <li ><a href="#method-i-custom_signatures">#custom_signatures</a>
     
     <li ><a href="#method-i-destroy">#destroy</a>
@@ -222,7 +224,7 @@
 
           
           <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 51</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 77</span>
     </pre>
           </div><!-- all-source -->
           
@@ -254,7 +256,7 @@ href="Organization.html">Organization</a>.</p>
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 80</span>
     </pre>
           </div><!-- create-source -->
           
@@ -292,7 +294,7 @@ href="Organization.html">Organization</a>.</p>
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 48</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 74</span>
     </pre>
           </div><!-- find-source -->
           
@@ -302,6 +304,62 @@ href="Organization.html">Organization</a>.</p>
 
         
       </div><!-- find-method -->
+
+    
+      <div id="method-c-where" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            where(clauses = {})
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Return a paginated <a href="Organization.html">Organization</a> list
+filtered by search parameters</p>
+
+<h4 id="method-c-where-label-Parameters">Parameters<span><a href="#method-c-where-label-Parameters">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>clauses</code> | Hash of attributes with appended predicates to
+search and sort by.</p>
+
+<h4 id="method-c-where-label-Valid+Equality+Searchable+Attributes">Valid Equality Searchable Attributes<span><a href="#method-c-where-label-Valid+Equality+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>id</code></p>
+
+<p><code>name</code></p>
+
+<h4 id="method-c-where-label-Valid+Matching+Searchable+Attributes">Valid Matching Searchable Attributes<span><a href="#method-c-where-label-Valid+Matching+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>name</code></p>
+
+<h4 id="method-c-where-label-Valid+Sortable+Attributes">Valid Sortable Attributes<span><a href="#method-c-where-label-Valid+Sortable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>updated_at</code></p>
+
+<p><code>created_at</code></p>
+          
+          
+
+          
+          <div class="method-source-code" id="where-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 63</span>
+    </pre>
+          </div><!-- where-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- where-method -->
 
     
     </section><!-- public-class-method-details -->
@@ -465,7 +523,7 @@ that belong to the organization.</p>
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 60</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/organization.rb, line 86</span>
   </pre>
           </div><!-- save-source -->
           

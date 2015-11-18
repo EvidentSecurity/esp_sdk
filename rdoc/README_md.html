@@ -58,6 +58,24 @@
       <li><a href="#label-Errors">Errors</a>
       <li><a href="#label-Pagination">Pagination</a>
       <li><a href="#label-Associated+Objects">Associated Objects</a>
+      <li><a href="#label-Filtering%2FSearching">Filtering/Searching</a>
+      <li><a href="#label-Searching">Searching</a>
+      <li><a href="#label-OR+Conditions">OR Conditions</a>
+      <li><a href="#label-Conditions+on+Relationships">Conditions on Relationships</a>
+      <li><a href="#label-Complex+Filtering">Complex Filtering</a>
+      <li><a href="#label-Bad+Attributes">Bad Attributes</a>
+      <li><a href="#label-Available+Predicates">Available Predicates</a>
+      <li><a href="#label-eq+%28equals%29">eq (equals)</a>
+      <li><a href="#label-lt+%28less+than%29">lt (less than)</a>
+      <li><a href="#label-lteq+%28less+than+or+equal+to%29">lteq (less than or equal to)</a>
+      <li><a href="#label-in">in</a>
+      <li><a href="#label-cont+%28contains%29">cont (contains)</a>
+      <li><a href="#label-cont_any+%28contains+any%29">cont_any (contains any)</a>
+      <li><a href="#label-start+%28starts+with%29">start (starts with)</a>
+      <li><a href="#label-end+%28ends+with%29">end (ends with)</a>
+      <li><a href="#label-present">present</a>
+      <li><a href="#label-null">null</a>
+      <li><a href="#label-Sorting">Sorting</a>
       <li><a href="#label-Available+Objects">Available Objects</a>
       <li><a href="#label-Console">Console</a>
       <li><a href="#label-Contributing">Contributing</a>
@@ -277,7 +295,7 @@ attributes that each object has.</p>
 <span class="ruby-comment"># =&gt; {</span>
 <span class="ruby-comment"># =&gt;                       &quot;id&quot; =&gt; &quot;1&quot;,</span>
 <span class="ruby-comment"># =&gt;                     &quot;type&quot; =&gt; &quot;teams&quot;,</span>
-<span class="ruby-comment"># =&gt;            &quot;relationships&quot; =&gt; #&lt;ESP::Team::Relationships:0x007fdf1b451710 @attributes={&quot;sub_organization&quot;=&gt;#&lt;ESP::SubOrganization:0x007fdf1b450d60 @attributes={&quot;data&quot;=&gt;#&lt;ESP::SubOrganization::Data:0x007fdf1b450978 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;sub_organizations&quot;}, @prefix_options={}, @persisted=true&gt;, &quot;links&quot;=&gt;#&lt;ESP::SubOrganization::Links:0x007fdf1b4503b0 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/sub_organizations/1.json&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;, &quot;organization&quot;=&gt;#&lt;ESP::Organization:0x007fdf1b45bbc0 @attributes={&quot;data&quot;=&gt;#&lt;ESP::Organization::Data:0x007fdf1b45b7d8 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;organizations&quot;}, @prefix_options={}, @persisted=true&gt;, &quot;links&quot;=&gt;#&lt;ESP::Organization::Links:0x007fdf1b45b210 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/organizations/1.json&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;, &quot;external_accounts&quot;=&gt;#&lt;ESP::Team::Relationships::ExternalAccounts:0x007fdf1b45a040 @attributes={&quot;data&quot;=&gt;[#&lt;ESP::Team::Relationships::ExternalAccounts::Datum:0x007fdf1b458830 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;external_accounts&quot;}, @prefix_options={}, @persisted=true&gt;], &quot;links&quot;=&gt;#&lt;ESP::Team::Links:0x007fdf1b463e38 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/external_accounts.json&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;,</span>
+<span class="ruby-comment"># =&gt;            &quot;relationships&quot; =&gt; #&lt;ESP::Team::Relationships:0x007fdf1b451710 @attributes={&quot;sub_organization&quot;=&gt;#&lt;ESP::SubOrganization:0x007fdf1b450d60 @attributes={&quot;data&quot;=&gt;#&lt;ESP::SubOrganization::Data:0x007fdf1b450978 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;sub_organizations&quot;}, @prefix_options={}, @persisted=true&gt;, &quot;links&quot;=&gt;#&lt;ESP::SubOrganization::Links:0x007fdf1b4503b0 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/sub_organizations/1.json_api&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;, &quot;organization&quot;=&gt;#&lt;ESP::Organization:0x007fdf1b45bbc0 @attributes={&quot;data&quot;=&gt;#&lt;ESP::Organization::Data:0x007fdf1b45b7d8 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;organizations&quot;}, @prefix_options={}, @persisted=true&gt;, &quot;links&quot;=&gt;#&lt;ESP::Organization::Links:0x007fdf1b45b210 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/organizations/1.json_api&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;, &quot;external_accounts&quot;=&gt;#&lt;ESP::Team::Relationships::ExternalAccounts:0x007fdf1b45a040 @attributes={&quot;data&quot;=&gt;[#&lt;ESP::Team::Relationships::ExternalAccounts::Datum:0x007fdf1b458830 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;external_accounts&quot;}, @prefix_options={}, @persisted=true&gt;], &quot;links&quot;=&gt;#&lt;ESP::Team::Links:0x007fdf1b463e38 @attributes={&quot;related&quot;=&gt;&quot;http://localhost:3000/api/v2/external_accounts.json_api&quot;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;}, @prefix_options={}, @persisted=true&gt;,</span>
 <span class="ruby-comment"># =&gt;                     &quot;name&quot; =&gt; &quot;Default Team&quot;,</span>
 <span class="ruby-comment"># =&gt;               &quot;created_at&quot; =&gt; &quot;2015-09-23T14:37:48.000Z&quot;,</span>
 <span class="ruby-comment"># =&gt;               &quot;updated_at&quot; =&gt; &quot;2015-09-23T14:37:48.000Z&quot;,</span>
@@ -397,6 +415,9 @@ of the relations wanted in an
 <pre class="ruby"><span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">external_account</span> = <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">ExternalAccount</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">3</span>, <span class="ruby-identifier">include</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;organization,sub_orgnanization,team&#39;</span>)
 </pre>
 
+<pre class="ruby"><span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">external_account</span> = <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">ExternalAccount</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id_eq</span><span class="ruby-operator">:</span> <span class="ruby-value">3</span>, <span class="ruby-identifier">include</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;organization,sub_organization,team&#39;</span>)
+</pre>
+
 <p>With that call, organization, sub_organization and team will all come back
 in the response, and calling,
 <code>external_account.organization</code>,
@@ -408,6 +429,229 @@ Most objects&#39; find method accepts the
 <p>See the <a
 href="http://www.rubydoc.info/gems/esp_sdk/ESP/ActiveResource/PaginatedCollection.html">Documentation</a>
 for all the pagination methods available.</p>
+
+<h2 id="label-Filtering%2FSearching">Filtering/Searching<span><a href="#label-Filtering%2FSearching">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>For objects that implement <code>where</code>, parameters can be passed
+that will filter the results based on the search criteria specified.
+The
+criteria that can be specified depends on the object. Each object is
+documented whether it implements <code>where</code> or not,
+and if so,
+which attributes can be included in the search criteria.</p>
+
+<h3 id="label-Searching">Searching<span><a href="#label-Searching">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The primary method of searching is by using what is known as
+<em>predicates</em>.</p>
+
+<p>Predicates are used within Evident.io API search queries to determine what
+information to
+match. For instance, the <code>cont</code> predicate, when
+added to the <code>name</code> attribute, will check to see if `name``
+contains a value using a wildcard query.</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">name_cont</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;dns&#39;</span>)
+<span class="ruby-comment">#=&gt; will return signatures `where name LIKE &#39;%dns%&#39;`</span>
+</pre>
+
+<h3 id="label-OR+Conditions">OR Conditions<span><a href="#label-OR+Conditions">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>You can also combine predicates for OR queries:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">name_or_description_cont</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;dns&#39;</span>)
+<span class="ruby-comment">#=&gt; will return signatures `where name LIKE &#39;%dns%&#39; or description LIKE &#39;%dns%&#39;`</span>
+</pre>
+
+<h3 id="label-Conditions+on+Relationships">Conditions on Relationships<span><a href="#label-Conditions+on+Relationships">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The syntax for queries on an associated relationship is to just append the
+association name to the attribute:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Suppression</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">regions_code_eq</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;us_east_1&#39;</span>)
+<span class="ruby-comment">#=&gt; will return suppressions that have a region relationship `where code = &#39;us_east_1&#39;`</span>
+</pre>
+
+<h3 id="label-Complex+Filtering">Complex Filtering<span><a href="#label-Complex+Filtering">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>Add multiple attributes and predicates to form complex queries:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Suppression</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">regions_code_start</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;us&#39;</span>, <span class="ruby-identifier">created_by_email_eq</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;bob@mycompany.com&#39;</span>, <span class="ruby-identifier">resource_not_null</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;1&#39;</span>)
+<span class="ruby-comment">#=&gt; will return suppressions that have a region relationship `where code LIKE &#39;us%&#39;` and created_by relationship `where email = &#39;bob@mycompany.com&#39;` and `resource IS NOT NULL`</span>
+</pre>
+
+<p>You can also change the <code>combinator</code> for complex queries from
+the default <code>AND</code> to <code>OR</code> by adding the <code>m:
+&#39;or&#39;</code> parameter</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Suppression</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">regions_code_start</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;us&#39;</span>, <span class="ruby-identifier">created_by_email_eq</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;bob@mycompany.com&#39;</span>, <span class="ruby-identifier">resource_not_null</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;1&#39;</span>, <span class="ruby-identifier">m</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;or&#39;</span>)
+<span class="ruby-comment">#=&gt; will return suppressions that have a region relationship `where code LIKE &#39;us%&#39;` **OR** created_by relationship `where email = &#39;bob@mycompany.com&#39;` **OR** `resource IS NOT NULL`</span>
+</pre>
+
+<h3 id="label-Bad+Attributes">Bad Attributes<span><a href="#label-Bad+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p><strong>Please note:</strong> any attempt to use a predicate for an
+attribute that does not exist will return a
+<em>422 (Unprocessable
+Entity)</em> response. For instance, this will not work:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Suppression</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">bad_attribute_eq</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;something&#39;</span>)
+<span class="ruby-comment">#=&gt; ActiveResource::ResourceInvalid: Failed.  Response code = 422.  Response message = Invalid search term bad_attribute_eq.</span>
+</pre>
+
+<p><strong>Also note:</strong> any attempt to use a predicate for an attribute
+that exists on the object, but is not a documented searchable attribute
+will <em>silently fail</em>
+and will be excluded from the search criteria.</p>
+
+<h2 id="label-Available+Predicates">Available Predicates<span><a href="#label-Available+Predicates">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>Below is a list of the available predicates and their opposites.</p>
+
+<h3 id="label-eq+%28equals%29">eq (equals)<span><a href="#label-eq+%28equals%29">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The <code>eq</code> predicate returns all records where a field is
+<em>exactly</em> equal to a given value:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Suppression</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">regions_code_eq</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;us_east_1&#39;</span>)
+<span class="ruby-comment">#=&gt; will return suppressions that have a region relationship `where code = &#39;us_east_1&#39;`</span>
+</pre>
+
+<p><strong>Opposite: <code>not_eq</code></strong></p>
+
+<h3 id="label-lt+%28less+than%29">lt (less than)<span><a href="#label-lt+%28less+than%29">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The <code>lt</code> predicate returns all records where a field is less
+than a given value:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Report</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">created_at_lt</span><span class="ruby-operator">:</span> <span class="ruby-value">1</span>.<span class="ruby-identifier">hour</span>.<span class="ruby-identifier">ago</span>)
+<span class="ruby-comment">#=&gt; will return reports `where created_at &lt; &#39;2015-11-11 16:25:30&#39;`</span>
+</pre>
+
+<p><strong>Opposite: <code>gt</code> (greater than)</strong></p>
+
+<h3 id="label-lteq+%28less+than+or+equal+to%29">lteq (less than or equal to)<span><a href="#label-lteq+%28less+than+or+equal+to%29">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The <code>lteq</code> predicate returns all records where a field is less
+than <em>or equal to</em> a given value:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Report</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">created_at_lteq</span><span class="ruby-operator">:</span> <span class="ruby-value">1</span>.<span class="ruby-identifier">hour</span>.<span class="ruby-identifier">ago</span>)
+<span class="ruby-comment">#=&gt; will return reports `where created_at &lt;= &#39;2015-11-11 16:25:30&#39;`</span>
+</pre>
+
+<p><strong>Opposite: <code>gteq</code> (greater than or equal to)</strong></p>
+
+<h3 id="label-in">in<span><a href="#label-in">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The <code>in</code> predicate returns all records where a field is within a
+specified list:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">risk_level_in</span><span class="ruby-operator">:</span> [<span class="ruby-string">&#39;Low&#39;</span>, <span class="ruby-string">&#39;Medium&#39;</span>])
+<span class="ruby-comment">#=&gt; will return signatures `where risk_level IN (&#39;Low&#39;, &#39;Medium&#39;)`</span>
+</pre>
+
+<p><strong>Opposite: <code>not_in</code></strong></p>
+
+<h3 id="label-cont+%28contains%29">cont (contains)<span><a href="#label-cont+%28contains%29">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The <code>cont</code> predicate returns all records where a field contains
+a given value:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">name_cont</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;dns&#39;</span>)
+<span class="ruby-comment">#=&gt; will return signatures `where name LIKE &#39;%dns%&#39;`</span>
+</pre>
+
+<p><strong>Opposite: <code>not_cont</code></strong></p>
+
+<p><strong>Please note:</strong> This predicate is only available on
+attributes listed in the “Valid Matching Searchable Attributes”“
+section
+for each implemented <code>where</code> method.</p>
+
+<h3 id="label-cont_any+%28contains+any%29">cont_any (contains any)<span><a href="#label-cont_any+%28contains+any%29">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The <code>cont_any</code> predicate returns all records where a field
+contains any of given values:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">name_cont_any</span><span class="ruby-operator">:</span> [<span class="ruby-string">&#39;dns&#39;</span>, <span class="ruby-string">&#39;EC2&#39;</span>])
+<span class="ruby-comment">#=&gt; will return signatures `where name LIKE &#39;%dns%&#39; or name LIKE &#39;%EC2%&#39;`</span>
+</pre>
+
+<p><strong>Opposite: <code>not_cont_any</code></strong></p>
+
+<p><strong>Please note:</strong> This predicate is only available on
+attributes listed in the “Valid Matching Searchable Attributes”“
+section
+for each implemented <code>where</code> method.</p>
+
+<h3 id="label-start+%28starts+with%29">start (starts with)<span><a href="#label-start+%28starts+with%29">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The <code>start</code> predicate returns all records where a field begins
+with a given value:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">name_start</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;dns&#39;</span>)
+<span class="ruby-comment">#=&gt; will return signatures `where name LIKE &#39;dns%&#39;`</span>
+</pre>
+
+<p><strong>Opposite: <code>not_start</code></strong></p>
+
+<p><strong>Please note:</strong> This predicate is only available on
+attributes listed in the “Valid Matching Searchable Attributes”“
+section
+for each implemented <code>where</code> method.</p>
+
+<h3 id="label-end+%28ends+with%29">end (ends with)<span><a href="#label-end+%28ends+with%29">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The <code>end</code> predicate returns all records where a field ends with
+a given value:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">name_end</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;dns&#39;</span>)
+<span class="ruby-comment">#=&gt; will return signatures `where name LIKE &#39;%dns&#39;`</span>
+</pre>
+
+<p><strong>Opposite: <code>not_end</code></strong></p>
+
+<p><strong>Please note:</strong> This predicate is only available on
+attributes listed in the “Valid Matching Searchable Attributes”“
+section
+for each implemented <code>where</code> method.</p>
+
+<h3 id="label-present">present<span><a href="#label-present">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The <code>present</code> predicate returns all records where a field is
+present (not null and not a
+blank string).</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">identifier_present</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;1&#39;</span>)
+<span class="ruby-comment">#=&gt; will return signatures `where identifier IS NOT NULL AND identifier != &#39;&#39;`</span>
+</pre>
+
+<p><strong>Opposite: <code>blank</code></strong></p>
+
+<h3 id="label-null">null<span><a href="#label-null">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>The <code>null</code> predicate returns all records where a field is null:</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">identifier_null</span><span class="ruby-operator">:</span> <span class="ruby-value">1</span>)
+<span class="ruby-comment">#=&gt; will return signatures `where identifier IS NULL`</span>
+</pre>
+
+<p><strong>Opposite: <code>not_null</code></strong></p>
+
+<h2 id="label-Sorting">Sorting<span><a href="#label-Sorting">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>Lists can also be sorted by adding the <code>sorts</code> parameter with
+the field to sort by to the <code>filter</code> parameter.</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">name_cont</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;dns&#39;</span>, <span class="ruby-identifier">sort</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;risk_level desc&#39;</span>)
+<span class="ruby-comment">#=&gt; will return signatures `where name LIKE &#39;%dns%&#39;` sorted by `risk_level` in descending order.</span>
+</pre>
+
+<p>Lists can be sorted by multiple fields by specifying an ordered array.</p>
+
+<pre class="ruby"><span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">name_cont</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;dns&#39;</span>, <span class="ruby-identifier">sorts</span><span class="ruby-operator">:</span> [<span class="ruby-string">&#39;risk_level desc&#39;</span>, <span class="ruby-string">&#39;created_at&#39;</span>])
+<span class="ruby-comment">#=&gt; will return signatures `where name LIKE &#39;%dns%&#39;` sorted by `risk_level` in descending order and then by `created_at` in ascending order.</span>
+</pre>
 
 <h2 id="label-Available+Objects">Available Objects<span><a href="#label-Available+Objects">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
 <ul><li>
@@ -445,6 +689,18 @@ href="http://www.rubydoc.info/gems/esp_sdk/ESP/Service.html">ESP::Service</a></p
 href="http://www.rubydoc.info/gems/esp_sdk/ESP/Signature.html">ESP::Signature</a></p>
 </li><li>
 <p><a href="http://www.rubydoc.info/gems/esp_sdk/ESP/Stat.html">ESP::Stat</a></p>
+</li><li>
+<p><a
+href="http://www.rubydoc.info/gems/esp_sdk/ESP/StatCustomSignature.html">ESP::Stat</a></p>
+</li><li>
+<p><a
+href="http://www.rubydoc.info/gems/esp_sdk/ESP/StatRegion.html">ESP::Stat</a></p>
+</li><li>
+<p><a
+href="http://www.rubydoc.info/gems/esp_sdk/ESP/StatService.html">ESP::Stat</a></p>
+</li><li>
+<p><a
+href="http://www.rubydoc.info/gems/esp_sdk/ESP/StatSignature.html">ESP::Stat</a></p>
 </li><li>
 <p><a
 href="http://www.rubydoc.info/gems/esp_sdk/ESP/SubOrganization.html">ESP::SubOrganization</a></p>

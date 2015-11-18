@@ -89,6 +89,52 @@ module ESP
       ESP::Suppression::Signature.create(signature_ids: [id], regions: Array(arguments[:regions]), external_account_ids: Array(arguments[:external_account_ids]), reason: arguments[:reason])
     end
 
+    # :singleton-method: where
+    # Return a paginated Signature list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    #
+    # ==== Valid Equality Searchable Attributes
+    #
+    # +id+
+    #
+    # +description+
+    #
+    # +identifier+
+    #
+    # +name+
+    #
+    # +resolution+
+    #
+    # +risk_level+ | Valid values are Low, Medium, High
+    #
+    # ==== Valid Matching Searchable Attributes
+    #
+    # +description+
+    #
+    # +identifier+
+    #
+    # +name+
+    #
+    # +resolution+
+    #
+    # ==== Valid Sortable Attributes
+    #
+    # +updated_at+
+    #
+    # +created_at+
+    #
+    # +identifier+
+    #
+    # +name+
+    #
+    # +risk_level+
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a Signature by id
