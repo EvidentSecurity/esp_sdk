@@ -2,6 +2,7 @@ module ESP
   class StatSignature < ESP::Resource
     include ESP::StatTotals
 
+    ##
     # The signature these stats are for.
     belongs_to :signature, class_name: 'ESP::Signature'
 
@@ -17,12 +18,22 @@ module ESP
     #
     # +stat_id+ | Required | The ID of the stat to list signature stats for
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== valid Includable Associations
+    #
+    # +signature+
+    #
     # ==== Example
     #   stats = ESP::StatSignature.for_stat(1194)
-    def self.for_stat(stat_id = nil)
+    def self.for_stat(stat_id = nil, options = {})
       fail ArgumentError, "You must supply a stat id." unless stat_id.present?
       from = "#{prefix}stats/#{stat_id}/signatures.json_api"
-      find(:all, from: from)
+      find(:all, from: from, params: options)
     end
 
     # Find a StatRegion by id
@@ -31,8 +42,18 @@ module ESP
     #
     # +id+ | Required | The ID of the signature stat to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== valid Includable Associations
+    #
+    # +custom_signature+
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
     def self.find(*arguments)
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access

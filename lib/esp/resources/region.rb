@@ -36,13 +36,13 @@ module ESP
     #
     # +clauses+ | Hash of attributes with appended predicates to search and sort by.
     #
-    # ==== Valid Equality Searchable Attributes
+    # ===== Valid Equality Searchable Attributes
     #
     # +id+
     #
     # +code+
     #
-    # ==== Valid Matching Searchable Attributes
+    # ===== Valid Matching Searchable Attributes
     #
     # +code+
     #

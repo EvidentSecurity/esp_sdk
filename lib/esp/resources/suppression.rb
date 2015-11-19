@@ -80,9 +80,9 @@ module ESP
     #
     # ==== Parameters
     #
-    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
     #
-    # ==== Valid Equality Searchable Attributes
+    # ===== Valid Equality Searchable Attributes
     #
     # +id+
     #
@@ -90,23 +90,37 @@ module ESP
     #
     # +suppression_type+ | Possible values are unique_identifiers, regions, and signatures
     #
-    # ==== Valid Matching Searchable Attributes
+    # ===== Valid Matching Searchable Attributes
     #
     # +resource+
     #
     # +suppression_type+ | Possible values are unique_identifiers, regions, and signatures
     #
-    # ==== Valid Sortable Attributes
+    # ===== Valid Sortable Attributes
     #
     # +updated_at+
     #
-    # ==== Valid Searchable Relationships
+    # ===== Valid Searchable Relationships
     #
     # +created_by+ | See User `where` for searchable attributes.
     #
     # +regions+ | See Region `where` for searchable attributes.
     #
     # +signatures+ | See Signature `where` for searchable attributes.
+    #
+    # ===== Valid Includable Associations
+    #
+    # +organization+
+    #
+    # +created_by+
+    #
+    # +external_accounts+
+    #
+    # +regions+
+    #
+    # +signatures+
+    #
+    # +custom_signatures+
     #
     # :call-seq:
     #  where(clauses = {})
@@ -119,8 +133,28 @@ module ESP
     #
     # +id+ | Required | The ID of the suppression to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # +organization+
+    #
+    # +created_by+
+    #
+    # +external_accounts+
+    #
+    # +regions+
+    #
+    # +signatures+
+    #
+    # +custom_signatures+
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated Suppression list

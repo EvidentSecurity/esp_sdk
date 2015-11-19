@@ -88,25 +88,33 @@ module ESP
     #
     # ==== Parameters
     #
-    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
     #
-    # ==== Valid Equality Searchable Attributes
+    # ===== Valid Equality Searchable Attributes
     #
     # +id+
     #
     # +created_at+
     #
-    # ==== Valid Sortable Attributes
+    # ===== Valid Sortable Attributes
     #
     # +created_at+
     #
-    # ==== Valid Searchable Relationships
+    # ===== Valid Searchable Relationships
     #
     # +organization+ | See Organization `where` for searchable attributes.
     #
     # +sub_organization+ | See SubOrganization `where` for searchable attributes.
     #
     # +team+ | See Team `where` for searchable attributes.
+    #
+    # ===== Valid Includable Associations
+    #
+    # +organization+
+    #
+    # +sub_organization+
+    #
+    # +team+
     #
     # :call-seq:
     #  where(clauses = {})
@@ -119,8 +127,22 @@ module ESP
     #
     # +id+ | Required | The ID of the report to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # +organization+
+    #
+    # +sub_organization+
+    #
+    # +team+
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated Report list

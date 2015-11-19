@@ -66,7 +66,7 @@ module ESP
 
           assert_requested(:put, %r{reports/#{report.id}/alerts.json_api*}) do |req|
             body = JSON.parse(req.body)
-            assert_equal 'pass', body['filter']['pass']
+            assert_equal 'pass', body['filter']['status']
           end
         end
       end

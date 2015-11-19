@@ -31,29 +31,37 @@ module ESP
     #
     # ==== Parameters
     #
-    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
     #
-    # ==== Valid Equality Searchable Attributes
+    # ===== Valid Equality Searchable Attributes
     #
     # +id+
     #
     # +name+
     #
-    # ==== Valid Matching Searchable Attributes
+    # ===== Valid Matching Searchable Attributes
     #
     # +name+
     #
-    # ==== Valid Sortable Attributes
+    # ===== Valid Sortable Attributes
     #
     # +updated_at+
     #
     # +created_at+
     #
-    # ==== Valid Searchable Relationships
+    # ===== Valid Searchable Relationships
     #
     # +organization+ | See Organization `where` for searchable attributes.
     #
     # +sub_organizations+ | See SubOrganization `where` for searchable attributes.
+    #
+    # ===== Valid Includable Associations
+    #
+    # +organization+
+    #
+    # +sub_organization+
+    #
+    # +external_accounts+
     #
     # :call-seq:
     #  where(clauses = {})
@@ -66,8 +74,22 @@ module ESP
     #
     # +id+ | Required | The ID of the team to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # +organization+
+    #
+    # +sub_organization+
+    #
+    # +external_accounts+
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated Team list
@@ -81,7 +103,7 @@ module ESP
     #
     # +attributes+ | Required | A hash of team attributes
     #
-    # ==== Valid Attributes
+    # ===== Valid Attributes
     #
     # +sub_organization_id+ | Required | The ID of the sub organization to attach this team to
     #
@@ -90,11 +112,11 @@ module ESP
     # :method: save
     # Create and update a Team.
     #
-    # ==== Valid Attributes when updating
+    # ===== Valid Attributes when updating
     #
     # +name+ | Required | The new name of the team
     #
-    # ==== Valid Attributes when creating
+    # ===== Valid Attributes when creating
     #
     # +sub_organization_id+ | Required | The ID of the sub organization to attach this team to
     #

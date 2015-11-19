@@ -218,7 +218,7 @@
 
           
           <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 151</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 165</span>
   </pre>
           </div><!-- all-source -->
           
@@ -235,7 +235,7 @@
         
         <div class="method-heading">
           <span class="method-callseq">
-            find(id)
+            find(id, options = {})
           </span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -251,12 +251,23 @@
 <h4 id="method-c-find-label-Parameter">Parameter<span><a href="#method-c-find-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
 <p><code>id</code> | Required | The ID of the signature to retrieve</p>
+
+<p><code>options</code> | Optional | A hash of options</p>
+
+<h5 id="method-c-find-label-Valid+Options">Valid Options<span><a href="#method-c-find-label-Valid+Options">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
+
+<p><code>include</code> | The list of associated objects to return on the
+initial request.</p>
+
+<h5 id="method-c-find-label-Valid+Includable+Associations">Valid Includable Associations<span><a href="#method-c-find-label-Valid+Includable+Associations">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
+
+<p><code>service</code></p>
           
           
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 149</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 163</span>
     </pre>
           </div><!-- find-source -->
           
@@ -290,9 +301,9 @@ search parameters</p>
 <h4 id="method-c-where-label-Parameters">Parameters<span><a href="#method-c-where-label-Parameters">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
 <p><code>clauses</code> | Hash of attributes with appended predicates to
-search and sort by.</p>
+search, sort and include.</p>
 
-<h4 id="method-c-where-label-Valid+Equality+Searchable+Attributes">Valid Equality Searchable Attributes<span><a href="#method-c-where-label-Valid+Equality+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-where-label-Valid+Equality+Searchable+Attributes">Valid Equality Searchable Attributes<span><a href="#method-c-where-label-Valid+Equality+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>id</code></p>
 
@@ -306,7 +317,7 @@ search and sort by.</p>
 
 <p><code>risk_level</code> | Valid values are Low, Medium, High</p>
 
-<h4 id="method-c-where-label-Valid+Matching+Searchable+Attributes">Valid Matching Searchable Attributes<span><a href="#method-c-where-label-Valid+Matching+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-where-label-Valid+Matching+Searchable+Attributes">Valid Matching Searchable Attributes<span><a href="#method-c-where-label-Valid+Matching+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>description</code></p>
 
@@ -316,7 +327,7 @@ search and sort by.</p>
 
 <p><code>resolution</code></p>
 
-<h4 id="method-c-where-label-Valid+Sortable+Attributes">Valid Sortable Attributes<span><a href="#method-c-where-label-Valid+Sortable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-where-label-Valid+Sortable+Attributes">Valid Sortable Attributes<span><a href="#method-c-where-label-Valid+Sortable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>updated_at</code></p>
 
@@ -327,12 +338,16 @@ search and sort by.</p>
 <p><code>name</code></p>
 
 <p><code>risk_level</code></p>
+
+<h5 id="method-c-where-label-Valid+Includable+Associations">Valid Includable Associations<span><a href="#method-c-where-label-Valid+Includable+Associations">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
+
+<p><code>service</code></p>
           
           
 
           
           <div class="method-source-code" id="where-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 138</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/signature.rb, line 142</span>
     </pre>
           </div><!-- where-source -->
           

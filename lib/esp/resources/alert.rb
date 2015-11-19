@@ -42,7 +42,7 @@ module ESP
     #
     # ==== Parameters
     #
-    # +arguments+ | Required | An hash of search criteria to filter the returned collection. A `report_id must be proveded`
+    # +clauses+ | Required | Hash of attributes with appended predicates to search, sort and include.
     #
     # ===== Valid Arguments
     #
@@ -70,8 +70,22 @@ module ESP
     #
     # +signature_identifier+ | Not Required | Return only alerts for signatures with the given identifier.
     #
+    # ===== Valid Includable Associations
+    #
+    # +external_account+
+    #
+    # +region+
+    #
+    # +signature+
+    #
+    # +suppression+
+    #
+    # +cloud_trail_events+
+    #
+    # +tags+
+    #
     # ==== Example
-    #   alerts = ESP::Alert.where(report_id: 54, status: 'fail', signature_severity: 'High')
+    #   alerts = ESP::Alert.where(report_id: 54, status: 'fail', signature_severity: 'High', include: 'signature')
     def self.where(clauses = {})
       clauses = clauses.with_indifferent_access
       return super(clauses) if clauses[:from].present?
@@ -85,8 +99,28 @@ module ESP
     #
     # +id+ | Required | The ID of the alert to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # +external_account+
+    #
+    # +region+
+    #
+    # +signature+
+    #
+    # +suppression+
+    #
+    # +cloud_trail_events+
+    #
+    # +tags+
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
     def self.find(*arguments)
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access

@@ -197,7 +197,9 @@ espsdk:004:0> page4 = alerts.page(4)
 espsdk:004:0> alerts.current_page_number # => "25"
 espsdk:004:0> page4.current_page_number # => "4"
 ```
-    
+
+See ActiveResource::PaginatedCollection for all the pagination methods available.
+
 ## Associated Objects
 Most of the objects in the Evident.io SDK have a corresponding API call associated with it.  That means if you call an object's
 association, then that will make another API call.  For example:
@@ -223,10 +225,20 @@ espsdk:004:0> external_account = ESP::ExternalAccount.where(id_eq: 3, include: '
 ```
 
 With that call, organization, sub_organization and team will all come back in the response, and calling, `external_account.organization`,
-`external_account.sub_organization` and `external_account.team`, will not make another API call.  Most objects' find method accepts the
-+include+ option.
-    
-See the [**Documentation**](http://www.rubydoc.info/gems/esp_sdk/ESP/ActiveResource/PaginatedCollection.html) for all the pagination methods available.
+`external_account.sub_organization` and `external_account.team`, will not make another API call.
+
+You can nest include requests with the dot property. For example, requesting `external_account.team` on an alert will expand the `external_account` property into a full `External Account` object, and will then expand the `team` property on that external account into a full `Team` object.
+Deep nesting is available as well.  `external_account.team.organization`
+
+```ruby
+alert = ESP::Alert.find(1, include: 'tags,external_account.team')
+#=> <ESP::Alert:0x007fb82acd3298 @attributes={"id"=>"1", "type"=>"alerts"...}>
+
+alerts = ESP::Alert.where(report_id: 4, include: 'tags,external_account.team')
+#=> #<ActiveResource::PaginatedCollection:0x007fb82b0b54b0 @elements=[#<ESP::Alert:0x007fb82b0b1fb8 @attributes={"id"=>"1", "type"=>"alerts"...>
+```
+
+Most objects' find and where methods accept the +include+ option.  Those methods that accept the +include+ option are documented with the available associations that are includable.
 
 ## Filtering/Searching
 For objects that implement `where`, parameters can be passed that will filter the results based on the search criteria specified.
@@ -437,30 +449,30 @@ ESP::Signature.where(name_cont: 'dns', sorts: ['risk_level desc', 'created_at'])
 ```
 
 ## Available Objects
-* [ESP::Alert](http://www.rubydoc.info/gems/esp_sdk/ESP/Alert.html)
-* [ESP::CloudTrailEvent](http://www.rubydoc.info/gems/esp_sdk/ESP/CloudTrailEvent.html)
-* [ESP::ContactRequest](http://www.rubydoc.info/gems/esp_sdk/ESP/ContactRequest.html)
-* [ESP::CustomSignature](http://www.rubydoc.info/gems/esp_sdk/ESP/CustomSignature.html)
-* [ESP::Dashboard](http://www.rubydoc.info/gems/esp_sdk/ESP/Dashboard.html)
-* [ESP::ExternalAccount](http://www.rubydoc.info/gems/esp_sdk/ESP/ExternalAccount.html)
-* [ESP::Organization](http://www.rubydoc.info/gems/esp_sdk/ESP/Organization.html)
-* [ESP::Region](http://www.rubydoc.info/gems/esp_sdk/ESP/Region.html)
-* [ESP::Report](http://www.rubydoc.info/gems/esp_sdk/ESP/Report.html)
-* [ESP::Service](http://www.rubydoc.info/gems/esp_sdk/ESP/Service.html)
-* [ESP::Signature](http://www.rubydoc.info/gems/esp_sdk/ESP/Signature.html)
-* [ESP::Stat](http://www.rubydoc.info/gems/esp_sdk/ESP/Stat.html)
-* [ESP::Stat](http://www.rubydoc.info/gems/esp_sdk/ESP/StatCustomSignature.html)
-* [ESP::Stat](http://www.rubydoc.info/gems/esp_sdk/ESP/StatRegion.html)
-* [ESP::Stat](http://www.rubydoc.info/gems/esp_sdk/ESP/StatService.html)
-* [ESP::Stat](http://www.rubydoc.info/gems/esp_sdk/ESP/StatSignature.html)
-* [ESP::SubOrganization](http://www.rubydoc.info/gems/esp_sdk/ESP/SubOrganization.html)
-* [ESP::Suppression](http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression.html)
-* [ESP::Suppression::Region](http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression::Region.html)
-* [ESP::Suppression::Signature](http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression::Signature.html)
-* [ESP::Suppression::UniqueIdentifier](http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression::UniqueIdentifier.html)
-* [ESP::Tag](http://www.rubydoc.info/gems/esp_sdk/ESP/Tag.html)
-* [ESP::Team](http://www.rubydoc.info/gems/esp_sdk/ESP/Team.html)
-* [ESP::User](http://www.rubydoc.info/gems/esp_sdk/ESP/User.html)
+* ESP::Alert
+* ESP::CloudTrailEvent
+* ESP::ContactRequest
+* ESP::CustomSignature
+* ESP::Dashboard
+* ESP::ExternalAccount
+* ESP::Organization
+* ESP::Region
+* ESP::Report
+* ESP::Service
+* ESP::Signature
+* ESP::Stat
+* ESP::Stat
+* ESP::Stat
+* ESP::Stat
+* ESP::Stat
+* ESP::SubOrganization
+* ESP::Suppression
+* ESP::Suppression::Region
+* ESP::Suppression::Signature
+* ESP::Suppression::UniqueIdentifier
+* ESP::Tag
+* ESP::Team
+* ESP::User
 
 # Console
 The Evident.io SDK gem also provides an IRB console you can use if not using it in a Rails app.  Run it with `bin/esp_console`

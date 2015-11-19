@@ -222,7 +222,7 @@
 
           
           <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 75</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 97</span>
     </pre>
           </div><!-- all-source -->
           
@@ -256,7 +256,7 @@
 
 <p><code>attributes</code> | Required | A hash of team attributes</p>
 
-<h4 id="method-c-create-label-Valid+Attributes">Valid Attributes<span><a href="#method-c-create-label-Valid+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-create-label-Valid+Attributes">Valid Attributes<span><a href="#method-c-create-label-Valid+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>sub_organization_id</code> | Required | The ID of the sub
 organization to attach this team to</p>
@@ -267,7 +267,7 @@ organization to attach this team to</p>
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 112</span>
     </pre>
           </div><!-- create-source -->
           
@@ -284,7 +284,7 @@ organization to attach this team to</p>
         
         <div class="method-heading">
           <span class="method-callseq">
-            find(id)
+            find(id, options = {})
           </span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -300,12 +300,27 @@ organization to attach this team to</p>
 <h4 id="method-c-find-label-Parameter">Parameter<span><a href="#method-c-find-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
 <p><code>id</code> | Required | The ID of the team to retrieve</p>
+
+<p><code>options</code> | Optional | A hash of options</p>
+
+<h5 id="method-c-find-label-Valid+Options">Valid Options<span><a href="#method-c-find-label-Valid+Options">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
+
+<p><code>include</code> | The list of associated objects to return on the
+initial request.</p>
+
+<h5 id="method-c-find-label-Valid+Includable+Associations">Valid Includable Associations<span><a href="#method-c-find-label-Valid+Includable+Associations">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
+
+<p><code>organization</code></p>
+
+<p><code>sub_organization</code></p>
+
+<p><code>external_accounts</code></p>
           
           
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 72</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 94</span>
     </pre>
           </div><!-- find-source -->
           
@@ -339,25 +354,25 @@ parameters</p>
 <h4 id="method-c-where-label-Parameters">Parameters<span><a href="#method-c-where-label-Parameters">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
 <p><code>clauses</code> | Hash of attributes with appended predicates to
-search and sort by.</p>
+search, sort and include.</p>
 
-<h4 id="method-c-where-label-Valid+Equality+Searchable+Attributes">Valid Equality Searchable Attributes<span><a href="#method-c-where-label-Valid+Equality+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-where-label-Valid+Equality+Searchable+Attributes">Valid Equality Searchable Attributes<span><a href="#method-c-where-label-Valid+Equality+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>id</code></p>
 
 <p><code>name</code></p>
 
-<h4 id="method-c-where-label-Valid+Matching+Searchable+Attributes">Valid Matching Searchable Attributes<span><a href="#method-c-where-label-Valid+Matching+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-where-label-Valid+Matching+Searchable+Attributes">Valid Matching Searchable Attributes<span><a href="#method-c-where-label-Valid+Matching+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>name</code></p>
 
-<h4 id="method-c-where-label-Valid+Sortable+Attributes">Valid Sortable Attributes<span><a href="#method-c-where-label-Valid+Sortable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-where-label-Valid+Sortable+Attributes">Valid Sortable Attributes<span><a href="#method-c-where-label-Valid+Sortable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>updated_at</code></p>
 
 <p><code>created_at</code></p>
 
-<h4 id="method-c-where-label-Valid+Searchable+Relationships">Valid Searchable Relationships<span><a href="#method-c-where-label-Valid+Searchable+Relationships">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-where-label-Valid+Searchable+Relationships">Valid Searchable Relationships<span><a href="#method-c-where-label-Valid+Searchable+Relationships">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>organization</code> | See <a
 href="Organization.html">Organization</a> `where` for searchable
@@ -366,12 +381,20 @@ attributes.</p>
 <p><code>sub_organizations</code> | See <a
 href="SubOrganization.html">SubOrganization</a> `where` for searchable
 attributes.</p>
+
+<h5 id="method-c-where-label-Valid+Includable+Associations">Valid Includable Associations<span><a href="#method-c-where-label-Valid+Includable+Associations">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
+
+<p><code>organization</code></p>
+
+<p><code>sub_organization</code></p>
+
+<p><code>external_accounts</code></p>
           
           
 
           
           <div class="method-source-code" id="where-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 61</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 69</span>
     </pre>
           </div><!-- where-source -->
           
@@ -448,7 +471,7 @@ href="Report.html">Report</a> object with the errors object populated.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 110</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 132</span>
   </pre>
           </div><!-- destroy-source -->
           
@@ -573,11 +596,11 @@ belong to the team.</p>
           
           <p>Create and update a <a href="Team.html">Team</a>.</p>
 
-<h4 id="method-i-save-label-Valid+Attributes+when+updating">Valid Attributes when updating<span><a href="#method-i-save-label-Valid+Attributes+when+updating">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-i-save-label-Valid+Attributes+when+updating">Valid Attributes when updating<span><a href="#method-i-save-label-Valid+Attributes+when+updating">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>name</code> | Required | The new name of the team</p>
 
-<h4 id="method-i-save-label-Valid+Attributes+when+creating">Valid Attributes when creating<span><a href="#method-i-save-label-Valid+Attributes+when+creating">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-i-save-label-Valid+Attributes+when+creating">Valid Attributes when creating<span><a href="#method-i-save-label-Valid+Attributes+when+creating">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>sub_organization_id</code> | Required | The ID of the sub
 organization to attach this team to</p>
@@ -593,7 +616,7 @@ team.save</pre>
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 108</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/team.rb, line 130</span>
     </pre>
           </div><!-- save-source -->
           

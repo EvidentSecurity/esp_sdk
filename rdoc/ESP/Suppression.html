@@ -234,7 +234,7 @@
 
           
           <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 127</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 161</span>
   </pre>
           </div><!-- all-source -->
           
@@ -251,7 +251,7 @@
         
         <div class="method-heading">
           <span class="method-callseq">
-            find(id)
+            find(id, options = {})
           </span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -267,12 +267,33 @@
 <h4 id="method-c-find-label-Parameter">Parameter<span><a href="#method-c-find-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
 <p><code>id</code> | Required | The ID of the suppression to retrieve</p>
+
+<p><code>options</code> | Optional | A hash of options</p>
+
+<h5 id="method-c-find-label-Valid+Options">Valid Options<span><a href="#method-c-find-label-Valid+Options">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
+
+<p><code>include</code> | The list of associated objects to return on the
+initial request.</p>
+
+<h5 id="method-c-find-label-Valid+Includable+Associations">Valid Includable Associations<span><a href="#method-c-find-label-Valid+Includable+Associations">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
+
+<p><code>organization</code></p>
+
+<p><code>created_by</code></p>
+
+<p><code>external_accounts</code></p>
+
+<p><code>regions</code></p>
+
+<p><code>signatures</code></p>
+
+<p><code>custom_signatures</code></p>
           
           
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 125</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 159</span>
     </pre>
           </div><!-- find-source -->
           
@@ -306,9 +327,9 @@ by search parameters</p>
 <h4 id="method-c-where-label-Parameters">Parameters<span><a href="#method-c-where-label-Parameters">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
 <p><code>clauses</code> | Hash of attributes with appended predicates to
-search and sort by.</p>
+search, sort and include.</p>
 
-<h4 id="method-c-where-label-Valid+Equality+Searchable+Attributes">Valid Equality Searchable Attributes<span><a href="#method-c-where-label-Valid+Equality+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-where-label-Valid+Equality+Searchable+Attributes">Valid Equality Searchable Attributes<span><a href="#method-c-where-label-Valid+Equality+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>id</code></p>
 
@@ -317,18 +338,18 @@ search and sort by.</p>
 <p><code>suppression_type</code> | Possible values are unique_identifiers,
 regions, and signatures</p>
 
-<h4 id="method-c-where-label-Valid+Matching+Searchable+Attributes">Valid Matching Searchable Attributes<span><a href="#method-c-where-label-Valid+Matching+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-where-label-Valid+Matching+Searchable+Attributes">Valid Matching Searchable Attributes<span><a href="#method-c-where-label-Valid+Matching+Searchable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>resource</code></p>
 
 <p><code>suppression_type</code> | Possible values are unique_identifiers,
 regions, and signatures</p>
 
-<h4 id="method-c-where-label-Valid+Sortable+Attributes">Valid Sortable Attributes<span><a href="#method-c-where-label-Valid+Sortable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-where-label-Valid+Sortable+Attributes">Valid Sortable Attributes<span><a href="#method-c-where-label-Valid+Sortable+Attributes">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>updated_at</code></p>
 
-<h4 id="method-c-where-label-Valid+Searchable+Relationships">Valid Searchable Relationships<span><a href="#method-c-where-label-Valid+Searchable+Relationships">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+<h5 id="method-c-where-label-Valid+Searchable+Relationships">Valid Searchable Relationships<span><a href="#method-c-where-label-Valid+Searchable+Relationships">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
 
 <p><code>created_by</code> | See <a href="User.html">User</a> `where` for
 searchable attributes.</p>
@@ -339,12 +360,26 @@ searchable attributes.</p>
 <p><code>signatures</code> | See <a
 href="Suppression/Signature.html">Signature</a> `where` for searchable
 attributes.</p>
+
+<h5 id="method-c-where-label-Valid+Includable+Associations">Valid Includable Associations<span><a href="#method-c-where-label-Valid+Includable+Associations">&para;</a> <a href="#documentation">&uarr;</a></span></h5>
+
+<p><code>organization</code></p>
+
+<p><code>created_by</code></p>
+
+<p><code>external_accounts</code></p>
+
+<p><code>regions</code></p>
+
+<p><code>signatures</code></p>
+
+<p><code>custom_signatures</code></p>
           
           
 
           
           <div class="method-source-code" id="where-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 128</span>
     </pre>
           </div><!-- where-source -->
           

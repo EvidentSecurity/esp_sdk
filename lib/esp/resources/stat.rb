@@ -42,10 +42,42 @@ module ESP
     # Not Implemented. You cannot delete a Stat.
 
     # Returns all the stats of all the alerts for a report identified by the report_id parameter. Said report contains all statistics for this alert triggered from signatures contained in all regions for the selected hour.
-    def self.for_report(report_id = nil)
+    #
+    # ==== Parameters
+    #
+    # +report_id+ | Required | The ID of the report to retrieve stats for
+    #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== valid Includable Associations
+    #
+    # +report+
+    #
+    # +regions+
+    #
+    # +regions.region+
+    #
+    # +services+
+    #
+    # +services.service+
+    #
+    # +signatures+
+    #
+    # +signatures.signature+
+    #
+    # +custom_signatures+
+    #
+    # +custom_signatures.custom_signature+
+    #
+    # See the Associated Objects section of the README for more information on including objects.
+    def self.for_report(report_id = nil, options = {})
       fail ArgumentError, "You must supply a report id." unless report_id.present?
       # call find_one directly since find is overriden/not implemented
-      find_one(from: "#{prefix}reports/#{report_id}/stats.json_api")
+      find_one(from: "#{prefix}reports/#{report_id}/stats.json_api", params: options)
     end
 
     # Returns all the stats for the most recent report of each team accessible by the given API key.

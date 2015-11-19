@@ -21,27 +21,33 @@ module ESP
     #
     # ==== Parameters
     #
-    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
     #
-    # ==== Valid Equality Searchable Attributes
+    # ===== Valid Equality Searchable Attributes
     #
     # +id+
     #
     # +name+
     #
-    # ==== Valid Matching Searchable Attributes
+    # ===== Valid Matching Searchable Attributes
     #
     # +name+
     #
-    # ==== Valid Sortable Attributes
+    # ===== Valid Sortable Attributes
     #
     # +updated_at+
     #
     # +created_at+
     #
-    # ==== Valid Searchable Relationships
+    # ===== Valid Searchable Relationships
     #
     # +organization+ | See Organization `where` for searchable attributes.
+    #
+    # ===== Valid Includable Associations
+    #
+    # +organization+
+    #
+    # +teams+
     #
     # :call-seq:
     #  where(clauses = {})
@@ -54,8 +60,20 @@ module ESP
     #
     # +id+ | Required | The ID of the sub organization to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # +organization+
+    #
+    # +teams+
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated SubOrganization list

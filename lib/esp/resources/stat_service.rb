@@ -2,6 +2,7 @@ module ESP
   class StatService < ESP::Resource
     include ESP::StatTotals
 
+    ##
     # The service these stats are for.
     belongs_to :service, class_name: 'ESP::Service'
 
@@ -17,12 +18,22 @@ module ESP
     #
     # +stat_id+ | Required | The ID of the stat to list service stats for
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== valid Includable Associations
+    #
+    # +service+
+    #
     # ==== Example
     #   stats = ESP::StatService.for_stat(1194)
-    def self.for_stat(stat_id = nil)
+    def self.for_stat(stat_id = nil, options = {})
       fail ArgumentError, "You must supply a stat id." unless stat_id.present?
       from = "#{prefix}stats/#{stat_id}/services.json_api"
-      find(:all, from: from)
+      find(:all, from: from, params: options)
     end
 
     # Find a StatService by id
@@ -31,8 +42,18 @@ module ESP
     #
     # +id+ | Required | The ID of the service stat to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== valid Includable Associations
+    #
+    # +custom_signature+
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
     def self.find(*arguments)
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access

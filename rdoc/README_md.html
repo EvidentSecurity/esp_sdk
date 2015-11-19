@@ -388,6 +388,10 @@ original object.</p>
 <span class="ruby-identifier">espsdk</span>:<span class="ruby-value">004</span><span class="ruby-operator">:</span><span class="ruby-value">0</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">page4</span>.<span class="ruby-identifier">current_page_number</span> <span class="ruby-comment"># =&gt; &quot;4&quot;</span>
 </pre>
 
+<p>See <a
+href="ActiveResource/PaginatedCollection.html">ActiveResource::PaginatedCollection</a>
+for all the pagination methods available.</p>
+
 <h2 id="label-Associated+Objects">Associated Objects<span><a href="#label-Associated+Objects">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
 
 <p>Most of the objects in the Evident.io SDK have a corresponding API call
@@ -422,13 +426,26 @@ of the relations wanted in an
 in the response, and calling,
 <code>external_account.organization</code>,
 <code>external_account.sub_organization</code>
-and <code>external_account.team</code>, will not make another API call.
-Most objects&#39; find method accepts the
-<code>include</code> option.</p>
+and <code>external_account.team</code>, will not make another API call.</p>
 
-<p>See the <a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/ActiveResource/PaginatedCollection.html">Documentation</a>
-for all the pagination methods available.</p>
+<p>You can nest include requests with the dot property. For example,
+requesting <code>external_account.team</code> on an alert will expand the
+<code>external_account</code> property into a full <code>External
+Account</code> object, and will then expand the <code>team</code> property
+on that external account into a full <code>Team</code> object.
+Deep nesting
+is available as well. <code>external_account.team.organization</code></p>
+
+<pre class="ruby"><span class="ruby-identifier">alert</span> = <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Alert</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">1</span>, <span class="ruby-identifier">include</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;tags,external_account.team&#39;</span>)
+<span class="ruby-comment">#=&gt; &lt;ESP::Alert:0x007fb82acd3298 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;alerts&quot;...}&gt;</span>
+
+<span class="ruby-identifier">alerts</span> = <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Alert</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">report_id</span><span class="ruby-operator">:</span> <span class="ruby-value">4</span>, <span class="ruby-identifier">include</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;tags,external_account.team&#39;</span>)
+<span class="ruby-comment">#=&gt; #&lt;ActiveResource::PaginatedCollection:0x007fb82b0b54b0 @elements=[#&lt;ESP::Alert:0x007fb82b0b1fb8 @attributes={&quot;id&quot;=&gt;&quot;1&quot;, &quot;type&quot;=&gt;&quot;alerts&quot;...&gt;</span>
+</pre>
+
+<p>Most objects&#39; find and where methods accept the <code>include</code>
+option. Those methods that accept the <code>include</code> option are
+documented with the available associations that are includable.</p>
 
 <h2 id="label-Filtering%2FSearching">Filtering/Searching<span><a href="#label-Filtering%2FSearching">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
 
@@ -655,73 +672,54 @@ the field to sort by to the <code>filter</code> parameter.</p>
 
 <h2 id="label-Available+Objects">Available Objects<span><a href="#label-Available+Objects">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
 <ul><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/Alert.html">ESP::Alert</a></p>
+<p><a href="ESP/Alert.html">ESP::Alert</a></p>
+</li><li>
+<p><a href="ESP/CloudTrailEvent.html">ESP::CloudTrailEvent</a></p>
+</li><li>
+<p><a href="ESP/ContactRequest.html">ESP::ContactRequest</a></p>
+</li><li>
+<p><a href="ESP/CustomSignature.html">ESP::CustomSignature</a></p>
+</li><li>
+<p><a href="ESP/Dashboard.html">ESP::Dashboard</a></p>
+</li><li>
+<p><a href="ESP/ExternalAccount.html">ESP::ExternalAccount</a></p>
+</li><li>
+<p><a href="ESP/Organization.html">ESP::Organization</a></p>
+</li><li>
+<p><a href="ESP/Region.html">ESP::Region</a></p>
+</li><li>
+<p><a href="ESP/Report.html">ESP::Report</a></p>
+</li><li>
+<p><a href="ESP/Service.html">ESP::Service</a></p>
+</li><li>
+<p><a href="ESP/Signature.html">ESP::Signature</a></p>
+</li><li>
+<p><a href="ESP/Stat.html">ESP::Stat</a></p>
+</li><li>
+<p><a href="ESP/Stat.html">ESP::Stat</a></p>
+</li><li>
+<p><a href="ESP/Stat.html">ESP::Stat</a></p>
+</li><li>
+<p><a href="ESP/Stat.html">ESP::Stat</a></p>
+</li><li>
+<p><a href="ESP/Stat.html">ESP::Stat</a></p>
+</li><li>
+<p><a href="ESP/SubOrganization.html">ESP::SubOrganization</a></p>
+</li><li>
+<p><a href="ESP/Suppression.html">ESP::Suppression</a></p>
+</li><li>
+<p><a href="ESP/Suppression/Region.html">ESP::Suppression::Region</a></p>
+</li><li>
+<p><a href="ESP/Suppression/Signature.html">ESP::Suppression::Signature</a></p>
 </li><li>
 <p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/CloudTrailEvent.html">ESP::CloudTrailEvent</a></p>
+href="ESP/Suppression/UniqueIdentifier.html">ESP::Suppression::UniqueIdentifier</a></p>
 </li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/ContactRequest.html">ESP::ContactRequest</a></p>
+<p><a href="ESP/Tag.html">ESP::Tag</a></p>
 </li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/CustomSignature.html">ESP::CustomSignature</a></p>
+<p><a href="ESP/Team.html">ESP::Team</a></p>
 </li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/Dashboard.html">ESP::Dashboard</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/ExternalAccount.html">ESP::ExternalAccount</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/Organization.html">ESP::Organization</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/Region.html">ESP::Region</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/Report.html">ESP::Report</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/Service.html">ESP::Service</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/Signature.html">ESP::Signature</a></p>
-</li><li>
-<p><a href="http://www.rubydoc.info/gems/esp_sdk/ESP/Stat.html">ESP::Stat</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/StatCustomSignature.html">ESP::Stat</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/StatRegion.html">ESP::Stat</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/StatService.html">ESP::Stat</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/StatSignature.html">ESP::Stat</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/SubOrganization.html">ESP::SubOrganization</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression.html">ESP::Suppression</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression::Region.html">ESP::Suppression::Region</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression::Signature.html">ESP::Suppression::Signature</a></p>
-</li><li>
-<p><a
-href="http://www.rubydoc.info/gems/esp_sdk/ESP/Suppression::UniqueIdentifier.html">ESP::Suppression::UniqueIdentifier</a></p>
-</li><li>
-<p><a href="http://www.rubydoc.info/gems/esp_sdk/ESP/Tag.html">ESP::Tag</a></p>
-</li><li>
-<p><a href="http://www.rubydoc.info/gems/esp_sdk/ESP/Team.html">ESP::Team</a></p>
-</li><li>
-<p><a href="http://www.rubydoc.info/gems/esp_sdk/ESP/User.html">ESP::User</a></p>
+<p><a href="ESP/User.html">ESP::User</a></p>
 </li></ul>
 
 <h1 id="label-Console">Console<span><a href="#label-Console">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
