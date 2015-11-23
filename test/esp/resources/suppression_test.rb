@@ -63,6 +63,18 @@ module ESP
             assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
+
+        should 'not call the api if it was returned in an include' do
+          stub_request(:get, %r{suppressions/1.json_api*}).to_return(body: json(:suppression, :with_include))
+          suppression = ESP::Suppression.find(1)
+          stub_request(:put, /regions.json_api*/)
+
+          assert_not_nil suppression.attributes['regions']
+
+          suppression.regions
+
+          assert_not_requested(:put, /regions.json_api*/)
+        end
       end
 
       context '#external_accounts' do
@@ -76,6 +88,18 @@ module ESP
             body = JSON.parse(req.body)
             assert_equal [1, 2], body["filter"]["id_in"]
           end
+        end
+
+        should 'not call the api if it was returned in an include' do
+          stub_request(:get, %r{suppressions/1.json_api*}).to_return(body: json(:suppression, :with_include))
+          suppression = ESP::Suppression.find(1)
+          stub_request(:put, /external_accounts.json_api*/)
+
+          assert_not_nil suppression.attributes['external_accounts']
+
+          suppression.external_accounts
+
+          assert_not_requested(:put, /external_accounts.json_api*/)
         end
       end
 
@@ -91,6 +115,18 @@ module ESP
             assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
+
+        should 'not call the api if it was returned in an include' do
+          stub_request(:get, %r{suppressions/1.json_api*}).to_return(body: json(:suppression, :with_include))
+          suppression = ESP::Suppression.find(1)
+          stub_request(:put, /signatures.json_api*/)
+
+          assert_not_nil suppression.attributes['signatures']
+
+          suppression.signatures
+
+          assert_not_requested(:put, /signatures.json_api*/)
+        end
       end
 
       context '#custom_signatures' do
@@ -104,6 +140,18 @@ module ESP
             body = JSON.parse(req.body)
             assert_equal [1, 2], body["filter"]["id_in"]
           end
+        end
+
+        should 'not call the api if it was returned in an include' do
+          stub_request(:get, %r{suppressions/1.json_api*}).to_return(body: json(:suppression, :with_include))
+          suppression = ESP::Suppression.find(1)
+          stub_request(:put, /custom_signatures.json_api*/)
+
+          assert_not_nil suppression.attributes['custom_signatures']
+
+          suppression.custom_signatures
+
+          assert_not_requested(:put, /custom_signatures.json_api*/)
         end
       end
 

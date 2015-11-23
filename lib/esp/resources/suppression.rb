@@ -11,6 +11,8 @@ module ESP
     ##
     # The regions affected by this suppression.
     def regions
+      # When regions come back in an include, the method still gets called, to return the object from the attributes.
+      return attributes['regions'] if attributes['regions'].present?
       return [] unless respond_to? :region_ids
       ESP::Region.where(id_in: region_ids)
     end
@@ -18,6 +20,8 @@ module ESP
     ##
     # The external accounts affected by this suppression.
     def external_accounts
+      # When external_accounts come back in an include, the method still gets called, to return the object from the attributes.
+      return attributes['external_accounts'] if attributes['external_accounts'].present?
       return [] unless respond_to? :external_account_ids
       ESP::ExternalAccount.where(id_in: external_account_ids)
     end
@@ -25,6 +29,8 @@ module ESP
     ##
     # The signatures being suppressed.
     def signatures
+      # When signatures come back in an include, the method still gets called, to return the object from the attributes.
+      return attributes['signatures'] if attributes['signatures'].present?
       return [] unless respond_to? :signature_ids
       ESP::Signature.where(id_in: signature_ids)
     end
@@ -32,6 +38,8 @@ module ESP
     ##
     # The custom signatures being suppressed.
     def custom_signatures
+      # When custom_signatures come back in an include, the method still gets called, to return the object from the attributes.
+      return attributes['custom_signatures'] if attributes['custom_signatures'].present?
       return [] unless respond_to? :custom_signature_ids
       ESP::CustomSignature.where(id_in: custom_signature_ids)
     end

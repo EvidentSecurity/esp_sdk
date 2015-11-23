@@ -26,7 +26,7 @@ module ActiveResource
     #   alerts.current_page_number # => 5
     #   first_page.current_page_number # => 1
     def first_page
-      previous_page? ? resource_class.where(original_params.merge({ from: from, page: { number: 1 } })) : self
+      previous_page? ? resource_class.where(original_params.merge(from: from, page: { number: 1 })) : self
     end
 
     # Updates the existing PaginatedCollection object with the first page of data when not on the first page.

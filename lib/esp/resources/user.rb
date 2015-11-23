@@ -17,12 +17,14 @@ module ESP
     ##
     # The collection of sub organizations that belong to the user.
     def sub_organizations
+      return attributes['sub_organizations'] if attributes['sub_organizations'].present?
       SubOrganization.where(id_in: sub_organization_ids)
     end
 
     ##
     # The collection of teams that belong to the user.
     def teams
+      return attributes['teams'] if attributes['teams'].present?
       Team.where(id_in: team_ids)
     end
 

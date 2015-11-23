@@ -30,7 +30,7 @@ module ESP
     #
     # ==== Example
     #   stats = ESP::StatSignature.for_stat(1194)
-    def self.for_stat(stat_id = nil, options = {})
+    def self.for_stat(stat_id = nil, options = {}) # rubocop:disable Style/OptionHash
       fail ArgumentError, "You must supply a stat id." unless stat_id.present?
       from = "#{prefix}stats/#{stat_id}/signatures.json_api"
       find(:all, from: from, params: options)

@@ -122,6 +122,76 @@ FactoryGirl.define do
           }
         },
         {
+          id: '5',
+          type: "teams",
+          name: "Default Team",
+          created_at: "2015-09-11T21:12:15.183Z",
+          updated_at: "2015-09-11T21:12:15.183Z",
+          relationships: {
+            sub_organization: {
+              data: {
+                type: "sub_organizations",
+                id: "5"
+              },
+              links: {
+                related: "http://localhost:3000/api/v2/sub_organizations/2.json_api"
+              }
+            },
+            organization: {
+              data: {
+                type: "organizations",
+                id: "5"
+              },
+              links: {
+                related: "http://localhost:3000/api/v2/organizations/2.json_api"
+              }
+            }
+          }
+        },
+        {
+          id: '5',
+          type: "organizations",
+          created_at: "2015-09-11T21:12:15.183Z",
+          name: "Test Org",
+          updated_at: "2015-09-11T21:12:15.183Z",
+          relationships: {
+            sub_organizations: {
+              data: [
+                {
+                  type: "sub_organizations",
+                  id: "24"
+                },
+                {
+                  type: "sub_organizations",
+                  id: "2"
+                }
+              ],
+              links: {
+                related: "http://localhost:3000/api/v2/sub_organizations.json?filter%5Borganization_id_eq%5D=2"
+              }
+            },
+            teams: {
+              data: [
+                {
+                  type: "teams",
+                  id: "2"
+                },
+                {
+                  type: "teams",
+                  id: "20"
+                },
+                {
+                  type: "teams",
+                  id: "21"
+                }
+              ],
+              links: {
+                related: "http://localhost:3000/api/v2/teams.json?filter%5Borganization_id_eq%5D=2"
+              }
+            }
+          }
+        },
+        {
           id: "1014",
           type: "regions",
           attributes: {

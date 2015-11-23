@@ -132,9 +132,7 @@ module ActiveResource
             assert_equal '1', alerts.current_page_number
             assert_requested(:put, %r{reports/#{report.id}/alerts.json_api*}) do |req|
               body = JSON.parse(req.body)
-              if body.present? # The first call will not have a body, only the second call
-                assert_equal 1, body["page"]["number"]
-              end
+              assert_equal 1, body["page"]["number"] if body.present? # The first call will not have a body, only the second call
             end
           end
         end

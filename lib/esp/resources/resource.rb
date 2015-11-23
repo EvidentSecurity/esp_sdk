@@ -23,7 +23,7 @@ module ESP
     end
 
     def self.where(clauses = {})
-      raise ArgumentError, "expected a clauses Hash, got #{clauses.inspect}" unless clauses.is_a? Hash
+      fail ArgumentError, "expected a clauses Hash, got #{clauses.inspect}" unless clauses.is_a? Hash
       from = clauses.delete(:from) || "#{prefix}#{name.demodulize.pluralize.underscore}"
       clauses = { params: clauses }
       arrange_options(clauses)
@@ -58,7 +58,7 @@ module ESP
       { filter: h }
     end
 
-    def self.make_pageable(object, options = {})
+    def self.make_pageable(object, options = {}) # rubocop:disable Style/OptionHash
       options = options.with_indifferent_access
       return object unless object.is_a? ActiveResource::PaginatedCollection
       # Need to set from so paginated collection can use it for page calls.

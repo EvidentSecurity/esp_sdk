@@ -16,12 +16,12 @@ module ESP
         fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use the ESP::Suppression object to search suppressions'
       end
 
-# Not Implemented. You cannot update a Suppression::UniqueIdentifier.
+      # Not Implemented. You cannot update a Suppression::UniqueIdentifier.
       def update
         fail ESP::NotImplementedError
       end
 
-# Not Implemented. You cannot destroy a Suppression::UniqueIdentifier.
+      # Not Implemented. You cannot destroy a Suppression::UniqueIdentifier.
       def destroy
         fail ESP::NotImplementedError
       end
