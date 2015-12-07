@@ -40,5 +40,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rack'
   spec.add_dependency 'awesome_print'
   spec.add_dependency 'artii'
-  spec.add_dependency 'catpix'
+  spec.add_dependency 'catpix' if `which convert` =~ /convert/  # Only install if imagemagic is installed.
 end

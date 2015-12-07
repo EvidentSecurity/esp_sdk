@@ -475,7 +475,7 @@ ESP::Signature.where(name_cont: 'dns', sorts: ['risk_level desc', 'created_at'])
 * ESP::User
 
 # Console
-The Evident.io SDK gem also provides an IRB console you can use if not using it in a Rails app.  Run it with `bin/esp_console`
+The Evident.io SDK gem also provides an IRB console you can use if not using it in a Rails app.  Run it with `esp_console`
 
 
 ## Contributing
