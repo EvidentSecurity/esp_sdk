@@ -1,16 +1,16 @@
 module ESP
   class Metadata < ESP::Resource
-    # Not Implemented. You cannot search for a CloudTrailEvent.
+    # Not Implemented. You cannot search for Metadata.
     def self.where(*)
       fail ESP::NotImplementedError
     end
 
-    # Not Implemented. You cannot create or update a CloudTrailEvent.
+    # Not Implemented. You cannot create or update Metadata.
     def save
       fail ESP::NotImplementedError
     end
 
-    # Not Implemented. You cannot destroy a CloudTrailEvent.
+    # Not Implemented. You cannot destroy Metadata.
     def destroy
       fail ESP::NotImplementedError
     end
