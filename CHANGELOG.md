@@ -6,8 +6,6 @@
 ### Added
 - Separate Metadata object
 - Metadata relationship to the Alert object.
-
-### Added
 - Set the User-Agent header to "Ruby SDK #{ESP::VERSION}"
 
 ### Removed
