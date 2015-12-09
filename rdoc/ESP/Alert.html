@@ -85,6 +85,8 @@
     
     <li ><a href="#method-i-external_account">#external_account</a>
     
+    <li ><a href="#method-i-metadata">#metadata</a>
+    
     <li ><a href="#method-i-region">#region</a>
     
     <li ><a href="#method-i-save">#save</a>
@@ -141,6 +143,8 @@
     <li><a href="../ESP/Dashboard.html">ESP::Dashboard</a>
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
+  
+    <li><a href="../ESP/Metadata.html">ESP::Metadata</a>
   
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
@@ -240,7 +244,7 @@
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 96</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>)
   <span class="ruby-identifier">scope</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>)
   <span class="ruby-identifier">options</span> = (<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">with_indifferent_access</span>
@@ -328,7 +332,7 @@ signatures with the given identifier.</p>
 
           
           <div class="method-source-code" id="for_report-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 76</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 82</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_report</span>(<span class="ruby-identifier">report_id</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">arguments</span> = {})
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply a report id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">report_id</span>.<span class="ruby-identifier">present?</span>
   <span class="ruby-identifier">from</span> = <span class="ruby-node">&quot;#{prefix}reports/#{report_id}/alerts.json&quot;</span>
@@ -435,7 +439,7 @@ signature or custom signature but not both will be present.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 37</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -479,6 +483,39 @@ signature or custom signature but not both will be present.</p>
 
         
       </div><!-- external_account-method -->
+
+    
+      <div id="method-i-metadata" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">metadata</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the metadata associated with this alert.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="metadata-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">metadata</span>
+  <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Metadata</span>.<span class="ruby-identifier">for_alert</span>(<span class="ruby-identifier">id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- metadata-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- metadata-method -->
 
     
       <div id="method-i-region" class="method-detail ">
@@ -533,7 +570,7 @@ href="Alert.html">Alert</a>.</p>
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 32</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -603,7 +640,7 @@ custom signature but not both will be present.</p>
 
           
           <div class="method-source-code" id="suppress_region-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 111</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 117</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_region</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">Region</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -640,7 +677,7 @@ custom signature but not both will be present.</p>
 
           
           <div class="method-source-code" id="suppress_signature-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 103</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 109</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_signature</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -677,7 +714,7 @@ custom signature but not both will be present.</p>
 
           
           <div class="method-source-code" id="suppress_unique_identifier-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 119</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/alert.rb, line 125</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">suppress_unique_identifier</span>(<span class="ruby-identifier">reason</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">suppress</span>(<span class="ruby-constant">Suppression</span><span class="ruby-operator">::</span><span class="ruby-constant">UniqueIdentifier</span>, <span class="ruby-identifier">reason</span>)
 <span class="ruby-keyword">end</span></pre>

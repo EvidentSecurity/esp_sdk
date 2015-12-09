@@ -8,7 +8,6 @@ FactoryGirl.define do
     status "fail"
     resource "resource-3"
     updated_at nil
-    metadata { { abc: 123 } }
     started_at { Time.current }
     ended_at nil
     relationships do
@@ -47,6 +46,11 @@ FactoryGirl.define do
           },
           links: {
             related: "http://test.host/api/v2/suppressions/1.json"
+          }
+        },
+        metadata: {
+          links: {
+            related: "http://test.host/api/v2/alerts/1017/metadata.json"
           }
         },
         cloud_trail_events: {

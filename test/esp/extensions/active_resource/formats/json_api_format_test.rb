@@ -7,13 +7,13 @@ module ActiveResource
         context '# decode' do
           context 'with ESP::Suppression' do
             should 'parse nested objects correctly' do
-              json = json(:alert)
+              json = json(:dashboard)
               parsed_json = JSON.parse(json)
-              stub_request(:get, %r{alerts/5.json*}).to_return(body: json)
+              stub_request(:get, %r{dashboard/recent.json*}).to_return(body: json_list(:dashboard, 1))
 
-              alert = ESP::Alert.find(5)
+              dashboard = ESP::Dashboard.recent
 
-              assert_equal parsed_json['data']['attributes']['metadata']['abc'], alert.metadata.abc
+              assert_equal parsed_json['included'].first['attributes']['stat_signatures'].first['signature']['name'], dashboard.first.stat.stat_signatures.first.signature.name
             end
           end
 

@@ -1,14 +1,21 @@
 FactoryGirl.define do
-  factory :cloud_trail_event, class: 'ESP::CloudTrailEvent' do
+  factory :contact_request, class: 'ESP::ContactRequest' do
     skip_create
 
     sequence(:id) { |n| n }
-    type "cloud_trail_events"
-    event_id "1"
-    event_name "1"
-    event_time { Time.current }
-    username "johndoe"
-    ip_address "123.0.0.123"
-    user_agent "Chrome"
+    type "contact_requests"
+    title "Test title"
+    request_type "bug"
+    description "Test description"
+    created_at { Time.current }
+    updated_at { Time.current }
+    relationships do
+      { user: {
+        links: {
+          related: "http://test.host/api/v2/users/1001.json"
+        }
+      }
+      }
+    end
   end
 end
