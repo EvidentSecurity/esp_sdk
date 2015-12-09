@@ -14,6 +14,16 @@ module ESP
           end
         end
 
+        should 'set the User-Agent' do
+          stub_request(:get, %r{teams/3.json*}).to_return(body: json(:team))
+
+          ESP::Team.find(3)
+
+          assert_requested(:get, %r{teams/3.json*}) do |req|
+            assert_equal "Ruby SDK #{ESP::VERSION}", req.headers['User-Agent']
+          end
+        end
+
         should 'set the HMAC needed Authorization header' do
           ESP.access_key_id ||= ApiAuth.generate_secret_key
           ESP.secret_access_key ||= ApiAuth.generate_secret_key
