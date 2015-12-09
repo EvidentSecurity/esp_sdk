@@ -168,7 +168,7 @@ module ESP
           should 'return regions' do
             r = @s.regions
 
-            assert_equal @s.relationships.regions.data.map(&:id).sort, r.map(&:id).sort
+            assert_equal ESP::Region, r.resource_class unless r == []
           end
         end
 
@@ -176,7 +176,7 @@ module ESP
           should 'return external_accounts' do
             e = @s.external_accounts
 
-            assert_equal @s.relationships.external_accounts.data.map(&:id).sort, e.map(&:id).sort
+            assert_equal ESP::ExternalAccount, e.resource_class
           end
         end
 
@@ -184,7 +184,7 @@ module ESP
           should 'return signatures' do
             s = @s.signatures
 
-            assert_equal @s.relationships.signatures.data.map(&:id).sort, s.map(&:id).sort
+            assert_equal ESP::Signature, s.resource_class unless s == []
           end
         end
 
@@ -192,7 +192,7 @@ module ESP
           should 'return custom_signatures' do
             cs = @s.custom_signatures
 
-            assert_equal @s.relationships.custom_signatures.data.map(&:id).sort, cs.map(&:id).sort
+            assert_equal ESP::CustomSignature, cs.resource_class unless cs == []
           end
         end
 
