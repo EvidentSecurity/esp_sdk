@@ -28,6 +28,12 @@ module ESP
     # Returns the tags associated with this alert.
     has_many :tags, class_name: 'ESP::Tag'
 
+    ##
+    # Returns the metadata associated with this alert.
+    def metadata
+      ESP::Metadata.for_alert(id)
+    end
+
     # Not Implemented. You cannot create or update an Alert.
     def save
       fail ESP::NotImplementedError

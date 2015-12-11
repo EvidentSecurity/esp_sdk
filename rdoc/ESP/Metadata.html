@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class ESP::Service - ESPSDK</title>
+<title>class ESP::Metadata - ESPSDK</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -49,7 +49,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/esp/resources/service.rb
+    <li>lib/esp/resources/metadata.rb
   </ul>
 </nav>
 
@@ -73,17 +73,15 @@
 
   <ul class="link-list">
     
-    <li ><a href="#method-c-all">::all</a>
+    <li class="calls-super" ><a href="#method-c-find">::find</a>
     
-    <li ><a href="#method-c-find">::find</a>
+    <li ><a href="#method-c-for_alert">::for_alert</a>
     
     <li ><a href="#method-c-where">::where</a>
     
     <li ><a href="#method-i-destroy">#destroy</a>
     
     <li ><a href="#method-i-save">#save</a>
-    
-    <li ><a href="#method-i-signatures">#signatures</a>
     
   </ul>
 </nav>
@@ -171,7 +169,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class ESP::Service</h1>
+  <h1 class="class">class ESP::Metadata</h1>
 
   <div id="description" class="description">
     
@@ -195,37 +193,6 @@
       <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="method-c-all" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">all</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Return a paginated <a href="Service.html">Service</a> list</p>
-          
-          
-
-          
-          <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 35</span>
-  </pre>
-          </div><!-- all-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- all-method -->
-
-    
       <div id="method-c-find" class="method-detail ">
         
         
@@ -242,18 +209,30 @@
 
         <div class="method-description">
           
-          <p>Find a <a href="Service.html">Service</a> by id</p>
+          <p>Find a <a href="Metadata.html">Metadata</a> object by id</p>
 
 <h4 id="method-c-find-label-Parameter">Parameter<span><a href="#method-c-find-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
-<p><code>id</code> | Required | The ID of the service to retrieve</p>
+<p><code>id</code> | Required | The ID of the metadata object to retrieve</p>
           
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
           
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 33</span>
-    </pre>
+            <pre><span class="ruby-comment"># File lib/esp/resources/metadata.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>)
+  <span class="ruby-identifier">scope</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>)
+  <span class="ruby-identifier">options</span> = (<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">with_indifferent_access</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">super</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">options</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Numeric</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:from</span>].<span class="ruby-identifier">present?</span>
+  <span class="ruby-identifier">params</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:params</span>, {}).<span class="ruby-identifier">with_indifferent_access</span>
+  <span class="ruby-identifier">alert_id</span> = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:alert_id</span>)
+  <span class="ruby-identifier">for_alert</span>(<span class="ruby-identifier">alert_id</span>)
+<span class="ruby-keyword">end</span></pre>
           </div><!-- find-source -->
           
         </div>
@@ -262,6 +241,52 @@
 
         
       </div><!-- find-method -->
+
+    
+      <div id="method-c-for_alert" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">for_alert</span><span
+            class="method-args">(alert_id = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns a metadata object for the given alert_id Convenience method to use
+instead of <a href="Metadata.html#method-c-find">::find</a> since an
+alert_id is required to return metadata.</p>
+
+<h4 id="method-c-for_alert-label-Parameter">Parameter<span><a href="#method-c-for_alert-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<p><code>alert_id</code> | Required | The ID of the alert to retrieve metadata
+for</p>
+
+<h4 id="method-c-for_alert-label-Example">Example<span><a href="#method-c-for_alert-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
+
+<pre>alerts = ESP::Metadata.for_alert(1194)</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="for_alert-source">
+            <pre><span class="ruby-comment"># File lib/esp/resources/metadata.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_alert</span>(<span class="ruby-identifier">alert_id</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply an alert id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">alert_id</span>.<span class="ruby-identifier">present?</span>
+  <span class="ruby-identifier">from</span> = <span class="ruby-node">&quot;#{prefix}alerts/#{alert_id}/metadata.json&quot;</span>
+  <span class="ruby-identifier">find</span>(<span class="ruby-value">:one</span>, <span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-identifier">from</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- for_alert-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- for_alert-method -->
 
     
       <div id="method-c-where" class="method-detail ">
@@ -277,13 +302,14 @@
 
         <div class="method-description">
           
-          <p>Not Implemented. You cannot search for a <a href="Tag.html">Tag</a>.</p>
+          <p>Not Implemented. You cannot search for <a
+href="Metadata.html">Metadata</a>.</p>
           
           
 
           
           <div class="method-source-code" id="where-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 8</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/metadata.rb, line 4</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-operator">*</span>)
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -316,13 +342,13 @@
 
         <div class="method-description">
           
-          <p>Not Implemented. You cannot destroy a <a href="Service.html">Service</a>.</p>
+          <p>Not Implemented. You cannot destroy <a href="Metadata.html">Metadata</a>.</p>
           
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 18</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/metadata.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -349,14 +375,14 @@
 
         <div class="method-description">
           
-          <p>Not Implemented. You cannot create or update a <a
-href="Service.html">Service</a>.</p>
+          <p>Not Implemented. You cannot create or update <a
+href="Metadata.html">Metadata</a>.</p>
           
           
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 13</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/metadata.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -368,38 +394,6 @@ href="Service.html">Service</a>.</p>
 
         
       </div><!-- save-method -->
-
-    
-      <div id="method-i-signatures" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">signatures</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>The collection of signatures associated with this service.</p>
-          
-          
-
-          
-          <div class="method-source-code" id="signatures-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/service.rb, line 5</span>
-<span class="ruby-identifier">has_many</span> <span class="ruby-value">:signatures</span>, <span class="ruby-identifier">class_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ESP::Signature&#39;</span>
-</pre>
-          </div><!-- signatures-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- signatures-method -->
 
     
     </section><!-- public-instance-method-details -->

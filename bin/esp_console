@@ -53,13 +53,9 @@ module ESP
 end
 
 begin
-  require 'catpix'
-  logo = File.expand_path(File.dirname(__FILE__) + '/../assets/logo.png')
-  Catpix::print_image logo
+  puts File.read(File.expand_path(File.dirname(__FILE__) + '/../assets/esp_logo.ans'))
 rescue
-  require 'artii'
-  artii = Artii::Base.new(font: 'slant')
-  print artii.asciify('E.S.P')
+  #swallow the error
 end
 print <<-banner
 

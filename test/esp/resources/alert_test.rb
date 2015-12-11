@@ -13,18 +13,18 @@ module ESP
 
       context '#update' do
         should 'not be implemented' do
-          cloud_trail_event = build(:cloud_trail_event)
+          alert = build(:alert)
           assert_raises ESP::NotImplementedError do
-            cloud_trail_event.save
+            alert.save
           end
         end
       end
 
       context '#destroy' do
         should 'not be implemented' do
-          cloud_trail_event = build(:cloud_trail_event)
+          alert = build(:alert)
           assert_raises ESP::NotImplementedError do
-            cloud_trail_event.destroy
+            alert.destroy
           end
         end
       end

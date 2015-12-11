@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :contact_request, class: 'ESP::ContactRequest' do
+  factory :cloud_trail_event, class: 'ESP::CloudTrailEvent' do
     skip_create
 
     sequence(:id) { |n| n }

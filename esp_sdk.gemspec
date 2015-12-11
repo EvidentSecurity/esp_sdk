@@ -34,11 +34,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'factory_girl'
   spec.add_development_dependency 'rdoc'
+  spec.add_development_dependency 'awesome_print'
 
   spec.add_dependency 'activeresource', '~> 4.0.0'
   spec.add_dependency 'api-auth'
   spec.add_dependency 'rack'
-  spec.add_dependency 'awesome_print'
-  spec.add_dependency 'artii'
-  spec.add_dependency 'catpix' if `which convert` =~ /convert/  # Only install if imagemagic is installed.
 end
