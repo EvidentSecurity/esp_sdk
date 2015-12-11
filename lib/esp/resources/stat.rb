@@ -77,7 +77,7 @@ module ESP
     def self.for_report(report_id = nil, options = {}) # rubocop:disable Style/OptionHash
       fail ArgumentError, "You must supply a report id." unless report_id.present?
       # call find_one directly since find is overriden/not implemented
-      find_one(from: "#{prefix}reports/#{report_id}/stats.json_api", params: options)
+      find_one(from: "#{prefix}reports/#{report_id}/stats.json", params: options)
     end
 
     # Returns all the stats for the most recent report of each team accessible by the given API key.

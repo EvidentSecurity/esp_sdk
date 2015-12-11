@@ -5,11 +5,11 @@ module ESP
     context ESP::Resource do
       context 'with ESP::Team' do
         should 'set the Content-Type to application/vnd.api+json' do
-          stub_request(:get, %r{teams/3.json_api*}).to_return(body: json(:team))
+          stub_request(:get, %r{teams/3.json*}).to_return(body: json(:team))
 
           ESP::Team.find(3)
 
-          assert_requested(:get, %r{teams/3.json_api*}) do |req|
+          assert_requested(:get, %r{teams/3.json*}) do |req|
             assert_equal ActiveResource::Formats::JsonAPIFormat.mime_type, req.headers['Content-Type']
           end
         end
@@ -29,11 +29,11 @@ module ESP
           ESP.secret_access_key ||= ApiAuth.generate_secret_key
           ESP::Team.hmac_access_id = ESP.access_key_id
           ESP::Team.hmac_secret_key = ESP.secret_access_key
-          stub_request(:get, %r{teams/3.json_api*}).to_return(body: json(:team))
+          stub_request(:get, %r{teams/3.json*}).to_return(body: json(:team))
 
           ESP::Team.find(3)
 
-          assert_requested(:get, %r{teams/3.json_api*}) do |req|
+          assert_requested(:get, %r{teams/3.json*}) do |req|
             # Remove non word chars to prevent regex matching errors.
             assert_match(/APIAuth#{ESP.access_key_id.gsub(/\W/, '')}/, req.headers['Authorization'].gsub(/\W/, ''))
           end
@@ -61,19 +61,19 @@ module ESP
 
         context '.find' do
           should 'call the show method when finding by single id' do
-            stub_request(:get, %r{teams/3.json_api*}).to_return(body: json(:team))
+            stub_request(:get, %r{teams/3.json*}).to_return(body: json(:team))
 
             ESP::Team.find(3)
 
-            assert_requested(:get, %r{teams/3.json_api*})
+            assert_requested(:get, %r{teams/3.json*})
           end
 
           should 'build query string inside filter param and ad _eq when single value' do
-            stub_request(:get, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:get, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.find(:all, params: { id: 3 })
 
-            assert_requested(:get, /teams.json_api*/) do |req|
+            assert_requested(:get, /teams.json*/) do |req|
               query = Rack::Utils.parse_nested_query(CGI.unescape(req.uri.query))
               assert_equal true, query.key?('filter')
               assert_equal true, query['filter'].key?('id_eq')
@@ -82,11 +82,11 @@ module ESP
           end
 
           should 'build query string inside filter param and ad _in when multiple values' do
-            stub_request(:get, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:get, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.find(:all, params: { id: [3, 4] })
 
-            assert_requested(:get, /teams.json_api*/) do |req|
+            assert_requested(:get, /teams.json*/) do |req|
               query = Rack::Utils.parse_nested_query(CGI.unescape(req.uri.query))
               assert_equal true, query.key?('filter')
               assert_equal true, query['filter'].key?('id_in')
@@ -95,11 +95,11 @@ module ESP
           end
 
           should 'not put page parameter inside filter parameter' do
-            stub_request(:get, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:get, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.find(:all, params: { id: 3, page: { number: 2, size: 3 } })
 
-            assert_requested(:get, /teams.json_api*/) do |req|
+            assert_requested(:get, /teams.json*/) do |req|
               query = Rack::Utils.parse_nested_query(CGI.unescape(req.uri.query))
               assert_equal true, query.key?('filter')
               assert_equal '2', query['page']['number']
@@ -107,11 +107,11 @@ module ESP
           end
 
           should 'add the include option to param' do
-            stub_request(:get, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:get, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.find(:all, include: 'organization')
 
-            assert_requested(:get, /teams.json_api*/) do |req|
+            assert_requested(:get, /teams.json*/) do |req|
               query = Rack::Utils.parse_nested_query(CGI.unescape(req.uri.query))
               assert_equal true, query.key?('include')
               assert_equal 'organization', query['include']
@@ -119,11 +119,11 @@ module ESP
           end
 
           should 'add the include option to param when finding by id' do
-            stub_request(:get, %r{teams/2.json_api*}).to_return(body: json_list(:team, 2))
+            stub_request(:get, %r{teams/2.json*}).to_return(body: json_list(:team, 2))
 
             ESP::Team.find(2, include: 'organization')
 
-            assert_requested(:get, %r{teams/2.json_api*}) do |req|
+            assert_requested(:get, %r{teams/2.json*}) do |req|
               query = Rack::Utils.parse_nested_query(CGI.unescape(req.uri.query))
               assert_equal true, query.key?('include')
               assert_equal 'organization', query['include']
@@ -131,11 +131,11 @@ module ESP
           end
 
           should 'not ransackize the filter parameter if it is passed' do
-            stub_request(:get, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:get, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.find(:all, params: { filter: { id_eq: 3 }, page: { number: 2, size: 3 } })
 
-            assert_requested(:get, /teams.json_api*/) do |req|
+            assert_requested(:get, /teams.json*/) do |req|
               query = Rack::Utils.parse_nested_query(CGI.unescape(req.uri.query))
               assert_equal true, query.key?('filter')
               assert_equal true, query['filter'].key?('id_eq')
@@ -143,29 +143,29 @@ module ESP
           end
 
           should 'add the from attribute to PaginatedCollection objects when from is supplied' do
-            stub_request(:get, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:get, /teams.json*/).to_return(body: json_list(:team, 2))
 
-            teams = ESP::Team.find(:all, from: "#{Team.prefix}teams.json_api", params: { filter: { id_eq: 3 }, page: { number: 2, size: 3 } })
+            teams = ESP::Team.find(:all, from: "#{Team.prefix}teams.json", params: { filter: { id_eq: 3 }, page: { number: 2, size: 3 } })
 
-            assert_equal '/api/v2/teams.json_api', teams.from
+            assert_equal '/api/v2/teams.json', teams.from
           end
         end
 
         context '.where' do
           should 'call the index method when finding by single id using put' do
-            stub_request(:put, /teams.json_api/).to_return(body: json_list(:team, 1))
+            stub_request(:put, /teams.json/).to_return(body: json_list(:team, 1))
 
             ESP::Team.where(id: 3)
 
-            assert_requested(:put, /teams.json_api/)
+            assert_requested(:put, /teams.json/)
           end
 
           should 'build body inside filter param and ad _eq when single value' do
-            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(id: 3)
 
-            assert_requested(:put, /teams.json_api*/) do |req|
+            assert_requested(:put, /teams.json*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('filter')
               assert_equal true, body['filter'].key?('id_eq')
@@ -174,11 +174,11 @@ module ESP
           end
 
           should 'build body inside filter param and ad _in when multiple values' do
-            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(id: [3, 4])
 
-            assert_requested(:put, /teams.json_api*/) do |req|
+            assert_requested(:put, /teams.json*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('filter')
               assert_equal true, body['filter'].key?('id_in')
@@ -187,11 +187,11 @@ module ESP
           end
 
           should 'not put page parameter inside filter parameter' do
-            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(id: 3, page: { number: 2, size: 3 })
 
-            assert_requested(:put, /teams.json_api*/) do |req|
+            assert_requested(:put, /teams.json*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('filter')
               assert_equal 2, body['page']['number']
@@ -199,11 +199,11 @@ module ESP
           end
 
           should 'add the include option to param' do
-            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(id: 1, include: 'organization')
 
-            assert_requested(:put, /teams.json_api*/) do |req|
+            assert_requested(:put, /teams.json*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('include')
               assert_equal 'organization', body['include']
@@ -211,11 +211,11 @@ module ESP
           end
 
           should 'add the sorts option to the params' do
-            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(name_cont: 'Team', sorts: 'created_at')
 
-            assert_requested(:put, /teams.json_api*/) do |req|
+            assert_requested(:put, /teams.json*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('filter')
               assert_equal 'Team', body['filter']['name_cont']
@@ -224,11 +224,11 @@ module ESP
           end
 
           should 'add the combinator option to the params' do
-            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(name_cont: 'Team', id_eq: 3, m: :or)
 
-            assert_requested(:put, /teams.json_api*/) do |req|
+            assert_requested(:put, /teams.json*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('filter')
               assert_equal 'Team', body['filter']['name_cont']
@@ -238,11 +238,11 @@ module ESP
           end
 
           should 'add _eq to attribute if predicate is not already appended' do
-            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(id: 3)
 
-            assert_requested(:put, /teams.json_api*/) do |req|
+            assert_requested(:put, /teams.json*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('filter')
               assert_equal true, body['filter'].key?("id_eq")
@@ -250,11 +250,11 @@ module ESP
           end
 
           should 'add _in to array attribute if predicate is not already appended' do
-            stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+            stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
 
             ESP::Team.where(id: [3])
 
-            assert_requested(:put, /teams.json_api*/) do |req|
+            assert_requested(:put, /teams.json*/) do |req|
               body = JSON.parse req.body
               assert_equal true, body.key?('filter')
               assert_equal true, body['filter'].key?("id_in")
@@ -264,13 +264,13 @@ module ESP
           ESP::Resource::PREDICATES.split('|').each do |predicate|
             next if predicate == 'm' # This is a special case
             should "not ransackize attributes that already have ransack predicate #{predicate} appended" do
-              stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+              stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
 
               args = { page: { number: 2, size: 3 } }
               args["id_#{predicate}"] = 3
               ESP::Team.where(args)
 
-              assert_requested(:put, /teams.json_api*/) do |req|
+              assert_requested(:put, /teams.json*/) do |req|
                 body = JSON.parse req.body
                 assert_equal true, body.key?('filter')
                 assert_equal true, body['filter'].key?("id_#{predicate}")

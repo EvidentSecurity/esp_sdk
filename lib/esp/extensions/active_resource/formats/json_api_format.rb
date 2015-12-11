@@ -25,7 +25,7 @@ module ActiveResource
       module_function
 
       def extension
-        "json_api".freeze
+        "json".freeze
       end
 
       def mime_type

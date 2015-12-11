@@ -18,7 +18,7 @@ FactoryGirl.define do
             id: "1015"
           },
           links: {
-            related: "http://test.host/api/v2/external_accounts/1015.json_api"
+            related: "http://test.host/api/v2/external_accounts/1015.json"
           }
         },
         region: {
@@ -33,7 +33,7 @@ FactoryGirl.define do
             id: "1013"
           },
           links: {
-            related: "http://test.host/api/v2/signatures/1013.json_api"
+            related: "http://test.host/api/v2/signatures/1013.json"
           }
         },
         custom_signature: {
@@ -45,7 +45,7 @@ FactoryGirl.define do
             type: "suppressions"
           },
           links: {
-            related: "http://test.host/api/v2/suppressions/1.json_api"
+            related: "http://test.host/api/v2/suppressions/1.json"
           }
         },
         metadata: {
@@ -61,7 +61,7 @@ FactoryGirl.define do
             }
           ],
           links: {
-            related: "http://test.host/api/v2/alerts/1017/cloud_trail_events.json_api"
+            related: "http://test.host/api/v2/alerts/1017/cloud_trail_events.json"
           }
         },
         tags: {
@@ -99,7 +99,7 @@ FactoryGirl.define do
                 id: "5"
               },
               links: {
-                related: "http://test.host/api/v2/organizations/5.json_api"
+                related: "http://test.host/api/v2/organizations/5.json"
               }
             },
             sub_organization: {
@@ -108,7 +108,7 @@ FactoryGirl.define do
                 id: "5"
               },
               links: {
-                related: "http://test.host/api/v2/sub_organizations/5.json_api"
+                related: "http://test.host/api/v2/sub_organizations/5.json"
               }
             },
             team: {
@@ -117,7 +117,7 @@ FactoryGirl.define do
                 id: "5"
               },
               links: {
-                related: "http://test.host/api/v2/teams/5.json_api"
+                related: "http://test.host/api/v2/teams/5.json"
               }
             },
             user_attribution_role: {
@@ -138,7 +138,7 @@ FactoryGirl.define do
                 id: "5"
               },
               links: {
-                related: "http://localhost:3000/api/v2/sub_organizations/2.json_api"
+                related: "http://localhost:3000/api/v2/sub_organizations/2.json"
               }
             },
             organization: {
@@ -147,7 +147,7 @@ FactoryGirl.define do
                 id: "5"
               },
               links: {
-                related: "http://localhost:3000/api/v2/organizations/2.json_api"
+                related: "http://localhost:3000/api/v2/organizations/2.json"
               }
             }
           }
@@ -221,7 +221,7 @@ FactoryGirl.define do
                 id: "3"
               },
               links: {
-                related: "http://test.host/api/v2/services/3.json_api"
+                related: "http://test.host/api/v2/services/3.json"
               }
             }
           }
@@ -268,7 +268,7 @@ FactoryGirl.define do
                 type: "organizations"
               },
               links: {
-                related: "http://test.host/api/v2/organizations/4.json_api"
+                related: "http://test.host/api/v2/organizations/4.json"
               }
             },
             created_by: {
@@ -277,7 +277,7 @@ FactoryGirl.define do
                 type: "users"
               },
               links: {
-                related: "http://test.host/api/v2/users/1.json_api"
+                related: "http://test.host/api/v2/users/1.json"
               }
             }
           }

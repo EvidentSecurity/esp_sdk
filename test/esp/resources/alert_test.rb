@@ -32,7 +32,7 @@ module ESP
       context '#external_account' do
         should 'call the api' do
           alert = build(:alert, external_account_id: 3)
-          stubbed_external_account = stub_request(:get, %r{external_accounts/#{alert.external_account_id}.json_api*}).to_return(body: json(:external_account))
+          stubbed_external_account = stub_request(:get, %r{external_accounts/#{alert.external_account_id}.json*}).to_return(body: json(:external_account))
 
           alert.external_account
 
@@ -43,7 +43,7 @@ module ESP
       context '#region' do
         should 'call the api' do
           alert = build(:alert, region_id: 3)
-          stubbed_region = stub_request(:get, %r{regions/#{alert.region_id}.json_api*}).to_return(body: json(:region))
+          stubbed_region = stub_request(:get, %r{regions/#{alert.region_id}.json*}).to_return(body: json(:region))
 
           alert.region
 
@@ -54,7 +54,7 @@ module ESP
       context '#signature' do
         should 'call the api' do
           alert = build(:alert, signature_id: 3)
-          stubbed_signature = stub_request(:get, %r{signatures/#{alert.signature_id}.json_api*}).to_return(body: json(:signature))
+          stubbed_signature = stub_request(:get, %r{signatures/#{alert.signature_id}.json*}).to_return(body: json(:signature))
 
           alert.signature
 
@@ -65,7 +65,7 @@ module ESP
       context '#custom_signature' do
         should 'call the api' do
           alert = build(:alert, custom_signature_id: 3)
-          stubbed_custom_signature = stub_request(:get, %r{custom_signatures/#{alert.custom_signature_id}.json_api*}).to_return(body: json(:custom_signature))
+          stubbed_custom_signature = stub_request(:get, %r{custom_signatures/#{alert.custom_signature_id}.json*}).to_return(body: json(:custom_signature))
 
           alert.custom_signature
 
@@ -76,7 +76,7 @@ module ESP
       context '#suppression' do
         should 'call the api' do
           alert = build(:alert, suppression_id: 3)
-          stubbed_suppression = stub_request(:get, %r{suppressions/#{alert.suppression_id}.json_api*}).to_return(body: json(:suppression))
+          stubbed_suppression = stub_request(:get, %r{suppressions/#{alert.suppression_id}.json*}).to_return(body: json(:suppression))
 
           alert.suppression
 
@@ -87,7 +87,7 @@ module ESP
       context '#cloud_trail_events' do
         should 'call the api for the alert' do
           alert = build(:alert)
-          stubbed_events = stub_request(:get, %r{alerts/#{alert.id}/cloud_trail_events.json_api*}).to_return(body: json_list(:cloud_trail_event, 2))
+          stubbed_events = stub_request(:get, %r{alerts/#{alert.id}/cloud_trail_events.json*}).to_return(body: json_list(:cloud_trail_event, 2))
 
           alert.cloud_trail_events
 
@@ -98,7 +98,7 @@ module ESP
       context '#tags' do
         should 'call the api for the alert' do
           alert = build(:alert)
-          stubbed_tags = stub_request(:get, %r{alerts/#{alert.id}/tags.json_api*}).to_return(body: json_list(:tag, 2))
+          stubbed_tags = stub_request(:get, %r{alerts/#{alert.id}/tags.json*}).to_return(body: json_list(:tag, 2))
 
           alert.tags
 
@@ -115,7 +115,7 @@ module ESP
         end
 
         should 'call the api and return alerts when report_id is supplied' do
-          stub_alert = stub_request(:put, %r{reports/5/alerts.json_api*}).to_return(body: json_list(:alert, 2))
+          stub_alert = stub_request(:put, %r{reports/5/alerts.json*}).to_return(body: json_list(:alert, 2))
 
           alert = ESP::Alert.where(report_id: 5)
 
@@ -133,7 +133,7 @@ module ESP
         end
 
         should 'call the show api and return an alert if searching by id' do
-          stub_alert = stub_request(:get, %r{alerts/5.json_api*}).to_return(body: json(:alert))
+          stub_alert = stub_request(:get, %r{alerts/5.json*}).to_return(body: json(:alert))
 
           alert = ESP::Alert.find(5)
 
@@ -142,7 +142,7 @@ module ESP
         end
 
         should 'call the api and return alerts when report_id is supplied' do
-          stub_alert = stub_request(:get, %r{reports/5/alerts.json_api*}).to_return(body: json_list(:alert, 2))
+          stub_alert = stub_request(:get, %r{reports/5/alerts.json*}).to_return(body: json_list(:alert, 2))
 
           alert = ESP::Alert.find(:all, params: { report_id: 5 })
 
@@ -269,6 +269,7 @@ module ESP
         context '#custom_signature' do
           should 'return a custom_signature' do
             assert_nothing_raised do
+              @alert.attributes['custom_signature_id'] ||= 1
               @alert.custom_signature
             end
           end
@@ -277,6 +278,7 @@ module ESP
         context '#suppression' do
           should 'return a suppression' do
             assert_nothing_raised do
+              @alert.attributes['suppression_id'] ||= 1
               @alert.suppression
             end
           end

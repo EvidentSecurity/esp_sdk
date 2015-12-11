@@ -14,7 +14,7 @@ module ESP
       context '#report' do
         should 'call the api' do
           stat = build(:stat, report_id: 3)
-          stubbed_report = stub_request(:get, %r{reports/#{stat.report_id}.json_api*}).to_return(body: json(:report))
+          stubbed_report = stub_request(:get, %r{reports/#{stat.report_id}.json*}).to_return(body: json(:report))
 
           stat.report
 
@@ -25,7 +25,7 @@ module ESP
       context '#regions' do
         should 'call the api for the stat' do
           stat = build(:stat)
-          stubbed_regions = stub_request(:get, %r{stats/#{stat.id}/regions.json_api*}).to_return(body: json_list(:stat_region, 2))
+          stubbed_regions = stub_request(:get, %r{stats/#{stat.id}/regions.json*}).to_return(body: json_list(:stat_region, 2))
 
           stat.regions
 
@@ -36,7 +36,7 @@ module ESP
       context '#services' do
         should 'call the api for the stat' do
           stat = build(:stat)
-          stubbed_services = stub_request(:get, %r{stats/#{stat.id}/services.json_api*}).to_return(body: json_list(:stat_service, 2))
+          stubbed_services = stub_request(:get, %r{stats/#{stat.id}/services.json*}).to_return(body: json_list(:stat_service, 2))
 
           stat.services
 
@@ -47,7 +47,7 @@ module ESP
       context '#signatures' do
         should 'call the api for the stat' do
           stat = build(:stat)
-          stubbed_signatures = stub_request(:get, %r{stats/#{stat.id}/signatures.json_api*}).to_return(body: json_list(:stat_signature, 2))
+          stubbed_signatures = stub_request(:get, %r{stats/#{stat.id}/signatures.json*}).to_return(body: json_list(:stat_signature, 2))
 
           stat.signatures
 
@@ -58,7 +58,7 @@ module ESP
       context '#custom_signatures' do
         should 'call the api for the stat' do
           stat = build(:stat)
-          stubbed_custom_signatures = stub_request(:get, %r{stats/#{stat.id}/custom_signatures.json_api*}).to_return(body: json_list(:stat_custom_signature, 2))
+          stubbed_custom_signatures = stub_request(:get, %r{stats/#{stat.id}/custom_signatures.json*}).to_return(body: json_list(:stat_custom_signature, 2))
 
           stat.custom_signatures
 
@@ -111,7 +111,7 @@ module ESP
         end
 
         should 'call the api and return a stat' do
-          stub_stat = stub_request(:get, %r{reports/5/stats.json_api*}).to_return(body: json(:stat))
+          stub_stat = stub_request(:get, %r{reports/5/stats.json*}).to_return(body: json(:stat))
 
           stat = ESP::Stat.for_report(5)
 
@@ -122,7 +122,7 @@ module ESP
 
       context '.latest_for_teams' do
         should 'call the api and return a collection of stats' do
-          stub_stat = stub_request(:get, %r{stats/latest_for_teams.json_api*}).to_return(body: json_list(:stat, 2))
+          stub_stat = stub_request(:get, %r{stats/latest_for_teams.json*}).to_return(body: json_list(:stat, 2))
 
           stats = ESP::Stat.latest_for_teams
 

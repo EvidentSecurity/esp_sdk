@@ -418,9 +418,9 @@ initial request.</p>
           
           <div class="method-source-code" id="for_stat-source">
             <pre><span class="ruby-comment"># File lib/esp/resources/stat_custom_signature.rb, line 33</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_stat</span>(<span class="ruby-identifier">stat_id</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">options</span> = {})
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_stat</span>(<span class="ruby-identifier">stat_id</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">options</span> = {}) <span class="ruby-comment"># rubocop:disable Style/OptionHash</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply a stat id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">stat_id</span>.<span class="ruby-identifier">present?</span>
-  <span class="ruby-identifier">from</span> = <span class="ruby-node">&quot;#{prefix}stats/#{stat_id}/custom_signatures.json_api&quot;</span>
+  <span class="ruby-identifier">from</span> = <span class="ruby-node">&quot;#{prefix}stats/#{stat_id}/custom_signatures.json&quot;</span>
   <span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-identifier">from</span>, <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> <span class="ruby-identifier">options</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- for_stat-source -->

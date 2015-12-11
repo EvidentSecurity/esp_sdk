@@ -27,7 +27,7 @@ module ESP
       context '#organization' do
         should 'call the api' do
           report = build(:report, organization_id: 4)
-          stub_org = stub_request(:get, %r{organizations/#{report.organization_id}.json_api*}).to_return(body: json(:organization))
+          stub_org = stub_request(:get, %r{organizations/#{report.organization_id}.json*}).to_return(body: json(:organization))
 
           report.organization
 
@@ -38,7 +38,7 @@ module ESP
       context '#sub_organization' do
         should 'call the api' do
           report = build(:report, sub_organization_id: 4)
-          stub_sub_org = stub_request(:get, %r{sub_organizations/#{report.sub_organization_id}.json_api*}).to_return(body: json(:sub_organization))
+          stub_sub_org = stub_request(:get, %r{sub_organizations/#{report.sub_organization_id}.json*}).to_return(body: json(:sub_organization))
 
           report.sub_organization
 
@@ -49,7 +49,7 @@ module ESP
       context '#team' do
         should 'call the api' do
           report = build(:report, team_id: 4)
-          stub_team = stub_request(:get, %r{teams/#{report.team_id}.json_api*}).to_return(body: json(:team))
+          stub_team = stub_request(:get, %r{teams/#{report.team_id}.json*}).to_return(body: json(:team))
 
           report.team
 
@@ -60,11 +60,11 @@ module ESP
       context '#alerts' do
         should 'call the api for the report and the passed in params' do
           report = build(:report)
-          stub_request(:put, %r{reports/#{report.id}/alerts.json_api*}).to_return(body: json_list(:alert, 2))
+          stub_request(:put, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 2))
 
           report.alerts(status: 'pass')
 
-          assert_requested(:put, %r{reports/#{report.id}/alerts.json_api*}) do |req|
+          assert_requested(:put, %r{reports/#{report.id}/alerts.json*}) do |req|
             body = JSON.parse(req.body)
             assert_equal 'pass', body['filter']['status']
           end
@@ -74,7 +74,7 @@ module ESP
       context '#stat' do
         should 'call the api and return a stat' do
           report = build(:report)
-          stub_stat = stub_request(:get, %r{reports/#{report.id}/stats.json_api*}).to_return(body: json(:stat))
+          stub_stat = stub_request(:get, %r{reports/#{report.id}/stats.json*}).to_return(body: json(:stat))
 
           stat = report.stat
 
@@ -92,7 +92,7 @@ module ESP
         end
 
         should 'call api and return a report' do
-          stubbed_report = stub_request(:post, /reports.json_api*/).to_return(body: json(:report))
+          stubbed_report = stub_request(:post, /reports.json*/).to_return(body: json(:report))
 
           report = ESP::Report.create(team_id: 3)
 
@@ -101,7 +101,7 @@ module ESP
         end
 
         should 'call the api and return an error if an error is returned' do
-          stub_request(:post, /reports.json_api*/).to_return(body: json(:report))
+          stub_request(:post, /reports.json*/).to_return(body: json(:report))
           error = ActiveResource::ResourceInvalid.new('oh boy')
           error_response = json(:error)
           response = mock(body: error_response)

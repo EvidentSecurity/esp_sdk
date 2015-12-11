@@ -220,7 +220,7 @@
 
           
           <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 99</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 101</span>
     </pre>
           </div><!-- all-source -->
           
@@ -251,7 +251,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 101</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 103</span>
   </pre>
           </div><!-- create-source -->
           
@@ -304,7 +304,7 @@ initial request.</p>
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 96</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 98</span>
     </pre>
           </div><!-- find-source -->
           
@@ -381,7 +381,7 @@ searchable attributes.</p>
 
           
           <div class="method-source-code" id="where-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 71</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 73</span>
     </pre>
           </div><!-- where-source -->
           
@@ -519,6 +519,7 @@ href="User.html">User</a>.</p>
           <div class="method-source-code" id="sub_organizations-source">
             <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">sub_organizations</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;sub_organizations&#39;</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;sub_organizations&#39;</span>].<span class="ruby-identifier">present?</span>
   <span class="ruby-constant">SubOrganization</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id_in</span><span class="ruby-operator">:</span> <span class="ruby-identifier">sub_organization_ids</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- sub_organizations-source -->
@@ -550,8 +551,9 @@ href="User.html">User</a>.</p>
 
           
           <div class="method-source-code" id="teams-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 25</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/user.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">teams</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;teams&#39;</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;teams&#39;</span>].<span class="ruby-identifier">present?</span>
   <span class="ruby-constant">Team</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id_in</span><span class="ruby-operator">:</span> <span class="ruby-identifier">team_ids</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- teams-source -->

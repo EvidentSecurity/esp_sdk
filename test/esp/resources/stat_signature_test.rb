@@ -21,7 +21,7 @@ module ESP
           end
 
           should 'call the api' do
-            stub_signature = stub_request(:get, %r{stats/5/signatures.json_api*}).to_return(body: json_list(:stat_signature, 2))
+            stub_signature = stub_request(:get, %r{stats/5/signatures.json*}).to_return(body: json_list(:stat_signature, 2))
 
             signatures = ESP::StatSignature.for_stat(5)
 
@@ -39,7 +39,7 @@ module ESP
           end
 
           should 'call the show api and return a signature if searching by id' do
-            stub_signature = stub_request(:get, %r{signatures/5.json_api*}).to_return(body: json(:stat_signature))
+            stub_signature = stub_request(:get, %r{signatures/5.json*}).to_return(body: json(:stat_signature))
 
             signature = ESP::StatSignature.find(5)
 
@@ -48,7 +48,7 @@ module ESP
           end
 
           should 'call the api and return signatures when stat_id is supplied' do
-            stub_signature = stub_request(:get, %r{stats/5/signatures.json_api*}).to_return(body: json_list(:stat_signature, 2))
+            stub_signature = stub_request(:get, %r{stats/5/signatures.json*}).to_return(body: json_list(:stat_signature, 2))
 
             signatures = ESP::StatSignature.find(:all, params: { stat_id: 5 })
 
@@ -87,7 +87,7 @@ module ESP
           should 'call the show api and return the signature' do
             signature_stat = ESP::StatSignature.new(signature_id: 3)
 
-            stub_signature = stub_request(:get, %r{signatures/#{signature_stat.signature_id}.json_api*}).to_return(body: json(:signature))
+            stub_signature = stub_request(:get, %r{signatures/#{signature_stat.signature_id}.json*}).to_return(body: json(:signature))
 
             signature = signature_stat.signature
 

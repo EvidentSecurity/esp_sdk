@@ -46,7 +46,7 @@ module ESP
         end
 
         should 'call the api' do
-          stub_tag = stub_request(:get, %r{alerts/5/tags.json_api*}).to_return(body: json_list(:tag, 2))
+          stub_tag = stub_request(:get, %r{alerts/5/tags.json*}).to_return(body: json_list(:tag, 2))
 
           tags = ESP::Tag.for_alert(5)
 
@@ -64,7 +64,7 @@ module ESP
         end
 
         should 'call the show api and return a tag if searching by id' do
-          stub_tag = stub_request(:get, %r{tags/5.json_api*}).to_return(body: json(:tag))
+          stub_tag = stub_request(:get, %r{tags/5.json*}).to_return(body: json(:tag))
 
           tag = ESP::Tag.find(5)
 
@@ -73,7 +73,7 @@ module ESP
         end
 
         should 'call the api and return tags when alert_id is supplied' do
-          stub_tag = stub_request(:get, %r{alerts/5/tags.json_api*}).to_return(body: json_list(:tag, 2))
+          stub_tag = stub_request(:get, %r{alerts/5/tags.json*}).to_return(body: json_list(:tag, 2))
 
           tags = ESP::Tag.find(:all, params: { alert_id: 5 })
 

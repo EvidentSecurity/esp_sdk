@@ -17,7 +17,7 @@ FactoryGirl.define do
           id: "1"
         },
         links: {
-          related: "http://localhost:3000/api/v2/organizations/1.json_api"
+          related: "http://localhost:3000/api/v2/organizations/1.json"
         }
       },
         created_by: {
@@ -26,7 +26,7 @@ FactoryGirl.define do
             id: "23"
           },
           links: {
-            related: "http://localhost:3000/api/v2/users/23.json_api"
+            related: "http://localhost:3000/api/v2/users/23.json"
           }
         },
         regions: {
@@ -100,7 +100,7 @@ FactoryGirl.define do
                   id: "1"
                 },
                 links: {
-                  related: "http://localhost:3000/api/v2/organizations/1.json_api"
+                  related: "http://localhost:3000/api/v2/organizations/1.json"
                 }
               },
               sub_organization: {
@@ -109,7 +109,7 @@ FactoryGirl.define do
                   id: "1"
                 },
                 links: {
-                  related: "http://localhost:3000/api/v2/sub_organizations/1.json_api"
+                  related: "http://localhost:3000/api/v2/sub_organizations/1.json"
                 }
               },
               team: {
@@ -118,7 +118,7 @@ FactoryGirl.define do
                   id: "1"
                 },
                 links: {
-                  related: "http://localhost:3000/api/v2/teams/1.json_api"
+                  related: "http://localhost:3000/api/v2/teams/1.json"
                 }
               }
             }
@@ -140,7 +140,7 @@ FactoryGirl.define do
                   id: "1"
                 },
                 links: {
-                  related: "http://test.host/api/v2/services/1.json_api"
+                  related: "http://test.host/api/v2/services/1.json"
                 }
               }
             }
@@ -165,7 +165,7 @@ FactoryGirl.define do
                   id: "1003"
                 },
                 links: {
-                  related: "http://test.host/api/v2/organizations/1003.json_api"
+                  related: "http://test.host/api/v2/organizations/1003.json"
                 }
               }
             }

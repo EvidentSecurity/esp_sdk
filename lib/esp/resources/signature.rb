@@ -60,7 +60,7 @@ module ESP
       attributes['external_account_id'] ||= arguments[:external_account_id]
       attributes['region'] ||= arguments[:region]
 
-      response = connection.post("#{self.class.prefix}signatures/#{id}/run.json_api", to_json)
+      response = connection.post("#{self.class.prefix}signatures/#{id}/run.json", to_json)
       ESP::Alert.send(:instantiate_collection, self.class.format.decode(response.body))
     rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid, ActiveResource::ResourceNotFound => error
       load_remote_errors(error, true)

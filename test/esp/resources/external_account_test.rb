@@ -6,7 +6,7 @@ module ESP
       context '#organization' do
         should 'call the api' do
           external_account = build(:external_account, organization_id: 4)
-          stub_org = stub_request(:get, %r{organizations/#{external_account.organization_id}.json_api*}).to_return(body: json(:organization))
+          stub_org = stub_request(:get, %r{organizations/#{external_account.organization_id}.json*}).to_return(body: json(:organization))
 
           external_account.organization
 
@@ -17,7 +17,7 @@ module ESP
       context '#sub_organization' do
         should 'call the api' do
           external_account = build(:external_account, sub_organization_id: 4)
-          stub_sub_org = stub_request(:get, %r{sub_organizations/#{external_account.sub_organization_id}.json_api*}).to_return(body: json(:sub_organization))
+          stub_sub_org = stub_request(:get, %r{sub_organizations/#{external_account.sub_organization_id}.json*}).to_return(body: json(:sub_organization))
 
           external_account.sub_organization
 
@@ -28,7 +28,7 @@ module ESP
       context '#team' do
         should 'call the api' do
           external_account = build(:external_account, team_id: 4)
-          stub_team = stub_request(:get, %r{teams/#{external_account.team_id}.json_api*}).to_return(body: json(:team))
+          stub_team = stub_request(:get, %r{teams/#{external_account.team_id}.json*}).to_return(body: json(:team))
 
           external_account.team
 
@@ -38,11 +38,11 @@ module ESP
 
       context '#create' do
         should "use the external_id in the params if supplied" do
-          stub_request(:post, /external_accounts.json_api*/).to_return(body: json(:external_account))
+          stub_request(:post, /external_accounts.json*/).to_return(body: json(:external_account))
 
           ESP::ExternalAccount.create(external_id: '32145', name: 'bob')
 
-          assert_requested(:post, /external_accounts.json_api*/) do |req|
+          assert_requested(:post, /external_accounts.json*/) do |req|
             body = JSON.parse(req.body)
             assert_equal '32145', body['data']['attributes']['external_id']
           end
@@ -50,11 +50,11 @@ module ESP
 
         should "generate the external_id if not supplied in the params" do
           ESP::ExternalAccount.any_instance.stubs(:generate_external_id).returns('12345')
-          stub_request(:post, /external_accounts.json_api*/).to_return(body: json(:external_account))
+          stub_request(:post, /external_accounts.json*/).to_return(body: json(:external_account))
 
           ESP::ExternalAccount.create(name: 'bob')
 
-          assert_requested(:post, /external_accounts.json_api*/) do |req|
+          assert_requested(:post, /external_accounts.json*/) do |req|
             body = JSON.parse(req.body)
             assert_equal '12345', body['data']['attributes']['external_id']
           end

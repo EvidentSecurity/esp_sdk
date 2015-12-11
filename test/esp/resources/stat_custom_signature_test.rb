@@ -21,7 +21,7 @@ module ESP
           end
 
           should 'call the api' do
-            stub_custom_signature = stub_request(:get, %r{stats/5/custom_signatures.json_api*}).to_return(body: json_list(:stat_custom_signature, 2))
+            stub_custom_signature = stub_request(:get, %r{stats/5/custom_signatures.json*}).to_return(body: json_list(:stat_custom_signature, 2))
 
             custom_signatures = ESP::StatCustomSignature.for_stat(5)
 
@@ -39,7 +39,7 @@ module ESP
           end
 
           should 'call the show api and return a custom_signature if searching by id' do
-            stub_custom_signature = stub_request(:get, %r{custom_signatures/5.json_api*}).to_return(body: json(:stat_custom_signature))
+            stub_custom_signature = stub_request(:get, %r{custom_signatures/5.json*}).to_return(body: json(:stat_custom_signature))
 
             custom_signature = ESP::StatCustomSignature.find(5)
 
@@ -48,7 +48,7 @@ module ESP
           end
 
           should 'call the api and return custom_signatures when stat_id is supplied' do
-            stub_custom_signature = stub_request(:get, %r{stats/5/custom_signatures.json_api*}).to_return(body: json_list(:stat_custom_signature, 2))
+            stub_custom_signature = stub_request(:get, %r{stats/5/custom_signatures.json*}).to_return(body: json_list(:stat_custom_signature, 2))
 
             custom_signatures = ESP::StatCustomSignature.find(:all, params: { stat_id: 5 })
 
@@ -87,7 +87,7 @@ module ESP
           should 'call the show api and return the custom_signature' do
             custom_signature_stat = ESP::StatCustomSignature.new(custom_signature_id: 3)
 
-            stub_custom_signature = stub_request(:get, %r{custom_signatures/#{custom_signature_stat.custom_signature_id}.json_api*}).to_return(body: json(:custom_signature))
+            stub_custom_signature = stub_request(:get, %r{custom_signatures/#{custom_signature_stat.custom_signature_id}.json*}).to_return(body: json(:custom_signature))
 
             custom_signature = custom_signature_stat.custom_signature
 

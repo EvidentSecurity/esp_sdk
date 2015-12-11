@@ -236,7 +236,7 @@
 
           
           <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 161</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 169</span>
   </pre>
           </div><!-- all-source -->
           
@@ -295,7 +295,7 @@ initial request.</p>
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 159</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 167</span>
     </pre>
           </div><!-- find-source -->
           
@@ -381,7 +381,7 @@ attributes.</p>
 
           
           <div class="method-source-code" id="where-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 128</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 136</span>
     </pre>
           </div><!-- where-source -->
           
@@ -450,8 +450,10 @@ attributes.</p>
 
           
           <div class="method-source-code" id="custom_signatures-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 34</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">custom_signatures</span>
+  <span class="ruby-comment"># When custom_signatures come back in an include, the method still gets called, to return the object from the attributes.</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;custom_signatures&#39;</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;custom_signatures&#39;</span>].<span class="ruby-identifier">present?</span>
   <span class="ruby-keyword">return</span> [] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:custom_signature_ids</span>
   <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">CustomSignature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id_in</span><span class="ruby-operator">:</span> <span class="ruby-identifier">custom_signature_ids</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -488,7 +490,7 @@ errors object.</p>
 
           
           <div class="method-source-code" id="deactivate-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 68</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">deactivate</span>
   <span class="ruby-identifier">patch</span>(<span class="ruby-value">:deactivate</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">response</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">load_attributes_from_response</span>(<span class="ruby-identifier">response</span>)
@@ -531,7 +533,7 @@ successful.</p>
 
           
           <div class="method-source-code" id="deactivate-21-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 58</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">deactivate!</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">deactivate</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">message</span> = <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)
@@ -567,7 +569,7 @@ href="Suppression.html">Suppression</a>.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 50</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -600,8 +602,10 @@ href="Suppression.html">Suppression</a>.</p>
 
           
           <div class="method-source-code" id="external_accounts-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 20</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">external_accounts</span>
+  <span class="ruby-comment"># When external_accounts come back in an include, the method still gets called, to return the object from the attributes.</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;external_accounts&#39;</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;external_accounts&#39;</span>].<span class="ruby-identifier">present?</span>
   <span class="ruby-keyword">return</span> [] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:external_account_ids</span>
   <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">ExternalAccount</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id_in</span><span class="ruby-operator">:</span> <span class="ruby-identifier">external_account_ids</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -668,6 +672,8 @@ href="Suppression.html">Suppression</a>.</p>
           <div class="method-source-code" id="regions-source">
             <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">regions</span>
+  <span class="ruby-comment"># When regions come back in an include, the method still gets called, to return the object from the attributes.</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;regions&#39;</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;regions&#39;</span>].<span class="ruby-identifier">present?</span>
   <span class="ruby-keyword">return</span> [] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:region_ids</span>
   <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Region</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id_in</span><span class="ruby-operator">:</span> <span class="ruby-identifier">region_ids</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -701,7 +707,7 @@ href="Suppression.html">Suppression</a>.</p>
 
           
           <div class="method-source-code" id="save-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 45</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">NotImplementedError</span>
 <span class="ruby-keyword">end</span></pre>
@@ -734,8 +740,10 @@ href="Suppression.html">Suppression</a>.</p>
 
           
           <div class="method-source-code" id="signatures-source">
-            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 27</span>
+            <pre><span class="ruby-comment"># File lib/esp/resources/suppression.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">signatures</span>
+  <span class="ruby-comment"># When signatures come back in an include, the method still gets called, to return the object from the attributes.</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;signatures&#39;</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;signatures&#39;</span>].<span class="ruby-identifier">present?</span>
   <span class="ruby-keyword">return</span> [] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:signature_ids</span>
   <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Signature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id_in</span><span class="ruby-operator">:</span> <span class="ruby-identifier">signature_ids</span>)
 <span class="ruby-keyword">end</span></pre>

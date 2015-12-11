@@ -88,7 +88,7 @@ FactoryGirl.define do
             type: "services"
           },
         links: {
-          related: "http://test.host/api/v2/services/1.json_api"
+          related: "http://test.host/api/v2/services/1.json"
         }
       }
       }

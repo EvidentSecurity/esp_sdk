@@ -277,7 +277,7 @@ trail events for</p>
             <pre><span class="ruby-comment"># File lib/esp/resources/cloud_trail_event.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_alert</span>(<span class="ruby-identifier">alert_id</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">fail</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;You must supply an alert id.&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">alert_id</span>.<span class="ruby-identifier">present?</span>
-  <span class="ruby-identifier">from</span> = <span class="ruby-node">&quot;#{prefix}alerts/#{alert_id}/cloud_trail_events.json_api&quot;</span>
+  <span class="ruby-identifier">from</span> = <span class="ruby-node">&quot;#{prefix}alerts/#{alert_id}/cloud_trail_events.json&quot;</span>
   <span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">from</span><span class="ruby-operator">:</span> <span class="ruby-identifier">from</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- for_alert-source -->

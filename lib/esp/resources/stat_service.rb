@@ -32,7 +32,7 @@ module ESP
     #   stats = ESP::StatService.for_stat(1194)
     def self.for_stat(stat_id = nil, options = {}) # rubocop:disable Style/OptionHash
       fail ArgumentError, "You must supply a stat id." unless stat_id.present?
-      from = "#{prefix}stats/#{stat_id}/services.json_api"
+      from = "#{prefix}stats/#{stat_id}/services.json"
       find(:all, from: from, params: options)
     end
 

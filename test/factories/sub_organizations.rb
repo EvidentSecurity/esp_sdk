@@ -14,7 +14,7 @@ FactoryGirl.define do
           id: "45"
         },
         links: {
-          related: "http://localhost:3000/api/v2/organizations/45.json_api"
+          related: "http://localhost:3000/api/v2/organizations/45.json"
         }
       },
         teams: {

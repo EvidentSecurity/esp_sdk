@@ -32,7 +32,7 @@ module ESP
       context '#organization' do
         should 'call the api' do
           s = build(:suppression, organization_id: 1)
-          stub_org = stub_request(:get, %r{organizations/#{s.organization_id}.json_api*}).to_return(body: json(:organization))
+          stub_org = stub_request(:get, %r{organizations/#{s.organization_id}.json*}).to_return(body: json(:organization))
 
           s.organization
 
@@ -43,7 +43,7 @@ module ESP
       context '#created_by' do
         should 'call the api' do
           s = build(:suppression, created_by_id: 1)
-          stub_user = stub_request(:get, %r{users/#{s.created_by_id}.json_api*}).to_return(body: json(:user))
+          stub_user = stub_request(:get, %r{users/#{s.created_by_id}.json*}).to_return(body: json(:user))
 
           s.created_by
 
@@ -54,104 +54,104 @@ module ESP
       context '#regions' do
         should 'call the api for the report and the passed in params' do
           suppression = build(:suppression, region_ids: [1, 2])
-          stub_request(:put, /regions.json_api*/).to_return(body: json_list(:region, 2))
+          stub_request(:put, /regions.json*/).to_return(body: json_list(:region, 2))
 
           suppression.regions
 
-          assert_requested(:put, /regions.json_api*/) do |req|
+          assert_requested(:put, /regions.json*/) do |req|
             body = JSON.parse(req.body)
             assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
 
         should 'not call the api if it was returned in an include' do
-          stub_request(:get, %r{suppressions/1.json_api*}).to_return(body: json(:suppression, :with_include))
+          stub_request(:get, %r{suppressions/1.json*}).to_return(body: json(:suppression, :with_include))
           suppression = ESP::Suppression.find(1)
-          stub_request(:put, /regions.json_api*/)
+          stub_request(:put, /regions.json*/)
 
           assert_not_nil suppression.attributes['regions']
 
           suppression.regions
 
-          assert_not_requested(:put, /regions.json_api*/)
+          assert_not_requested(:put, /regions.json*/)
         end
       end
 
       context '#external_accounts' do
         should 'call the api for the report and the passed in params' do
           suppression = build(:suppression, external_account_ids: [1, 2])
-          stub_request(:put, /external_accounts.json_api*/).to_return(body: json_list(:external_account, 2))
+          stub_request(:put, /external_accounts.json*/).to_return(body: json_list(:external_account, 2))
 
           suppression.external_accounts
 
-          assert_requested(:put, /external_accounts.json_api*/) do |req|
+          assert_requested(:put, /external_accounts.json*/) do |req|
             body = JSON.parse(req.body)
             assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
 
         should 'not call the api if it was returned in an include' do
-          stub_request(:get, %r{suppressions/1.json_api*}).to_return(body: json(:suppression, :with_include))
+          stub_request(:get, %r{suppressions/1.json*}).to_return(body: json(:suppression, :with_include))
           suppression = ESP::Suppression.find(1)
-          stub_request(:put, /external_accounts.json_api*/)
+          stub_request(:put, /external_accounts.json*/)
 
           assert_not_nil suppression.attributes['external_accounts']
 
           suppression.external_accounts
 
-          assert_not_requested(:put, /external_accounts.json_api*/)
+          assert_not_requested(:put, /external_accounts.json*/)
         end
       end
 
       context '#signatures' do
         should 'call the api for the report and the passed in params' do
           suppression = build(:suppression, signature_ids: [1, 2])
-          stub_request(:put, /signatures.json_api*/).to_return(body: json_list(:signature, 2))
+          stub_request(:put, /signatures.json*/).to_return(body: json_list(:signature, 2))
 
           suppression.signatures
 
-          assert_requested(:put, /signatures.json_api*/) do |req|
+          assert_requested(:put, /signatures.json*/) do |req|
             body = JSON.parse(req.body)
             assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
 
         should 'not call the api if it was returned in an include' do
-          stub_request(:get, %r{suppressions/1.json_api*}).to_return(body: json(:suppression, :with_include))
+          stub_request(:get, %r{suppressions/1.json*}).to_return(body: json(:suppression, :with_include))
           suppression = ESP::Suppression.find(1)
-          stub_request(:put, /signatures.json_api*/)
+          stub_request(:put, /signatures.json*/)
 
           assert_not_nil suppression.attributes['signatures']
 
           suppression.signatures
 
-          assert_not_requested(:put, /signatures.json_api*/)
+          assert_not_requested(:put, /signatures.json*/)
         end
       end
 
       context '#custom_signatures' do
         should 'call the api for the report and the passed in params' do
           suppression = build(:suppression, custom_signature_ids: [1, 2])
-          stub_request(:put, /custom_signatures.json_api*/).to_return(body: json_list(:custom_signature, 2))
+          stub_request(:put, /custom_signatures.json*/).to_return(body: json_list(:custom_signature, 2))
 
           suppression.custom_signatures
 
-          assert_requested(:put, /custom_signatures.json_api*/) do |req|
+          assert_requested(:put, /custom_signatures.json*/) do |req|
             body = JSON.parse(req.body)
             assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
 
         should 'not call the api if it was returned in an include' do
-          stub_request(:get, %r{suppressions/1.json_api*}).to_return(body: json(:suppression, :with_include))
+          stub_request(:get, %r{suppressions/1.json*}).to_return(body: json(:suppression, :with_include))
           suppression = ESP::Suppression.find(1)
-          stub_request(:put, /custom_signatures.json_api*/)
+          stub_request(:put, /custom_signatures.json*/)
 
           assert_not_nil suppression.attributes['custom_signatures']
 
           suppression.custom_signatures
 
-          assert_not_requested(:put, /custom_signatures.json_api*/)
+          assert_not_requested(:put, /custom_signatures.json*/)
         end
       end
 

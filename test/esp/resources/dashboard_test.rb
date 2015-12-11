@@ -47,7 +47,7 @@ module ESP
 
       context '.recent' do
         should 'call the api and return an array of dashboard objects' do
-          stubbed_dashboard = stub_request(:get, %r{dashboard/recent.json_api*}).to_return(body: json_list(:dashboard, 2))
+          stubbed_dashboard = stub_request(:get, %r{dashboard/recent.json*}).to_return(body: json_list(:dashboard, 2))
 
           dashboard = ESP::Dashboard.recent
 

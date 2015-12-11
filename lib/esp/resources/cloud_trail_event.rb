@@ -26,7 +26,7 @@ module ESP
     #   alerts = ESP::CloudTrailEvent.for_alert(1194)
     def self.for_alert(alert_id = nil)
       fail ArgumentError, "You must supply an alert id." unless alert_id.present?
-      from = "#{prefix}alerts/#{alert_id}/cloud_trail_events.json_api"
+      from = "#{prefix}alerts/#{alert_id}/cloud_trail_events.json"
       find(:all, from: from)
     end
 

@@ -133,7 +133,7 @@ module ESP
       return super(scope, options) if scope.is_a?(Numeric) || options[:from].present?
       params = options.fetch(:params, {})
       from = for_report(params.delete(:report_id))
-      all(from: "#{from}.json_api", params: params)
+      all(from: "#{from}.json", params: params)
     end
 
     def self.for_report(report_id) # :nodoc:

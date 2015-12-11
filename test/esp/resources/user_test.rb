@@ -32,7 +32,7 @@ module ESP
       context '#organization' do
         should 'call the api' do
           u = build(:user, organization_id: 1)
-          stub_org = stub_request(:get, %r{organizations/#{u.organization_id}.json_api*}).to_return(body: json(:organization))
+          stub_org = stub_request(:get, %r{organizations/#{u.organization_id}.json*}).to_return(body: json(:organization))
 
           u.organization
 
@@ -43,52 +43,52 @@ module ESP
       context '#sub_organizations' do
         should 'call the api' do
           u = build(:user, sub_organization_ids: [1, 2])
-          stub_request(:put, /sub_organizations.json_api*/).to_return(body: json_list(:sub_organization, 2))
+          stub_request(:put, /sub_organizations.json*/).to_return(body: json_list(:sub_organization, 2))
 
           u.sub_organizations
 
-          assert_requested(:put, /sub_organizations.json_api*/) do |req|
+          assert_requested(:put, /sub_organizations.json*/) do |req|
             body = JSON.parse(req.body)
             assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
 
         should 'not call the api if it was returned in an include' do
-          stub_request(:get, %r{users/1.json_api*}).to_return(body: json(:user, :with_include))
+          stub_request(:get, %r{users/1.json*}).to_return(body: json(:user, :with_include))
           user = ESP::User.find(1)
-          stub_request(:put, /sub_organizations.json_api*/)
+          stub_request(:put, /sub_organizations.json*/)
 
           assert_not_nil user.attributes['sub_organizations']
 
           user.sub_organizations
 
-          assert_not_requested(:put, /sub_organizations.json_api*/)
+          assert_not_requested(:put, /sub_organizations.json*/)
         end
       end
 
       context '#teams' do
         should 'call the api' do
           u = build(:user, team_ids: [1, 2])
-          stub_request(:put, /teams.json_api*/).to_return(body: json_list(:team, 2))
+          stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
 
           u.teams
 
-          assert_requested(:put, /teams.json_api*/) do |req|
+          assert_requested(:put, /teams.json*/) do |req|
             body = JSON.parse(req.body)
             assert_equal [1, 2], body["filter"]["id_in"]
           end
         end
 
         should 'not call the api if it was returned in an include' do
-          stub_request(:get, %r{users/1.json_api*}).to_return(body: json(:user, :with_include))
+          stub_request(:get, %r{users/1.json*}).to_return(body: json(:user, :with_include))
           user = ESP::User.find(1)
-          stub_request(:put, /teams.json_api*/)
+          stub_request(:put, /teams.json*/)
 
           assert_not_nil user.attributes['teams']
 
           user.teams
 
-          assert_not_requested(:put, /teams.json_api*/)
+          assert_not_requested(:put, /teams.json*/)
         end
       end
 
