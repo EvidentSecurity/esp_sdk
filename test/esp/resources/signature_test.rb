@@ -152,7 +152,7 @@ module ESP
 
           should 'return errors' do
             signature = ESP::Signature.first
-            external_account_id = 999999999999
+            external_account_id = 999_999_999_999
 
             signature = signature.run(external_account_id: external_account_id, region: 'us_east_1')
 
