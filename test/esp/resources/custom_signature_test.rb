@@ -190,7 +190,7 @@ module ESP
           end
 
           should 'return errors' do
-            signature = ESP::CustomSignature.run(external_account_id: 999, regions: 'us_east_1', language: @custom_signature.language, signature: @custom_signature.signature)
+            signature = ESP::CustomSignature.run(external_account_id: 99999999999, regions: 'us_east_1', language: @custom_signature.language, signature: @custom_signature.signature)
 
             assert_equal "Couldn't find ExternalAccount", signature.errors.full_messages.first
           end
@@ -205,7 +205,7 @@ module ESP
           end
 
           should 'return errors' do
-            @custom_signature.run(external_account_id: 999)
+            @custom_signature.run(external_account_id: 99999999999)
 
             assert_equal "Couldn't find ExternalAccount", @custom_signature.errors.full_messages.first
           end
