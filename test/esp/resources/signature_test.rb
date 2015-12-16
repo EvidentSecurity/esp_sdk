@@ -150,7 +150,7 @@ module ESP
           end
 
           should 'return errors' do
-            external_account_id = 999
+            external_account_id = 999_999_999_999
 
             @signature.run(external_account_id: external_account_id, region: 'us_east_1')
 
