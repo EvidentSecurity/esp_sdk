@@ -79,6 +79,7 @@ module ESP
   autoload :RawAlert, File.expand_path(File.dirname(__FILE__) + '/esp/resources/raw_alert')
   autoload :Dashboard, File.expand_path(File.dirname(__FILE__) + '/esp/resources/dashboard')
   autoload :CloudTrailEvent, File.expand_path(File.dirname(__FILE__) + '/esp/resources/cloud_trail_event')
+  autoload :Metadata, File.expand_path(File.dirname(__FILE__) + '/esp/resources/metadata')
   autoload :Tag, File.expand_path(File.dirname(__FILE__) + '/esp/resources/tag')
   autoload :Region, File.expand_path(File.dirname(__FILE__) + '/esp/resources/region')
   autoload :Suppression, File.expand_path(File.dirname(__FILE__) + '/esp/resources/suppression')

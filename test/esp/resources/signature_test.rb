@@ -45,12 +45,12 @@ module ESP
           signature = build(:signature)
           stub_request(:post, %r{signatures/#{signature.id}/run.json*}).to_return(body: json_list(:alert, 2))
 
-          alerts = signature.run(external_account_id: 3, regions: 'param2')
+          alerts = signature.run(external_account_id: 3, region: 'param2')
 
           assert_requested(:post, %r{signatures/#{signature.id}/run.json}) do |req|
             body = JSON.parse req.body
             assert_equal 3, body['data']['attributes']['external_account_id']
-            assert_equal ['param2'], body['data']['attributes']['regions']
+            assert_equal 'param2', body['data']['attributes']['region']
           end
           assert_equal ESP::Alert, alerts.resource_class
         end
@@ -64,7 +64,7 @@ module ESP
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
 
           assert_nothing_raised do
-            result = signature.run(external_account_id: 3, regions: 'param2')
+            result = signature.run(external_account_id: 3, region: 'param2')
             assert_equal JSON.parse(error_response)['errors'].first['title'], result.errors.full_messages.first
           end
         end
@@ -75,12 +75,12 @@ module ESP
           signature = build(:signature)
           stub_request(:post, %r{signatures/#{signature.id}/run.json*}).to_return(body: json_list(:alert, 2))
 
-          alerts = signature.run!(external_account_id: 3, regions: 'param2')
+          alerts = signature.run!(external_account_id: 3, region: 'param2')
 
           assert_requested(:post, %r{signatures/#{signature.id}/run.json}) do |req|
             body = JSON.parse req.body
             assert_equal 3, body['data']['attributes']['external_account_id']
-            assert_equal ['param2'], body['data']['attributes']['regions']
+            assert_equal 'param2', body['data']['attributes']['region']
           end
           assert_equal ESP::Alert, alerts.resource_class
         end
@@ -94,7 +94,7 @@ module ESP
           ActiveResource::Connection.any_instance.expects(:post).raises(error)
 
           error = assert_raises ActiveResource::ResourceInvalid do
-            result = signature.run!(external_account_id: 3, regions: 'param2')
+            result = signature.run!(external_account_id: 3, region: 'param2')
             assert_equal JSON.parse(error_response)['errors'].first['title'], result.errors.full_messages.first
           end
           assert_equal "Failed.  Response code = 400.  Response message = #{JSON.parse(error_response)['errors'].first['title']}.", error.message
@@ -145,16 +145,16 @@ module ESP
             signature = ESP::Signature.first
             external_account_id = ESP::ExternalAccount.last.id
 
-            alerts = signature.run(external_account_id: external_account_id, regions: 'us_east_1')
+            alerts = signature.run(external_account_id: external_account_id, region: 'us_east_1')
 
             assert_equal ESP::Alert, alerts.resource_class
           end
 
           should 'return errors' do
             signature = ESP::Signature.first
-            external_account_id = 999
+            external_account_id = 999_999_999_999
 
-            signature = signature.run(external_account_id: external_account_id, regions: ['us_east_1'])
+            signature = signature.run(external_account_id: external_account_id, region: 'us_east_1')
 
             assert_equal "Couldn't find ExternalAccount", signature.errors.full_messages.first
           end

@@ -7,13 +7,13 @@ module ActiveResource
         context '# decode' do
           context 'with ESP::Suppression' do
             should 'parse nested objects correctly' do
-              json = json(:alert)
+              json = json(:dashboard)
               parsed_json = JSON.parse(json)
-              stub_request(:get, %r{alerts/5.json*}).to_return(body: json)
+              stub_request(:get, %r{dashboard/recent.json*}).to_return(body: json_list(:dashboard, 1))
 
-              alert = ESP::Alert.find(5)
+              dashboard = ESP::Dashboard.recent
 
-              assert_equal parsed_json['data']['attributes']['metadata']['abc'], alert.metadata.abc
+              assert_equal parsed_json['included'].first['attributes']['stat_signatures'].first['signature']['name'], dashboard.first.stat.stat_signatures.first.signature.name
             end
           end
 
@@ -23,7 +23,7 @@ module ActiveResource
               parsed_json = JSON.parse(json)
               stub_request(:get, %r{reports/1/alerts.json*}).to_return(body: json)
 
-              alert = ESP::Alert.for_report(1).first
+              alert = ESP::Alert.for_report(1, include: 'external_accounts,regions,signatures,cloud_trail_events').first
 
               assert_equal parsed_json['included'].detect { |e| e['type'] == 'external_accounts' }['id'], alert.external_account.id
               assert_equal parsed_json['included'].detect { |e| e['type'] == 'regions' }['id'], alert.region.id
@@ -57,6 +57,29 @@ module ActiveResource
 
           teardown do
             WebMock.disable_net_connect!
+          end
+
+          should 'merge included objects' do
+            alert = ESP::Alert.find(1, include: 'external_account,region,signature')
+
+            assert_not_nil alert.attributes['external_account']
+            assert_equal alert.external_account_id, alert.external_account.id
+            assert_not_nil alert.attributes['region']
+            assert_equal alert.region_id, alert.region.id
+            assert_not_nil alert.attributes['signature']
+            assert_equal alert.signature_id, alert.signature.id
+          end
+
+          should 'assign foreign key for a belongs_to relationship' do
+            user = ESP::User.last
+
+            assert_not_nil user.organization_id
+          end
+
+          should 'assign foreign key for a has_many relationship' do
+            user = ESP::User.last
+
+            assert_not_nil user.sub_organization_ids
           end
         end
       end

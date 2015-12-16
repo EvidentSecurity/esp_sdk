@@ -4,6 +4,7 @@ module ESP
     self.format = ActiveResource::Formats::JsonAPIFormat
     with_api_auth(ESP.access_key_id, ESP.secret_access_key)
     headers["Content-Type"] = format.mime_type
+    headers["User-Agent"] = "Ruby SDK #{ESP::VERSION}"
 
     self.collection_parser = ActiveResource::PaginatedCollection
 

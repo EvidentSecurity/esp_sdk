@@ -38,7 +38,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activeresource', '~> 4.0.0'
   spec.add_dependency 'api-auth'
   spec.add_dependency 'rack'
-  spec.add_dependency 'awesome_print'
-  spec.add_dependency 'artii'
-  spec.add_dependency 'catpix'
 end

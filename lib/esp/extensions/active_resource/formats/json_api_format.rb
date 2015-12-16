@@ -72,7 +72,7 @@ module ActiveResource
 
       def self.parse_relationships!(object, included)
         object.fetch('relationships', {}).each do |assoc, details|
-          extract_foreign_keys!(object, assoc, details['data'])
+          extract_foreign_keys!(object, assoc, details)
           merge_included_objects!(object, assoc, details['data'], included)
         end
       end
@@ -82,13 +82,32 @@ module ActiveResource
         object.merge! object.delete('attributes') unless object['attributes'].blank?
       end
 
-      def self.extract_foreign_keys!(object, assoc, data)
-        return if data.blank?
+      def self.extract_foreign_keys!(object, assoc, assoc_details)
+        data = assoc_details['data']
+        related_link = assoc_details.fetch('links', {}).fetch('related', {})
+        if data.present?
+          parse_data(object, assoc, data)
+        elsif related_link.present?
+          parse_related_link(object, assoc, related_link)
+        end
+      end
+
+      def self.parse_data(object, assoc, data)
         if data.is_a? Array
           object["#{assoc.singularize}_ids"] = data.map { |d| d['id'] }
         else
           object["#{assoc}_id"] = data['id']
         end
+      end
+
+      def self.parse_related_link(object, assoc, related_link)
+        # parse the url to get the id if the data node is not returned
+        related_link.scan(%r{/(\d+)\.json$}) do |id|
+          object["#{assoc}_id"] = id.first
+        end
+        return if object["#{assoc}_id"].present?
+        uri = URI.parse(related_link)
+        object["#{assoc.singularize}_ids"] = Rack::Utils.parse_nested_query(CGI.unescape(uri.query)).fetch('filter', {}).fetch('id_in', []) if uri.query.present?
       end
 
       def self.merge_included_objects!(object, assoc, data, included)

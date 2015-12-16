@@ -13,18 +13,18 @@ module ESP
 
       context '#update' do
         should 'not be implemented' do
-          cloud_trail_event = build(:cloud_trail_event)
+          alert = build(:alert)
           assert_raises ESP::NotImplementedError do
-            cloud_trail_event.save
+            alert.save
           end
         end
       end
 
       context '#destroy' do
         should 'not be implemented' do
-          cloud_trail_event = build(:cloud_trail_event)
+          alert = build(:alert)
           assert_raises ESP::NotImplementedError do
-            cloud_trail_event.destroy
+            alert.destroy
           end
         end
       end
@@ -103,6 +103,17 @@ module ESP
           alert.tags
 
           assert_requested(stubbed_tags)
+        end
+      end
+
+      context '#metadata' do
+        should 'call the api for the alert' do
+          alert = build(:alert)
+          stubbed_metadata = stub_request(:get, %r{alerts/#{alert.id}/metadata.json*}).to_return(body: json(:metadata))
+
+          alert.metadata
+
+          assert_requested(stubbed_metadata)
         end
       end
 
@@ -232,10 +243,21 @@ module ESP
         setup do
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
           WebMock.allow_net_connect!
+          @report = ESP::Report.last
+          skip "Live DB does not have any reports.  Add a report and run tests again." if @report.blank?
+          @alert = @report.alerts.last
         end
 
         teardown do
           WebMock.disable_net_connect!
+        end
+
+        context '#metadata' do
+          should 'return metata' do
+            assert_nothing_raised do
+              @alert.metadata
+            end
+          end
         end
 
         context '.for_report' do

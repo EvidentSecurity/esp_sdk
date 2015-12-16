@@ -130,6 +130,8 @@
   
     <li><a href="../ESP/ExternalAccount.html">ESP::ExternalAccount</a>
   
+    <li><a href="../ESP/Metadata.html">ESP::Metadata</a>
+  
     <li><a href="../ESP/Organization.html">ESP::Organization</a>
   
     <li><a href="../ESP/Region.html">ESP::Region</a>
@@ -332,13 +334,13 @@ object populated.</p>
 <p><code>external_account_id</code> | Required | The ID of the external
 account to run this custom signature against</p>
 
-<p><code>regions</code> | Required | Array of region names to run this custom
-signature against</p>
+<p><code>region</code> | Required | <a href="Region.html">Region</a> name to
+run this custom signature against</p>
 
 <h4 id="method-i-run-label-Example">Example<span><a href="#method-i-run-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
 <pre>signature = ESP::Signature.find(3)
-alerts = signature.run(external_account_id: 3, regions: [&#39;us_east_1&#39;])</pre>
+alerts = signature.run(external_account_id: 3, region: &#39;us_east_1&#39;)</pre>
           
           
 
@@ -348,7 +350,7 @@ alerts = signature.run(external_account_id: 3, regions: [&#39;us_east_1&#39;])</
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">arguments</span> = {})
   <span class="ruby-identifier">arguments</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">with_indifferent_access</span>
   <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;external_account_id&#39;</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-value">:external_account_id</span>]
-  <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;regions&#39;</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">Array</span>(<span class="ruby-identifier">arguments</span>[<span class="ruby-value">:regions</span>])
+  <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&#39;region&#39;</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-value">:region</span>]
 
   <span class="ruby-identifier">response</span> = <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">post</span>(<span class="ruby-node">&quot;#{self.class.prefix}signatures/#{id}/run.json&quot;</span>, <span class="ruby-identifier">to_json</span>)
   <span class="ruby-constant">ESP</span><span class="ruby-operator">::</span><span class="ruby-constant">Alert</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:instantiate_collection</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">decode</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>))
@@ -392,13 +394,13 @@ successful.</p>
 <p><code>external_account_id</code> | Required | The ID of the external
 account to run this custom signature against</p>
 
-<p><code>regions</code> | Required | Array of region names to run this custom
-signature against</p>
+<p><code>region</code> | Required | <a href="Region.html">Region</a> name to
+run this custom signature against</p>
 
 <h4 id="method-i-run-21-label-Example">Example<span><a href="#method-i-run-21-label-Example">&para;</a> <a href="#documentation">&uarr;</a></span></h4>
 
 <pre>signature = ESP::Signature.find(3)
-alerts = signature.run!(external_account_id: 3, regions: [&#39;us_east_1&#39;])</pre>
+alerts = signature.run!(external_account_id: 3, region: &#39;us_east_1&#39;)</pre>
           
           
 
