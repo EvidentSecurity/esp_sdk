@@ -39,13 +39,15 @@ module ESP
         end
 
         should "make iam call to create_role with external account id" do
-          aws = AWSClients.new
-          Aws::IAM::Client.any_instance.stubs(:create_role)
-          Aws::IAM::Client.any_instance.stubs(:attach_role_policy)
+          aws        = AWSClients.new
+          iam_client = mock
+          iam_client.stubs(:create_role)
+          iam_client.stubs(:attach_role_policy)
+          aws.stubs(:iam).returns(iam_client)
 
           aws.create_and_attach_role!('1234')
 
-          assert_received(Aws::IAM::Client.any_instance, :create_role) do |expected|
+          assert_received(iam_client, :create_role) do |expected|
             expected.with do |params|
               assert_equal AWSClients::AWS_ROLE_NAME, params[:role_name]
               assert_equal aws.send(:trust_policy, '1234'), params[:assume_role_policy_document]
@@ -54,13 +56,15 @@ module ESP
         end
 
         should "make iam call to attach_role_policy" do
-          aws = AWSClients.new
-          Aws::IAM::Client.any_instance.stubs(:create_role)
-          Aws::IAM::Client.any_instance.stubs(:attach_role_policy)
+          aws        = AWSClients.new
+          iam_client = mock
+          iam_client.stubs(:create_role)
+          iam_client.stubs(:attach_role_policy)
+          aws.stubs(:iam).returns(iam_client)
 
           aws.create_and_attach_role!('1234')
 
-          assert_received(Aws::IAM::Client.any_instance, :attach_role_policy) do |expected|
+          assert_received(iam_client, :attach_role_policy) do |expected|
             expected.with do |params|
               assert_equal AWSClients::AWS_ROLE_NAME, params[:role_name]
               assert_equal AWSClients::AWS_ROLE_POLICY_ARN, params[:policy_arn]
@@ -69,9 +73,11 @@ module ESP
         end
 
         should "return the role" do
-          aws = AWSClients.new
-          Aws::IAM::Client.any_instance.stubs(:create_role).returns('the role')
-          Aws::IAM::Client.any_instance.stubs(:attach_role_policy)
+          aws        = AWSClients.new
+          iam_client = mock
+          iam_client.expects(:create_role).returns('the role')
+          iam_client.expects(:attach_role_policy)
+          aws.stubs(:iam).returns(iam_client)
 
           role = aws.create_and_attach_role!('1234')
 
