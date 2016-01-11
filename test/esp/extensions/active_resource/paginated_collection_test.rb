@@ -394,7 +394,7 @@ module ActiveResource
         end
 
         should 'always return the correct page and update itself when using the ! methods' do
-          report = ESP::Report.last
+          report = ESP::Report.all.detect { |r| r.status == 'complete' }
           alerts = report.alerts
           last_page_number = alerts.last_page_number
 
@@ -423,7 +423,7 @@ module ActiveResource
         end
 
         should 'always return the correct page and when not using the ! methods' do
-          report = ESP::Report.last
+          report = ESP::Report.all.detect { |r| r.status == 'complete' }
           alerts = report.alerts
           last_page_number = alerts.last_page_number
 

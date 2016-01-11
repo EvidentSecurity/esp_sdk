@@ -93,4 +93,6 @@ module ESP
   autoload :StatSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_signature')
   autoload :StatRegion, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_region')
   autoload :StatService, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_service')
+  autoload :ExternalAccountCreator, File.expand_path(File.dirname(__FILE__) + '/../lib/esp/external_account_creator')
+  autoload :AWSClients, File.expand_path(File.dirname(__FILE__) + '/../lib/esp/aws_clients')
 end

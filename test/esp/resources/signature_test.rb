@@ -123,7 +123,7 @@ module ESP
         setup do
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
           WebMock.allow_net_connect!
-          @signature = ESP::Signature.last
+          @signature = ESP::Signature.where(name_cont: 'heartbleed').last
           skip "Live DB does not have any signatures.  Add a signature and run tests again." if @signature.blank?
         end
 

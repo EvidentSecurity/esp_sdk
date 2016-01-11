@@ -6,12 +6,7 @@ module ActiveResource
       context "with ESP::Team" do
         context '#load_remote_errors' do
           should 'should parse an active record response and put error messages in the errors object' do
-            error = ActiveResource::ResourceInvalid.new('') # ResourceInvalid gets caught by the create method.
-            error_response = json(:error, :active_record)
-            response = mock(body: error_response)
-            error.expects(:response).returns(response)
-            ActiveResource::Connection.any_instance.expects(:post).raises(error)
-            stub_request(:post, /teams.json*/).to_return(body: json_list(:alert, 2))
+            stub_request(:post, /teams.json*/).to_return(status: 422, body: json(:error, :active_record))
 
             team = ESP::Team.create
 
@@ -21,12 +16,7 @@ module ActiveResource
           end
 
           should 'should parse a non active record response and put error messages in the errors object' do
-            error = ActiveResource::ResourceInvalid.new('') # ResourceInvalid gets caught by the create method.
-            error_response = json(:error)
-            response = mock(body: error_response)
-            error.expects(:response).returns(response)
-            ActiveResource::Connection.any_instance.expects(:post).raises(error)
-            stub_request(:post, /teams.json*/).to_return(body: json_list(:alert, 2))
+            stub_request(:post, /teams.json*/).to_return(status: 422, body: json(:error))
 
             team = ESP::Team.create
 

@@ -94,7 +94,7 @@ module ESP
 
         context '.for_alert' do
           should 'return events for alert id' do
-            report = ESP::Report.last
+            report = ESP::Report.all.detect { |r| r.status == 'complete' }
             events = ESP::CloudTrailEvent.for_alert(report.alerts.last.id)
 
             assert_equal ESP::CloudTrailEvent, events.resource_class

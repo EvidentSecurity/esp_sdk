@@ -1,4 +1,4 @@
-module ActiveResource
+module ActiveResource # :nodoc: all
   module Validations
     # Loads the set of remote errors into the object's Errors based on the
     # content-type of the error-block received.

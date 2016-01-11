@@ -135,7 +135,7 @@ module ESP
         setup do
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
           WebMock.allow_net_connect!
-          @report = ESP::Report.last
+          @report = ESP::Report.all.detect { |r| r.status == 'complete' }
           skip "Live DB does not have any reports.  Add a report with stats and run tests again." if @report.blank?
           @stat = ESP::Stat.for_report(@report.id)
         end

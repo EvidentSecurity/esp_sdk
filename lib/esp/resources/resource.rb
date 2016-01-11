@@ -40,7 +40,7 @@ module ESP
       end
     end
 
-    def self.filters(params)
+    def self.filters(params) # rubocop:disable Metrics/MethodLength
       h = {}.tap do |filters|
         params.each do |attr, value|
           unless attr =~ /(#{PREDICATES})$/
