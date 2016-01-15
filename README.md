@@ -477,6 +477,11 @@ ESP::Signature.where(name_cont: 'dns', sorts: ['risk_level desc', 'created_at'])
 # Console
 The Evident.io SDK gem also provides an IRB console you can use if not using it in a Rails app.  Run it with `esp console` or use the shortcut `esp c`
 
+# Add External Account Script
+The `esp` executable can also run a script that will create an external account and team for an already created sub organization that has the name 'AutoCreate'.
+The script can be run with the command `esp add_external_account` or the shortcut `esp a`.
+
+Additional information can be found in the help.  `esp add_external_account -h`
 
 ## Contributing
 
