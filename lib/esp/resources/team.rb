@@ -33,35 +33,9 @@ module ESP
     #
     # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
     #
-    # ===== Valid Equality Searchable Attributes
+    # ===== Valid Clauses
     #
-    # +id+
-    #
-    # +name+
-    #
-    # ===== Valid Matching Searchable Attributes
-    #
-    # +name+
-    #
-    # ===== Valid Sortable Attributes
-    #
-    # +updated_at+
-    #
-    # +created_at+
-    #
-    # ===== Valid Searchable Relationships
-    #
-    # +organization+ | See Organization `where` for searchable attributes.
-    #
-    # +sub_organizations+ | See SubOrganization `where` for searchable attributes.
-    #
-    # ===== Valid Includable Associations
-    #
-    # +organization+
-    #
-    # +sub_organization+
-    #
-    # +external_accounts+
+    # See {API documentation}[http://api-docs.evident.io?ruby#team-attributes] for valid arguments
     #
     # :call-seq:
     #  where(clauses = {})
@@ -82,11 +56,7 @@ module ESP
     #
     # ===== Valid Includable Associations
     #
-    # +organization+
-    #
-    # +sub_organization+
-    #
-    # +external_accounts+
+    # See {API documentation}[http://api-docs.evident.io?ruby#team-attributes] for valid arguments
     #
     # :call-seq:
     #  find(id, options = {})
@@ -105,9 +75,11 @@ module ESP
     #
     # ===== Valid Attributes
     #
-    # +sub_organization_id+ | Required | The ID of the sub organization to attach this team to
+    # See {API documentation}[http://api-docs.evident.io?ruby#team-create] for valid arguments
     #
-    # +name+ | Required | The name of the team
+    # ==== Example
+    #
+    #  team = ESP::Team.create(name: "Team Name", sub_organization_id: 9)
 
     # :method: save
     # Create and update a Team.
@@ -118,9 +90,7 @@ module ESP
     #
     # ===== Valid Attributes when creating
     #
-    # +sub_organization_id+ | Required | The ID of the sub organization to attach this team to
-    #
-    # +name+ | Required | The name of the team
+    # See {API documentation}[http://api-docs.evident.io?ruby#team-create] for valid arguments
     #
     # ==== Example
     #

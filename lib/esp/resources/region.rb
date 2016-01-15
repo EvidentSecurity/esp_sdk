@@ -18,9 +18,7 @@ module ESP
     #
     # ===== Valid Arguments
     #
-    # +external_account_ids+ | Required | An Array of the external accounts identified by +external_account_id+ to suppress the signature or custom signature on.
-    #
-    # +reason+ | Required | The reason for creating the suppression.
+    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-create] for valid arguments
     #
     # ==== Example
     #   suppress(external_account_ids: [5], reason: 'My very good reason for creating this suppression')
@@ -36,15 +34,9 @@ module ESP
     #
     # +clauses+ | Hash of attributes with appended predicates to search and sort by.
     #
-    # ===== Valid Equality Searchable Attributes
+    # ===== Valid Clauses
     #
-    # +id+
-    #
-    # +code+
-    #
-    # ===== Valid Matching Searchable Attributes
-    #
-    # +code+
+    # See {API documentation}[http://api-docs.evident.io?ruby#region-attributes] for valid arguments
     #
     # :call-seq:
     #  where(clauses = {})

@@ -35,37 +35,9 @@ module ESP
     #
     # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
     #
-    # ===== Valid Equality Searchable Attributes
+    # ===== Valid Clauses
     #
-    # +id+
-    #
-    # +email+
-    #
-    # ===== Valid Matching Searchable Attributes
-    #
-    # +email+
-    #
-    # ===== Valid Sortable Attributes
-    #
-    # +updated_at+
-    #
-    # +created_at+
-    #
-    # ===== Valid Searchable Relationships
-    #
-    # +organization+ | See Organization `where` for searchable attributes.
-    #
-    # +sub_organizations+ | See SubOrganization `where` for searchable attributes.
-    #
-    # +teams+ | See Team `where` for searchable attributes.
-    #
-    # ===== Valid Includable Associations
-    #
-    # +organization+
-    #
-    # +sub_organizations+
-    #
-    # +teams+
+    # See {API documentation}[http://api-docs.evident.io?ruby#user-attributes] for valid arguments
     #
     # :call-seq:
     #  where(clauses = {})
@@ -86,11 +58,7 @@ module ESP
     #
     # ===== Valid Includable Associations
     #
-    # +organization+
-    #
-    # +sub_organizations+
-    #
-    # +teams+
+    # See {API documentation}[http://api-docs.evident.io?ruby#user-attributes] for valid arguments
     #
     # :call-seq:
     #  find(id, options = {})

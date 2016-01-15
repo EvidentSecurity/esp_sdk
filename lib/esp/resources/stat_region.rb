@@ -26,7 +26,7 @@ module ESP
     #
     # ===== valid Includable Associations
     #
-    # +region+
+    # See {API documentation}[http://api-docs.evident.io?ruby#stat-region-attributes] for valid arguments
     #
     # ==== Example
     #   stats = ESP::StatRegion.for_stat(1194)
@@ -50,7 +50,7 @@ module ESP
     #
     # ===== valid Includable Associations
     #
-    # +custom_signature+
+    # See {API documentation}[http://api-docs.evident.io?ruby#stat-region-attributes] for valid arguments
     #
     # :call-seq:
     #  find(id, options = {})

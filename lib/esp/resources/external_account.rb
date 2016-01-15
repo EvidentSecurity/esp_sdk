@@ -31,41 +31,9 @@ module ESP
     #
     # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
     #
-    # ===== Valid Equality Searchable Attributes
+    # ===== Valid Clauses
     #
-    # +id+
-    #
-    # +arn+
-    #
-    # +name+
-    #
-    # ===== Valid Matching Searchable Attributes
-    #
-    # +name+
-    #
-    # ===== Valid Sortable Attributes
-    #
-    # +updated_at+
-    #
-    # +created_at+
-    #
-    # +name+
-    #
-    # ===== Valid Searchable Relationships
-    #
-    # +organization+ | See Organization `where` for searchable attributes.
-    #
-    # +sub_organization+ | See SubOrganization `where` for searchable attributes.
-    #
-    # +team+ | See Team `where` for searchable attributes.
-    #
-    # ===== Valid Includable Associations
-    #
-    # +organization+
-    #
-    # +sub_organization+
-    #
-    # +team+
+    # See {API documentation}[http://api-docs.evident.io?ruby#external-account-attributes] for valid arguments
     #
     # :call-seq:
     #  where(clauses = {})
@@ -86,11 +54,7 @@ module ESP
     #
     # ===== Valid Includable Associations
     #
-    # +organization+
-    #
-    # +sub_organization+
-    #
-    # +team+
+    # See {API documentation}[http://api-docs.evident.io?ruby#external-account-attributes] for valid arguments
     #
     # :call-seq:
     #  find(id, options = {})
@@ -109,15 +73,7 @@ module ESP
     #
     # ===== Valid Attributes
     #
-    # +arn+ | Required | Amazon Resource Name for the IAM role
-    #
-    # +external_id+ | Required | External identifier set on the role.  This will be set by calling #generate_external_id if not already set.
-    #
-    # +name+ | Not Required |  The name for this external account
-    #
-    # +sub_organization_id+ | Required | The ID of the sub organization the external account will belong to
-    #
-    # +team_id+ | Required | The ID of the team the external account will belong to
+    # See {API documentation}[http://api-docs.evident.io?ruby#external-account-create] for valid arguments
     #
     # ==== Example
     #
@@ -128,15 +84,7 @@ module ESP
     #
     # ===== Valid Attributes
     #
-    # +arn+ | Required | Amazon Resource Name for the IAM role
-    #
-    # +external_id+ | Required | External identifier set on the role.  This will be set by calling #generate_external_id if not already set.
-    #
-    # +name+ | Not Required |  The name for this external account
-    #
-    # +sub_organization_id+ | Required | The ID of the sub organization the external account will belong to
-    #
-    # +team_id+ | Required | The ID of the team the external account will belong to
+    # See {API documentation}[http://api-docs.evident.io?ruby#external-account-create] for valid arguments
     #
     # ==== Example
     #

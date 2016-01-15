@@ -50,48 +50,12 @@ module ESP
     #
     # +clauses+ | Required | Hash of attributes with appended predicates to search, sort and include.
     #
-    # ===== Valid Arguments
+    # ===== Valid Clauses
     #
-    # +report_id+ | Required | The ID of the report to retrieve alerts for
-    #
-    # +region_id+ | Not Required | Return only alerts for this region.
-    #
-    # +status+ | Not Required | Return only alerts for the give status(es).  Valid values are fail, warn, error, pass, info
-    #
-    # +first_seen+ | Not Required | Return only alerts that have started within a number of hours of the report. For example, first_seen of 3 will return alerts that started showing up within the last 3 hours of the report.
-    #
-    # +suppressed+ | Not Required | Return only suppressed alerts
-    #
-    # +team_id+ | Not Required | Return only alerts for the given team.
-    #
-    # +external_account_id+ | Not Required | Return only alerts for the given external id.
-    #
-    # +service_id+ | Not Required | Return only alerts on signatures with the given service.
-    #
-    # +signature_severity+ | Not Required | Return only alerts for signatures with the given risk_level.  Valid values are Low, Medium, High
-    #
-    # +signature_name+ | Not Required | Return only alerts for signatures with the given name.
-    #
-    # +resource+ | Not Required | Return only alerts for the given resource or tag.
-    #
-    # +signature_identifier+ | Not Required | Return only alerts for signatures with the given identifier.
-    #
-    # ===== Valid Includable Associations
-    #
-    # +external_account+
-    #
-    # +region+
-    #
-    # +signature+
-    #
-    # +suppression+
-    #
-    # +cloud_trail_events+
-    #
-    # +tags+
+    # See {API documentation}[http://api-docs.evident.io?ruby#searching-alerts] for valid arguments
     #
     # ==== Example
-    #   alerts = ESP::Alert.where(report_id: 54, status: 'fail', signature_severity: 'High', include: 'signature')
+    #   alerts = ESP::Alert.where(report_id: 54, status_eq: 'fail', signature_risk_level_in: ['High'], include: 'signature')
     def self.where(clauses = {})
       clauses = clauses.with_indifferent_access
       return super(clauses) if clauses[:from].present?
@@ -113,17 +77,10 @@ module ESP
     #
     # ===== Valid Includable Associations
     #
-    # +external_account+
+    # See {API documentation}[http://api-docs.evident.io?ruby#searching-alerts] for valid arguments
     #
-    # +region+
-    #
-    # +signature+
-    #
-    # +suppression+
-    #
-    # +cloud_trail_events+
-    #
-    # +tags+
+    # ==== Example
+    # alert = ESP::Alert.find(1, include: 'tags,external_account.team')
     #
     # :call-seq:
     #  find(id, options = {})

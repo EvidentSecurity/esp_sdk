@@ -26,7 +26,7 @@ module ESP
     #
     # ===== valid Includable Associations
     #
-    # +custom_signature+
+    # See {API documentation}[http://api-docs.evident.io?ruby#stat-custom-signature-attributes] for valid arguments
     #
     # ==== Example
     #   stats = ESP::StatCustomSignature.for_stat(1194)
@@ -50,7 +50,7 @@ module ESP
     #
     # ===== valid Includable Associations
     #
-    # +custom_signature+
+    # See {API documentation}[http://api-docs.evident.io?ruby#stat-custom-signature-attributes] for valid arguments
     #
     # :call-seq:
     #  find(id, options = {})

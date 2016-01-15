@@ -41,27 +41,9 @@ module ESP
     #
     # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
     #
-    # ===== Valid Equality Searchable Attributes
+    # ===== Valid Clauses
     #
-    # +id+
-    #
-    # +name+
-    #
-    # ===== Valid Matching Searchable Attributes
-    #
-    # +name+
-    #
-    # ===== Valid Sortable Attributes
-    #
-    # +updated_at+
-    #
-    # +created_at+
-    #
-    # ===== Valid Includable Associations
-    #
-    # +sub_organizations+
-    #
-    # +teams+
+    # See {API documentation}[http://api-docs.evident.io?ruby#organization-attributes] for valid arguments
     #
     # :call-seq:
     #  where(clauses = {})
@@ -82,9 +64,7 @@ module ESP
     #
     # ===== Valid Includable Associations
     #
-    # +sub_organizations+
-    #
-    # +teams+
+    # See {API documentation}[http://api-docs.evident.io?ruby#organization-attributes] for valid arguments
     #
     # :call-seq:
     #  find(id, options = {})
@@ -100,6 +80,6 @@ module ESP
     #
     # ===== Valid Attributes
     #
-    # +name+ | Not Required | The new name of the organization
+    # See {API documentation}[http://api-docs.evident.io?ruby#organization-update] for valid arguments
   end
 end

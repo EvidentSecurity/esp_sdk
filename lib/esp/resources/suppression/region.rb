@@ -50,26 +50,14 @@ module ESP
       #
       # +attributes+ | Required | A hash of region suppression attributes
       #
-      # ===== Valid Attributes When Not Creating for Alert
+      # ===== Valid Attributes
       #
-      # +regions+ | Required | An array of region names to suppress.
+      # See {API documentation}[http://api-docs.evident.io?ruby#suppression-region-create] for valid arguments
       #
-      # +external_account_ids+ | Required | An Array of the external accounts identified by +external_account_id+ to suppress the signature or custom signature on.
-      #
-      # +resource+ | Not Required | The resource string this suppression will suppress alerts for.
-      #
-      # +reason+ | Required | The reason for creating the suppression.
-      #
-      # ==== Example
+      # ==== Example When Not Creating for Alert
       #   create(regions: ['us_east_1'], external_account_ids: [5], reason: 'My very good reason for creating this suppression')
       #
-      # ===== Valid Attributes When Creating for Alert
-      #
-      # +alert_id+ | Required | The id for the alert you want to create a suppression for.
-      #
-      # +reason+ | Required | The reason for creating the suppression.
-      #
-      # ==== Example
+      # ==== Example When Creating for Alert
       #   create(alert_id: 5, reason: 'My very good reason for creating this suppression')
 
       # :method: save
@@ -77,27 +65,15 @@ module ESP
       #
       # If you set an +alert_id+, set the +reason+ and all other params will be ignored, and the suppression will be created based on that alert.
       #
-      # ===== Valid Attributes When Not Creating for Alert
+      # ===== Valid Attributes
       #
-      # +regions+ | Required | An array of region names to suppress.
+      # See {API documentation}[http://api-docs.evident.io?ruby#suppression-region-create] for valid arguments
       #
-      # +external_account_ids+ | Required | An Array of the external accounts identified by +external_account_id+ to suppress the signature or custom signature on.
-      #
-      # +resource+ | Not Required | The resource string this suppression will suppress alerts for.
-      #
-      # +reason+ | Required | The reason for creating the suppression.
-      #
-      # ==== Example
+      # ==== Example When Not Creating for Alert
       #   suppression = new(regions: ['us_east_1'], external_account_ids: [5], reason: 'My very good reason for creating this suppression')
       #   suppression.save
       #
-      # ===== Valid Attributes When Creating for Alert
-      #
-      # +alert_id+ | Required | The id for the alert you want to create a suppression for.
-      #
-      # +reason+ | Required | The reason for creating the suppression.
-      #
-      # ==== Example
+      # ==== Example When Creating for Alert
       #   suppression = new(alert_id: 5, reason: 'My very good reason for creating this suppression')
       #   suppression.save
     end

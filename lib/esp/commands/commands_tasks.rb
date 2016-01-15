@@ -12,7 +12,7 @@ Usage: esp COMMAND [environment] [ARGS]
 
 The ESP commands are:
  console                      Start the ESP console (short-cut alias: "c")
- add_aws_external_account     Adds external accounts to ESP (short-cut alias: "a")
+ add_external_account         Adds external accounts to ESP (short-cut alias: "a")
 
 All commands can be run with -h (or --help) for more information.
     EOT

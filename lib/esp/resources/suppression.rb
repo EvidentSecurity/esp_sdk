@@ -90,45 +90,9 @@ module ESP
     #
     # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
     #
-    # ===== Valid Equality Searchable Attributes
+    # ===== Valid Clauses
     #
-    # +id+
-    #
-    # +resource+
-    #
-    # +suppression_type+ | Possible values are unique_identifiers, regions, and signatures
-    #
-    # ===== Valid Matching Searchable Attributes
-    #
-    # +resource+
-    #
-    # +suppression_type+ | Possible values are unique_identifiers, regions, and signatures
-    #
-    # ===== Valid Sortable Attributes
-    #
-    # +updated_at+
-    #
-    # ===== Valid Searchable Relationships
-    #
-    # +created_by+ | See User `where` for searchable attributes.
-    #
-    # +regions+ | See Region `where` for searchable attributes.
-    #
-    # +signatures+ | See Signature `where` for searchable attributes.
-    #
-    # ===== Valid Includable Associations
-    #
-    # +organization+
-    #
-    # +created_by+
-    #
-    # +external_accounts+
-    #
-    # +regions+
-    #
-    # +signatures+
-    #
-    # +custom_signatures+
+    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-attributes] for valid arguments
     #
     # :call-seq:
     #  where(clauses = {})
@@ -149,17 +113,7 @@ module ESP
     #
     # ===== Valid Includable Associations
     #
-    # +organization+
-    #
-    # +created_by+
-    #
-    # +external_accounts+
-    #
-    # +regions+
-    #
-    # +signatures+
-    #
-    # +custom_signatures+
+    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-attributes] for valid arguments
     #
     # :call-seq:
     #  find(id, options = {})

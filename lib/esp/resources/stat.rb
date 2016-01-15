@@ -55,25 +55,7 @@ module ESP
     #
     # ===== valid Includable Associations
     #
-    # +report+
-    #
-    # +regions+
-    #
-    # +regions.region+
-    #
-    # +services+
-    #
-    # +services.service+
-    #
-    # +signatures+
-    #
-    # +signatures.signature+
-    #
-    # +custom_signatures+
-    #
-    # +custom_signatures.custom_signature+
-    #
-    # See the Associated Objects section of the README for more information on including objects.
+    # See {API documentation}[http://api-docs.evident.io?ruby#alert-attributes] for valid arguments
     def self.for_report(report_id = nil, options = {}) # rubocop:disable Style/OptionHash
       fail ArgumentError, "You must supply a report id." unless report_id.present?
       # call find_one directly since find is overriden/not implemented
