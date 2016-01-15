@@ -13,7 +13,7 @@ This Readme is for the V2 version of the ESP SDK.  For V1 information, see the [
 
 Add this line to your application's Gemfile:
 
-    gem 'esp_sdk'
+     gem 'esp_sdk'
 
 And then execute:
 
@@ -480,6 +480,10 @@ The Evident.io SDK gem also provides an IRB console you can use if not using it 
 # Add External Account Script
 The `esp` executable can also run a script that will create an external account and team for an already created sub organization that has the name 'AutoCreate'.
 The script can be run with the command `esp add_external_account` or the shortcut `esp a`.
+
+To run this script you will need to install the aws-sdk gem.
+
+     gem install aws-sdk
 
 Additional information can be found in the help.  `esp add_external_account -h`
 
