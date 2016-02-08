@@ -106,34 +106,21 @@ module ESP
         end
       end
 
-      context '#metadata' do
-        should 'call the api for the alert' do
-          alert = build(:alert)
-          stubbed_metadata = stub_request(:get, %r{alerts/#{alert.id}/metadata.json*}).to_return(body: json(:metadata))
-
-          alert.metadata
-
-          assert_requested(stubbed_metadata)
-        end
-      end
-
-      context '.for_report' do
+      context '.where' do
         should 'throw an error if report_id is not supplied' do
           error = assert_raises ArgumentError do
-            ESP::Alert.for_report
+            ESP::Alert.where(status: 'complete')
           end
           assert_equal 'You must supply a report id.', error.message
         end
 
-        should 'call the api and pass params' do
-          stub_request(:get, %r{reports/5/alerts.json*}).to_return(body: json_list(:alert, 2))
+        should 'call the api and return alerts when report_id is supplied' do
+          stub_alert = stub_request(:put, %r{reports/5/alerts.json*}).to_return(body: json_list(:alert, 2))
 
-          alerts = ESP::Alert.for_report(5, status: 'pass')
+          alert = ESP::Alert.where(report_id: 5)
 
-          assert_requested(:get, %r{reports/5/alerts.json*}) do |req|
-            assert_equal "filter[status]=pass", URI.unescape(req.uri.query)
-          end
-          assert_equal ESP::Alert, alerts.resource_class
+          assert_requested(stub_alert)
+          assert_equal ESP::Alert, alert.resource_class
         end
       end
 
@@ -243,7 +230,7 @@ module ESP
         setup do
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
           WebMock.allow_net_connect!
-          @report = ESP::Report.last
+          @report = ESP::Report.all.detect { |r| r.status == 'complete' }
           skip "Live DB does not have any reports.  Add a report and run tests again." if @report.blank?
           @alert = @report.alerts.last
         end
@@ -252,31 +239,82 @@ module ESP
           WebMock.disable_net_connect!
         end
 
-        context '#metadata' do
-          should 'return metata' do
+        context '#external_account' do
+          should 'return an external_account' do
+            external_account = @alert.external_account
+
+            assert_equal ESP::ExternalAccount, external_account.class
+            assert_equal @alert.external_account_id, external_account.id
+          end
+        end
+
+        context '#region' do
+          should 'return a region' do
+            region = @alert.region
+
+            assert_equal ESP::Region, region.class
+            assert_equal @alert.region_id, region.id
+          end
+        end
+
+        context '#signature' do
+          should 'return a signature' do
+            signature = @alert.signature
+
+            assert_equal ESP::Signature, signature.class
+            assert_equal @alert.signature_id, signature.id
+          end
+        end
+
+        context '#custom_signature' do
+          should 'return a custom_signature' do
             assert_nothing_raised do
-              @alert.metadata
+              @alert.attributes['custom_signature_id'] ||= 1
+              @alert.custom_signature
             end
           end
         end
 
-        context '.for_report' do
-          should 'return events for report id' do
-            report = ESP::Report.last
-            alerts = ESP::Alert.for_report(report.id)
+        context '#suppression' do
+          should 'return a suppression' do
+            assert_nothing_raised do
+              @alert.attributes['suppression_id'] ||= 1
+              @alert.suppression
+            end
+          end
+        end
 
-            assert_equal ESP::Alert, alerts.resource_class
+        context '#cloud_trail_events' do
+          should 'return cloud_trail_events' do
+            assert_nothing_raised do
+              @alert.cloud_trail_events
+            end
+          end
+        end
+
+        context '#tags' do
+          should 'return tags' do
+            assert_nothing_raised do
+              @alert.tags
+            end
           end
         end
 
         context '.find' do
           should 'return an alert by id' do
-            report = ESP::Report.last
-            alert_id = report.alerts.last.id
-            alert = ESP::Alert.find(alert_id.to_i)
+            alert = ESP::Alert.find(@alert.id.to_i)
 
             assert_equal ESP::Alert, alert.class
-            assert_equal alert_id, alert.id
+            assert_equal @alert.id, alert.id
+          end
+        end
+
+        context '.where' do
+          should 'return alert objects' do
+            alerts = ESP::Alert.where(report_id: @report.id, id_eq: @alert.id)
+
+            assert_equal ESP::Alert, alerts.resource_class
+            assert_equal @alert.id, alerts.first.id
           end
         end
       end

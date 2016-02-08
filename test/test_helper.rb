@@ -33,20 +33,21 @@ class ActiveSupport::TestCase
   def json_list(*args)
     page_args = args.last.delete(:page) if args.last.present? && args.last.is_a?(Hash)
     page_args ||= { number: 1, size: 20 }
-    json_array = super
-    data = json_array.map { |j| JSON.parse(j)['data'] }
-    links = build_links(data, page_args)
-    { 'data' => data.slice(0, page_args[:size]),
-      'included' => JSON.parse(json_array.first)['included'],
-      "links" => links
-    }.to_json
+    json_array = args.first == :empty ? [] : super
+    data             = json_array.map { |j| JSON.parse(j)['data'] }
+    links            = build_links(data, page_args)
+    list             = { 'data'  => data.slice(0, page_args[:size]),
+                         "links" => links
+    }
+    list['included'] = JSON.parse(json_array.first)['included'] if json_array.first.present?
+    list.to_json
   end
 
   private
 
   def build_links(data, page)
     current_page = page[:number]
-    last_page = (data.count.to_f / page[:size]).ceil
+    last_page    = (data.count.to_f / page[:size]).ceil
     { "self" => "http://localhost:3000/api/v2/not_the_real_url/but_useful_for_testing.json?page%5Bnumber%5D=#{current_page}&page%5Bsize%5D=#{page[:size]}" }.tap do |links|
       links["prev"] = "http://localhost:3000/api/v2/not_the_real_url/but_useful_for_testing.json?page%5Bnumber%5D=#{current_page - 1}&page%5Bsize%5D=#{page[:size]}" unless current_page == 1
       unless current_page == last_page

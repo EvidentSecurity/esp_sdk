@@ -2,22 +2,38 @@ module ESP
   class StatCustomSignature < ESP::Resource
     include ESP::StatTotals
 
+    ##
     # The custom_signature these stats are for.
     belongs_to :custom_signature, class_name: 'ESP::CustomSignature'
+
+    # Not Implemented. You cannot search for a StatSignature.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
 
     # Returns a paginated collection of custom_signature stats for the given stat_id
     # Convenience method to use instead of ::find since a stat_id is required to return custom_signature stats.
     #
-    # ==== Parameter
+    # ==== Parameters
     #
     # +stat_id+ | Required | The ID of the stat to list custom_signature stats for
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#stat-custom-signature-attributes] for valid arguments
+    #
     # ==== Example
     #   stats = ESP::StatCustomSignature.for_stat(1194)
-    def self.for_stat(stat_id = nil)
+    def self.for_stat(stat_id = nil, options = {}) # rubocop:disable Style/OptionHash
       fail ArgumentError, "You must supply a stat id." unless stat_id.present?
       from = "#{prefix}stats/#{stat_id}/custom_signatures.json"
-      find(:all, from: from)
+      find(:all, from: from, params: options)
     end
 
     # Find a StatRegion by id
@@ -26,8 +42,18 @@ module ESP
     #
     # +id+ | Required | The ID of the custom_signature stat to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#stat-custom-signature-attributes] for valid arguments
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
     def self.find(*arguments)
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access

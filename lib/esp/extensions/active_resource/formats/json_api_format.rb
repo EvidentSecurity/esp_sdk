@@ -1,6 +1,6 @@
 require 'active_support/json'
 
-module ActiveResource
+module ActiveResource # :nodoc: all
   class ConnectionError
     def initialize(response)
       @response = if response.respond_to?(:response)
@@ -20,7 +20,7 @@ module ActiveResource
     end
   end
 
-  module Formats
+  module Formats # :nodoc: all
     module JsonAPIFormat
       module_function
 
@@ -114,10 +114,18 @@ module ActiveResource
         return if included.blank?
         object[assoc] = case data
                         when Array
-                          included.select { |i| data.include?(parse_object!(i).slice('type', 'id')) }
+                          merge_nested_included_objects(object, data, included)
                         when Hash
-                          included.detect { |i| data == parse_object!(i).slice('type', 'id') }
+                          merge_nested_included_objects(object, [data], included).first
                         end
+      end
+
+      def self.merge_nested_included_objects(object, data, included)
+        assocs = included.select { |i| data.include?((i.slice('type', 'id'))) }
+        # Remove the object from the included array to prevent an infinite loop if one of it's associations relates back to itself.
+        assoc_included = included.dup
+        assoc_included.delete(object)
+        assocs.map { |i| parse_object!(i, assoc_included) }
       end
     end
   end

@@ -24,9 +24,7 @@ module ESP
     #
     # ===== Valid Arguments
     #
-    # +external_account_id+ | Required | The ID of the external account to run this custom signature against
-    #
-    # +region+ | Required | Region name to run this custom signature against
+    # See {API documentation}[http://api-docs.evident.io?ruby#signature-run] for valid arguments
     #
     # ==== Example
     #   signature = ESP::Signature.find(3)
@@ -48,9 +46,7 @@ module ESP
     #
     # ===== Valid Arguments
     #
-    # +external_account_id+ | Required | The ID of the external account to run this custom signature against
-    #
-    # +region+ | Required | Region name to run this custom signature against
+    # See {API documentation}[http://api-docs.evident.io?ruby#signature-run] for valid arguments
     #
     # ==== Example
     #   signature = ESP::Signature.find(3)
@@ -76,11 +72,7 @@ module ESP
     #
     # ===== Valid Arguments
     #
-    # +regions+ | Required | An array of region names to suppress.
-    #
-    # +external_account_ids+ | Required | An Array of the external accounts identified by +external_account_id+ to suppress the signature or custom signature on.
-    #
-    # +reason+ | Required | The reason for creating the suppression.
+    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-create] for valid arguments
     #
     # ==== Example
     #   suppress(regions: ['us_east_1'], external_account_ids: [5], reason: 'My very good reason for creating this suppression')
@@ -88,6 +80,20 @@ module ESP
       arguments = arguments.with_indifferent_access
       ESP::Suppression::Signature.create(signature_ids: [id], regions: Array(arguments[:regions]), external_account_ids: Array(arguments[:external_account_ids]), reason: arguments[:reason])
     end
+
+    # :singleton-method: where
+    # Return a paginated Signature list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #
+    # ===== Valid Clauses
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#signature-attributes] for valid arguments
+    #
+    # :call-seq:
+    #  where(clauses = {})
 
     ##
     # :singleton-method: find
@@ -97,8 +103,18 @@ module ESP
     #
     # +id+ | Required | The ID of the signature to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#signature-attributes] for valid arguments
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated Signature list

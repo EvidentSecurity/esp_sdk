@@ -2,8 +2,14 @@ module ESP
   class StatService < ESP::Resource
     include ESP::StatTotals
 
+    ##
     # The service these stats are for.
     belongs_to :service, class_name: 'ESP::Service'
+
+    # Not Implemented. You cannot search for a StatSignature.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
 
     # Returns a paginated collection of service stats for the given stat_id
     # Convenience method to use instead of ::find since a stat_id is required to return service stats.
@@ -12,12 +18,22 @@ module ESP
     #
     # +stat_id+ | Required | The ID of the stat to list service stats for
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#stat-service-attributes] for valid arguments
+    #
     # ==== Example
     #   stats = ESP::StatService.for_stat(1194)
-    def self.for_stat(stat_id = nil)
+    def self.for_stat(stat_id = nil, options = {}) # rubocop:disable Style/OptionHash
       fail ArgumentError, "You must supply a stat id." unless stat_id.present?
       from = "#{prefix}stats/#{stat_id}/services.json"
-      find(:all, from: from)
+      find(:all, from: from, params: options)
     end
 
     # Find a StatService by id
@@ -26,8 +42,18 @@ module ESP
     #
     # +id+ | Required | The ID of the service stat to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#stat-service-attributes] for valid arguments
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
     def self.find(*arguments)
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access

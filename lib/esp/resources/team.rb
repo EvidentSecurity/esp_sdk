@@ -26,6 +26,20 @@ module ESP
       Report.create_for_team(id)
     end
 
+    # :singleton-method: where
+    # Return a paginated Team list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #
+    # ===== Valid Clauses
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#team-attributes] for valid arguments
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a Team by id
@@ -34,8 +48,18 @@ module ESP
     #
     # +id+ | Required | The ID of the team to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#team-attributes] for valid arguments
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated Team list
@@ -49,24 +73,24 @@ module ESP
     #
     # +attributes+ | Required | A hash of team attributes
     #
-    # ==== Valid Attributes
+    # ===== Valid Attributes
     #
-    # +sub_organization_id+ | Required | The ID of the sub organization to attach this team to
+    # See {API documentation}[http://api-docs.evident.io?ruby#team-create] for valid arguments
     #
-    # +name+ | Required | The name of the team
+    # ==== Example
+    #
+    #  team = ESP::Team.create(name: "Team Name", sub_organization_id: 9)
 
     # :method: save
     # Create and update a Team.
     #
-    # ==== Valid Attributes when updating
+    # ===== Valid Attributes when updating
     #
     # +name+ | Required | The new name of the team
     #
-    # ==== Valid Attributes when creating
+    # ===== Valid Attributes when creating
     #
-    # +sub_organization_id+ | Required | The ID of the sub organization to attach this team to
-    #
-    # +name+ | Required | The name of the team
+    # See {API documentation}[http://api-docs.evident.io?ruby#team-create] for valid arguments
     #
     # ==== Example
     #

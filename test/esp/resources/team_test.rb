@@ -110,6 +110,14 @@ module ESP
           end
         end
 
+        context '.where' do
+          should 'return team objects' do
+            teams = ESP::Team.where(name_eq: @team.name)
+
+            assert_equal ESP::Team, teams.resource_class
+          end
+        end
+
         context '#CRUD' do
           should 'be able to create, update and destroy' do
             team = ESP::Team.new(name: 'bob', organization_id: @team.organization_id, sub_organization_id: @team.sub_organization_id)

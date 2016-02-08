@@ -4,6 +4,11 @@ module ESP
     # The collection of signatures associated with this service.
     has_many :signatures, class_name: 'ESP::Signature'
 
+    # Not Implemented. You cannot search for a Tag.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
+
     # Not Implemented. You cannot create or update a Service.
     def save
       fail ESP::NotImplementedError

@@ -16,6 +16,20 @@ module ESP
     # The collection of reports that belong to the sub organization.
     has_many :reports, class_name: 'ESP::Report'
 
+    # :singleton-method: where
+    # Return a paginated SubOrganization list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #
+    # ===== Valid Clauses
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-attributes] for valid arguments
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a SubOrganization by id
@@ -24,8 +38,18 @@ module ESP
     #
     # +id+ | Required | The ID of the sub organization to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-attributes] for valid arguments
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated SubOrganization list
@@ -41,7 +65,7 @@ module ESP
     #
     # ===== Valid Attributes
     #
-    # +name+ | Required | The name of the sub organization
+    # See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-create] for valid arguments
     #
     # ==== Example
     #
@@ -56,7 +80,7 @@ module ESP
     #
     # ===== Valid Attributes
     #
-    # +name+ | Required | The name of the sub organization
+    # See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-create] for valid arguments
     #
     # ==== Example
     #

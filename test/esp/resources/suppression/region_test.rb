@@ -4,6 +4,14 @@ module ESP
   class Suppression
     class RegionTest < ActiveSupport::TestCase
       context ESP::Suppression::Region do
+        context '.where' do
+          should 'not be implemented' do
+            assert_raises ESP::NotImplementedError do
+              ESP::Suppression::Region.where(id_eq: 2)
+            end
+          end
+        end
+
         context '#find' do
           should 'not be implemented' do
             assert_raises ESP::NotImplementedError do
@@ -91,7 +99,7 @@ module ESP
 
             context 'for_alert' do
               should 'return error when reason is not supplied' do
-                alert_id = ESP::Report.last.alerts.last.id
+                alert_id = ESP::Report.all.detect { |r| r.status == 'complete' }.alerts.last.id
 
                 suppression = ESP::Suppression::Region.create(alert_id: alert_id)
 
@@ -99,7 +107,7 @@ module ESP
               end
 
               should 'return suppression' do
-                alert_id = ESP::Report.last.alerts.last.id
+                alert_id = ESP::Report.all.detect { |r| r.status == 'complete' }.alerts.last.id
 
                 suppression = ESP::Suppression::Region.create(alert_id: alert_id, reason: 'test')
 

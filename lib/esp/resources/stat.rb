@@ -23,6 +23,11 @@ module ESP
     has_many :custom_signatures, class_name: 'ESP::StatCustomSignature'
 
     # Not Implemented. You cannot search for a Stat.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
+
+    # Not Implemented. You cannot search for a Stat.
     def self.find(*)
       fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use either the ESP::Stat.for_report or ESP::Stat.latest_for_teams method.'
     end
@@ -37,10 +42,24 @@ module ESP
     # Not Implemented. You cannot delete a Stat.
 
     # Returns all the stats of all the alerts for a report identified by the report_id parameter. Said report contains all statistics for this alert triggered from signatures contained in all regions for the selected hour.
-    def self.for_report(report_id = nil)
+    #
+    # ==== Parameters
+    #
+    # +report_id+ | Required | The ID of the report to retrieve stats for
+    #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#alert-attributes] for valid arguments
+    def self.for_report(report_id = nil, options = {}) # rubocop:disable Style/OptionHash
       fail ArgumentError, "You must supply a report id." unless report_id.present?
       # call find_one directly since find is overriden/not implemented
-      find_one(from: "#{prefix}reports/#{report_id}/stats.json")
+      find_one(from: "#{prefix}reports/#{report_id}/stats.json", params: options)
     end
 
     # Returns all the stats for the most recent report of each team accessible by the given API key.

@@ -3,6 +3,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
 module ESP
   class CloudTrailEventTest < ActiveSupport::TestCase
     context ESP::CloudTrailEvent do
+      context '.where' do
+        should 'not be implemented' do
+          assert_raises ESP::NotImplementedError do
+            ESP::CloudTrailEvent.where(id_eq: 2)
+          end
+        end
+      end
+
       context '#create' do
         should 'not be implemented' do
           assert_raises ESP::NotImplementedError do
@@ -86,7 +94,7 @@ module ESP
 
         context '.for_alert' do
           should 'return events for alert id' do
-            report = ESP::Report.last
+            report = ESP::Report.all.detect { |r| r.status == 'complete' }
             events = ESP::CloudTrailEvent.for_alert(report.alerts.last.id)
 
             assert_equal ESP::CloudTrailEvent, events.resource_class

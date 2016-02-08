@@ -17,14 +17,30 @@ module ESP
     ##
     # The collection of sub organizations that belong to the user.
     def sub_organizations
-      SubOrganization.find(:all, params: { id: sub_organization_ids })
+      return attributes['sub_organizations'] if attributes['sub_organizations'].present?
+      SubOrganization.where(id_in: sub_organization_ids)
     end
 
     ##
     # The collection of teams that belong to the user.
     def teams
-      Team.find(:all, params: { id: team_ids })
+      return attributes['teams'] if attributes['teams'].present?
+      Team.where(id_in: team_ids)
     end
+
+    # :singleton-method: where
+    # Return a paginated User list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #
+    # ===== Valid Clauses
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#user-attributes] for valid arguments
+    #
+    # :call-seq:
+    #  where(clauses = {})
 
     ##
     # :singleton-method: find
@@ -34,8 +50,18 @@ module ESP
     #
     # +id+ | Required | The ID of the user to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#user-attributes] for valid arguments
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated User list

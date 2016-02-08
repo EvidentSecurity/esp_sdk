@@ -123,6 +123,8 @@ module ESP
         setup do
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
           WebMock.allow_net_connect!
+          @signature = ESP::Signature.where(name_cont: 'heartbleed').last
+          skip "Live DB does not have any signatures.  Add a signature and run tests again." if @signature.blank?
         end
 
         teardown do
@@ -131,33 +133,37 @@ module ESP
 
         context '#service' do
           should 'return a service' do
-            signature = ESP::Signature.first
+            service = @signature.service
 
-            service = signature.service
-
-            assert_equal signature.service_id, service.id
+            assert_equal @signature.service_id, service.id
             assert_equal ESP::Service, service.class
           end
         end
 
         context '#run' do
           should 'return alerts' do
-            signature = ESP::Signature.first
             external_account_id = ESP::ExternalAccount.last.id
 
-            alerts = signature.run(external_account_id: external_account_id, region: 'us_east_1')
+            alerts = @signature.run(external_account_id: external_account_id, region: 'us_east_1')
 
             puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** alerts = " + alerts.inspect
             assert_equal ESP::Alert, alerts.resource_class
           end
 
           should 'return errors' do
-            signature = ESP::Signature.first
             external_account_id = 999_999_999_999
 
-            signature = signature.run(external_account_id: external_account_id, region: 'us_east_1')
+            @signature.run(external_account_id: external_account_id, region: 'us_east_1')
 
-            assert_equal "Couldn't find ExternalAccount", signature.errors.full_messages.first
+            assert_equal "Couldn't find ExternalAccount", @signature.errors.full_messages.first
+          end
+        end
+
+        context '.where' do
+          should 'return signature objects' do
+            signatures = ESP::Signature.where(id_eq: @signature.id)
+
+            assert_equal ESP::Signature, signatures.resource_class
           end
         end
 

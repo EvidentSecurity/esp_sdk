@@ -43,26 +43,52 @@ module ESP
       context '#sub_organizations' do
         should 'call the api' do
           u = build(:user, sub_organization_ids: [1, 2])
-          stub_request(:get, /sub_organizations.json*/).to_return(body: json_list(:sub_organization, 2))
+          stub_request(:put, /sub_organizations.json*/).to_return(body: json_list(:sub_organization, 2))
 
           u.sub_organizations
 
-          assert_requested(:get, /sub_organizations.json*/) do |req|
-            assert_equal "filter[id_in][0]=#{u.sub_organization_ids.first}&filter[id_in][1]=#{u.sub_organization_ids.second}", URI.unescape(req.uri.query)
+          assert_requested(:put, /sub_organizations.json*/) do |req|
+            body = JSON.parse(req.body)
+            assert_equal [1, 2], body["filter"]["id_in"]
           end
+        end
+
+        should 'not call the api if it was returned in an include' do
+          stub_request(:get, %r{users/1.json*}).to_return(body: json(:user, :with_include))
+          user = ESP::User.find(1)
+          stub_request(:put, /sub_organizations.json*/)
+
+          assert_not_nil user.attributes['sub_organizations']
+
+          user.sub_organizations
+
+          assert_not_requested(:put, /sub_organizations.json*/)
         end
       end
 
       context '#teams' do
         should 'call the api' do
           u = build(:user, team_ids: [1, 2])
-          stub_request(:get, /teams.json*/).to_return(body: json_list(:team, 2))
+          stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
 
           u.teams
 
-          assert_requested(:get, /teams.json*/) do |req|
-            assert_equal "filter[id_in][0]=#{u.team_ids.first}&filter[id_in][1]=#{u.team_ids.second}", URI.unescape(req.uri.query)
+          assert_requested(:put, /teams.json*/) do |req|
+            body = JSON.parse(req.body)
+            assert_equal [1, 2], body["filter"]["id_in"]
           end
+        end
+
+        should 'not call the api if it was returned in an include' do
+          stub_request(:get, %r{users/1.json*}).to_return(body: json(:user, :with_include))
+          user = ESP::User.find(1)
+          stub_request(:put, /teams.json*/)
+
+          assert_not_nil user.attributes['teams']
+
+          user.teams
+
+          assert_not_requested(:put, /teams.json*/)
         end
       end
 
@@ -70,6 +96,8 @@ module ESP
         setup do
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
           WebMock.allow_net_connect!
+          @user = ESP::User.last
+          skip "Live DB does not have any users.  Add a user and run tests again." if @user.blank?
         end
 
         teardown do
@@ -78,33 +106,35 @@ module ESP
 
         context '#organization' do
           should 'return an organization' do
-            u = ESP::User.last
+            org = @user.organization
 
-            org = u.organization
-
-            assert_equal u.organization_id, org.id
+            assert_equal @user.organization_id, org.id
           end
         end
 
         context '#sub_organizations' do
           should 'return an array of sub_organizations' do
-            u = ESP::User.last
+            sub_orgs = @user.sub_organizations
 
-            sub_orgs = u.sub_organizations
-
-            assert_equal u.sub_organization_ids.count, sub_orgs.count
-            assert_equal u.sub_organization_ids, sub_orgs.map(&:id)
+            assert_equal @user.sub_organization_ids.count, sub_orgs.count
+            assert_equal @user.sub_organization_ids, sub_orgs.map(&:id)
           end
         end
 
         context '#teams' do
           should 'return an array of teams' do
-            u = ESP::User.last
+            teams = @user.teams
 
-            teams = u.teams
+            assert_equal @user.team_ids.count, teams.count
+            assert_equal @user.team_ids.sort, teams.map(&:id).sort
+          end
+        end
 
-            assert_equal u.team_ids.count, teams.count
-            assert_equal u.team_ids.sort, teams.map(&:id).sort
+        context '.where' do
+          should 'return user objects' do
+            users = ESP::User.where(id_eq: @user.id)
+
+            assert_equal ESP::User, users.resource_class
           end
         end
       end

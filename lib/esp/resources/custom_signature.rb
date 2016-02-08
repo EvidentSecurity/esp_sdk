@@ -14,13 +14,7 @@ module ESP
     #
     # ===== Valid Arguments
     #
-    # +external_account_id+ | Required | The ID of the external account to run this custom signature against
-    #
-    # +signature+ | Required | The code for this custom signature
-    #
-    # +language+ | Required | The language of the custom signature. Possible values are `ruby` or `javascript`
-    #
-    # +regions+ | Required | Array of region names to run this custom signature against
+    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-run-new] for valid arguments
     #
     # ==== Example
     #   signature = "# Demo Ruby Signature\r\nconfigure do |c|\r\n  # Set regions to run in. Remove this line to run in all regions.\r\n  c.valid_regions     = [:us_east_1]\r\n  # Override region to display as global. Useful when checking resources\r\n  # like IAM that do not have a specific region.\r\n  c.display_as        = :global\r\n  # deep_inspection works with set_data to automically collect\r\n  # data fields for each alert. Not required.\r\n  c.deep_inspection   = [:users]\r\nend\r\n\r\n# Required perform method\r\ndef perform(aws)\r\n  list_users = aws.iam.list_users\r\n  count = list_users[:users].count\r\n\r\n  # Set data for deep_inspection to use\r\n  set_data(list_users)\r\n\r\n  if count == 0\r\n    fail(user_count: count, condition: 'count == 0')\r\n  else\r\n    pass(user_count: count, condition: 'count >= 1')\r\n  end\r\nend\r\n"
@@ -42,13 +36,7 @@ module ESP
     #
     # ===== Valid Arguments
     #
-    # +external_account_id+ | Required | The ID of the external account to run this custom signature against
-    #
-    # +signature+ | Required | The code for this custom signature
-    #
-    # +language+ | Required | The language of the custom signature. Possible values are `ruby` or `javascript`
-    #
-    # +regions+ | Required | Array of region names to run this custom signature against
+    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-run-new] for valid arguments
     #
     # ==== Example
     #   signature = "# Demo Ruby Signature\r\nconfigure do |c|\r\n  # Set regions to run in. Remove this line to run in all regions.\r\n  c.valid_regions     = [:us_east_1]\r\n  # Override region to display as global. Useful when checking resources\r\n  # like IAM that do not have a specific region.\r\n  c.display_as        = :global\r\n  # deep_inspection works with set_data to automically collect\r\n  # data fields for each alert. Not required.\r\n  c.deep_inspection   = [:users]\r\nend\r\n\r\n# Required perform method\r\ndef perform(aws)\r\n  list_users = aws.iam.list_users\r\n  count = list_users[:users].count\r\n\r\n  # Set data for deep_inspection to use\r\n  set_data(list_users)\r\n\r\n  if count == 0\r\n    fail(user_count: count, condition: 'count == 0')\r\n  else\r\n    pass(user_count: count, condition: 'count >= 1')\r\n  end\r\nend\r\n"
@@ -69,9 +57,7 @@ module ESP
     #
     # ===== Valid Arguments
     #
-    # +external_account_id+ | Required | The ID of the external account to run this custom signature against
-    #
-    # +regions+ | Required | Array of region names to run this custom signature against
+    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-run-existing] for valid arguments
     #
     # ==== Example
     #   custom_signature = ESP::CustomSignature.find(365)
@@ -93,9 +79,7 @@ module ESP
     #
     # ===== Valid Arguments
     #
-    # +external_account_id+ | Required | The ID of the external account to run this custom signature against
-    #
-    # +regions+ | Required | Array of region names to run this custom signature against
+    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-run-existing] for valid arguments
     #
     # ==== Example
     #   custom_signature = ESP::CustomSignature.find(365)
@@ -122,11 +106,7 @@ module ESP
     #
     # ===== Valid Arguments
     #
-    # +regions+ | Required | An array of region names to suppress.
-    #
-    # +external_account_ids+ | Required | An Array of the external accounts identified by +external_account_id+ to suppress the signature or custom signature on.
-    #
-    # +reason+ | Required | The reason for creating the suppression.
+    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-create] for valid arguments
     #
     # ==== Example
     #   suppress(regions: ['us_east_1'], external_account_ids: [5], reason: 'My very good reason for creating this suppression')
@@ -134,6 +114,20 @@ module ESP
       arguments = arguments.with_indifferent_access
       ESP::Suppression::Signature.create(custom_signature_ids: [id], regions: Array(arguments[:regions]), external_account_ids: Array(arguments[:external_account_ids]), reason: arguments[:reason])
     end
+
+    # :singleton-method: where
+    # Return a paginated CustomSignature list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #
+    # ===== Valid Clauses
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-attributes] for valid arguments
+    #
+    # :call-seq:
+    #  where(clauses = {})
 
     ##
     # :singleton-method: find
@@ -143,8 +137,18 @@ module ESP
     #
     # +id+ | Required | The ID of the custom signature to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-attributes] for valid arguments
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated CustomSignature list
@@ -160,21 +164,7 @@ module ESP
     #
     # ===== Valid Attributes
     #
-    # +active+ | Not Required | Flag that determines if this custom signature should run on reports
-    #
-    # +description+ | Not Required | The description of the custom signature that is displayed on alerts
-    #
-    # +identifier+ | Required | The identifier to use for the custom signature. Common format is AWS:<Service>-<Number> such as AWS:IAM-001
-    #
-    # +language+ | Required | The language of the custom signature. Possible values are `ruby` or `javascript`
-    #
-    # +name+ | Required | The name of the custom signature
-    #
-    # +resolution+ | Not Required | Details for how to resolve this custom signature that is displayed on alerts
-    #
-    # +risk_level+ | Required | The risk-level of the problem identified by the custom signature
-    #
-    # +signature+ | Required | The code for this custom signature
+    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-create] for valid arguments
     #
     # ==== Example
     #
@@ -186,21 +176,7 @@ module ESP
     #
     # ===== Valid Attributes
     #
-    # +active+ | Not Required | Flag that determines if this custom signature should run on reports
-    #
-    # +description+ | Not Required | The description of the custom signature that is displayed on alerts
-    #
-    # +identifier+ | Required | The identifier to use for the custom signature. Common format is AWS:<Service>-<Number> such as AWS:IAM-001
-    #
-    # +language+ | Required | The language of the custom signature. Possible values are `ruby` or `javascript`
-    #
-    # +name+ | Required | The name of the custom signature
-    #
-    # +resolution+ | Not Required | Details for how to resolve this custom signature that is displayed on alerts
-    #
-    # +risk_level+ | Required | The risk-level of the problem identified by the custom signature
-    #
-    # +signature+ | Required | The code for this custom signature
+    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-create] for valid arguments
     #
     # ==== Example
     #

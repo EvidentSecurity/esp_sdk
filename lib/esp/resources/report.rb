@@ -26,7 +26,7 @@ module ESP
     # Returns a Report object with a status of 'queued' and an id
     # ==== Attribute
     #
-    # +team_id+ | Required | The ID of the team to create a report for
+    # See {API documentation}[http://api-docs.evident.io?ruby#report-create] for valid arguments
     #
     # Periodically check the API
     #   ESP::Report.find(<id>)
@@ -48,40 +48,34 @@ module ESP
     #
     # ===== Valid Arguments
     #
-    # +region_id+ | Not Required | Return only alerts for this region.
-    #
-    # +status+ | Not Required | Return only alerts for the give status(es).  Valid values are fail, warn, error, pass, info
-    #
-    # +first_seen+ | Not Required | Return only alerts that have started within a number of hours of the report. For example, first_seen of 3 will return alerts that started showing up within the last 3 hours of the report.
-    #
-    # +suppressed+ | Not Required | Return only suppressed alerts
-    #
-    # +team_id+ | Not Required | Return only alerts for the given team.
-    #
-    # +external_account_id+ | Not Required | Return only alerts for the given external id.
-    #
-    # +service_id+ | Not Required | Return only alerts on signatures with the given service.
-    #
-    # +signature_severity+ | Not Required | Return only alerts for signatures with the given risk_level.  Valid values are Low, Medium, High
-    #
-    # +signature_name+ | Not Required | Return only alerts for signatures with the given name.
-    #
-    # +resource+ | Not Required | Return only alerts for the given resource or tag.
-    #
-    # +signature_identifier+ | Not Required | Return only alerts for signatures with the given identifier.
+    # See {API documentation}[http://api-docs.evident.io?ruby#alert-attributes] for valid arguments
     #
     # ==== Example
     #
     #   report = ESP::Report.find(345)
     #   alerts = report.alerts(status: 'fail', signature_severity: 'High')
     def alerts(arguments = {})
-      ESP::Alert.for_report(id, arguments)
+      ESP::Alert.where(arguments.merge(report_id: id))
     end
 
     # Returns the stats for this report
     def stat
       ESP::Stat.for_report(id)
     end
+
+    # :singleton-method: where
+    # Return a paginated Report list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #
+    # ===== Valid Clauses
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#report-attributes] for valid arguments
+    #
+    # :call-seq:
+    #  where(clauses = {})
 
     ##
     # :singleton-method: find
@@ -91,8 +85,18 @@ module ESP
     #
     # +id+ | Required | The ID of the report to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#report-attributes] for valid arguments
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated Report list
