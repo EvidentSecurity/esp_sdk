@@ -44,6 +44,21 @@ class ESPTest < ActiveSupport::TestCase
       end
     end
 
+    context '.http_proxy' do
+      should 'be set manually' do
+        ESP.http_proxy = '1234'
+
+        assert_equal '1234', ESP.http_proxy
+      end
+
+      should 'be set from an environment variable' do
+        ESP.http_proxy = nil
+        ENV['http_proxy'] = '4321'
+
+        assert_equal '4321', ESP.http_proxy
+      end
+    end
+
     context '.host=' do
       setup do
         ESP.host = nil

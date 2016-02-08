@@ -147,6 +147,7 @@ module ESP
 
             alerts = signature.run(external_account_id: external_account_id, region: 'us_east_1')
 
+            puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** alerts = " + alerts.inspect
             assert_equal ESP::Alert, alerts.resource_class
           end
 

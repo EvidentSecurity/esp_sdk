@@ -3,7 +3,7 @@ module ESP
   #
   # You can optionally set the `ESP_ACCESS_KEY_ID` environment variable.
   def self.access_key_id=(access_key_id)
-    @access_key_id = access_key_id
+    @access_key_id               = access_key_id
     ESP::Resource.hmac_access_id = access_key_id
   end
 
@@ -16,7 +16,7 @@ module ESP
   #
   # You can optionally set the `ESP_SECRET_ACCESS_KEY` environment variable.
   def self.secret_access_key=(secret_access_key)
-    @secret_access_key = secret_access_key
+    @secret_access_key            = secret_access_key
     ESP::Resource.hmac_secret_key = secret_access_key
   end
 
@@ -25,11 +25,23 @@ module ESP
     @secret_access_key || ENV['ESP_SECRET_ACCESS_KEY']
   end
 
+  # Manually set an http_proxy
+  #
+  # You can optionally set the `HTTP_PROXY` environment variable.
+  def self.http_proxy=(http_proxy)
+    @http_proxy = http_proxy
+  end
+
+  # Reads the `HTTP_PROXY` environment variable if ::http_proxy was not set manually.
+  def self.http_proxy
+    @http_proxy || ENV['http_proxy']
+  end
+
   PATH = '/api/v2'.freeze
 
   HOST = { development: "http://localhost:3000".freeze,
-           test: "http://localhost:3000".freeze,
-           production: "https://api.evident.io".freeze }.freeze # :nodoc:
+           test:        "http://localhost:3000".freeze,
+           production:  "https://api.evident.io".freeze }.freeze # :nodoc:
 
   # Users of the Evident.io marketplace appliance application will need to set the host for their instance.
   #
@@ -37,7 +49,7 @@ module ESP
   #
   # * +host+ - The host for the installed appliance instance.
   def self.host=(host)
-    @host = host
+    @host              = host
     ESP::Resource.site = site
   end
 
