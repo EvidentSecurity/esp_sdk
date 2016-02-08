@@ -2,6 +2,12 @@ module ESP
   class Suppression
     class UniqueIdentifier < ESP::Resource
       self.prefix += "suppressions/alert/:alert_id/"
+      # Not Implemented. You cannot search for Suppression::UniqueIdentifier.
+      #
+      # Regular ARELlike methods are disabled.  Use the ESP::Suppression object to search suppressions.
+      def self.where(*)
+        fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use the ESP::Suppression object to search suppressions'
+      end
 
       # Not Implemented. You cannot search for Suppression::UniqueIdentifier.
       #
@@ -34,9 +40,7 @@ module ESP
       #
       # ==== Attributes
       #
-      # +alert_id+ | Required | The id for the alert you want to create a suppression for.
-      #
-      # +reason+ | Required | The reason for creating the suppression.
+      # See {API documentation}[http://api-docs.evident.io?ruby#suppression-unique-identifier-create] for valid arguments
       #
       # ==== Example
       #   create(alert_id: 5, reason: 'My very good reason for creating this suppression')
@@ -48,9 +52,7 @@ module ESP
       #
       # ==== Attributes
       #
-      # +alert_id+ | Required | The id for the alert you want to create a suppression for.
-      #
-      # +reason+ | Required | The reason for creating the suppression.
+      # See {API documentation}[http://api-docs.evident.io?ruby#suppression-unique-identifier-create] for valid arguments
       #
       # ==== Example
       #   suppression = new(alert_id: 5, reason: 'My very good reason for creating this suppression')

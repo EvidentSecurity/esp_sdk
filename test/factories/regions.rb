@@ -3,7 +3,7 @@ FactoryGirl.define do
     skip_create
 
     sequence(:id) { |n| n }
-    type "services"
+    type "regions"
     code "us_east_test_1"
   end
 end

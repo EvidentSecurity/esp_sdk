@@ -6,6 +6,11 @@ module ESP
       fail ESP::NotImplementedError
     end
 
+    # Not Implemented. You cannot search for ContactRequest.
+    def self.where(*)
+      fail ESP::NotImplementedError
+    end
+
     # Not Implemented. You cannot update a ContactRequest.
     def update
       fail ESP::NotImplementedError
@@ -25,11 +30,7 @@ module ESP
     #
     # ===== Valid Attributes
     #
-    # +title+ | Required | Subject of your message
-    #
-    # +description+ | Required | Body of your message
-    #
-    # +request_type+ | Required | Type of contact request. Supported values are `support` for support requests and `feature` for a feature request
+    # See {API documentation}[http://api-docs.evident.io?ruby#contact-request-create] for valid arguments
     #
     #
     # :call-seq:

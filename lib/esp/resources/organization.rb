@@ -34,6 +34,20 @@ module ESP
       fail ESP::NotImplementedError
     end
 
+    # :singleton-method: where
+    # Return a paginated Organization list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #
+    # ===== Valid Clauses
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#organization-attributes] for valid arguments
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a Organization by id
@@ -42,8 +56,18 @@ module ESP
     #
     # +id+ | Required | The ID of the organization to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#organization-attributes] for valid arguments
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated Organization list
@@ -54,8 +78,8 @@ module ESP
     # :method: save
     # Update an Organization.
     #
-    # ==== Valid Attributes
+    # ===== Valid Attributes
     #
-    # +name+ | Not Required | The new name of the organization
+    # See {API documentation}[http://api-docs.evident.io?ruby#organization-update] for valid arguments
   end
 end

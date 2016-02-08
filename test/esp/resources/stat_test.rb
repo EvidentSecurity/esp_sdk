@@ -3,6 +3,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
 module ESP
   class StatTest < ActiveSupport::TestCase
     context ESP::Stat do
+      context '.where' do
+        should 'not be implemented' do
+          assert_raises ESP::NotImplementedError do
+            Stat.where(id_eq: 2)
+          end
+        end
+      end
+
       context '#report' do
         should 'call the api' do
           stat = build(:stat, report_id: 3)
@@ -127,22 +135,58 @@ module ESP
         setup do
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
           WebMock.allow_net_connect!
-          @team = ESP::Team.last
-          skip "Live DB does not have any teams.  Add a team and run tests again." if @team.blank?
+          @report = ESP::Report.all.detect { |r| r.status == 'complete' }
+          skip "Live DB does not have any reports.  Add a report with stats and run tests again." if @report.blank?
+          @stat = ESP::Stat.for_report(@report.id)
         end
 
         teardown do
           WebMock.disable_net_connect!
         end
 
+        context '#report' do
+          should 'return a report' do
+            report = @stat.report
+
+            assert_equal @stat.report_id, report.id
+          end
+        end
+
+        context '#regions' do
+          should 'return regions' do
+            regions = @stat.regions
+
+            assert_equal ESP::StatRegion, regions.resource_class
+          end
+        end
+
+        context '#services' do
+          should 'return services' do
+            services = @stat.services
+
+            assert_equal ESP::StatService, services.resource_class
+          end
+        end
+
+        context '#signatures' do
+          should 'return signatures' do
+            signatures = @stat.signatures
+
+            assert_equal ESP::StatSignature, signatures.resource_class
+          end
+        end
+
+        context '#custom_signautures' do
+          should 'return custom_signautures' do
+            custom_signatures = @stat.custom_signatures
+
+            assert_equal ESP::StatCustomSignature, custom_signatures.resource_class
+          end
+        end
+
         context 'for_report' do
           should 'return the stat for the report' do
-            report = ESP::Report.last
-            skip "Live DB does not have any reports.  Add a report with stats and run tests again." if report.blank?
-
-            stat = ESP::Stat.for_report(report.id)
-
-            assert_equal report.id, stat.report.id
+            assert_equal @report.id, @stat.report_id
           end
         end
 

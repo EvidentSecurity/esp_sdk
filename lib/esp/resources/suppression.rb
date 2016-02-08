@@ -10,24 +10,38 @@ module ESP
 
     ##
     # The regions affected by this suppression.
-    has_many :regions, class_name: 'ESP::Region'
+    def regions
+      # When regions come back in an include, the method still gets called, to return the object from the attributes.
+      return attributes['regions'] if attributes['regions'].present?
+      return [] unless respond_to? :region_ids
+      ESP::Region.where(id_in: region_ids)
+    end
 
     ##
     # The external accounts affected by this suppression.
-    has_many :external_accounts, class_name: 'ESP::ExternalAccount'
+    def external_accounts
+      # When external_accounts come back in an include, the method still gets called, to return the object from the attributes.
+      return attributes['external_accounts'] if attributes['external_accounts'].present?
+      return [] unless respond_to? :external_account_ids
+      ESP::ExternalAccount.where(id_in: external_account_ids)
+    end
 
     ##
     # The signatures being suppressed.
     def signatures
+      # When signatures come back in an include, the method still gets called, to return the object from the attributes.
+      return attributes['signatures'] if attributes['signatures'].present?
       return [] unless respond_to? :signature_ids
-      ESP::Signature.find(:all, params: { id: signature_ids })
+      ESP::Signature.where(id_in: signature_ids)
     end
 
     ##
     # The custom signatures being suppressed.
     def custom_signatures
+      # When custom_signatures come back in an include, the method still gets called, to return the object from the attributes.
+      return attributes['custom_signatures'] if attributes['custom_signatures'].present?
       return [] unless respond_to? :custom_signature_ids
-      ESP::CustomSignature.find(:all, params: { id: custom_signature_ids })
+      ESP::CustomSignature.where(id_in: custom_signature_ids)
     end
 
     # Overriden so the correct param is sent on the has_many relationships.  API needs this one to be plural.
@@ -69,6 +83,20 @@ module ESP
       false
     end
 
+    # :singleton-method: where
+    # Return a paginated Suppression list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #
+    # ===== Valid Clauses
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-attributes] for valid arguments
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find a Suppression by id
@@ -77,8 +105,18 @@ module ESP
     #
     # +id+ | Required | The ID of the suppression to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-attributes] for valid arguments
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated Suppression list

@@ -11,6 +11,14 @@ module ESP
         end
       end
 
+      context '.where' do
+        should 'not be implemented' do
+          assert_raises ESP::NotImplementedError do
+            ESP::ContactRequest.where(id_eq: 2)
+          end
+        end
+      end
+
       context '#update' do
         should 'not be implemented' do
           s = ESP::ContactRequest.new

@@ -20,7 +20,7 @@ FactoryGirl.define do
           }
         ],
         links: {
-          related: "http://localhost:3000/api/v2/sub_organizations.json?q%5Borganization_id_eq%5D=2"
+          related: "http://localhost:3000/api/v2/sub_organizations.json?filter%5Borganization_id_eq%5D=2"
         }
       },
         teams: {
@@ -39,7 +39,7 @@ FactoryGirl.define do
             }
           ],
           links: {
-            related: "http://localhost:3000/api/v2/teams.json?q%5Borganization_id_eq%5D=2"
+            related: "http://localhost:3000/api/v2/teams.json?filter%5Borganization_id_eq%5D=2"
           }
         }
       }

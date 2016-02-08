@@ -24,6 +24,20 @@ module ESP
       super
     end
 
+    # :singleton-method: where
+    # Return a paginated ExternalAccount list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #
+    # ===== Valid Clauses
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#external-account-attributes] for valid arguments
+    #
+    # :call-seq:
+    #  where(clauses = {})
+
     ##
     # :singleton-method: find
     # Find an ExternalAccount by id
@@ -32,8 +46,18 @@ module ESP
     #
     # +id+ | Required | The ID of the external account to retrieve
     #
+    # +options+ | Optional | A hash of options
+    #
+    # ===== Valid Options
+    #
+    # +include+ | The list of associated objects to return on the initial request.
+    #
+    # ===== Valid Includable Associations
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#external-account-attributes] for valid arguments
+    #
     # :call-seq:
-    #  find(id)
+    #  find(id, options = {})
 
     # :singleton-method: all
     # Return a paginated CustomSignature list
@@ -49,15 +73,7 @@ module ESP
     #
     # ===== Valid Attributes
     #
-    # +arn+ | Required | Amazon Resource Name for the IAM role
-    #
-    # +external_id+ | Required | External identifier set on the role.  This will be set by calling #generate_external_id if not already set.
-    #
-    # +name+ | Not Required |  The name for this external account
-    #
-    # +sub_organization_id+ | Required | The ID of the sub organization the external account will belong to
-    #
-    # +team_id+ | Required | The ID of the team the external account will belong to
+    # See {API documentation}[http://api-docs.evident.io?ruby#external-account-create] for valid arguments
     #
     # ==== Example
     #
@@ -68,15 +84,7 @@ module ESP
     #
     # ===== Valid Attributes
     #
-    # +arn+ | Required | Amazon Resource Name for the IAM role
-    #
-    # +external_id+ | Required | External identifier set on the role.  This will be set by calling #generate_external_id if not already set.
-    #
-    # +name+ | Not Required |  The name for this external account
-    #
-    # +sub_organization_id+ | Required | The ID of the sub organization the external account will belong to
-    #
-    # +team_id+ | Required | The ID of the team the external account will belong to
+    # See {API documentation}[http://api-docs.evident.io?ruby#external-account-create] for valid arguments
     #
     # ==== Example
     #

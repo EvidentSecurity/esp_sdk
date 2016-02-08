@@ -60,12 +60,13 @@ module ESP
       context '#alerts' do
         should 'call the api for the report and the passed in params' do
           report = build(:report)
-          stub_request(:get, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 2))
+          stub_request(:put, %r{reports/#{report.id}/alerts.json*}).to_return(body: json_list(:alert, 2))
 
           report.alerts(status: 'pass')
 
-          assert_requested(:get, %r{reports/#{report.id}/alerts.json*}) do |req|
-            assert_equal "filter[status]=pass", URI.unescape(req.uri.query)
+          assert_requested(:put, %r{reports/#{report.id}/alerts.json*}) do |req|
+            body = JSON.parse(req.body)
+            assert_equal 'pass', body['filter']['status']
           end
         end
       end
@@ -118,7 +119,7 @@ module ESP
         setup do
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
           WebMock.allow_net_connect!
-          @report = ESP::Report.last
+          @report = ESP::Report.all.detect { |r| r.status == 'complete' }
           skip "Live DB does not have any reports.  Add a report and run tests again." if @report.blank?
         end
 
@@ -163,6 +164,14 @@ module ESP
             stat = @report.stat
 
             assert_equal ESP::Stat, stat.class
+          end
+        end
+
+        context '.where' do
+          should 'return report objects' do
+            reports = ESP::Report.where(id_eq: @report.id)
+
+            assert_equal ESP::Report, reports.resource_class
           end
         end
 

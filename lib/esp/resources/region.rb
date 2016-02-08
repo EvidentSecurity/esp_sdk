@@ -18,9 +18,7 @@ module ESP
     #
     # ===== Valid Arguments
     #
-    # +external_account_ids+ | Required | An Array of the external accounts identified by +external_account_id+ to suppress the signature or custom signature on.
-    #
-    # +reason+ | Required | The reason for creating the suppression.
+    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-create] for valid arguments
     #
     # ==== Example
     #   suppress(external_account_ids: [5], reason: 'My very good reason for creating this suppression')
@@ -28,6 +26,20 @@ module ESP
       arguments = arguments.with_indifferent_access
       ESP::Suppression::Region.create(regions: [code], external_account_ids: Array(arguments[:external_account_ids]), reason: arguments[:reason])
     end
+
+    # :singleton-method: where
+    # Return a paginated Region list filtered by search parameters
+    #
+    # ==== Parameters
+    #
+    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    #
+    # ===== Valid Clauses
+    #
+    # See {API documentation}[http://api-docs.evident.io?ruby#region-attributes] for valid arguments
+    #
+    # :call-seq:
+    #  where(clauses = {})
 
     ##
     # :singleton-method: find
