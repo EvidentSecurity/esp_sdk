@@ -2,6 +2,7 @@
 ### Added
 - Implemented searching using `where` on many object.
 - Add external account script.  Run with `esp a`
+- Added ability to set a proxy using either the `http_proxy` environment variable, or setting it manually wiht `ESP.http_proxy = <proxy>`
 
 ### Changed
 - Changed the `esp_console` executable to just be `esp`.  Now start the console with `esp c`

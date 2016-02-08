@@ -25,18 +25,6 @@ module ESP
     @secret_access_key || ENV['ESP_SECRET_ACCESS_KEY']
   end
 
-  # Manually set an http_proxy
-  #
-  # You can optionally set the `HTTP_PROXY` environment variable.
-  def self.http_proxy=(http_proxy)
-    @http_proxy = http_proxy
-  end
-
-  # Reads the `HTTP_PROXY` environment variable if ::http_proxy was not set manually.
-  def self.http_proxy
-    @http_proxy || ENV['http_proxy']
-  end
-
   PATH = '/api/v2'.freeze
 
   HOST = { development: "http://localhost:3000".freeze,
@@ -58,6 +46,23 @@ module ESP
     "#{(@host || HOST[ESP.env.to_sym] || ENV['ESP_HOST'])}#{PATH}"
   end
 
+  # Manually set an http_proxy
+  #
+  # You can optionally set the `HTTP_PROXY` environment variable.
+  #
+  # ==== Attribute
+  #
+  # * +http_proxy+ - The URI of the http proxy
+  def self.http_proxy=(proxy)
+    @http_proxy         = proxy
+    ESP::Resource.proxy = http_proxy
+  end
+
+  # Reads the `HTTP_PROXY` environment variable if ::http_proxy was not set manually.
+  def self.http_proxy
+    @http_proxy || ENV['http_proxy']
+  end
+
   # For use in a Rails initializer to set the ::access_key_id, ::secret_access_key and ::site.
   #
   # ==== Example
@@ -66,6 +71,7 @@ module ESP
   #     config.access_key_id = <your key>
   #     config.secret_access_key = <your secret key>
   #     config.host = <host of your appliance instance>
+  #     config.http_proxy = <your proxy URI>
   #   end
   def self.configure
     yield self
