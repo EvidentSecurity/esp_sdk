@@ -24,6 +24,16 @@ module ESP
       super
     end
 
+    # Returns a collection of scan_intervals for the external account
+    #
+    # ==== Example
+    #
+    #   external_account = ESP::ExternalAccount.find(345)
+    #   scan_intervals = external_account.scan_intervals
+    def scan_intervals
+      ESP::ScanInterval.for_external_account(id)
+    end
+
     # :singleton-method: where
     # Return a paginated ExternalAccount list filtered by search parameters
     #
