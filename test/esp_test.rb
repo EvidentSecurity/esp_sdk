@@ -44,6 +44,22 @@ class ESPTest < ActiveSupport::TestCase
       end
     end
 
+    context '.http_proxy' do
+      should 'be set manually' do
+        ESP.http_proxy = 'http://foo.com/blah_blah'
+
+        assert_equal 'http://foo.com/blah_blah', ESP.http_proxy
+        assert_equal URI.parse('http://foo.com/blah_blah'), ESP::Resource.proxy
+      end
+
+      should 'be set from an environment variable' do
+        ESP.http_proxy = nil
+        ENV['http_proxy'] = 'http://foo.com/blah_blah'
+
+        assert_equal 'http://foo.com/blah_blah', ESP.http_proxy
+      end
+    end
+
     context '.host=' do
       setup do
         ESP.host = nil
@@ -97,11 +113,12 @@ class ESPTest < ActiveSupport::TestCase
         ESP.host = nil
       end
 
-      should 'set site, access_key_id, secret_access_key' do
+      should 'set site, access_key_id, secret_access_key, http_proxy' do
         ESP.configure do |config|
           config.host = 'https://sample.com'
           config.access_key_id = '1234'
           config.secret_access_key = '5678'
+          config.http_proxy = 'proxy.com'
         end
 
         assert_equal "https://sample.com#{ESP::PATH}", ESP.site
@@ -110,6 +127,7 @@ class ESPTest < ActiveSupport::TestCase
         assert_equal '1234', ESP::Resource.hmac_access_id
         assert_equal '5678', ESP.secret_access_key
         assert_equal '5678', ESP::Resource.hmac_secret_key
+        assert_equal URI.parse("proxy.com"), ESP::Resource.proxy
       end
     end
 

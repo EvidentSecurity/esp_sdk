@@ -3,7 +3,7 @@ module ESP
   #
   # You can optionally set the `ESP_ACCESS_KEY_ID` environment variable.
   def self.access_key_id=(access_key_id)
-    @access_key_id = access_key_id
+    @access_key_id               = access_key_id
     ESP::Resource.hmac_access_id = access_key_id
   end
 
@@ -16,7 +16,7 @@ module ESP
   #
   # You can optionally set the `ESP_SECRET_ACCESS_KEY` environment variable.
   def self.secret_access_key=(secret_access_key)
-    @secret_access_key = secret_access_key
+    @secret_access_key            = secret_access_key
     ESP::Resource.hmac_secret_key = secret_access_key
   end
 
@@ -28,8 +28,8 @@ module ESP
   PATH = '/api/v2'.freeze
 
   HOST = { development: "http://localhost:3000".freeze,
-           test: "http://localhost:3000".freeze,
-           production: "https://api.evident.io".freeze }.freeze # :nodoc:
+           test:        "http://localhost:3000".freeze,
+           production:  "https://api.evident.io".freeze }.freeze # :nodoc:
 
   # Users of the Evident.io marketplace appliance application will need to set the host for their instance.
   #
@@ -37,13 +37,30 @@ module ESP
   #
   # * +host+ - The host for the installed appliance instance.
   def self.host=(host)
-    @host = host
+    @host              = host
     ESP::Resource.site = site
   end
 
   # The site the SDK will hit.
   def self.site
     "#{(@host || HOST[ESP.env.to_sym] || ENV['ESP_HOST'])}#{PATH}"
+  end
+
+  # Manually set an http_proxy
+  #
+  # You can optionally set the `HTTP_PROXY` environment variable.
+  #
+  # ==== Attribute
+  #
+  # * +http_proxy+ - The URI of the http proxy
+  def self.http_proxy=(proxy)
+    @http_proxy         = proxy
+    ESP::Resource.proxy = http_proxy
+  end
+
+  # Reads the `HTTP_PROXY` environment variable if ::http_proxy was not set manually.
+  def self.http_proxy
+    @http_proxy || ENV['http_proxy']
   end
 
   # For use in a Rails initializer to set the ::access_key_id, ::secret_access_key and ::site.
@@ -54,6 +71,7 @@ module ESP
   #     config.access_key_id = <your key>
   #     config.secret_access_key = <your secret key>
   #     config.host = <host of your appliance instance>
+  #     config.http_proxy = <your proxy URI>
   #   end
   def self.configure
     yield self

@@ -53,6 +53,29 @@ end
       
 Get your HMAC keys from the Evident.io website, [esp.evident.io](https://esp.evident.io/settings/api_keys)
 
+## Set a Proxy URI
+
+If you need to go through a proxy server, you can set the proxy URI.
+You can set this directly:
+
+```ruby
+ESP.http_proxy = <proxy uri>
+```
+
+or, if in a Rails application, you can use the configure block in an initializer:
+
+```ruby
+ESP.configure do |config|
+  config.http_proxy = <proxy uri>
+end
+```
+
+Alternatively, the proxy can also be set with an environment variable.
+
+```
+export http_proxy=<proxy uri>
+```
+
 ## Appliance Users
 
 Users of Evident.io's AWS marketplace appliance will need to set the host for their appliance instance.
@@ -71,7 +94,6 @@ end
 ```
 
 Alternatively, the site can also be set with an environment variable.
-
 
 ```
 export ESP_HOST=<host for appliance instance>
