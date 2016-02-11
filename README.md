@@ -206,7 +206,7 @@ The methods with a `!` suffix update the object, methods without the `!` suffix 
 original object.
 
 ```ruby
-espsdk:004:0> alerts = ESP::Alert.for_report(345)
+espsdk:004:0> alerts = ESP::Alert.where(report_id: 345)
 espsdk:004:0> alerts.current_page_number # => "1"
 espsdk:004:0> page2 = alerts.next_page
 espsdk:004:0> alerts.current_page_number # => "1"
@@ -277,15 +277,6 @@ match. For instance, the `cont` predicate, when added to the `name` attribute, w
 ```ruby
 ESP::Signature.where(name_cont: 'dns')
 #=> will return signatures `where name LIKE '%dns%'`
-```
-
-### OR Conditions
-
-You can also combine predicates for OR queries:
-
-```ruby
-ESP::Signature.where(name_or_description_cont: 'dns')
-#=> will return signatures `where name LIKE '%dns%' or description LIKE '%dns%'`
 ```
 
 ### Conditions on Relationships
@@ -459,7 +450,7 @@ ESP::Signature.where(identifier_null: 1)
 Lists can also be sorted by adding the `sorts` parameter with the field to sort by to the `filter` parameter.
 
 ```ruby
-ESP::Signature.where(name_cont: 'dns', sort: 'risk_level desc')
+ESP::Signature.where(name_cont: 'dns', sorts: 'risk_level desc')
 #=> will return signatures `where name LIKE '%dns%'` sorted by `risk_level` in descending order.
 ```
 
