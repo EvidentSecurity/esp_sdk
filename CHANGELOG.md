@@ -1,4 +1,4 @@
-## 2.1.0 - 2015-01-15
+## 2.1.0 - 2015-02-10
 ### Added
 - Implemented searching using `where` on many object.
 - Add external account script.  Run with `esp a`
