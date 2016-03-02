@@ -1,4 +1,8 @@
-## 2.1.0 - 2015-02-10
+## 2.2.0 - 2016-03-2
+### Added
+- Added the ESP::ScanInterval object to use the new scan interval endpoint on the API
+
+## 2.1.0 - 2016-02-10
 ### Added
 - Implemented searching using `where` on many object.
 - Add external account script.  Run with `esp a`
