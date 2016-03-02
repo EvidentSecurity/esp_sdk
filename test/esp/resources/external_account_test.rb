@@ -36,6 +36,17 @@ module ESP
         end
       end
 
+      context '#scan_intervals' do
+        should 'call the api for the external_account and the passed in params' do
+          external_account = build(:external_account)
+          stub_request(:get, %r{external_accounts/#{external_account.id}/scan_intervals.json*}).to_return(body: json_list(:scan_interval, 2))
+
+          external_account.scan_intervals
+
+          assert_requested(:get, %r{external_accounts/#{external_account.id}/scan_intervals.json*})
+        end
+      end
+
       context '#create' do
         should "use the external_id in the params if supplied" do
           stub_request(:post, /external_accounts.json*/).to_return(body: json(:external_account))

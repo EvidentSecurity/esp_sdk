@@ -92,6 +92,7 @@ module ESP
   autoload :User, File.expand_path(File.dirname(__FILE__) + '/esp/resources/user')
   autoload :Signature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/signature')
   autoload :CustomSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/custom_signature')
+  autoload :ScanInterval, File.expand_path(File.dirname(__FILE__) + '/esp/resources/scan_interval')
   autoload :Service, File.expand_path(File.dirname(__FILE__) + '/esp/resources/service')
   autoload :Alert, File.expand_path(File.dirname(__FILE__) + '/esp/resources/alert')
   autoload :RawAlert, File.expand_path(File.dirname(__FILE__) + '/esp/resources/raw_alert')
