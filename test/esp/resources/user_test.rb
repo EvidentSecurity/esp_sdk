@@ -94,7 +94,7 @@ module ESP
 
       context 'live calls' do
         setup do
-          skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER'] && ENV['CI_BUILD_STAGE'].to_s.casecmp('test_sdk') == 0
+          skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER'] && ENV['CI_BUILD_STAGE'].to_s.casecmp('test_sdk') != 0
           WebMock.allow_net_connect!
           @user = ESP::User.last
           skip "Live DB does not have any users.  Add a user and run tests again." if @user.blank?
