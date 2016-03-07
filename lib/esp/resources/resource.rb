@@ -3,10 +3,6 @@ module ESP
     self.site = ESP.site
     self.proxy = ESP.http_proxy
     self.format = ActiveResource::Formats::JsonAPIFormat
-    puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** ENV['ESP_ACCESS_KEY_ID'] = " + ENV['ESP_ACCESS_KEY_ID'].inspect
-    puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** ENV['ESP_SECRET_ACCESS_KEY'] = " + ENV['ESP_SECRET_ACCESS_KEY'].inspect
-    puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** ESP.access_key_id = " + ESP.access_key_id.inspect
-    puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** ESP.secret_access_key = " + ESP.secret_access_key.inspect
     with_api_auth(ESP.access_key_id, ESP.secret_access_key)
     headers["Content-Type"] = format.mime_type
     headers["User-Agent"] = "Ruby SDK #{ESP::VERSION}"
