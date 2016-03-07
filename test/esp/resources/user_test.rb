@@ -94,6 +94,7 @@ module ESP
 
       context 'live calls' do
         setup do
+          puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** ENV['CI_BUILD_STAGE'] = " + ENV['CI_BUILD_STAGE'].inspect
           skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER'] && ENV['CI_BUILD_STAGE'].to_s.casecmp('test_sdk') != 0
           WebMock.allow_net_connect!
           @user = ESP::User.last
