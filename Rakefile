@@ -6,7 +6,18 @@ require 'rdoc/task'
 
 Rake::TestTask.new do |task|
   task.libs << 'test'
-  task.test_files = FileList['test/*_test.rb', 'test/**/*_test.rb']
+  task.test_files = FileList['test/*_test.rb', 'test/**/*_test.rb'] - FileList["test/esp/integration/**/*_test.rb"]
+end
+
+namespace "test" do
+  Rake::TestTask.new("integration") do |t|
+    t.pattern = "test/esp/integration/**/*_test.rb"
+  end
+
+  Rake::TestTask.new("all") do |task|
+    task.libs << 'test'
+    task.test_files = FileList['test/*_test.rb', 'test/**/*_test.rb']
+  end
 end
 
 task default: [:test]

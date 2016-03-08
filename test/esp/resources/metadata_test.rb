@@ -73,26 +73,6 @@ module ESP
           assert_equal ESP::Metadata, metadata.class
         end
       end
-
-      context 'live calls' do
-        setup do
-          skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
-          WebMock.allow_net_connect!
-        end
-
-        teardown do
-          WebMock.disable_net_connect!
-        end
-
-        context '.for_alert' do
-          should 'return metadata for alert id' do
-            report = ESP::Report.all.detect { |r| r.status == 'complete' }
-            metadata = ESP::Metadata.for_alert(report.alerts.last.id)
-
-            assert_equal ESP::Metadata, metadata.class
-          end
-        end
-      end
     end
   end
 end

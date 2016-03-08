@@ -91,54 +91,6 @@ module ESP
           assert_not_requested(:put, /teams.json*/)
         end
       end
-
-      context 'live calls' do
-        setup do
-          puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** ENV['CI_BUILD_STAGE'] = " + ENV['CI_BUILD_STAGE'].inspect
-          skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER'] && ENV['CI_BUILD_STAGE'].to_s.casecmp('test_sdk') != 0
-          WebMock.allow_net_connect!
-          @user = ESP::User.last
-          skip "Live DB does not have any users.  Add a user and run tests again." if @user.blank?
-        end
-
-        teardown do
-          WebMock.disable_net_connect!
-        end
-
-        context '#organization' do
-          should 'return an organization' do
-            org = @user.organization
-
-            assert_equal @user.organization_id, org.id
-          end
-        end
-
-        context '#sub_organizations' do
-          should 'return an array of sub_organizations' do
-            sub_orgs = @user.sub_organizations
-
-            assert_equal @user.sub_organization_ids.count, sub_orgs.count
-            assert_equal @user.sub_organization_ids, sub_orgs.map(&:id)
-          end
-        end
-
-        context '#teams' do
-          should 'return an array of teams' do
-            teams = @user.teams
-
-            assert_equal @user.team_ids.count, teams.count
-            assert_equal @user.team_ids.sort, teams.map(&:id).sort
-          end
-        end
-
-        context '.where' do
-          should 'return user objects' do
-            users = ESP::User.where(id_eq: @user.id)
-
-            assert_equal ESP::User, users.resource_class
-          end
-        end
-      end
     end
   end
 end

@@ -69,56 +69,6 @@ module ESP
           assert_equal ESP::ScanInterval, scan_interval.resource_class
         end
       end
-
-      context 'live calls' do
-        setup do
-          skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
-          WebMock.allow_net_connect!
-          @external_account = ESP::ExternalAccount.last
-          @service = ESP::Service.last
-          skip "Live DB does not have any external_accounts.  Add an external_account and run tests again." if @external_account.blank?
-          skip "Live DB does not have any services.  Add an service and run tests again." if @service.blank?
-        end
-
-        teardown do
-          # destroy record incase of failure
-          @scan_interval.destroy rescue nil # rubocop:disable Style/RescueModifier
-          WebMock.disable_net_connect!
-        end
-
-        context '#CRUD' do
-          should 'be able to create, update and destroy' do
-            @scan_interval = ESP::ScanInterval.new(interval: 15, service_id: @service.id, external_account_id: @external_account.id)
-
-            # Create
-            assert_predicate @scan_interval, :new?
-            @scan_interval.save
-            refute_predicate @scan_interval, :new?
-
-            # Update
-            @scan_interval.interval = 30
-            @scan_interval.save
-            assert_nothing_raised do
-              ESP::ScanInterval.find(@scan_interval.id.to_i)
-            end
-
-            # Service Relationship
-            service = @scan_interval.service
-            assert_equal service.id, @service.id
-
-            # External Account Relationship
-            external_account = @scan_interval.external_account
-            assert_equal external_account.id, @external_account.id
-
-            # Destroy
-            @scan_interval.destroy
-
-            assert_raises ActiveResource::ResourceNotFound do
-              ESP::ScanInterval.find(@scan_interval.id.to_i)
-            end
-          end
-        end
-      end
     end
   end
 end

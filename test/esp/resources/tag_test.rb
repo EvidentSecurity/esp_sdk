@@ -81,26 +81,6 @@ module ESP
           assert_equal ESP::Tag, tags.resource_class
         end
       end
-
-      context 'live calls' do
-        setup do
-          skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
-          WebMock.allow_net_connect!
-        end
-
-        teardown do
-          WebMock.disable_net_connect!
-        end
-
-        context '.for_alert' do
-          should 'return tags for alert id' do
-            report = ESP::Report.all.detect { |r| r.status == 'complete' }
-            events = ESP::Tag.for_alert(report.alerts.last.id)
-
-            assert_equal ESP::Tag, events.resource_class
-          end
-        end
-      end
     end
   end
 end
