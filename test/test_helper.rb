@@ -34,8 +34,8 @@ class ActiveSupport::TestCase
 
   # factory girl helper to form the correct object when getting a collection of objects
   def json_list(*args)
-    page_args        = args.last.delete(:page) if args.last.present? && args.last.is_a?(Hash)
-    page_args        ||= { number: 1, size: 20 }
+    page_args = args.last.delete(:page) if args.last.present? && args.last.is_a?(Hash)
+    page_args ||= { number: 1, size: 20 }
     json_array       = args.first == :empty ? [] : super
     data             = json_array.map { |j| JSON.parse(j)['data'] }
     links            = build_links(data, page_args)
