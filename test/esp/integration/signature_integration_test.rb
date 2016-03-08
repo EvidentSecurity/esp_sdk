@@ -20,6 +20,7 @@ module ESP::Integration
 
         context '#run' do
           should 'return alerts' do
+            skip "Can't run sigs on CI" if ENV['CI_SERVER']
             external_account_id = ESP::ExternalAccount.last.id
 
             alerts = @signature.run(external_account_id: external_account_id, region: 'us_east_1')

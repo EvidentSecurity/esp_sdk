@@ -6,7 +6,8 @@ module ESP::Integration
       context ActiveResource::Formats::JsonAPIFormat do
         context 'live calls' do
           should 'merge included objects' do
-            alert = ESP::Alert.find(1, include: 'external_account.team.organization,region,signature,custom_signature')
+            report = ESP::Report.first
+            alert = ESP::Alert.where(report_id: report.id, include: 'external_account.team.organization,region,signature,custom_signature').first
 
             assert_not_nil alert.attributes['external_account']
             assert_equal alert.external_account_id, alert.external_account.id

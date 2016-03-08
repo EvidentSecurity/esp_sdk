@@ -9,8 +9,9 @@ module ESP::Integration
             should 'return error when reason is not supplied' do
               signature_id = ESP::Signature.last.id
               external_account_id = ESP::ExternalAccount.last.id
+              region = ESP::Region.last
 
-              suppression = ESP::Suppression::Region.create(signature_ids: [signature_id], custom_signature_ids: [], regions: ['us_east_1'], external_account_ids: [external_account_id])
+              suppression = ESP::Suppression::Region.create(signature_ids: [signature_id], custom_signature_ids: [], regions: [region.code], external_account_ids: [external_account_id])
 
               assert_equal "Reason can't be blank", suppression.errors.full_messages.first
             end
@@ -18,8 +19,9 @@ module ESP::Integration
             should 'return suppression' do
               signature_id = ESP::Signature.last.id
               external_account_id = ESP::ExternalAccount.last.id
+              region = ESP::Region.last
 
-              suppression = ESP::Suppression::Region.create(signature_ids: [signature_id], custom_signature_ids: [], reason: 'test', regions: ['us_east_1'], external_account_ids: [external_account_id])
+              suppression = ESP::Suppression::Region.create(signature_ids: [signature_id], custom_signature_ids: [], reason: 'test', regions: [region.code], external_account_ids: [external_account_id])
 
               assert_equal ESP::Suppression::Region, suppression.class
             end

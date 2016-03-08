@@ -30,7 +30,8 @@ module ESP::Integration
 
         context '#signature' do
           should 'return a signature' do
-            signature = @alert.signature
+            @alert.attributes['signature_id'] ||= 1
+            signature                         = @alert.signature
 
             assert_equal ESP::Signature, signature.class
             assert_equal @alert.signature_id, signature.id
@@ -39,10 +40,11 @@ module ESP::Integration
 
         context '#custom_signature' do
           should 'return a custom_signature' do
-            assert_nothing_raised do
-              @alert.attributes['custom_signature_id'] ||= 1
-              @alert.custom_signature
-            end
+            @alert.attributes['custom_signature_id'] ||= 1
+            custom_signature                         = @alert.custom_signature
+
+            assert_equal ESP::CustomSignature, custom_signature.class
+            assert_equal @alert.custom_signature_id.to_s, custom_signature.id.to_s
           end
         end
 

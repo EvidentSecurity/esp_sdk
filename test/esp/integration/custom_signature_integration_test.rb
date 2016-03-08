@@ -20,6 +20,7 @@ module ESP::Integration
 
         context '.run' do
           should 'return alerts' do
+            skip "Can't run sigs on CI" if ENV['CI_SERVER']
             external_account_id = ESP::ExternalAccount.last.id
             alerts = ESP::CustomSignature.run(external_account_id: external_account_id, regions: 'us_east_1', language: @custom_signature.language, signature: @custom_signature.signature)
 
@@ -35,6 +36,7 @@ module ESP::Integration
 
         context '#run' do
           should 'return alerts' do
+            skip "Can't run sigs on CI" if ENV['CI_SERVER']
             external_account_id = ESP::ExternalAccount.last.id
             alerts = @custom_signature.run(external_account_id: external_account_id, regions: ['us_east_1'])
 
@@ -58,6 +60,7 @@ module ESP::Integration
 
         context '#CRUD' do
           should 'be able to create, update and destroy' do
+            skip "Can't run sigs on CI" if ENV['CI_SERVER']
             custom_signature = ESP::CustomSignature.new(@custom_signature.attributes)
 
             assert_predicate custom_signature, :new?

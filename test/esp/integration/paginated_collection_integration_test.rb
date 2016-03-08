@@ -28,12 +28,12 @@ module ESP::Integration
           assert_equal 20, alerts.count # make sure the size did not get messed up while on the last page
           first_id = alerts.first.id
 
-          alerts.page!(4)
-          assert_equal '4', alerts.current_page_number
+          alerts.page!(3)
+          assert_equal '3', alerts.current_page_number
           refute_equal first_id, alerts.first.id
         end
 
-        should 'always return the correct page and when not using the ! methods' do
+        should 'always return the correct page when not using the ! methods' do
           report = ESP::Report.all.detect { |r| r.status == 'complete' }
           alerts = report.alerts
           last_page_number = alerts.last_page_number
@@ -57,8 +57,8 @@ module ESP::Integration
           assert_equal 20, page.count # make sure the size did not get messed up while on the last page
           first_id = page.first.id
 
-          page = alerts.page(4)
-          assert_equal '4', page.current_page_number
+          page = alerts.page(3)
+          assert_equal '3', page.current_page_number
           refute_equal first_id, page.first.id
         end
       end

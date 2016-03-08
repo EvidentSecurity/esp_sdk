@@ -7,7 +7,7 @@ module ESP::Integration
         context 'live calls' do
           context '.for_stat' do
             should 'return tags for stat id' do
-              report = ESP::Report.find(:first, params: { id_eq: 1 })
+              report = ESP::Report.all.detect { |r| r.status == 'complete' }
               skip "make sure you have a complete report" unless report.present?
               stat_id = report.stat.id
               stats = ESP::StatCustomSignature.for_stat(stat_id)
