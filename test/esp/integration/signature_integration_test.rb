@@ -6,7 +6,7 @@ module ESP::Integration
       context 'live calls' do
         setup do
           @signature = ESP::Signature.where(name_cont: 'heartbleed').last
-          skip "Live DB does not have any signatures.  Add a signature and run tests again." if @signature.blank?
+          fail "Live DB does not have any signatures.  Add a signature and run tests again." if @signature.blank?
         end
 
         context '#service' do

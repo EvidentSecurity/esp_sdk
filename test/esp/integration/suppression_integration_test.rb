@@ -6,7 +6,7 @@ module ESP::Integration
       context 'live calls' do
         setup do
           @s = ESP::Suppression.first
-          skip "Live DB does not have any suppressions.  Add a suppression and run tests again." if @s.blank?
+          fail "Live DB does not have any suppressions.  Add a suppression and run tests again." if @s.blank?
         end
 
         context '#organization' do

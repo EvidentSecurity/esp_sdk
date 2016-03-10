@@ -16,11 +16,12 @@ require 'rubygems'
 require 'active_resource'
 require_relative 'json_strategy'
 require_relative '../lib/esp_sdk'
+require_relative 'parallel_reporter'
 
 FactoryGirl.definition_file_paths = [File.expand_path('factories', File.dirname(__FILE__))]
 FactoryGirl.find_definitions
 FactoryGirl.register_strategy(:json, JsonStrategy)
-Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+Minitest::Reporters.use! Minitest::Reporters::ParallelReporter.new(color: true)
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods # so we can use json(:object) instead of FactoryGirl.json(:object)

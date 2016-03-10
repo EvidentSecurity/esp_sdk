@@ -7,8 +7,8 @@ module ESP::Integration
         setup do
           @external_account = ESP::ExternalAccount.last
           @service = ESP::Service.last
-          skip "Live DB does not have any external_accounts.  Add an external_account and run tests again." if @external_account.blank?
-          skip "Live DB does not have any services.  Add an service and run tests again." if @service.blank?
+          fail "Live DB does not have any external_accounts.  Add an external_account and run tests again." if @external_account.blank?
+          fail "Live DB does not have any services.  Add an service and run tests again." if @service.blank?
         end
 
         context '#CRUD' do

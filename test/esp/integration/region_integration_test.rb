@@ -6,7 +6,7 @@ module ESP::Integration
       context 'live calls' do
         setup do
           @region = ESP::Region.last
-          skip "Live DB does not have any regions.  Add a region and run tests again." if @region.blank?
+          fail "Live DB does not have any regions.  Add a region and run tests again." if @region.blank?
         end
 
         context '.where' do

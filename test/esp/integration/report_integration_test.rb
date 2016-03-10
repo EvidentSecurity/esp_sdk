@@ -6,7 +6,7 @@ module ESP::Integration
       context 'live calls' do
         setup do
           @report = ESP::Report.all.detect { |r| r.status == 'complete' }
-          skip "Live DB does not have any reports.  Add a report and run tests again." if @report.blank?
+          fail "Live DB does not have any reports.  Add a report and run tests again." if @report.blank?
         end
 
         context '#organization' do

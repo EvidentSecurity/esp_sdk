@@ -6,7 +6,7 @@ module ESP::Integration
       context 'live calls' do
         setup do
           @organization = ESP::Organization.last
-          skip "Live DB does not have any sub organizations.  Add a sub organization and run tests again." if @organization.blank?
+          fail "Live DB does not have any sub organizations.  Add a sub organization and run tests again." if @organization.blank?
         end
 
         context '#teams' do

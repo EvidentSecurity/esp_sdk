@@ -6,7 +6,7 @@ module ESP::Integration
       context 'live calls' do
         setup do
           @user = ESP::User.last
-          skip "Live DB does not have any users.  Add a user and run tests again." if @user.blank?
+          fail "Live DB does not have any users.  Add a user and run tests again." if @user.blank?
         end
 
         teardown do

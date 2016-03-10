@@ -6,7 +6,7 @@ module ESP::Integration
       context 'live calls' do
         setup do
           @external_account = ESP::ExternalAccount.last
-          skip "Live DB does not have any external_accounts.  Add a external_account and run tests again." if @external_account.blank?
+          fail "Live DB does not have any external_accounts.  Add a external_account and run tests again." if @external_account.blank?
         end
 
         context '#organization' do

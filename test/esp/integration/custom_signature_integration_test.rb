@@ -6,7 +6,7 @@ module ESP::Integration
       context 'live calls' do
         setup do
           @custom_signature = ESP::CustomSignature.last
-          skip "Live DB does not have any custom_signatures.  Add a custom_signature and run tests again." if @custom_signature.blank?
+          fail "Live DB does not have any custom_signatures.  Add a custom_signature and run tests again." if @custom_signature.blank?
         end
 
         context '#organization' do

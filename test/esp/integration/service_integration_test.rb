@@ -6,7 +6,7 @@ module ESP::Integration
       context 'live calls' do
         setup do
           @service = ESP::Service.last
-          skip "Live DB does not have any services.  Add a service and run tests again." if @service.blank?
+          fail "Live DB does not have any services.  Add a service and run tests again." if @service.blank?
         end
 
         context '#signatures' do

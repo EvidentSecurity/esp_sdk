@@ -6,7 +6,7 @@ module ESP::Integration
       context 'live calls' do
         setup do
           @team = ESP::Team.last
-          skip "Live DB does not have any teams.  Add a team and run tests again." if @team.blank?
+          fail "Live DB does not have any teams.  Add a team and run tests again." if @team.blank?
         end
 
         context 'with ESP::Team' do
