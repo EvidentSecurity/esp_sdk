@@ -17,14 +17,14 @@ module Minitest
 
       def report
         super
-        msg   = "\n"
-        msg   += "Finished in #{format('%f', total_time)}s"
-        msg   += "\n"
-        msg   += "#{format('%d', count)} tests, #{format('%d', assertions)} assertions, "
+        msg = "\n"
+        msg += "Finished in #{format('%f', total_time)}s"
+        msg += "\n"
+        msg += "#{format('%d', count)} tests, #{format('%d', assertions)} assertions, "
         color = failures.zero? && errors.zero? ? :green : :red
-        msg   += send(color) { "#{format('%d', failures)} failures, #{format('%d', errors)} errors, " }
-        msg   += yellow { "#{format('%d', skips)} skips" }
-        msg   += "\n"
+        msg += send(color) { "#{format('%d', failures)} failures, #{format('%d', errors)} errors, " }
+        msg += yellow { "#{format('%d', skips)} skips" }
+        msg += "\n"
         puts msg
       end
 
