@@ -40,33 +40,6 @@ module ESP
           end
         end
       end
-
-      context 'live calls' do
-        setup do
-          skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
-          WebMock.allow_net_connect!
-          @service = ESP::Service.last
-          skip "Live DB does not have any services.  Add a service and run tests again." if @service.blank?
-        end
-
-        teardown do
-          WebMock.disable_net_connect!
-        end
-
-        context '#signatures' do
-          should 'return an array of signatures' do
-            signatures = @service.signatures
-
-            assert_equal ESP::Signature, signatures.resource_class
-          end
-        end
-
-        context '#CRUD' do
-          should 'be able to read' do
-            assert_not_nil @service, @service.inspect
-          end
-        end
-      end
     end
   end
 end

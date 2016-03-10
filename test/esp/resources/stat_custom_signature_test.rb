@@ -95,28 +95,6 @@ module ESP
             assert_equal ESP::CustomSignature, custom_signature.class
           end
         end
-
-        context 'live calls' do
-          setup do
-            skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
-            WebMock.allow_net_connect!
-          end
-
-          teardown do
-            WebMock.disable_net_connect!
-          end
-
-          context '.for_stat' do
-            should 'return tags for stat id' do
-              report = ESP::Report.find(:first, params: { id_eq: 1 })
-              skip "make sure you have a complete report" unless report.present?
-              stat_id = report.stat.id
-              stats = ESP::StatCustomSignature.for_stat(stat_id)
-
-              assert_equal ESP::StatCustomSignature, stats.resource_class
-            end
-          end
-        end
       end
     end
   end

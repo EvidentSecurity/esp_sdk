@@ -1,6 +1,9 @@
 ENV['ESP_ENV'] = 'test'
-require 'coveralls'
-Coveralls.wear!
+# Don't run coveralls when esp web runs sdk tests.
+if ENV['CI_BUILD_STAGE'].to_s.casecmp('test_sdk') != 0
+  require 'coveralls'
+  Coveralls.wear!
+end
 
 require 'minitest/autorun'
 require 'minitest/reporters'
@@ -13,11 +16,12 @@ require 'rubygems'
 require 'active_resource'
 require_relative 'json_strategy'
 require_relative '../lib/esp_sdk'
+require_relative 'parallel_reporter'
 
 FactoryGirl.definition_file_paths = [File.expand_path('factories', File.dirname(__FILE__))]
 FactoryGirl.find_definitions
 FactoryGirl.register_strategy(:json, JsonStrategy)
-Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+Minitest::Reporters.use! Minitest::Reporters::ParallelReporter.new(color: true)
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods # so we can use json(:object) instead of FactoryGirl.json(:object)
@@ -33,7 +37,7 @@ class ActiveSupport::TestCase
   def json_list(*args)
     page_args = args.last.delete(:page) if args.last.present? && args.last.is_a?(Hash)
     page_args ||= { number: 1, size: 20 }
-    json_array = args.first == :empty ? [] : super
+    json_array       = args.first == :empty ? [] : super
     data             = json_array.map { |j| JSON.parse(j)['data'] }
     links            = build_links(data, page_args)
     list             = { 'data'  => data.slice(0, page_args[:size]),
@@ -54,6 +58,18 @@ class ActiveSupport::TestCase
         links["next"] = "http://localhost:3000/api/v2/not_the_real_url/but_useful_for_testing.json?page%5Bnumber%5D=#{current_page + 1}&page%5Bsize%5D=#{page[:size]}"
         links["last"] = "http://localhost:3000/api/v2/not_the_real_url/but_useful_for_testing.json?page%5Bnumber%5D=#{last_page}&page%5Bsize%5D=#{page[:size]}"
       end
+    end
+  end
+end
+
+module ESP::Integration
+  class TestCase < ActiveSupport::TestCase
+    setup do
+      WebMock.allow_net_connect!
+    end
+
+    teardown do
+      WebMock.disable_net_connect!
     end
   end
 end

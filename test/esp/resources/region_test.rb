@@ -56,37 +56,6 @@ module ESP
           assert_equal ESP::Suppression::Region, suppression.class
         end
       end
-
-      context 'live calls' do
-        setup do
-          skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
-          WebMock.allow_net_connect!
-          @region = ESP::Region.last
-          skip "Live DB does not have any regions.  Add a region and run tests again." if @region.blank?
-        end
-
-        teardown do
-          WebMock.disable_net_connect!
-        end
-
-        context '.where' do
-          should 'return region objects' do
-            regions = ESP::Region.where(id_eq: @region.id)
-
-            assert_equal ESP::Region, regions.resource_class
-          end
-        end
-
-        context '#CRUD' do
-          should 'be able to read' do
-            assert_not_nil @region
-
-            region = ESP::Region.find(@region.id)
-
-            assert_not_nil region
-          end
-        end
-      end
     end
   end
 end
