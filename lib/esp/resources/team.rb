@@ -13,6 +13,10 @@ module ESP
     has_many :external_accounts, class_name: 'ESP::ExternalAccount'
 
     ##
+    # The collection of custom_signatures that belong to the team.
+    has_many :custom_signatures, class_name: 'ESP::CustomSignature'
+
+    ##
     # The collection of reports that belong to the team.
     has_many :reports, class_name: 'ESP::Report'
 

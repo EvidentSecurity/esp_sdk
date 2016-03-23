@@ -4,6 +4,10 @@ module ESP
     # The organization this custom signature belongs to.
     belongs_to :organization, class_name: 'ESP::Organization'
 
+    ##
+    # The collection of reports that belong to the team.
+    has_many :teams, class_name: 'ESP::Team'
+
     # Run a custom signature that has not been saved.  Useful for debugging a custom signature.
     # Returns a collection of alerts.
     # Throws an error if not successful.
