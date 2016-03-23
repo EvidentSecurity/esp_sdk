@@ -15,15 +15,25 @@ FactoryGirl.define do
     language "javascript"
     updated_at nil
     relationships do
-      { organization: {
-        data: {
-          type: "organizations",
-          id: "1003"
+      {
+        organization: {
+          data: {
+            type: "organizations",
+            id: "1003"
+          },
+          links: {
+            related: "http://test.host/api/v2/organizations/1003.json"
+          }
         },
-        links: {
-          related: "http://test.host/api/v2/organizations/1003.json"
+        teams: {
+          data: {
+            type: "teams",
+            id: "1003"
+          },
+          links: {
+            related: "http://test.host/api/v2/teams?filter%5Bcustom_signatures_id_eq%5D=#{id}"
+          }
         }
-      }
       }
     end
   end

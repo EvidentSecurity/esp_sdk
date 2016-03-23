@@ -5,8 +5,11 @@ module ESP
     belongs_to :organization, class_name: 'ESP::Organization'
 
     ##
-    # The collection of reports that belong to the team.
-    has_many :teams, class_name: 'ESP::Team'
+    # The collection of teams that belong to the custom_signature.
+    def teams
+      return attributes['teams'] if attributes['teams'].present?
+      Team.where(custom_signatures_id_eq: id)
+    end
 
     # Run a custom signature that has not been saved.  Useful for debugging a custom signature.
     # Returns a collection of alerts.
