@@ -53,29 +53,6 @@ module ESP
           assert_equal ESP::ContactRequest, contact_request.class
         end
       end
-
-      context 'live calls' do
-        setup do
-          skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
-          WebMock.allow_net_connect!
-        end
-
-        teardown do
-          WebMock.disable_net_connect!
-        end
-
-        context '#CRUD' do
-          should 'be able to create, update and destroy' do
-            contact_request = ESP::ContactRequest.new(user_id: 5, request_type: 'feature', title: 'My great feature idea', description: 'This is my idea for a really useful feature...')
-
-            assert_predicate contact_request, :new?
-
-            contact_request.save
-
-            refute_predicate contact_request, :new?
-          end
-        end
-      end
     end
   end
 end

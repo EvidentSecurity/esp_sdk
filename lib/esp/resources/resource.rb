@@ -1,6 +1,7 @@
 module ESP
   class Resource < ActiveResource::Base # :nodoc:
     self.site = ESP.site
+    self.proxy = ESP.http_proxy
     self.format = ActiveResource::Formats::JsonAPIFormat
     with_api_auth(ESP.access_key_id, ESP.secret_access_key)
     headers["Content-Type"] = format.mime_type

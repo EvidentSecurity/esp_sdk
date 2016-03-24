@@ -55,25 +55,6 @@ module ESP
           assert_equal ESP::Dashboard, dashboard.resource_class
         end
       end
-
-      context 'live calls' do
-        setup do
-          skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
-          WebMock.allow_net_connect!
-        end
-
-        teardown do
-          WebMock.disable_net_connect!
-        end
-
-        context '.recent' do
-          should 'return an array of contact_requests' do
-            dashboards = ESP::Dashboard.recent
-
-            assert_equal ESP::Dashboard, dashboards.resource_class
-          end
-        end
-      end
     end
   end
 end

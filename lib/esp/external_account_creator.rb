@@ -30,11 +30,11 @@ module ESP # :nodoc: all
     def create
       fail ESP::AddExternalAccountError, aws.errors.full_messages.join(', ') unless aws.valid?
 
-      puts "adding AWS account #{aws.owner_id} to ESP as #{team_name}" # rubocop:disable Rails/Output
+      puts "adding AWS account #{aws.owner_id} to ESP as #{team_name}" unless ESP.env.test? # rubocop:disable Rails/Output
       aws_role_object = aws.create_and_attach_role!(external_account_id)
       sleep 10
 
-      puts "aws_role_arn = #{aws_role_object.role.arn}, external_id = #{external_account_id}, nickname = #{team_name}, esp_suborg_id = #{sub_organization.id}, esp_team_id = #{team.id}" # rubocop:disable Rails/Output
+      puts "aws_role_arn = #{aws_role_object.role.arn}, external_id = #{external_account_id}, nickname = #{team_name}, esp_suborg_id = #{sub_organization.id}, esp_team_id = #{team.id}" unless ESP.env.test? # rubocop:disable Rails/Output
       external_account = ESP::ExternalAccount.create(arn: aws_role_object.role.arn, external_id: external_account_id, name: team_name, sub_organization_id: sub_organization.id, team_id: team.id)
       fail ESP::AddExternalAccountError, "On External Account: #{external_account.errors.full_messages.join(', ')}" unless external_account.errors.blank?
       external_account

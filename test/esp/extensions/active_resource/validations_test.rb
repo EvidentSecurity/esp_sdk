@@ -24,26 +24,6 @@ module ActiveResource
           end
         end
       end
-
-      context 'live calls' do
-        setup do
-          skip "Make sure you run the live calls locally to ensure proper integration" if ENV['CI_SERVER']
-          WebMock.allow_net_connect!
-        end
-
-        teardown do
-          WebMock.disable_net_connect!
-        end
-
-        context "#load_remote_errors" do
-          should 'should parse the response and put error messages in the errors object' do
-            team = ESP::Team.create(name: 'bob')
-
-            assert_contains team.errors.full_messages, "Organization can't be blank"
-            assert_contains team.errors.full_messages, "Organization can't be blank"
-          end
-        end
-      end
     end
   end
 end
