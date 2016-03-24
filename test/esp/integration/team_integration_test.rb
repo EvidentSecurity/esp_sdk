@@ -33,6 +33,14 @@ module ESP::Integration
           end
         end
 
+        context '#custom_signatures' do
+          should 'return an array of custom_signatures' do
+            custom_signatures = @team.custom_signatures
+
+            assert_equal ESP::CustomSignature, custom_signatures.resource_class
+          end
+        end
+
         context '#reports' do
           should 'return an array of reports' do
             reports = @team.reports
