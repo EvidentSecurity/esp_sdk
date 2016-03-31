@@ -35,7 +35,7 @@ module ActiveResource # :nodoc: all
         raw_errors.each do |error|
           next unless error['meta']
           error['meta'].map do |attr, message|
-            friendly_attr = attr.gsub('.', ' ')
+            friendly_attr = attr.tr('.', ' ')
             errors[friendly_attr] ||= []
             errors[friendly_attr] << message
           end
