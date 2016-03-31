@@ -37,7 +37,7 @@ module ActiveResource # :nodoc: all
       end
 
       def decode(json)
-        # ap ActiveSupport::JSON.decode(json), index: false, indent: -2
+        # pp ActiveSupport::JSON.decode(json), index: false, indent: -2
         Formats.remove_root(parse_json_api(ActiveSupport::JSON.decode(json)))
       end
 
