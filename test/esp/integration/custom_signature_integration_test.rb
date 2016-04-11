@@ -18,6 +18,14 @@ module ESP::Integration
           end
         end
 
+        context '#teams' do
+          should 'return list of teams' do
+            team = @custom_signature.teams
+
+            assert_equal ESP::Team, team.resource_class
+          end
+        end
+
         context '.run' do
           should 'return alerts' do
             skip "Can't run sigs on CI" if ENV['CI_SERVER']

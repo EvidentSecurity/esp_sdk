@@ -16,6 +16,12 @@ module ESP
     # The collection of reports that belong to the team.
     has_many :reports, class_name: 'ESP::Report'
 
+    ##
+    # The collection of custom_signatures that belong to the team.
+    def custom_signatures
+      CustomSignature.where(teams_id_eq: id)
+    end
+
     # Enqueue a report to be run for this team.
     # Returns a Report object with a status of 'queued' and an id
     # Periodically check the API

@@ -14,6 +14,20 @@ module ESP
         end
       end
 
+      context '#teams' do
+        should 'call the api' do
+          custom_signature = build(:custom_signature, team_id: 1)
+          stub_request(:put, /teams.json*/).to_return(body: json_list(:team, 2))
+
+          custom_signature.teams
+
+          assert_requested(:put, /teams.json*/) do |req|
+            body = JSON.parse(req.body)
+            assert_equal custom_signature.id, body['filter']['custom_signatures_id_eq']
+          end
+        end
+      end
+
       context '.run_sanity_test!' do
         should 'call the api and pass params' do
           custom_signature = build(:custom_signature, external_account_id: 3)

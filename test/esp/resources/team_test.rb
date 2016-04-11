@@ -38,6 +38,20 @@ module ESP
         end
       end
 
+      context '#custom_signatures' do
+        should 'call the api' do
+          team = build(:team)
+          stub_request(:put, /custom_signatures.json*/).to_return(body: json_list(:custom_signature, 2))
+
+          team.custom_signatures
+
+          assert_requested(:put, /custom_signatures.json*/) do |req|
+            body = JSON.parse(req.body)
+            assert_equal team.id, body['filter']['teams_id_eq']
+          end
+        end
+      end
+
       context '#reports' do
         should 'call the api' do
           team = build(:team)
