@@ -53,7 +53,7 @@ module ESP
     # ==== Example
     #
     #   report = ESP::Report.find(345)
-    #   alerts = report.alerts(status: 'fail', signature_severity: 'High')
+    #   alerts = report.alerts(status_eq: 'fail', signature_risk_level_in: ['High'])
     def alerts(arguments = {})
       ESP::Alert.where(arguments.merge(report_id: id))
     end

@@ -13,7 +13,7 @@ module ESP::Integration
 
               suppression = ESP::Suppression::Signature.create(signature_ids: [signature_id], custom_signature_ids: [], regions: [region.code], external_account_ids: [external_account_id])
 
-              assert_equal "Reason can't be blank", suppression.errors.full_messages.first
+              assert_equal "Suppression reason can't be blank", suppression.errors.full_messages.first
             end
 
             should 'return suppression' do
@@ -32,7 +32,7 @@ module ESP::Integration
 
                 suppression = ESP::Suppression::Signature.create(alert_id: alert_id)
 
-                assert_equal "Reason can't be blank", suppression.errors.full_messages.first
+                assert_equal "Suppression reason can't be blank", suppression.errors.full_messages.first
               end
 
               should 'return suppression' do

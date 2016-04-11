@@ -11,7 +11,7 @@ module ESP::Integration
 
               suppression = ESP::Suppression::UniqueIdentifier.create(alert_id: alert_id)
 
-              assert_equal "Reason can't be blank", suppression.errors.full_messages.first
+              assert_equal "Suppression reason can't be blank", suppression.errors.full_messages.first
             end
 
             should 'return suppression' do
