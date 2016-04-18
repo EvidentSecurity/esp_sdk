@@ -23,7 +23,7 @@ module ESP::Integration
           first_id = alerts.first.id
 
           alerts.previous_page!
-          assert_equal alerts.last_page_number.to_i - 1, alerts.current_page_number.to_i
+          assert_equal last_page_number.to_i - 1, alerts.current_page_number.to_i
           refute_equal first_id, alerts.first.id
           assert_equal 20, alerts.count # make sure the size did not get messed up while on the last page
           first_id = alerts.first.id
@@ -52,7 +52,7 @@ module ESP::Integration
           first_id = page.first.id
 
           page = page.previous_page
-          assert_equal page.last_page_number.to_i - 1, page.current_page_number.to_i
+          assert_equal last_page_number.to_i - 1, page.current_page_number.to_i
           refute_equal first_id, page.first.id
           assert_equal 20, page.count # make sure the size did not get messed up while on the last page
           first_id = page.first.id
