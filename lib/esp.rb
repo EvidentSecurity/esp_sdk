@@ -114,4 +114,9 @@ module ESP
   autoload :StatService, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_service')
   autoload :ExternalAccountCreator, File.expand_path(File.dirname(__FILE__) + '/../lib/esp/external_account_creator')
   autoload :AWSClients, File.expand_path(File.dirname(__FILE__) + '/../lib/esp/aws_clients')
+  class Report
+    module Export
+      autoload :Integration, File.expand_path(File.dirname(__FILE__) + '/esp/resources/reports/export/integration')
+    end
+  end
 end
