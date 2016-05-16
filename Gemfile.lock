@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    esp_sdk (2.2.0)
+    esp_sdk (2.3.0)
       activeresource (~> 4.0.0)
       api-auth
       rack
@@ -165,3 +165,6 @@ DEPENDENCIES
   rubocop
   shoulda
   webmock
+
+BUNDLED WITH
+   1.11.2

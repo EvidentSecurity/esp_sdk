@@ -1,6 +1,10 @@
 ## Unreleased
+
+## 2.2.3 - 2016-05-16
 ### Changed
-- Some error messages changed a little bit on the API.  Specifically, on region suppression, signature suppress, and custom signature suppression objects.  Now when a validation trips on the related suppression object, then error message reflects that.  "Reason can't be blank" changed to "Suppression region can't be blank".  The message is built from the attribute which is in error, which changed from "Reason" to "Suppression.reason".  Had to gsub the "." to a space to make it message friendly.
+- Some error messages changed a little bit on the API.  Specifically, on region suppression, signature suppress, and custom signature suppression objects.  Now when a validation trips on the related suppression object, the error message reflects that.  "Reason can't be blank" changed to "Suppression region can't be blank".  The message is built from the attribute which is in error, which changed from "Reason" to "Suppression.reason".  Had to gsub the "." to a space to make it message friendly.
+- Add the teams relation to custom signature, and the custom signatures relation to team.
+- Added an endpoint, ESP::Report::Export::Integration.create, to export reports to an integration
 
 ## 2.2.0 - 2016-03-2
 ### Added
