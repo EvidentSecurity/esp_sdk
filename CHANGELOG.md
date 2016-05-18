@@ -1,4 +1,7 @@
 ## Unreleased
+### Added
+- Report relationship to ExternalAccount
+- ExternalAccount relationship to Report
 
 ## 2.2.3 - 2016-05-16
 ### Changed

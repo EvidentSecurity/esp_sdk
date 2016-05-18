@@ -36,6 +36,19 @@ module ESP
         end
       end
 
+      context '#reports' do
+        should 'call the api' do
+          external_account = build(:external_account)
+          stub_request(:get, /reports.json*/).to_return(body: json_list(:report, 2))
+
+          external_account.reports
+
+          assert_requested(:get, /reports.json*/) do |req|
+            assert_equal "filter[external_account_id_eq]=#{external_account.id}", URI.unescape(req.uri.query)
+          end
+        end
+      end
+
       context '#scan_intervals' do
         should 'call the api for the external_account and the passed in params' do
           external_account = build(:external_account)

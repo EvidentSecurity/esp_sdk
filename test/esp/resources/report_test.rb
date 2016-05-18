@@ -57,6 +57,17 @@ module ESP
         end
       end
 
+      context '#external_account' do
+        should 'call the api' do
+          report = build(:report, external_account_id: 4)
+          stub_external_account = stub_request(:get, %r{external_accounts/#{report.external_account_id}.json*}).to_return(body: json(:external_account))
+
+          report.external_account
+
+          assert_requested(stub_external_account)
+        end
+      end
+
       context '#alerts' do
         should 'call the api for the report and the passed in params' do
           report = build(:report)

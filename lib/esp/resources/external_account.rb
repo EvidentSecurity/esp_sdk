@@ -12,6 +12,10 @@ module ESP
     # The team the external account belongs to.
     belongs_to :team, class_name: 'ESP::Team'
 
+    ##
+    # The collection of reports that belong to the team.
+    has_many :reports, class_name: 'ESP::Report'
+
     # Helper to generate an external id.
     # Called automatically when creating an ExternalAccount if +external_id+ is not already set.
     def generate_external_id

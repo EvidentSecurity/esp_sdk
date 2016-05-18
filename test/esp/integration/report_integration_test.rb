@@ -33,6 +33,14 @@ module ESP::Integration
           end
         end
 
+        context '#external_account' do
+          should 'return a external_account' do
+            external_account = @report.external_account
+
+            assert_equal ESP::ExternalAccount, external_account.class
+          end
+        end
+
         context '#alerts' do
           should 'return an array of alerts' do
             alerts = @report.alerts
