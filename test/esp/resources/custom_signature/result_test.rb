@@ -6,8 +6,8 @@ module ESP
       context ESP::CustomSignature::Result do
         context '#definition' do
           should 'call the api' do
-            result = build(:result, custom_signature_definition_id: 4)
-            stubbed_definition = stub_request(:get, %r{custom_signature_definitions/#{result.custom_signature_definition_id}.json*}).to_return(body: json(:definition))
+            result = build(:result, definition_id: 4)
+            stubbed_definition = stub_request(:get, %r{custom_signature_definitions/#{result.definition_id}.json*}).to_return(body: json(:definition))
 
             result.definition
 
