@@ -102,11 +102,6 @@ module ESP
   autoload :Tag, File.expand_path(File.dirname(__FILE__) + '/esp/resources/tag')
   autoload :Region, File.expand_path(File.dirname(__FILE__) + '/esp/resources/region')
   autoload :Suppression, File.expand_path(File.dirname(__FILE__) + '/esp/resources/suppression')
-  class Suppression
-    autoload :UniqueIdentifier, File.expand_path(File.dirname(__FILE__) + '/esp/resources/suppression/unique_identifier')
-    autoload :Signature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/suppression/signature')
-    autoload :Region, File.expand_path(File.dirname(__FILE__) + '/esp/resources/suppression/region')
-  end
   autoload :Stat, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat')
   autoload :StatCustomSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_custom_signature')
   autoload :StatSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_signature')
@@ -114,9 +109,4 @@ module ESP
   autoload :StatService, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_service')
   autoload :ExternalAccountCreator, File.expand_path(File.dirname(__FILE__) + '/../lib/esp/external_account_creator')
   autoload :AWSClients, File.expand_path(File.dirname(__FILE__) + '/../lib/esp/aws_clients')
-  class Report
-    module Export
-      autoload :Integration, File.expand_path(File.dirname(__FILE__) + '/esp/resources/reports/export/integration')
-    end
-  end
 end

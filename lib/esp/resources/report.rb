@@ -1,5 +1,9 @@
 module ESP
   class Report < ESP::Resource
+    module Export
+      autoload :Integration, File.expand_path(File.dirname(__FILE__) + '/reports/export/integration')
+    end
+
     ##
     # The organization the report belongs to.
     belongs_to :organization, class_name: 'ESP::Organization'
@@ -12,7 +16,7 @@ module ESP
     # The team the report belongs to.
     belongs_to :team, class_name: 'ESP::Team'
 
-    # Not Implemented. You cannot create or update a Report.
+    # Not Implemented. You cannot update a Report.
     def update
       fail ESP::NotImplementedError
     end

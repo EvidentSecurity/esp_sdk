@@ -1,5 +1,9 @@
 module ESP
   class Suppression < ESP::Resource
+    autoload :UniqueIdentifier, File.expand_path(File.dirname(__FILE__) + '/suppression/unique_identifier')
+    autoload :Signature, File.expand_path(File.dirname(__FILE__) + '/suppression/signature')
+    autoload :Region, File.expand_path(File.dirname(__FILE__) + '/suppression/region')
+
     ##
     # The organization this sub organization belongs to.
     belongs_to :organization, class_name: 'ESP::Organization'

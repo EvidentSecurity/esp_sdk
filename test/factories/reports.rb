@@ -36,16 +36,6 @@ FactoryGirl.define do
           }
         },
         alerts: {
-          data: [
-            {
-              type: "alerts",
-              id: "41989"
-            },
-            {
-              type: "alerts",
-              id: "41988"
-            }
-          ],
           links: {
             related: "http://localhost:3000/api/v2/reports/55/alerts.json"
           }

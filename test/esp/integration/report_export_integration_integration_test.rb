@@ -7,7 +7,7 @@ module ESP::Integration
         context ESP::Report::Export::Integration do
           context 'live calls' do
             context '#create' do
-              should 'return regions' do
+              should 'queue export' do
                 report = ESP::Report.last
                 fail "Live DB does not have any reports.  Add a report with stats and run tests again." if report.blank?
 
