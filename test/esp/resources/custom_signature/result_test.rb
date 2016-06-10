@@ -69,6 +69,22 @@ module ESP
             assert_requested stubbed_defintion
           end
         end
+
+        context '#update' do
+          should 'raise ESP::NotImplementedError' do
+            assert_raises ESP::NotImplementedError do
+              ESP::CustomSignature::Result::Alert.new.update
+            end
+          end
+        end
+
+        context '#destroy' do
+          should 'raise ESP::NotImplementedError' do
+            assert_raises ESP::NotImplementedError do
+              ESP::CustomSignature::Result::Alert.new.destroy
+            end
+          end
+        end
       end
     end
   end

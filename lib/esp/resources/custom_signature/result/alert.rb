@@ -15,7 +15,7 @@ module ESP
         # See {API documentation}[http://api-docs.evident.io?ruby#alert-attributes] for valid arguments
         def self.for_result(custom_signature_result_id = nil)
           fail ArgumentError, "You must supply a custom signature result id." unless custom_signature_result_id.present?
-          # call find_one directly since find is overriden/not implemented
+          # call find_every directly since find is overriden/not implemented
           find_every(from: "#{prefix}custom_signature_results/#{custom_signature_result_id}/alerts.json")
         end
 

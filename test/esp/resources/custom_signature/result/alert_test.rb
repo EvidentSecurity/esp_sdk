@@ -37,6 +37,46 @@ module ESP
               assert_requested(stubbed_custom_signature)
             end
           end
+
+          context '.find' do
+            should 'raise ESP::NotImplementedError' do
+              assert_raises ESP::NotImplementedError do
+                ESP::CustomSignature::Result::Alert.find(1)
+              end
+            end
+          end
+
+          context '.where' do
+            should 'raise ESP::NotImplementedError' do
+              assert_raises ESP::NotImplementedError do
+                ESP::CustomSignature::Result::Alert.where(id_eq: 1)
+              end
+            end
+          end
+
+          context '#create' do
+            should 'raise ESP::NotImplementedError' do
+              assert_raises ESP::NotImplementedError do
+                ESP::CustomSignature::Result::Alert.new.create
+              end
+            end
+          end
+
+          context '#update' do
+            should 'raise ESP::NotImplementedError' do
+              assert_raises ESP::NotImplementedError do
+                ESP::CustomSignature::Result::Alert.new.update
+              end
+            end
+          end
+
+          context '#destroy' do
+            should 'raise ESP::NotImplementedError' do
+              assert_raises ESP::NotImplementedError do
+                ESP::CustomSignature::Result::Alert.new.destroy
+              end
+            end
+          end
         end
       end
     end

@@ -37,6 +37,17 @@ module ESP
 
             assert_requested stubbed_defintion
           end
+
+          should 'parse errors' do
+            definition = build(:definition)
+            stub_request(:patch, %r{custom_signature_definitions/#{definition.id}/activate.json}).to_return(status: 422, body: json(:error, :active_record))
+
+            definition.activate
+
+            assert_contains definition.errors.full_messages, "Name can't be blank"
+            assert_contains definition.errors.full_messages, "Name is invalid"
+            assert_contains definition.errors.full_messages, "Description can't be blank"
+          end
         end
 
         context 'archive' do
@@ -47,6 +58,17 @@ module ESP
             definition.archive
 
             assert_requested stubbed_defintion
+          end
+
+          should 'parse errors' do
+            definition = build(:definition)
+            stub_request(:patch, %r{custom_signature_definitions/#{definition.id}/archive.json}).to_return(status: 422, body: json(:error, :active_record))
+
+            definition.archive
+
+            assert_contains definition.errors.full_messages, "Name can't be blank"
+            assert_contains definition.errors.full_messages, "Name is invalid"
+            assert_contains definition.errors.full_messages, "Description can't be blank"
           end
         end
       end
