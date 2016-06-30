@@ -1,9 +1,9 @@
 ## Unreleased
+
+## 2.4.0 - 2016-06-30
 ### Added
 - Report relationship to ExternalAccount
 - ExternalAccount relationship to Report
-
-## 2.4.0 - 2016-06-30
 ### Changed
 - Upgrade api-auth to 2.0.
 
