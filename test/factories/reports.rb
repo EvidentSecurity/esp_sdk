@@ -35,6 +35,15 @@ FactoryGirl.define do
             related: "http://localhost:3000/api/v2/teams/1.json"
           }
         },
+        external_account: {
+          data: {
+            type: "external_accounts",
+            id: "1"
+          },
+          links: {
+            related: "http://localhost:3000/api/v2/external_accounts/1.json"
+          }
+        },
         alerts: {
           data: [
             {
