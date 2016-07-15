@@ -1,13 +1,13 @@
 module ESP
   class Dashboard < ESP::Resource
-    # Not Implemented. You cannot search for Suppression::Region.
+    # Not Implemented. You cannot search for a Dashboard.
     #
     # Regular ARELlike methods are disabled.
     def self.find(*)
       fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use the .recent method.'
     end
 
-    # Not Implemented. You cannot search for Suppression::Region.
+    # Not Implemented. You cannot search for a Dashboard.
     #
     # Regular ARELlike methods are disabled.
     def self.where(*)

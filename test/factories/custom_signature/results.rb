@@ -1,38 +1,32 @@
 FactoryGirl.define do
-  factory :report, class: 'ESP::Report' do
+  factory :result, class: 'ESP::CustomSignature::Result' do
     skip_create
 
     sequence(:id) { |n| n }
-    type "reports"
+    code 'abc'
     created_at { Time.current }
+    language 'javascript'
     status "complete"
     updated_at { Time.current }
+
     relationships do
-      { organization: {
-        data: {
-          type: "organizations",
-          id: "1"
-        },
-        links: {
-          related: "http://localhost:3000/api/v2/organizations/1.json"
-        }
-      },
-        sub_organization: {
+      {
+        definition: {
           data: {
-            type: "sub_organizations",
+            type: "definitions",
             id: "1"
           },
           links: {
-            related: "http://localhost:3000/api/v2/sub_organizations/1.json"
+            related: "http://localhost:3000/api/v2/custom_signature_definitions/1.json"
           }
         },
-        team: {
+        region: {
           data: {
-            type: "teams",
+            type: "regions",
             id: "1"
           },
           links: {
-            related: "http://localhost:3000/api/v2/teams/1.json"
+            related: "http://localhost:3000/api/v2/regions/1.json"
           }
         },
         external_account: {
@@ -46,7 +40,7 @@ FactoryGirl.define do
         },
         alerts: {
           links: {
-            related: "http://localhost:3000/api/v2/reports/55/alerts.json"
+            related: "http://localhost:3000/api/v2/custom_signature_results/#{id}/alerts.json"
           }
         }
       }
