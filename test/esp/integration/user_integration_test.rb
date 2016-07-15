@@ -26,7 +26,9 @@ module ESP::Integration
             sub_orgs = @user.sub_organizations
 
             assert_equal @user.sub_organization_ids.count, sub_orgs.count
-            assert_equal @user.sub_organization_ids, sub_orgs.map(&:id)
+            sub_orgs.map(&:id).each do |id|
+              assert_contains @user.sub_organization_ids, id
+            end
           end
         end
 

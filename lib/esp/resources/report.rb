@@ -16,6 +16,10 @@ module ESP
     # The team the report belongs to.
     belongs_to :team, class_name: 'ESP::Team'
 
+    ##
+    # The external_account the report belongs to.
+    belongs_to :external_account, class_name: 'ESP::ExternalAccount'
+
     # Not Implemented. You cannot update a Report.
     def update
       fail ESP::NotImplementedError

@@ -33,6 +33,14 @@ module ESP::Integration
           end
         end
 
+        context '#reports' do
+          should 'return an array of reports' do
+            reports = @external_account.reports
+
+            assert_equal ESP::Report, reports.resource_class
+          end
+        end
+
         context '.where' do
           should 'return external_account objects' do
             external_accounts = ESP::ExternalAccount.where(id_eq: @external_account.id)
