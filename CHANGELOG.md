@@ -1,4 +1,5 @@
 ## Unreleased
+- Add custom signature definitions and results. Code for a custom signature is now created/updated under a definition. Running a definition for an on demand test creates a result record which will have errors and alerts when completed.
 
 ## 2.4.0 - 2016-06-30
 ### Added
