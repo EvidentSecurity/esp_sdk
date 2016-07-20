@@ -1,5 +1,9 @@
 ## Unreleased
+
+## 2.5.0 - 2016-07-20
+### Added
 - Add custom signature definitions and results. Code for a custom signature is now created/updated under a definition. Running a definition for an on demand test creates a result record which will have errors and alerts when completed.
+  - This is a backwards incompatible change on the API. If you need to save or run code on a custom signature, make sure to use this version or later.
 
 ## 2.4.0 - 2016-06-30
 ### Added
