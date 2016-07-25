@@ -22,6 +22,7 @@ module ESP
     end
 
     def self.where(clauses = {})
+      puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** clauses = " + clauses.inspect
       fail ArgumentError, "expected a clauses Hash, got #{clauses.inspect}" unless clauses.is_a? Hash
       from = clauses.delete(:from) || "#{prefix}#{name.demodulize.pluralize.underscore}"
       clauses = { params: clauses }
@@ -33,6 +34,7 @@ module ESP
     end
 
     def self.find(*arguments)
+      puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** arguments = " + arguments.inspect
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access
       arrange_options(options)
@@ -63,6 +65,7 @@ module ESP
       # Need to set from so paginated collection can use it for page calls.
       object.tap do |collection|
         collection.from = options['from']
+        puts "@@@@@@@@@ #{__FILE__}:#{__LINE__} \n********** options = " + options.inspect
         collection.original_params = options['params']
       end
     end
