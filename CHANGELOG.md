@@ -1,4 +1,6 @@
 ## Unreleased
+### Changed
+- Calling `next_page` on queries without parameters (e.g. `ESP::ExternalAccount.all`) no longer errors.
 
 ## 2.5.0 - 2016-07-20
 ### Added

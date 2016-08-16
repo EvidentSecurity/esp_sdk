@@ -63,7 +63,7 @@ module ESP
       # Need to set from so paginated collection can use it for page calls.
       object.tap do |collection|
         collection.from = options['from']
-        collection.original_params = options['params']
+        collection.original_params = options.fetch('params', {})
       end
     end
 
