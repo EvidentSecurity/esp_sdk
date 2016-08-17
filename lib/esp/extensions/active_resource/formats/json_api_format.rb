@@ -121,7 +121,7 @@ module ActiveResource # :nodoc: all
       end
 
       def self.merge_nested_included_objects(object, data, included)
-        assocs = included.select { |i| data.include?((i.slice('type', 'id'))) }
+        assocs = included.compact.select { |i| data.include?(i.slice('type', 'id')) }
         # Remove the object from the included array to prevent an infinite loop if one of it's associations relates back to itself.
         assoc_included = included.dup
         assoc_included.delete(object)

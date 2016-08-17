@@ -1,4 +1,6 @@
 ## Unreleased
+### Changed
+- Silently ignore `null` entires if encountered in API responses.
 
 ## 2.5.0 - 2016-07-20
 ### Added
