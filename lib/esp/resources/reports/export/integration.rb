@@ -3,34 +3,43 @@ module ESP
     module Export
       class Integration < ESP::Resource
         self.prefix += "reports/export/"
-        # Not Implemented. You cannot search for Reports::Export::Integration.
+
+        # @!method self.create(attributes = {})
+        #   Enqueue reports to be exported to the given integration
+        #   Returns a Report::Export::Integration object if successful
+        #
+        #   If not successful, returns a Report::Export::Integration object with the errors object populated.
+        #
+        #   @param attributes [Hash] See {API documentation}[http://api-docs.evident.io?ruby#report-export] for valid arguments
+        #   @return [ESP::Report::Export::Integration]
+
+        # Not Implemented. You cannot search for Report::Export::Integration.
+        #
+        # @return [void]
         def self.where(*)
           fail ESP::NotImplementedError
         end
 
-        # Not Implemented. You cannot search for Reports::Export::Integration.
+        # Not Implemented. You cannot search for Report::Export::Integration.
+        #
+        # @return [void]
         def self.find(*)
           fail ESP::NotImplementedError
         end
 
-        # Not Implemented. You cannot update a Reports::Export::Integration.
+        # Not Implemented. You cannot update a Report::Export::Integration.
+        #
+        # @return [void]
         def update
           fail ESP::NotImplementedError
         end
 
-        # Not Implemented. You cannot destroy a Reports::Export::Integration.
+        # Not Implemented. You cannot destroy a Report::Export::Integration.
+        #
+        # @return [void]
         def destroy
           fail ESP::NotImplementedError
         end
-
-        # :singleton-method: create
-        # Enqueue reports to be exported to the given integration
-        # Returns a Report::Export::Integration object if successful
-        # ==== Attribute
-        #
-        # See {API documentation}[http://api-docs.evident.io?ruby#report-export] for valid arguments
-        #
-        # If not successful, returns a Report::Export::Integration object with the errors object populated.
 
         protected
 

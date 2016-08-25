@@ -1,6 +1,7 @@
 require 'aws-sdk'
 
-module ESP # :nodoc: all
+module ESP
+  # @private
   class AWSClients
     include ActiveModel::Validations
 

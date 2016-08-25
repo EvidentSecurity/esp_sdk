@@ -1,23 +1,28 @@
 module ESP
   class Team < ESP::Resource
-    ##
     # The organization this team belongs to.
+    #
+    # @return [ESP::Organization]
     belongs_to :organization, class_name: 'ESP::Organization'
 
-    ##
     # The sub organization this team belongs to.
+    #
+    # @return [ESP::SubOrganization]
     belongs_to :sub_organization, class_name: 'ESP::SubOrganization'
 
-    ##
     # The collection of external_accounts that belong to the team.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::ExternalAccount>]
     has_many :external_accounts, class_name: 'ESP::ExternalAccount'
 
-    ##
     # The collection of reports that belong to the team.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::Report>]
     has_many :reports, class_name: 'ESP::Report'
 
-    ##
     # The collection of custom_signatures that belong to the team.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::CustomSignature>]
     def custom_signatures
       CustomSignature.where(teams_id_eq: id)
     end
@@ -28,82 +33,75 @@ module ESP
     #   ESP::Report.find(<id>)
     # until status is 'complete'.
     # If not successful, returns a Report object with the errors object populated.
+    #
+    # @return [ESP::Report]
     def create_report
       Report.create_for_team(id)
     end
 
-    # :singleton-method: where
-    # Return a paginated Team list filtered by search parameters
+    # @!method self.where(clauses = {})
+    #   Return a paginated Team list filtered by search parameters
     #
-    # ==== Parameters
+    #   *call-seq* -> +super.where(clauses = {})+
     #
-    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #   @param clauses [Hash] A hash of attributes with appended predicates to search, sort and include.
+    #     ===== Valid Clauses
     #
-    # ===== Valid Clauses
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#team-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  where(clauses = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#team-attributes] for valid arguments
+    #   @return [ActiveResource::PaginatedCollection<ESP::Team>]
 
-    ##
-    # :singleton-method: find
-    # Find a Team by id
+    # @!method self.find(id, options = {})
+    #   Find a Team by id
     #
-    # ==== Parameter
+    #   *call-seq* -> +super.find(id, options = {})+
     #
-    # +id+ | Required | The ID of the team to retrieve
+    #   @param id [Integer, Numeric, #to_i] Required ID of the team to retrieve.
+    #   @param options [Hash] Optional hash of options.
+    #     ===== Valid Options
     #
-    # +options+ | Optional | A hash of options
+    #     +include+ | The list of associated objects to return on the initial request.
     #
-    # ===== Valid Options
+    #     ===== Valid Includable Associations
     #
-    # +include+ | The list of associated objects to return on the initial request.
-    #
-    # ===== Valid Includable Associations
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#team-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  find(id, options = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#team-attributes] for valid arguments
+    #   @return [ESP::Team]
 
-    # :singleton-method: all
-    # Return a paginated Team list
+    # @!method self.all
+    #   Return a paginated Team list
+    #
+    #   @return [ActiveResource::PaginatedCollection<ESP::Team>]
 
-    # :singleton-method: create
-    # Create a Team.
-    # :call-seq:
-    #   create(attributes={})
+    # @!method self.create(attributes = {})
+    #   Create a Team.
+    #   *call-seq* -> +super.create(attributes={})+
     #
-    # ==== Parameter
+    #   @param attributes [Hash] Required hash of team attributes.
+    #     ===== Valid Attributes
     #
-    # +attributes+ | Required | A hash of team attributes
-    #
-    # ===== Valid Attributes
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#team-create] for valid arguments
-    #
-    # ==== Example
-    #
-    #  team = ESP::Team.create(name: "Team Name", sub_organization_id: 9)
+    #     See {API documentation}[http://api-docs.evident.io?ruby#team-create] for valid arguments
+    #   @return [ESP::Team]
+    #   @example
+    #     team = ESP::Team.create(name: "Team Name", sub_organization_id: 9)
 
-    # :method: save
-    # Create and update a Team.
+    # @!method save
+    #   Create and update a Team.
     #
-    # ===== Valid Attributes when updating
+    #   ===== Valid Attributes when updating
     #
-    # +name+ | Required | The new name of the team
+    #   +name+ | Required | The new name of the team
     #
-    # ===== Valid Attributes when creating
+    #   ===== Valid Attributes when creating
     #
-    # See {API documentation}[http://api-docs.evident.io?ruby#team-create] for valid arguments
+    #   See {API documentation}[http://api-docs.evident.io?ruby#team-create] for valid arguments
     #
-    # ==== Example
-    #
-    #  team = ESP::Team.new(name: "Team Name", sub_organization_id: 9)
-    #  team.save
+    #   @return [Boolean]
+    #   @example
+    #     team = ESP::Team.new(name: "Team Name", sub_organization_id: 9)
+    #     team.save
 
-    # :method: destroy
-    # Delete a Team.
+    # @!method destroy
+    #   Delete a Team.
+    #
+    #   @return [self]
   end
 end
