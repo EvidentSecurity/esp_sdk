@@ -22,6 +22,9 @@ end
 
 module ESP
   class Console
+    # Start a console
+    #
+    # @return [void]
     def start # rubocop:disable Metrics/MethodLength
       ARGV.clear
       IRB.setup nil

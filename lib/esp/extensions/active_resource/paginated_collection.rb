@@ -1,12 +1,18 @@
 require 'rack'
 
 module ActiveResource
-  # Provides a mean to call the Evident.io API to easily retrieve paginated data
   class PaginatedCollection < ActiveResource::Collection
-    attr_reader :next_page_params, :previous_page_params, :last_page_params #:nodoc:
-    attr_accessor :from #:nodoc:
+    # Internal variable used to construct queries.
+    # @return [Hash]
+    # @private
+    attr_reader :next_page_params, :previous_page_params, :last_page_params
+    # Internal variable used to construct queries.
+    # @return [Integer]
+    # @private
+    attr_accessor :from
 
-    def initialize(elements = []) #:nodoc:
+    # @private
+    def initialize(elements = [])
       # If a collection is sent without the pagination links, then elements will just be an array.
       if elements.is_a? Hash
         super(elements['data'])
@@ -16,22 +22,24 @@ module ActiveResource
       end
     end
 
-    # Returns a new PaginatedCollection with the first page of results.
+    # Returns the first page of results.
     #
-    # Returns self when on the first page and no API call is made.
+    # Returns +self+ (and no API call is made) when already on the first page.
     #
-    # ==== Example
+    # @return [PaginatedCollection, self]
+    # @example
     #   alerts.current_page_number # => 5
     #   first_page = alerts.first_page
     #   alerts.current_page_number # => 5
     #   first_page.current_page_number # => 1
     def first_page
-      previous_page? ? resource_class.where(original_params.merge(from: from, page: { number: 1 })) : self
+      previous_page? ? updated_collection(from: from, page: { number: 1 }) : self
     end
 
     # Updates the existing PaginatedCollection object with the first page of data when not on the first page.
     #
-    # ==== Example
+    # @return (see #first_page)
+    # @example
     #   alerts.current_page_number # => 5
     #   alerts.first_page!
     #   alerts.current_page_number # => 1
@@ -39,22 +47,24 @@ module ActiveResource
       first_page.tap { |page| update_self(page) }
     end
 
-    # Returns a new PaginatedCollection with the previous page of results.
+    # Returns the previous page of results.
     #
-    # Returns self when on the first page and no API call is made.
+    # Returns +self+ (and no API call is made) when already on the first page.
     #
-    # ==== Example
+    # @return [PaginatedCollection, self]
+    # @example
     #   alerts.current_page_number # => 5
     #   previous_page = alerts.previous_page
     #   alerts.current_page_number # => 5
     #   previous_page.current_page_number # => 4
     def previous_page
-      previous_page? ? resource_class.where(original_params.merge(previous_page_params.merge(from: from))) : self
+      previous_page? ? updated_collection(previous_page_params.merge(from: from)) : self
     end
 
     # Updates the existing PaginatedCollection object with the previous page of data when not on the first page.
     #
-    # ==== Example
+    # @return (see #previous_page)
+    # @example
     #   alerts.current_page_number # => 5
     #   alerts.previous_page!
     #   alerts.current_page_number # => 4
@@ -62,22 +72,24 @@ module ActiveResource
       previous_page.tap { |page| update_self(page) }
     end
 
-    # Returns a new PaginatedCollection with the next page of results.
+    # Returns the next page of results.
     #
-    # Returns self when on the last page and no API call is made.
+    # Returns +self+ (and no API call is made) when already on the last page.
     #
-    # ==== Example
+    # @return [PaginatedCollection, self]
+    # @example
     #   alerts.current_page_number # => 5
     #   next_page = alerts.next_page
     #   alerts.current_page_number # => 5
     #   next_page.current_page_number # => 6
     def next_page
-      next_page? ? resource_class.where(original_params.merge(next_page_params.merge(from: from))) : self
+      next_page? ? updated_collection(next_page_params.merge(from: from)) : self
     end
 
     # Updates the existing PaginatedCollection object with the last page of data when not on the last page.
     #
-    # ==== Example
+    # @return (see #next_page)
+    # @example
     #   alerts.current_page_number # => 5
     #   alerts.next_page!
     #   alerts.current_page_number # => 6
@@ -85,22 +97,24 @@ module ActiveResource
       next_page.tap { |page| update_self(page) }
     end
 
-    # Returns a new PaginatedCollection with the last page of results.
+    # Returns the last page of results.
     #
-    # Returns self when on the last page and no API call is made.
+    # Returns +self+ (and no API call is made)  when already on the last page.
     #
-    # ==== Example
+    # @return [PaginatedCollection, self]
+    # @example
     #   alerts.current_page_number # => 5
     #   last_page = alerts.last_page
     #   alerts.current_page_number # => 5
     #   last_page.current_page_number # => 25
     def last_page
-      !last_page? ? resource_class.where(original_params.merge(last_page_params.merge(from: from))) : self
+      !last_page? ? updated_collection(last_page_params.merge(from: from)) : self
     end
 
     # Updates the existing PaginatedCollection object with the last page of data when not on the last page.
     #
-    # ==== Example
+    # @return (see #last_page)
+    # @example
     #   alerts.current_page_number # => 5
     #   alerts.last_page!
     #   alerts.current_page_number # => 25
@@ -108,15 +122,13 @@ module ActiveResource
       last_page.tap { |page| update_self(page) }
     end
 
-    # Returns a new PaginatedCollection with the +page_number+ page of data.
+    # Returns the +page_number+ page of data.
     #
-    # Returns self when +page_number+ == #current_page_number
+    # Returns +self+ when +page_number+ == +#current_page_number+
     #
-    # ==== Attribute
-    #
-    # +page_number+ - The page number of the data wanted.  +page_number+ must be between 1 and #last_page_number.
-    #
-    # ==== Example
+    # @param page_number [Integer] The page number of the data wanted. Must be between 1 and +#last_page_number+.
+    # @return [PaginatedCollection, self]
+    # @example
     #   alerts.current_page_number # => 5
     #   page = alerts.page(2)
     #   alerts.current_page_number # => 5
@@ -125,16 +137,14 @@ module ActiveResource
       fail ArgumentError, "You must supply a page number." unless page_number.present?
       fail ArgumentError, "Page number cannot be less than 1." if page_number.to_i < 1
       fail ArgumentError, "Page number cannot be greater than the last page number." if page_number.to_i > last_page_number.to_i
-      page_number.to_i != current_page_number.to_i ? resource_class.where(original_params.merge(from: from, page: { number: page_number, size: (next_page_params || previous_page_params)['page']['size'] })) : self
+      page_number.to_i != current_page_number.to_i ? updated_collection(from: from, page: { number: page_number, size: (next_page_params || previous_page_params)['page']['size'] }) : self
     end
 
     # Returns a new PaginatedCollection with the +page_number+ page of data when not already on page +page_number+.
     #
-    # ==== Attribute
-    #
-    # +page_number+ - The page number of the data wanted.  +page_number+ must be between 1 and #last_page_number.
-    #
-    # ==== Example
+    # @param (see #page)
+    # @return (see #page)
+    # @example
     #   alerts.current_page_number # => 5
     #   alerts.page!(2)
     #   alerts.current_page_number # => 2
@@ -143,41 +153,63 @@ module ActiveResource
     end
 
     # The current page number of data.
+    #
+    # @return [String]
     def current_page_number
       (previous_page_number.to_i + 1).to_s
     end
 
     # The previous page number of data.
+    #
+    # @return [String, nil]
     def previous_page_number
       Hash(previous_page_params).fetch('page', {}).fetch('number', nil)
     end
 
     # The next page number of data.
+    #
+    # @return [String, nil]
     def next_page_number
       Hash(next_page_params).fetch('page', {}).fetch('number', nil)
     end
 
     # The last page number of data.
+    #
+    # @return [String, nil]
     def last_page_number
       Hash(last_page_params).fetch('page', {}).fetch('number', nil)
     end
 
     # Returns whether or not there is a previous page of data in the collection.
+    #
+    # @return [Boolean]
     def previous_page?
       !previous_page_number.nil?
     end
 
     # Returns whether or not there is a next page of data in the collection.
+    #
+    # @return [Boolean]
     def next_page?
       !next_page_number.nil?
     end
 
     # Returns whether or not the collection is on the last page.
+    #
+    # @return [Boolean]
     def last_page?
       last_page_number.nil?
     end
 
     private
+
+    # Start a new collection.
+    #
+    # @param params [Hash]
+    # @return [PaginatedCollection]
+    def updated_collection(params)
+      resource_class.where(original_params.merge(params))
+    end
 
     def update_self(page)
       @elements = page.elements

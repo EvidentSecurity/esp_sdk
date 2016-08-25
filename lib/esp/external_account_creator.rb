@@ -1,4 +1,5 @@
-module ESP # :nodoc: all
+module ESP
+  # @private
   class AddExternalAccountError < StandardError
     EXIT_CODES = {
       '12 characters'          => 98,
@@ -27,6 +28,7 @@ module ESP # :nodoc: all
       @aws = AWSClients.new
     end
 
+    # @return [ESP::ExternalAccount]
     def create
       fail ESP::AddExternalAccountError, aws.errors.full_messages.join(', ') unless aws.valid?
 

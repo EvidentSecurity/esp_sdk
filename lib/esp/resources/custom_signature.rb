@@ -3,13 +3,16 @@ module ESP
     autoload :Definition, File.expand_path(File.dirname(__FILE__) + '/custom_signature/definition')
     autoload :Result, File.expand_path(File.dirname(__FILE__) + '/custom_signature/result')
 
-    ##
     # The organization this custom signature belongs to.
+    #
+    # @return [ESP::Organization]
     belongs_to :organization, class_name: 'ESP::Organization'
+    # @return [ActiveResource::PaginatedCollection<ESP::CustomSignature::Definition>]
     has_many :definitions, class_name: 'ESP::CustomSignature::Definition'
 
-    ##
     # The collection of teams that belong to the custom_signature.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::Team>]
     def teams
       return attributes['teams'] if attributes['teams'].present?
       Team.where(custom_signatures_id_eq: id)
@@ -17,89 +20,77 @@ module ESP
 
     # Create a suppression for this custom signature.
     #
-    # ==== Parameter
+    # @param arguments [Hash] Required hash of signature suppression attributes
+    #   ===== Valid Arguments
     #
-    # +arguments+ | Required | A hash of signature suppression attributes
-    #
-    # ===== Valid Arguments
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-create] for valid arguments
-    #
-    # ==== Example
+    #   See {API documentation}[http://api-docs.evident.io?ruby#suppression-create] for valid arguments
+    # @return [ESP::Suppression::Signature]
+    # @example
     #   suppress(regions: ['us_east_1'], external_account_ids: [5], reason: 'My very good reason for creating this suppression')
     def suppress(arguments = {})
       arguments = arguments.with_indifferent_access
       ESP::Suppression::Signature.create(custom_signature_ids: [id], regions: Array(arguments[:regions]), external_account_ids: Array(arguments[:external_account_ids]), reason: arguments[:reason])
     end
 
-    # :singleton-method: where
-    # Return a paginated CustomSignature list filtered by search parameters
+    # @!method self.where(clauses = {})
+    #   Find a list of custom signatures filtered by search parameters.
     #
-    # ==== Parameters
+    #   *call-seq* -> +super.where(clauses = {})+
     #
-    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #   @param clauses [Hash] Attributes with appended predicates to search, sort, and include.
+    #     ===== Valid Clauses
     #
-    # ===== Valid Clauses
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  where(clauses = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-attributes] for valid arguments
+    #   @return [ActiveResource::PaginatedCollection<ESP::CustomSignature>]
 
-    ##
-    # :singleton-method: find
-    # Find a CustomSignature by id
+    # @!method self.find(id, options = {})
+    #   Find a CustomSignature by id
     #
-    # ==== Parameter
+    #   *call-seq* -> +super.find(id, options = {})+
     #
-    # +id+ | Required | The ID of the custom signature to retrieve
+    #   @param id [Integer, Numeric, #to_i] Required ID of the custom signature to retrieve.
+    #   @param options [Hash] Optional hash of options.
+    #     ===== Valid Options
     #
-    # +options+ | Optional | A hash of options
+    #     +include+ | The list of associated objects to return on the initial request.
     #
-    # ===== Valid Options
+    #     ===== Valid Includable Associations
     #
-    # +include+ | The list of associated objects to return on the initial request.
-    #
-    # ===== Valid Includable Associations
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  find(id, options = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-attributes] for valid arguments
+    #   @return [ESP::CustomSignature]
 
-    # :singleton-method: all
-    # Return a paginated CustomSignature list
+    # @!method self.all
+    #   Return a paginated CustomSignature list
+    #
+    #   @return [ActiveResource::PaginatedCollection<ESP::CustomSignature>]
 
-    # :singleton-method: create
-    # Create a CustomSignature
-    # :call-seq:
-    #   create(attributes={})
+    # @!method self.create(attributes = {})
+    #   Create a CustomSignature
+    #   *call-seq* -> +super.create(attributes={})+
     #
-    # ==== Parameter
+    #   @param attributes [Hash] Required hash of custom signature attributes.
+    #     ===== Valid Attributes
     #
-    # +attributes+ | Required | A hash of custom signature attributes
-    #
-    # ===== Valid Attributes
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-create] for valid arguments
-    #
-    # ==== Example
-    #
-    #  custom_signature = ESP::CustomSignature.create(description: "A test custom signature.", identifier: "AWS::IAM::001", name: "Test Signature", risk_level: "Medium")
+    #     See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-create] for valid arguments
+    #   @return [ESP::CustomSignature]
+    #   @example
+    #     custom_signature = ESP::CustomSignature.create(description: "A test custom signature.", identifier: "AWS::IAM::001", name: "Test Signature", risk_level: "Medium")
 
-    # :method: save
-    # Create or update a CustomSignature
+    # @method save
+    #   Create or update a CustomSignature
     #
-    # ===== Valid Attributes
+    #   ===== Valid Attributes
     #
-    # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-create] for valid arguments
+    #   See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-create] for valid arguments
     #
-    # ==== Example
-    #
-    #  custom_signature = ESP::CustomSignature.new(description: "A test custom signature.", identifier: "AWS::IAM::001", name: "Test Signature", risk_level: "Medium")
-    #  custom_signature.save
+    #   @return [Boolean]
+    #   @example
+    #    custom_signature = ESP::CustomSignature.new(description: "A test custom signature.", identifier: "AWS::IAM::001", name: "Test Signature", risk_level: "Medium")
+    #    custom_signature.save
 
-    # :method: destroy
-    # Delete a CustomSignature
+    # @method destroy
+    #   Delete a CustomSignature
+    #
+    #   @return [self]
   end
 end

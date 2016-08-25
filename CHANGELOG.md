@@ -1,4 +1,6 @@
 ## Unreleased
+### Changed
+- Switch from RDoc to Yard.
 
 ## 2.5.0 - 2016-07-20
 ### Added

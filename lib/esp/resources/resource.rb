@@ -1,5 +1,6 @@
 module ESP
-  class Resource < ActiveResource::Base # :nodoc:
+  # @private
+  class Resource < ActiveResource::Base
     self.site = ESP.site
     self.proxy = ESP.http_proxy
     self.format = ActiveResource::Formats::JsonAPIFormat

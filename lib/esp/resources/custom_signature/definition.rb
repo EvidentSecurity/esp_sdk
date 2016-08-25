@@ -6,6 +6,7 @@ module ESP
       belongs_to :custom_signature, class_name: 'ESP::CustomSignature'
       has_many :results, class_name: 'ESP::CustomSignature::Result'
 
+      # @return [Net::HTTPSuccess, false]
       def activate
         patch(:activate).tap do |response|
           load_attributes_from_response(response)
@@ -16,6 +17,7 @@ module ESP
         false
       end
 
+      # @return [Net::HTTPSuccess, false]
       def archive
         patch(:archive).tap do |response|
           load_attributes_from_response(response)
@@ -26,75 +28,68 @@ module ESP
         false
       end
 
-      # :singleton-method: where
-      # Return a paginated CustomSignature::Definition list filtered by search parameters
+      # method self.where(clauses = {})
+      #   Return a list filtered by search parameters
       #
-      # ==== Parameters
+      #   *call-seq* -> +super.where(clauses = {})+
       #
-      # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+      #   @param clauses [Hash] A hash of attributes with appended predicates to search, sort and include.
+      #     ===== Valid Clauses
       #
-      # ===== Valid Clauses
-      #
-      # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-definition-attributes] for valid arguments
-      #
-      # :call-seq:
-      #  where(clauses = {})
+      #     See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-definition-attributes] for valid arguments
+      #   @return [ActiveResource::PaginatedCollection<ESP::CustomSignature::Definition>]
 
-      ##
-      # :singleton-method: find
-      # Find a CustomSignature::Definition by id
+      # @!method self.find(id)
+      #   Find a CustomSignature::Definition by id
       #
-      # ==== Parameter
+      #   *call-seq* -> +find(id, options = {})+
       #
-      # +id+ | Required | The ID of the custom signature definition to retrieve
+      #   @overload find(id)
+      #   @overload find(id, options = {})
+      #     @param options | Optional | A hash of options
+      #       ===== Valid Options
       #
-      # +options+ | Optional | A hash of options
+      #       +include+ | The list of associated objects to return on the initial request.
       #
-      # ===== Valid Options
+      #       ===== Valid Includable Associations
       #
-      # +include+ | The list of associated objects to return on the initial request.
-      #
-      # ===== Valid Includable Associations
-      #
-      # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-definition-attributes] for valid arguments
-      #
-      # :call-seq:
-      #  find(id, options = {})
+      #       See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-definition-attributes] for valid arguments
+      #   @param id [Integer, Numeric, #to_i] Required ID of the custom signature definition to retrieve
+      #   @return [ESP::CustomSignature::Definition]
 
-      # :singleton-method: all
-      # Return a paginated CustomSignature::Definition list
+      # @!method self.all
+      #   Return a paginated list
+      #
+      #   @return [ActiveResource::PaginatedCollection<ESP::CustomSignature::Definition>]
 
-      # :singleton-method: create
-      # Create a CustomSignature::Definition
-      # :call-seq:
-      #   create(attributes={})
+      # @!method self.create(attributes = {})
+      #   Create a CustomSignature::Definition
+      #   *call-seq* -> +super.create(attributes={})+
       #
-      # ==== Parameter
+      #   @param attributes [Hash] Required hash of custom signature definition attributes.
+      #     ===== Valid Attributes
       #
-      # +attributes+ | Required | A hash of custom signature definition attributes
-      #
-      # ===== Valid Attributes
-      #
-      # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-definition-create] for valid arguments
-      #
-      # ==== Example
-      #
-      #  definition = ESP::CustomSignature::Definition.create(custom_signature_id: 1)
+      #     See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-definition-create] for valid arguments
+      #   @return [ESP::CustomSignature::Definition
+      #   @example
+      #     definition = ESP::CustomSignature::Definition.create(custom_signature_id: 1)
 
-      # :method: save
-      # Create or update a CustomSignature::Definition
+      # @!method save
+      #   Create or update a CustomSignature::Definition
       #
-      # ===== Valid Attributes
+      #   ===== Valid Attributes
       #
-      # See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-definition-create] for valid arguments
+      #   See {API documentation}[http://api-docs.evident.io?ruby#custom-signature-definition-create] for valid arguments
       #
-      # ==== Example
-      #
-      #  definition = ESP::CustomSignature::Definition.new(custom_signature_id: 1)
-      #  definition.save
+      #   @return [Boolean]
+      #   @example
+      #    definition = ESP::CustomSignature::Definition.new(custom_signature_id: 1)
+      #    definition.save
 
-      # :method: destroy
-      # Delete a CustomSignature::Definition
+      # @!method destroy
+      #   Delete a CustomSignature::Definition
+      #
+      #   @return [self]
     end
   end
 end

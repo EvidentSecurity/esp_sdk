@@ -1,16 +1,22 @@
 module ESP
   class Tag < ESP::Resource
     # Not Implemented. You cannot create or update a Tag.
+    #
+    # @return [void]
     def save
       fail ESP::NotImplementedError
     end
 
     # Not Implemented. You cannot destroy a Tag.
+    #
+    # @return [void]
     def destroy
       fail ESP::NotImplementedError
     end
 
     # Not Implemented. You cannot search for a Tag.
+    #
+    # @return [void]
     def self.where(*)
       fail ESP::NotImplementedError
     end
@@ -18,11 +24,9 @@ module ESP
     # Returns a paginated collection of tags for the given alert_id
     # Convenience method to use instead of ::find since an alert_id is required to return tags.
     #
-    # ==== Parameter
-    #
-    # +alert_id+ | Required | The ID of the alert to list tags for
-    #
-    # ==== Example
+    # @param alert_id [Integer, Numeric] Required ID of the alert to list tags for.
+    # @return [ActiveResource::PaginatedCollection<ESP::Tag>]
+    # @example
     #   alerts = ESP::Tag.for_alert(1194)
     def self.for_alert(alert_id = nil)
       fail ArgumentError, "You must supply an alert id." unless alert_id.present?
@@ -32,12 +36,13 @@ module ESP
 
     # Find a Tag by id
     #
-    # ==== Parameter
+    # *call-seq* -> +super.find(id)+
     #
-    # +id+ | Required | The ID of the tag to retrieve
-    #
-    # :call-seq:
-    #  find(id)
+    # @overload find(id)
+    #   @param id [Integer, Numeric] Required ID of the tag to retrieve.
+    # @overload find(non_numeric, options = {})
+    #   @param non_numeric [Object]
+    #   @param options [Hash] +params: { alert_id: Integer }+
     def self.find(*arguments)
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access

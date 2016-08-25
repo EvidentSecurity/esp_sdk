@@ -8,11 +8,8 @@ module ESP
 
         # Returns all the alerts for a custom signature result identified by the custom_signature_result_id parameter.
         #
-        # ==== Parameters
-        #
-        # +custom_signature_result_id+ | Required | The ID of the custom signature result to retrieve alerts for
-        #
-        # See {API documentation}[http://api-docs.evident.io?ruby#alert-attributes] for valid arguments
+        # @param custom_signature_result_id [Integer, Numeric, #to_i] Required ID of the custom signature result to retrieve alerts for
+        # @return [ActiveResource::PaginatedCollection<ESP::CustomSignature::Result::Alert>]
         def self.for_result(custom_signature_result_id = nil)
           fail ArgumentError, "You must supply a custom signature result id." unless custom_signature_result_id.present?
           # call find_every directly since find is overriden/not implemented
@@ -22,6 +19,8 @@ module ESP
         # Not Implemented. You cannot search for CustomSignature::Result::Alert.
         #
         # Regular ARELlike methods are disabled.
+        #
+        # @return [void]
         def self.find(*)
           fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled. Use the .for_result method.'
         end
@@ -29,21 +28,29 @@ module ESP
         # Not Implemented. You cannot search for CustomSignature::Result::Alert.
         #
         # Regular ARELlike methods are disabled.
+        #
+        # @return [void]
         def self.where(*)
           fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled. Use the .for_result method.'
         end
 
         # Not Implemented. You cannot create a CustomSignature::Result::Alert.
+        #
+        # @return [void]
         def create
           fail ESP::NotImplementedError
         end
 
         # Not Implemented. You cannot update a CustomSignature::Result::Alert.
+        #
+        # @return [void]
         def update
           fail ESP::NotImplementedError
         end
 
         # Not Implemented. You cannot destroy a CustomSignature::Result::Alert.
+        #
+        # @return [void]
         def destroy
           fail ESP::NotImplementedError
         end
