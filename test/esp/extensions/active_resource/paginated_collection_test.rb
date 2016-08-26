@@ -119,6 +119,13 @@ module ActiveResource
               assert_predicate req.uri.query, :blank? # It will only be called once to get the first page
             end
           end
+
+          should 'not error if no initial params were supplied' do
+            stub_request(:get, /reports.json*/).to_return(body: json_list(:report, 3, page: { number: 1, size: 2 }))
+            stub_request(:put, /reports.json*/).to_return(body: json_list(:report, 3, page: { number: 2, size: 2 }))
+            reports = ESP::Report.all
+            reports.next_page
+          end
         end
 
         context '#first_page!' do
