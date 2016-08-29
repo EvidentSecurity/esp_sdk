@@ -1,6 +1,7 @@
 ## Unreleased
 ### Changed
 - Calling `next_page` on queries without parameters (e.g. `ESP::ExternalAccount.all`) no longer errors.
+- Silently ignore `null` entires if encountered in API responses.
 
 ## 2.5.0 - 2016-07-20
 ### Added

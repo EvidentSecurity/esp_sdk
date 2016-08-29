@@ -49,6 +49,14 @@ module ActiveResource
               # nested objects too
               assert_equal parsed_json['included'].detect { |e| e['type'] == 'external_accounts' }['relationships']['organization']['data']['id'], alert.external_account.organization_id
             end
+
+            should 'not error with included nulls' do
+              manufactured_hash = JSON.parse(json_list(:alert, 1))
+              manufactured_hash['included'] << nil
+              stub_request(:put, %r{reports/1/alerts.json*}).to_return(body: manufactured_hash.to_json)
+
+              ESP::Alert.where(report_id: 1).first
+            end
           end
         end
       end
