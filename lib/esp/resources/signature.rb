@@ -1,15 +1,20 @@
 module ESP
   class Signature < ESP::Resource
-    ##
     # The service this signature belongs to.
+    #
+    # @return [ESP::Service]
     belongs_to :service, class_name: 'ESP::Service'
 
     # Not Implemented. You cannot create or update a Signature.
+    #
+    # @return [void]
     def save
       fail ESP::NotImplementedError
     end
 
     # Not Implemented. You cannot destroy a Signature.
+    #
+    # @return [void]
     def destroy
       fail ESP::NotImplementedError
     end
@@ -18,15 +23,10 @@ module ESP
     # Returns a collection of alerts.
     # Throws an error if not successful.
     #
-    # ==== Parameters
-    #
-    # +arguments+ | Required | A hash of run arguments
-    #
-    # ===== Valid Arguments
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#signature-run] for valid arguments
-    #
-    # ==== Example
+    # @param (see #run)
+    # @return [ActiveResource::PaginatedCollection<ESP::Alert>]
+    # @raise [ActiveResource::ResourceInvalid] if not successful.
+    # @example
     #   signature = ESP::Signature.find(3)
     #   alerts = signature.run!(external_account_id: 3, region: 'us_east_1')
     def run!(arguments = {})
@@ -40,15 +40,12 @@ module ESP
     # Returns a collection of alerts.
     # If not successful, returns a Signature object with the errors object populated.
     #
-    # ==== Parameters
+    # @param arguments [Hash] Required hash of run arguments.
+    #   ===== Valid Arguments
     #
-    # +arguments+ | Required | A hash of run arguments
-    #
-    # ===== Valid Arguments
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#signature-run] for valid arguments
-    #
-    # ==== Example
+    #   See {API documentation}[http://api-docs.evident.io?ruby#signature-run] for valid arguments
+    # @return [ActiveResource::PaginatedCollection<ESP::Alert>, self]
+    # @example
     #   signature = ESP::Signature.find(3)
     #   alerts = signature.run(external_account_id: 3, region: 'us_east_1')
     def run(arguments = {})
@@ -66,57 +63,50 @@ module ESP
 
     # Create a suppression for this signature.
     #
-    # ==== Parameter
+    # @param arguments [Hash] Required hash of signature suppression attributes.
+    #   ===== Valid Arguments
     #
-    # +arguments+ | Required | A hash of signature suppression attributes
-    #
-    # ===== Valid Arguments
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-create] for valid arguments
-    #
-    # ==== Example
+    #   See {API documentation}[http://api-docs.evident.io?ruby#suppression-create] for valid arguments
+    # @return [ESP::Suppression::Signature]
+    # @example
     #   suppress(regions: ['us_east_1'], external_account_ids: [5], reason: 'My very good reason for creating this suppression')
     def suppress(arguments = {})
       arguments = arguments.with_indifferent_access
       ESP::Suppression::Signature.create(signature_ids: [id], regions: Array(arguments[:regions]), external_account_ids: Array(arguments[:external_account_ids]), reason: arguments[:reason])
     end
 
-    # :singleton-method: where
-    # Return a paginated Signature list filtered by search parameters
+    # @!method self.where(clauses = {})
+    #   Return a paginated Signature list filtered by search parameters
     #
-    # ==== Parameters
+    #   *call-seq* -> +super.where(clauses = {})+
     #
-    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #   @param clauses [Hash] A hash of attributes with appended predicates to search, sort and include.
+    #     ===== Valid Clauses
     #
-    # ===== Valid Clauses
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#signature-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  where(clauses = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#signature-attributes] for valid arguments
+    #   @return [ActiveResource::PaginatedCollection<ESP::Signature>]
 
-    ##
-    # :singleton-method: find
-    # Find a Signature by id
+    # @!method self.find(id)
+    #   Find a Signature by id
     #
-    # ==== Parameter
+    #   *call-seq* -> +super.find(id, options = {})+
     #
-    # +id+ | Required | The ID of the signature to retrieve
+    #   @overload find(id)
+    #   @overload find(id, options={})
+    #     @param options [Hash] Optional hash of options.
+    #       ===== Valid Options
     #
-    # +options+ | Optional | A hash of options
+    #       +include+ | The list of associated objects to return on the initial request.
     #
-    # ===== Valid Options
+    #       ===== Valid Includable Associations
     #
-    # +include+ | The list of associated objects to return on the initial request.
-    #
-    # ===== Valid Includable Associations
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#signature-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  find(id, options = {})
+    #       See {API documentation}[http://api-docs.evident.io?ruby#signature-attributes] for valid arguments
+    #   @param id [Integer, Numeric, #to_i] Required ID of the signature to retrieve.
+    #   @return [ESP::Signature]
 
-    # :singleton-method: all
-    # Return a paginated Signature list
+    # @!method self.all
+    #   Return a paginated Signature list
+    #
+    #   @return [ActiveResource::PaginatedCollection<ESP::Signature>]
   end
 end

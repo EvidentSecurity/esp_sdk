@@ -1,28 +1,33 @@
 module ESP
   class Metadata < ESP::Resource
     # Not Implemented. You cannot search for Metadata.
+    #
+    # @return [void]
     def self.where(*)
       fail ESP::NotImplementedError
     end
 
     # Not Implemented. You cannot create or update Metadata.
+    #
+    # @return [void]
     def save
       fail ESP::NotImplementedError
     end
 
     # Not Implemented. You cannot destroy Metadata.
+    #
+    # @return [void]
     def destroy
       fail ESP::NotImplementedError
     end
 
     # Returns a metadata object for the given alert_id
-    # Convenience method to use instead of ::find since an alert_id is required to return metadata.
+    # Convenience method to use instead of {.find} since an alert_id is required to return metadata.
     #
-    # ==== Parameter
-    #
-    # +alert_id+ | Required | The ID of the alert to retrieve metadata for
-    #
-    # ==== Example
+    # @param alert_id [Integer, Numeric, #to_i] Required ID of the alert to retrieve metadata for.
+    # @return [ESP::Metadata]
+    # @raise [ArgumentError] if no +alert_id+ is supplied.
+    # @example
     #   alerts = ESP::Metadata.for_alert(1194)
     def self.for_alert(alert_id = nil)
       fail ArgumentError, "You must supply an alert id." unless alert_id.present?
@@ -32,12 +37,17 @@ module ESP
 
     # Find a Metadata object by id
     #
-    # ==== Parameter
+    # *call-seq* -> +super.find(id)+
     #
-    # +id+ | Required | The ID of the metadata object to retrieve
-    #
-    # :call-seq:
-    #  find(id)
+    # @overload find(id)
+    #   @param id [Integer, Numeric, #to_i] Required ID of the metadata object to retrieve.
+    # @overload find(scope, options)
+    #   *call-seq* -> +super.find(:one, options)+
+    #   @api private
+    #   @param scope [Object] *Example:* +:one+
+    #   @param options [Hash] +params: { alert_id: Integer }+
+    #   @raise [ArgumentError] if no +alert_id+ is supplied.
+    # @return [ESP::Metadata]
     def self.find(*arguments)
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access

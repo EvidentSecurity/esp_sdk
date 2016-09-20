@@ -1,71 +1,92 @@
 module ESP
   # Manually set the access_key_id you created from https://esp.evident.io/settings/api_keys.
   #
-  # You can optionally set the `ESP_ACCESS_KEY_ID` environment variable.
+  # You can optionally set the +ESP_ACCESS_KEY_ID+ environment variable.
+  #
+  # @param access_key_id [String] Your access key ID.
+  # @return [void]
   def self.access_key_id=(access_key_id)
     @access_key_id               = access_key_id
     ESP::Resource.hmac_access_id = access_key_id
   end
 
-  # Reads the `ESP_ACCESS_KEY_ID` environment variable if ::access_key_id was not set manually.
+  # Reads the +ESP_ACCESS_KEY_ID+ environment variable if {.access_key_id=} was not set manually.
+  #
+  # Returns nil if no key or environment variable has been set.
+  #
+  # @return [String, nil]
   def self.access_key_id
     @access_key_id || ENV['ESP_ACCESS_KEY_ID']
   end
 
   # Manually set the secret_access_key you created from https://esp.evident.io/settings/api_keys.
   #
-  # You can optionally set the `ESP_SECRET_ACCESS_KEY` environment variable.
+  # You can optionally set the +ESP_SECRET_ACCESS_KEY+ environment variable.
+  #
+  # @param secret_access_key [String] Your secret access key.
+  # @return [void]
   def self.secret_access_key=(secret_access_key)
     @secret_access_key            = secret_access_key
     ESP::Resource.hmac_secret_key = secret_access_key
   end
 
-  # Reads the `ESP_SECRET_ACCESS_KEY` environment variable if ::secret_access_key was not set manually.
+  # Reads the +ESP_SECRET_ACCESS_KEY+ environment variable if {.secret_access_key=} was not set manually.
+  #
+  # Returns nil if no key or environment variable has been set.
+  #
+  # @return [String, nil]
   def self.secret_access_key
     @secret_access_key || ENV['ESP_SECRET_ACCESS_KEY']
   end
 
   PATH = '/api/v2'.freeze
 
+  # @private
   HOST = { development: "http://localhost:3000".freeze,
            test:        "http://localhost:3000".freeze,
-           production:  "https://api.evident.io".freeze }.freeze # :nodoc:
+           production:  "https://api.evident.io".freeze }.freeze
 
   # Users of the Evident.io marketplace appliance application will need to set the host for their instance.
   #
-  # ==== Attribute
-  #
-  # * +host+ - The host for the installed appliance instance.
+  # @param host [String] The host for the installed appliance instance.
+  # @return [void]
   def self.host=(host)
     @host              = host
     ESP::Resource.site = site
   end
 
   # The site the SDK will hit.
+  #
+  # @return [String]
   def self.site
     "#{(@host || HOST[ESP.env.to_sym] || ENV['ESP_HOST'])}#{PATH}"
   end
 
   # Manually set an http_proxy
   #
-  # You can optionally set the `HTTP_PROXY` environment variable.
+  # You can optionally set the +HTTP_PROXY+ environment variable.
   #
-  # ==== Attribute
-  #
-  # * +http_proxy+ - The URI of the http proxy
+  # @param proxy [String] The URI of the http proxy
+  # @return [void]
   def self.http_proxy=(proxy)
     @http_proxy         = proxy
     ESP::Resource.proxy = http_proxy
   end
 
-  # Reads the `HTTP_PROXY` environment variable if ::http_proxy was not set manually.
+  # Reads the +HTTP_PROXY+ environment variable if {.http_proxy=} was not set manually.
+  #
+  # Returns nil if no proxy or environment variable has been set.
+  #
+  # @return [String, nil]
   def self.http_proxy
     @http_proxy || ENV['http_proxy']
   end
 
-  # For use in a Rails initializer to set the ::access_key_id, ::secret_access_key and ::site.
+  # For use in a Rails initializer to set the {.access_key_id=}, {.secret_access_key=} and {.site}.
   #
-  # ==== Example
+  # @yield [self]
+  # @return [void]
+  # @example
   #
   #   ESP.configure do |config|
   #     config.access_key_id = <your key>
@@ -77,7 +98,9 @@ module ESP
     yield self
   end
 
-  # Default environment is production which will set ::site to "https://api.evident.io/api/v2".
+  # Default environment is production which will set {.site} to "https://api.evident.io/api/v2".
+  #
+  # @return [String]
   def self.env
     @env ||= ActiveSupport::StringInquirer.new(ENV['ESP_ENV'] || ENV['RAILS_ENV'] || 'production')
   end

@@ -1,72 +1,75 @@
 module ESP
   class User < ESP::Resource
-    ##
     # The organization this user belongs to.
+    #
+    # @return [ESP::Organization]
     belongs_to :organization, class_name: 'ESP::Organization'
 
     # Not Implemented. You cannot create or update a User.
+    #
+    # @return [void]
     def save
       fail ESP::NotImplementedError
     end
 
     # Not Implemented. You cannot destroy a User.
+    #
+    # @return [void]
     def destroy
       fail ESP::NotImplementedError
     end
 
-    ##
     # The collection of sub organizations that belong to the user.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::SubOrganization>]
     def sub_organizations
       return attributes['sub_organizations'] if attributes['sub_organizations'].present?
       SubOrganization.where(id_in: sub_organization_ids)
     end
 
-    ##
     # The collection of teams that belong to the user.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::Team>]
     def teams
       return attributes['teams'] if attributes['teams'].present?
       Team.where(id_in: team_ids)
     end
 
-    # :singleton-method: where
-    # Return a paginated User list filtered by search parameters
+    # @!method self.where(clauses = {})
+    #   Return a paginated User list filtered by search parameters
     #
-    # ==== Parameters
+    #   *call-seq* -> +super.where(clauses = {})+
     #
-    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #   @param clauses [Hash] A hash of attributes with appended predicates to search, sort and include.
+    #     ===== Valid Clauses
     #
-    # ===== Valid Clauses
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#user-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  where(clauses = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#user-attributes] for valid arguments
+    #   @return [ActiveResource::PaginatedCollection<ESP::User>]
 
-    ##
-    # :singleton-method: find
-    # Find a User by id
+    # @!method self.find(id, options = {})
+    #   Find a User by id
     #
-    # ==== Parameter
+    #   *call-seq* -> +super.find(id, options = {})+
     #
-    # +id+ | Required | The ID of the user to retrieve
+    #   @param id [Integer, Numeric, #to_i] Required ID of the user to retrieve.
+    #   @param options [Hash] Optional hash of options.
+    #     ===== Valid Options
     #
-    # +options+ | Optional | A hash of options
+    #     +include+ | The list of associated objects to return on the initial request.
     #
-    # ===== Valid Options
+    #     ===== Valid Includable Associations
     #
-    # +include+ | The list of associated objects to return on the initial request.
-    #
-    # ===== Valid Includable Associations
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#user-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  find(id, options = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#user-attributes] for valid arguments
+    #   @return [ESP::User]
 
-    # :singleton-method: all
-    # Return a paginated User list
+    # @!method self.all
+    #   Return a paginated User list
+    #
+    #   @return [ActiveResource::PaginatedCollection<ESP::User>]
 
-    # :singleton-method: create
-    # Not Implemented. You cannot create a User.
+    # @!method self.create
+    #   Not Implemented. You cannot create a User.
+    #
+    #   @return [void]
   end
 end

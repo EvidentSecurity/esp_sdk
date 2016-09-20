@@ -21,7 +21,11 @@ ARGV.clone.options do |opts|
 end
 
 module ESP
+  # @private
   class Console
+    # Start a console
+    #
+    # @return [void]
     def start # rubocop:disable Metrics/MethodLength
       ARGV.clear
       IRB.setup nil

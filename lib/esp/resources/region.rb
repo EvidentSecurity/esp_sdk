@@ -1,58 +1,55 @@
 module ESP
   class Region < ESP::Resource
     # Not Implemented. You cannot create or update a CloudTrailEvent.
+    #
+    # @return [void]
     def save
       fail ESP::NotImplementedError
     end
 
     # Not Implemented. You cannot destroy a an CloudTrailEvent.
+    #
+    # @return [void]
     def destroy
       fail ESP::NotImplementedError
     end
 
     # Create a suppression for this region.
     #
-    # ==== Parameter
+    # @param arguments [Hash] Required hash of region suppression attributes.
+    #   ===== Valid Arguments
     #
-    # +arguments+ | Required | A hash of region suppression attributes
-    #
-    # ===== Valid Arguments
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-create] for valid arguments
-    #
-    # ==== Example
+    #   See {API documentation}[http://api-docs.evident.io?ruby#suppression-create] for valid arguments
+    # @return [ESP::Suppression::Region]
+    # @example
     #   suppress(external_account_ids: [5], reason: 'My very good reason for creating this suppression')
     def suppress(arguments = {})
       arguments = arguments.with_indifferent_access
       ESP::Suppression::Region.create(regions: [code], external_account_ids: Array(arguments[:external_account_ids]), reason: arguments[:reason])
     end
 
-    # :singleton-method: where
-    # Return a paginated Region list filtered by search parameters
+    # @!method self.where(clauses = {})
+    #   Return a paginated Region list filtered by search parameters
     #
-    # ==== Parameters
+    #   *call-seq* -> +super.where(clauses = {})+
     #
-    # +clauses+ | Hash of attributes with appended predicates to search and sort by.
+    #   @param clauses [Hash] A hash of attributes with appended predicates to search and sort by.
+    #     ===== Valid Clauses
     #
-    # ===== Valid Clauses
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#region-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  where(clauses = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#region-attributes] for valid arguments
+    #   @return [ActiveResource::PaginatedCollection<ESP::Region>]
 
-    ##
-    # :singleton-method: find
-    # Find a Region by id
+    # @!method self.find(id)
+    #   Find a Region by id
     #
-    # ==== Parameter
+    #   *call-seq* -> +super.find(id)+
     #
-    # +id+ | Required | The ID of the region to retrieve
-    #
-    # :call-seq:
-    #  find(id)
+    #   @param id [Integer, Numeric, #to_i] Required ID of the region to retrieve.
+    #   @return [ESP::Region]
 
-    # :singleton-method: all
-    # Return a paginated Region list
+    # @!method self.all
+    #   Return a paginated list.
+    #
+    #   @return [ActiveResource::PaginatedCollection<ESP::Region>]
   end
 end
