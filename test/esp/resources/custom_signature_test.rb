@@ -41,6 +41,21 @@ module ESP
         end
       end
 
+      context 'save' do
+        should 'should not send team_ids param if not changed' do
+          stub_request(:get, %r{custom_signatures/1.json}).to_return(body: json(:custom_signature))
+          custom_signature = ESP::CustomSignature.find(1)
+          stub_request(:put, %r{custom_signatures/#{custom_signature.id}.json})
+
+          custom_signature.save
+
+          assert_requested :put, %r{custom_signatures/#{custom_signature.id}.json} do |request|
+            json = JSON.parse(request.body)
+            json['data']['attributes'].exclude?('team_ids')
+          end
+        end
+      end
+
       context '#suppress' do
         should 'call the api' do
           stub_request(:post, %r{suppressions/signatures.json*}).to_return(body: json(:suppression_signature))
