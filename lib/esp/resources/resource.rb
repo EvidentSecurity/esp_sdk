@@ -17,7 +17,7 @@ module ESP
     def serializable_hash(*)
       h = attributes.extract!('included')
       h['data'] = { 'type' => self.class.to_s.underscore.sub('esp/', '').pluralize,
-                    'attributes' => attributes.except('id', 'type', 'created_at', 'updated_at', 'relationships') }
+                    'attributes' => changed_attributes.except('id', 'type', 'created_at', 'updated_at', 'relationships') }
       h['data']['id'] = id if id.present?
       h
     end

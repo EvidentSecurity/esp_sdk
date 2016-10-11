@@ -1,9 +1,10 @@
 ## Unreleased
 ### Changed
-- API now returns nested included relation data elements correctly.  Change test to reflect corrected response.
-- Calling `next_page` on queries without parameters (e.g. `ESP::ExternalAccount.all`) no longer errors.
-- Silently ignore `null` entires if encountered in API responses.
-- Switch from RDoc to Yard.
+- Only send changed attributes to API #39
+- API now returns nested included relation data elements correctly.  Change test to reflect corrected response. #40
+- Calling `next_page` on queries without parameters (e.g. `ESP::ExternalAccount.all`) no longer errors. #35
+- Silently ignore `null` entires if encountered in API responses. #69
+- Switch from RDoc to Yard. #37
 
 ## 2.5.0 - 2016-07-20
 ### Added
