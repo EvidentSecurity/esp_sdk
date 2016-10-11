@@ -67,7 +67,7 @@ module ESP::Integration
 
         context '#CRUD' do
           should 'be able to update' do
-            @organization.name = @organization.name
+            @organization.name = "New Name"
             @organization.save
 
             assert_nothing_raised do
