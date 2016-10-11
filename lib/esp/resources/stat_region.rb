@@ -2,33 +2,33 @@ module ESP
   class StatRegion < ESP::Resource
     include ESP::StatTotals
 
-    ##
     # The region these stats are for.
+    #
+    # @return [ESP::Region]
     belongs_to :region, class_name: 'ESP::Region'
 
     # Not Implemented. You cannot search for a StatSignature.
+    #
+    # @return [void]
     def self.where(*)
       fail ESP::NotImplementedError
     end
 
     # Returns a paginated collection of region stats for the given stat_id
-    # Convenience method to use instead of ::find since a stat_id is required to return region stats.
+    # Convenience method to use instead of {.find} since a stat_id is required to return region stats.
     #
-    # ==== Parameter
+    # @param stat_id [Integer, Numeric] Required ID of the stat to list region stats for.
+    # @param options [Hash] Optional hash of options.
+    #   ===== Valid Options
     #
-    # +stat_id+ | Required | The ID of the stat to list region stats for
+    #   +include+ | The list of associated objects to return on the initial request.
     #
-    # +options+ | Optional | A hash of options
+    #   ===== valid Includable Associations
     #
-    # ===== Valid Options
-    #
-    # +include+ | The list of associated objects to return on the initial request.
-    #
-    # ===== valid Includable Associations
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#stat-region-attributes] for valid arguments
-    #
-    # ==== Example
+    #   See {API documentation}[http://api-docs.evident.io?ruby#stat-region-attributes] for valid arguments
+    # @return [ActiveResource::PaginatedCollection<ESP::StatRegion>]
+    # @raise [ArgumentError] if no +stat_id+ is supplied.
+    # @example
     #   stats = ESP::StatRegion.for_stat(1194)
     def self.for_stat(stat_id = nil, options = {}) # rubocop:disable Style/OptionHash
       fail ArgumentError, "You must supply a stat id." unless stat_id.present?
@@ -38,22 +38,27 @@ module ESP
 
     # Find a StatRegion by id
     #
-    # ==== Parameter
+    # *call-seq* -> +super.find(id, options = {})+
     #
-    # +id+ | Required | The ID of the region stat to retrieve
+    # @overload find(id)
+    #   @param id [Integer, Numeric] Required ID of the region stat to retrieve.
+    # @overload find(id, options)
+    #   @param id [Integer, Numeric] Required ID of the region stat to retrieve.
+    #   @param options [Hash] Optional hash of options.
+    #     ===== Valid Options
     #
-    # +options+ | Optional | A hash of options
+    #     +include+ | The list of associated objects to return on the initial request.
     #
-    # ===== Valid Options
+    #     ===== valid Includable Associations
     #
-    # +include+ | The list of associated objects to return on the initial request.
-    #
-    # ===== valid Includable Associations
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#stat-region-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  find(id, options = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#stat-region-attributes] for valid arguments
+    # @overload find(scope, options)
+    #   *call-seq* -> +super.all(options)+
+    #   @api private
+    #   @param scope [Object] *Example:* +:all+
+    #   @param options [Hash] +params: { stat_id: Integer }+
+    #   @raise [ArgumentError] if no +stat_id+ is supplied.
+    # @return [ESP::StatRegion]
     def self.find(*arguments)
       scope = arguments.slice!(0)
       options = (arguments.slice!(0) || {}).with_indifferent_access
@@ -63,85 +68,91 @@ module ESP
       for_stat(stat_id)
     end
 
-    # :singleton-method: create
+    # @!method self.create
     # Not Implemented. You cannot create a Stat.
+    #
+    # @return [void]
 
-    # :method: save
+    # @!method save
     # Not Implemented. You cannot create or update a Stat.
+    #
+    # @return [void]
 
-    # :method: destroy
+    # @!method destroy
     # Not Implemented. You cannot delete a Stat.
+    #
+    # @return [void]
 
-    # :section: 'total' rollup methods
+    # @!group 'total' rollup methods
 
-    # :method: total
+    # @!method total
 
-    # :method: total_pass
+    # @!method total_pass
 
-    # :method: total_fail
+    # @!method total_fail
 
-    # :method: total_warn
+    # @!method total_warn
 
-    # :method: total_error
+    # @!method total_error
 
-    # :method: total_info
+    # @!method total_info
 
-    # :method: total_new_1h_pass
+    # @!method total_new_1h_pass
 
-    # :method: total_new_1h_fail
+    # @!method total_new_1h_fail
 
-    # :method: total_new_1h_warn
+    # @!method total_new_1h_warn
 
-    # :method: total_new_1h_error
+    # @!method total_new_1h_error
 
-    # :method: total_new_1h_info
+    # @!method total_new_1h_info
 
-    # :method: total_new_1d_pass
+    # @!method total_new_1d_pass
 
-    # :method: total_new_1d_fail
+    # @!method total_new_1d_fail
 
-    # :method: total_new_1d_warn
+    # @!method total_new_1d_warn
 
-    # :method: total_new_1d_error
+    # @!method total_new_1d_error
 
-    # :method: total_new_1d_info
+    # @!method total_new_1d_info
 
-    # :method: total_new_1w_pass
+    # @!method total_new_1w_pass
 
-    # :method: total_new_1w_fail
+    # @!method total_new_1w_fail
 
-    # :method: total_new_1w_error
+    # @!method total_new_1w_error
 
-    # :method: total_new_1w_info
+    # @!method total_new_1w_info
 
-    # :method: total_new_1w_warn
+    # @!method total_new_1w_warn
 
-    # :method: total_old_fail
+    # @!method total_old_fail
 
-    # :method: total_old_pass
+    # @!method total_old_pass
 
-    # :method: total_old_warn
+    # @!method total_old_warn
 
-    # :method: total_old_error
+    # @!method total_old_error
 
-    # :method: total_old_info
+    # @!method total_old_info
 
-    # :method: total_suppressed
+    # @!method total_suppressed
 
-    # :method: total_suppressed_pass
+    # @!method total_suppressed_pass
 
-    # :method: total_suppressed_fail
+    # @!method total_suppressed_fail
 
-    # :method: total_suppressed_warn
+    # @!method total_suppressed_warn
 
-    # :method: total_suppressed_error
+    # @!method total_suppressed_error
 
-    # :method: total_new_1h
+    # @!method total_new_1h
 
-    # :method: total_new_1d
+    # @!method total_new_1d
 
-    # :method: total_new_1w
+    # @!method total_new_1w
 
-    # :method: total_old
+    # @!method total_old
   end
 end

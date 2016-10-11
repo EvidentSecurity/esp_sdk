@@ -1,6 +1,7 @@
 require 'active_support/json'
 
-module ActiveResource # :nodoc: all
+module ActiveResource
+  # @private
   class ConnectionError
     def initialize(response)
       @response = if response.respond_to?(:response)
@@ -20,7 +21,8 @@ module ActiveResource # :nodoc: all
     end
   end
 
-  module Formats # :nodoc: all
+  # @private
+  module Formats
     module JsonAPIFormat
       module_function
 

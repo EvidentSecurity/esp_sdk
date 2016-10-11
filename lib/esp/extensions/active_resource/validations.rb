@@ -1,8 +1,9 @@
-module ActiveResource # :nodoc: all
+module ActiveResource
+  # @private
   module Validations
     # Loads the set of remote errors into the object's Errors based on the
     # content-type of the error-block received.
-    def load_remote_errors(remote_errors, save_cache = false) #:nodoc:
+    def load_remote_errors(remote_errors, save_cache = false)
       if self.class.format == ActiveResource::Formats::JsonAPIFormat
         errors.from_json_api(remote_errors.response.body, save_cache)
       elsif self.class.format == ActiveResource::Formats[:json]
@@ -11,6 +12,7 @@ module ActiveResource # :nodoc: all
     end
   end
 
+  # @private
   class Errors
     def from_json_api(json, save_cache = false)
       raw_errors = decoded_errors(json)

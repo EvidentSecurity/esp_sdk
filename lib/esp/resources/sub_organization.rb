@@ -1,93 +1,84 @@
 module ESP
   class SubOrganization < ESP::Resource
-    ##
     # The organization this sub organization belongs to.
+    #
+    # @return [ESP::Organization]
     belongs_to :organization, class_name: 'ESP::Organization'
 
-    ##
     # The collection of teams that belong to the sub organization.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::Team>]
     has_many :teams, class_name: 'ESP::Team'
 
-    ##
     # The collection of external_accounts that belong to the sub organization.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::ExternalAccount>]
     has_many :external_accounts, class_name: 'ESP::ExternalAccount'
 
-    ##
     # The collection of reports that belong to the sub organization.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::Report>]
     has_many :reports, class_name: 'ESP::Report'
 
-    # :singleton-method: where
-    # Return a paginated SubOrganization list filtered by search parameters
+    # @!method self.where(clauses = {}
+    #   Return a paginated SubOrganization list filtered by search parameters
     #
-    # ==== Parameters
+    #   *call-seq* -> +super.where(clauses = {})+
     #
-    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #   @param clauses [Hash] A hash of attributes with appended predicates to search, sort and include.
+    #     ===== Valid Clauses
     #
-    # ===== Valid Clauses
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  where(clauses = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-attributes] for valid arguments
+    #   @return [ActiveResource::PaginatedCollection<ESP::SubOrganization>]
 
-    ##
-    # :singleton-method: find
-    # Find a SubOrganization by id
+    # @!method self.find(id, options = {})
+    #   Find a SubOrganization by id
     #
-    # ==== Parameter
+    #   *call-seq* -> +super.find(id, options = {})+
     #
-    # +id+ | Required | The ID of the sub organization to retrieve
+    #   @param id [Integer, Numeric, #to_i] Required ID of the sub organization to retrieve.
+    #   @param options [Hash] Optional hash of options.
+    #     ===== Valid Options
     #
-    # +options+ | Optional | A hash of options
+    #     +include+ | The list of associated objects to return on the initial request.
     #
-    # ===== Valid Options
+    #     ===== Valid Includable Associations
     #
-    # +include+ | The list of associated objects to return on the initial request.
-    #
-    # ===== Valid Includable Associations
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  find(id, options = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-attributes] for valid arguments
+    #   @return [ESP::SubOrganization]
 
-    # :singleton-method: all
-    # Return a paginated SubOrganization list
+    # @!method self.all
+    #   Return a paginated SubOrganization list
+    #
+    #   @return [ActiveResource::PaginatedCollection<ESP::SubOrganization>]
 
-    # :singleton-method: create
-    # Create a SubOrganization.
-    # :call-seq:
-    #   create(attributes={})
+    # @!method self.create(attributes = {})
+    #   Create a SubOrganization.
+    #   *call-seq* -> +super.create(attributes={})+
     #
-    # ==== Parameters
+    #   @param attributes [Hash] Required hash of run arguments.
+    #     ===== Valid Attributes
     #
-    # +attributes+ | Required | A hash of run arguments
-    #
-    # ===== Valid Attributes
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-create] for valid arguments
-    #
-    # ==== Example
-    #
-    #  sub_organization = ESP::SubOrganization.create(name: "Sub Organization Name")
+    #     See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-create] for valid arguments
+    #   @return [ESP::SubOrganization]
+    #   @example
+    #    sub_organization = ESP::SubOrganization.create(name: "Sub Organization Name")
 
-    # :method: save
-    # Create and update a SubOrganization.
+    # @!method save(attributes = {})
+    #   Create and update a SubOrganization.
     #
-    # ==== Parameters
+    #   @param attributes [Hash] Required hash of run arguments.
+    #     ===== Valid Attributes
     #
-    # +attributes+ | Required | A hash of run arguments
-    #
-    # ===== Valid Attributes
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-create] for valid arguments
-    #
-    # ==== Example
-    #
-    #  sub_organization = ESP::SubOrganization.new(name: "Sub Organization Name")
-    #  sub_organization.save
+    #     See {API documentation}[http://api-docs.evident.io?ruby#sub-organization-create] for valid arguments
+    #   @return [Boolean]
+    #   @example
+    #    sub_organization = ESP::SubOrganization.new(name: "Sub Organization Name")
+    #    sub_organization.save
 
-    # :method: destroy
-    # Delete a SubOrganization.
+    # @!method destroy
+    #   Delete a SubOrganization.
+    #
+    #   @return [self]
   end
 end

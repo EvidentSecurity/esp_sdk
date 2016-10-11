@@ -1,85 +1,95 @@
 module ESP
   class Organization < ESP::Resource
-    ##
     # The collection of teams that belong to the organization.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::Team>]
     has_many :teams, class_name: 'ESP::Team'
 
-    ##
     # The collection of sub_organizations that belong to the organization.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::SubOrganization>]
     has_many :sub_organizations, class_name: 'ESP::SubOrganization'
 
-    ##
     # The collection of users that belong to the organization.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::User>]
     has_many :users, class_name: 'ESP::User'
 
-    ##
     # The collection of reports that belong to the organization.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::Report>]
     has_many :reports, class_name: 'ESP::Report'
 
-    ##
     # The collection of external_accounts that belong to the organization.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::ExternalAccount>]
     has_many :external_accounts, class_name: 'ESP::ExternalAccount'
 
-    ##
     # The collection of organizations that belong to the organization.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::CustomSignature>]
     has_many :custom_signatures, class_name: 'ESP::CustomSignature'
 
     # Not Implemented. You cannot create an Organization.
-    def create # :nodoc:
+    #
+    # @private
+    def create
       fail ESP::NotImplementedError
     end
 
     # Not Implemented. You cannot destroy an Organization.
+    #
+    # @return [void]
     def destroy
       fail ESP::NotImplementedError
     end
 
-    # :singleton-method: where
-    # Return a paginated Organization list filtered by search parameters
+    # @!method self.where(clauses = {})
+    #   Return a paginated list filtered by search parameters.
     #
-    # ==== Parameters
+    #   *call-seq* -> +super.where(clauses = {})+
     #
-    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #   @param clauses [Hash] A hash of attributes with appended predicates to search, sort and include.
+    #     ===== Valid Clauses
     #
-    # ===== Valid Clauses
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#organization-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  where(clauses = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#organization-attributes] for valid arguments
+    #   @return [ActiveResource::PaginatedCollection<ESP::Organization>]
 
-    ##
-    # :singleton-method: find
-    # Find a Organization by id
+    # @!method self.find(id)
+    #   Find an Organization by id
     #
-    # ==== Parameter
+    #   *call-seq* -> +super.find(id, options = {})+
     #
-    # +id+ | Required | The ID of the organization to retrieve
+    #   @overload find(id)
+    #   @overload find(id, options = {})
+    #     @param options [Hash] Optional hash of options.
+    #       ===== Valid Options
     #
-    # +options+ | Optional | A hash of options
+    #       +include+ | The list of associated objects to return on the initial request.
     #
-    # ===== Valid Options
+    #       ===== Valid Includable Associations
     #
-    # +include+ | The list of associated objects to return on the initial request.
-    #
-    # ===== Valid Includable Associations
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#organization-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  find(id, options = {})
+    #       See {API documentation}[http://api-docs.evident.io?ruby#organization-attributes] for valid arguments
+    #   @param id [Integer, Numeric, #to_i] Required ID of the organization to retrieve.
+    #   @return [ESP::Organization]
 
-    # :singleton-method: all
-    # Return a paginated Organization list
+    # @!method self.all
+    #   Return a paginated list.
+    #
+    #   @return [ActiveResource::PaginatedCollection<ESP::Organization>]
 
-    # :singleton-method: create
+    # @!method self.create
     # Not Implemented. You cannot create an Organization.
+    #
+    # @return [void]
 
-    # :method: save
-    # Update an Organization.
+    # @!method save
+    #   Update an Organization.
     #
-    # ===== Valid Attributes
+    #   ===== Valid Attributes
     #
-    # See {API documentation}[http://api-docs.evident.io?ruby#organization-update] for valid arguments
+    #   See {API documentation}[http://api-docs.evident.io?ruby#organization-update] for valid arguments
+    #
+    #   @return [Boolean]
   end
 end

@@ -4,7 +4,8 @@ module ESP
   #
   # Warning: This class mutates ARGV because some commands require manipulating
   # it before they are run.
-  class CommandsTasks # :nodoc:
+  # @private
+  class CommandsTasks
     attr_reader :argv
 
     HELP_MESSAGE = <<-EOT

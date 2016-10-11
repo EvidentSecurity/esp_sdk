@@ -4,16 +4,19 @@ module ESP
     autoload :Signature, File.expand_path(File.dirname(__FILE__) + '/suppression/signature')
     autoload :Region, File.expand_path(File.dirname(__FILE__) + '/suppression/region')
 
-    ##
     # The organization this sub organization belongs to.
+    #
+    # @return [ESP::Organization]
     belongs_to :organization, class_name: 'ESP::Organization'
 
-    ##
     # The user who created the suppression.
+    #
+    # @return [ESP::User]
     belongs_to :created_by, class_name: 'ESP::User'
 
-    ##
     # The regions affected by this suppression.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::Region>]
     def regions
       # When regions come back in an include, the method still gets called, to return the object from the attributes.
       return attributes['regions'] if attributes['regions'].present?
@@ -21,8 +24,9 @@ module ESP
       ESP::Region.where(id_in: region_ids)
     end
 
-    ##
     # The external accounts affected by this suppression.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::ExternalAccount>]
     def external_accounts
       # When external_accounts come back in an include, the method still gets called, to return the object from the attributes.
       return attributes['external_accounts'] if attributes['external_accounts'].present?
@@ -30,8 +34,9 @@ module ESP
       ESP::ExternalAccount.where(id_in: external_account_ids)
     end
 
-    ##
     # The signatures being suppressed.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::Signature>]
     def signatures
       # When signatures come back in an include, the method still gets called, to return the object from the attributes.
       return attributes['signatures'] if attributes['signatures'].present?
@@ -39,8 +44,9 @@ module ESP
       ESP::Signature.where(id_in: signature_ids)
     end
 
-    ##
     # The custom signatures being suppressed.
+    #
+    # @return [ActiveResource::PaginatedCollection<ESP::CustomSignature>]
     def custom_signatures
       # When custom_signatures come back in an include, the method still gets called, to return the object from the attributes.
       return attributes['custom_signatures'] if attributes['custom_signatures'].present?
@@ -49,16 +55,22 @@ module ESP
     end
 
     # Overriden so the correct param is sent on the has_many relationships.  API needs this one to be plural.
-    def self.element_name # :nodoc:
+    #
+    # @private
+    def self.element_name
       'suppressions'
     end
 
     # Not Implemented. You cannot create or update a Suppression.
+    #
+    # @return [void]
     def save
       fail ESP::NotImplementedError
     end
 
     # Not Implemented. You cannot destroy a Suppression.
+    #
+    # @return [void]
     def destroy
       fail ESP::NotImplementedError
     end
@@ -67,6 +79,9 @@ module ESP
     # The current object will be updated with the new status if successful.
     # Throws an error if not successful.
     # === Once deactivated the suppression cannot be reactivated.
+    #
+    # @return [void]
+    # @raise [ActiveResource::ResourceInvalid] if unsuccessful.
     def deactivate!
       return self if deactivate
       self.message = errors.full_messages.join(' ')
@@ -77,6 +92,8 @@ module ESP
     # The current object will be updated with the new status if successful.
     # If not successful, populates its errors object.
     # === Once deactivated the suppression cannot be reactivated.
+    #
+    # @return [Net::HTTPSuccess, false]
     def deactivate
       patch(:deactivate).tap do |response|
         load_attributes_from_response(response)
@@ -87,42 +104,36 @@ module ESP
       false
     end
 
-    # :singleton-method: where
-    # Return a paginated Suppression list filtered by search parameters
+    # @!method self.where(clauses = {})
+    #   Return a paginated Suppression list filtered by search parameters
     #
-    # ==== Parameters
+    #   *call-seq* -> +super.where(clauses = {})+
     #
-    # +clauses+ | Hash of attributes with appended predicates to search, sort and include.
+    #   @param clauses [Hash] A hash of attributes with appended predicates to search, sort and include.
+    #     ===== Valid Clauses
     #
-    # ===== Valid Clauses
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  where(clauses = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#suppression-attributes] for valid arguments
+    #   @return [ActiveResource::PaginatedCollection<ESP::Suppression>]
 
-    ##
-    # :singleton-method: find
-    # Find a Suppression by id
+    # @!method self.find(id, options = {})
+    #   Find a Suppression by id
     #
-    # ==== Parameter
+    #   *call-seq* -> +super.find(id, options = {})+
     #
-    # +id+ | Required | The ID of the suppression to retrieve
+    #   @param id [Integer, Numeric, #to_i] Required ID of the suppression to retrieve.
+    #   @param options [Hash] Optional hash of options.
+    #     ===== Valid Options
     #
-    # +options+ | Optional | A hash of options
+    #     +include+ | The list of associated objects to return on the initial request.
     #
-    # ===== Valid Options
+    #     ===== Valid Includable Associations
     #
-    # +include+ | The list of associated objects to return on the initial request.
-    #
-    # ===== Valid Includable Associations
-    #
-    # See {API documentation}[http://api-docs.evident.io?ruby#suppression-attributes] for valid arguments
-    #
-    # :call-seq:
-    #  find(id, options = {})
+    #     See {API documentation}[http://api-docs.evident.io?ruby#suppression-attributes] for valid arguments
+    #   @return [ESP::Suppression]
 
-    # :singleton-method: all
-    # Return a paginated Suppression list
+    # @!method self.all
+    #   Return a paginated Suppression list
+    #
+    #   @return [ActiveResource::PaginatedCollection<ESP::Suppression>]
   end
 end
