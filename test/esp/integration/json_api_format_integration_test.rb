@@ -11,12 +11,15 @@ module ESP::Integration
 
             assert_not_nil alert.attributes['external_account']
             assert_equal alert.external_account_id, alert.external_account.id
-            assert_not_nil alert.external_account.attributes['organization']
-            assert_equal alert.external_account.organization_id, alert.external_account.organization.id
+
+            assert_nil alert.attributes['team']
             assert_not_nil alert.external_account.attributes['team']
             assert_equal alert.external_account.team_id, alert.external_account.team.id
+
+            assert_nil alert.attributes['organization']
             assert_not_nil alert.external_account.team.attributes['organization']
             assert_equal alert.external_account.team.organization_id, alert.external_account.team.organization.id
+
             assert_not_nil alert.attributes['region']
             assert_equal alert.region_id, alert.region.id
             if alert.signature.present?
