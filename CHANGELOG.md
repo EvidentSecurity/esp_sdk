@@ -1,4 +1,6 @@
 ## Unreleased
+
+## 2.6.0 - 2016-10-17
 ### Changed
 - Only send changed attributes to API #39
 - API now returns nested included relation data elements correctly.  Change test to reflect corrected response. #40

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    esp_sdk (2.5.0)
+    esp_sdk (2.6.0)
       activeresource (~> 4.0.0)
       api-auth (~> 2.0.0)
       rack
