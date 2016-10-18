@@ -25,7 +25,7 @@ module ESP
     def self.where(clauses = {})
       fail ArgumentError, "expected a clauses Hash, got #{clauses.inspect}" unless clauses.is_a? Hash
       from = clauses.delete(:from) || "#{prefix}#{name.demodulize.pluralize.underscore}"
-      clauses = { params: clauses }
+      clauses = { params: clauses }.with_indifferent_access
       arrange_options(clauses)
       prefix_options, query_options = split_options(clauses)
       instantiate_collection((format.decode(connection.put("#{from}.json", clauses[:params].to_json).body) || []), query_options, prefix_options).tap do |collection|
