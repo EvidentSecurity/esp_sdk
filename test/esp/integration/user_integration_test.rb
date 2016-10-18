@@ -41,11 +41,44 @@ module ESP::Integration
           end
         end
 
+        context '#role' do
+          should 'return an role' do
+            role = @user.role
+
+            assert_equal @user.role_id, role.id
+          end
+        end
+
         context '.where' do
           should 'return user objects' do
             users = ESP::User.where(id_eq: @user.id)
 
             assert_equal ESP::User, users.resource_class
+          end
+        end
+
+        context '#CRUD' do
+          should 'be able to create, update and destroy' do
+            user = ESP::User.new(first_name: 'Bob', last_name: 'Belcher', email: 'burgerboss@gmail.com', organization_id: 1)
+
+            assert_predicate user, :new?
+
+            user.save
+
+            refute_predicate user, :new?
+
+            user.first_name = 'Gene'
+            user.save
+
+            assert_nothing_raised do
+              ESP::User.find(user.id)
+            end
+
+            user.destroy
+
+            assert_raises ActiveResource::ResourceNotFound do
+              ESP::User.find(user.id)
+            end
           end
         end
       end

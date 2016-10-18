@@ -1,4 +1,7 @@
 ## Unreleased
+### Added
+- Users create/update/destroy support
+- Role all/find support
 
 ## 2.6.0 - 2016-10-17
 ### Changed
