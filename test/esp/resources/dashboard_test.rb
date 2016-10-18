@@ -47,7 +47,7 @@ module ESP
 
       context '.recent' do
         should 'call the api and return an array of dashboard objects' do
-          stubbed_dashboard = stub_request(:get, %r{dashboard/recent*}).to_return(body: json_list(:dashboard, 2))
+          stubbed_dashboard = stub_request(:put, %r{dashboard/recent*}).to_return(body: json_list(:dashboard, 2))
 
           dashboard = ESP::Dashboard.recent
 
@@ -57,7 +57,7 @@ module ESP
 
         context 'next_page' do
           should 'request page 2 when multiple dashboards' do
-            stub_dashboard = stub_request(:get, %r{dashboard/recent*}).with(body: nil).to_return(body: json_list(:dashboard, 25))
+            stub_dashboard = stub_request(:put, %r{dashboard/recent*}).with(body: {}.to_json).to_return(body: json_list(:dashboard, 25))
             stub_dashboard2 = stub_request(:put, %r{dashboard/recent*}).with(body: { filter: {}, page: { number: '2', size: '20' } }.to_json).to_return(body: json_list(:stat, 2))
 
             dashboard = ESP::Dashboard.recent

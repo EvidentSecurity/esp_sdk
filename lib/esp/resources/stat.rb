@@ -46,12 +46,6 @@ module ESP
       fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use either the ESP::Stat.for_report or ESP::Stat.latest_for_teams method.'
     end
 
-    def self.find_every(options)
-      super.tap do |object|
-        make_pageable object, options
-      end
-    end
-
     # @!method self.create
     #   Not Implemented. You cannot create a Stat.
     #
@@ -93,7 +87,7 @@ module ESP
     # @return [ActiveResource::PaginatedCollection<ESP::Stat>]
     def self.latest_for_teams
       # call find_every directly since find is overriden/not implemented
-      find_every(from: "#{prefix}stats/latest_for_teams")
+      where(from: "#{prefix}stats/latest_for_teams")
     end
 
     # @!group 'total' rollup methods

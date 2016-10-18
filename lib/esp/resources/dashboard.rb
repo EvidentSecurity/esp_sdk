@@ -23,12 +23,6 @@ module ESP
       end
     end
 
-    def self.find_every(options)
-      super.tap do |object|
-        make_pageable object, options
-      end
-    end
-
     # Not Implemented. You cannot create or update a Dashboard.
     #
     # @return [void]
@@ -49,7 +43,7 @@ module ESP
     # @return [ESP::Dashboard]
     def self.recent
       # call find_every directly since find is overridden/not implemented
-      find_every from: "#{prefix}dashboard/recent"
+      where from: "#{prefix}dashboard/recent"
     end
   end
 end
