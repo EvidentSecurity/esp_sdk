@@ -6,25 +6,25 @@ module ESP
       context '#create' do
         should 'not be implemented' do
           assert_raises ESP::NotImplementedError do
-            ESP::User.create(name: 'test')
+            ESP::Suppression.create(reason: 'test')
           end
         end
       end
 
       context '#update' do
         should 'not be implemented' do
-          u = build(:user)
+          s = build(:suppression)
           assert_raises ESP::NotImplementedError do
-            u.save
+            s.save
           end
         end
       end
 
       context '#destroy' do
         should 'not be implemented' do
-          u = build(:user)
+          s = build(:suppression)
           assert_raises ESP::NotImplementedError do
-            u.destroy
+            s.destroy
           end
         end
       end
