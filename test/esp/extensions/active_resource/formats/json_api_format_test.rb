@@ -9,7 +9,7 @@ module ActiveResource
             should 'parse nested objects correctly' do
               json        = json(:dashboard)
               parsed_json = JSON.parse(json)
-              stub_request(:get, %r{dashboard/recent.json*}).to_return(body: json_list(:dashboard, 1))
+              stub_request(:put, %r{dashboard/recent*}).to_return(body: json_list(:dashboard, 1))
 
               dashboard = ESP::Dashboard.recent
 

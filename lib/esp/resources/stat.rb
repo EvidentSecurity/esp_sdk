@@ -30,8 +30,13 @@ module ESP
     # Not Implemented. You cannot search for a Stat.
     #
     # @return [void]
-    def self.where(*)
-      fail ESP::NotImplementedError
+    def self.where(attrs)
+      # when calling `latest_for_teams.next_page` it will come into here
+      if attrs[:from].to_s.include?('latest_for_teams')
+        super
+      else
+        fail ESP::NotImplementedError
+      end
     end
 
     # Not Implemented. You cannot search for a Stat.
@@ -82,7 +87,7 @@ module ESP
     # @return [ActiveResource::PaginatedCollection<ESP::Stat>]
     def self.latest_for_teams
       # call find_every directly since find is overriden/not implemented
-      find_every(from: :latest_for_teams)
+      where(from: "#{prefix}stats/latest_for_teams")
     end
 
     # @!group 'total' rollup methods
