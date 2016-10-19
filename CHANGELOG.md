@@ -3,13 +3,21 @@
 - Users create/update/destroy support
 - Role all/find support
 
+### Fixed
+- Fix merge error when calling next_page on Stat.latest_for_teams
+- Fix incorrect page parameter on next_page for other endpoints
+
 ## 2.6.0 - 2016-10-17
-### Changed
+### Added
 - Only send changed attributes to API #39
-- API now returns nested included relation data elements correctly.  Change test to reflect corrected response. #40
+
+### Changed
+- Switch from RDoc to Yard. #37
+
+### Fixed
+- API now returns nested included relation data elements correctly. #40
 - Calling `next_page` on queries without parameters (e.g. `ESP::ExternalAccount.all`) no longer errors. #35
 - Silently ignore `null` entires if encountered in API responses. #36
-- Switch from RDoc to Yard. #37
 
 ## 2.5.0 - 2016-07-20
 ### Added

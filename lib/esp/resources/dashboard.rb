@@ -14,8 +14,13 @@ module ESP
     # Regular ARELlike methods are disabled.
     #
     # @return [void]
-    def self.where(*)
-      fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use the .recent method.'
+    def self.where(attrs)
+      # when calling `recent.next_page` it will come into here
+      if attrs[:from].to_s.include?('recent')
+        super
+      else
+        fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use the .recent method.'
+      end
     end
 
     # Not Implemented. You cannot create or update a Dashboard.
@@ -38,7 +43,7 @@ module ESP
     # @return [ESP::Dashboard]
     def self.recent
       # call find_every directly since find is overridden/not implemented
-      find_every from: "#{prefix}dashboard/recent.#{format.extension}"
+      where from: "#{prefix}dashboard/recent"
     end
   end
 end

@@ -149,6 +149,17 @@ module ESP
 
             assert_equal '/api/v2/teams.json', teams.from
           end
+
+          should 'request next_page with page parameters' do
+            get_request = stub_request(:get, /teams.json*/).to_return(body: json_list(:team, 25))
+            next_page_request = stub_request(:put, /teams.json*/).with(body: { filter: {}, page: { number: '2', size: '20' } }.to_json).to_return(body: json_list(:team, 25))
+
+            teams = ESP::Team.all
+            teams.next_page
+
+            assert_requested(get_request)
+            assert_requested(next_page_request)
+          end
         end
 
         context '.where' do

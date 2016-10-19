@@ -122,12 +122,25 @@ module ESP
 
       context '.latest_for_teams' do
         should 'call the api and return a collection of stats' do
-          stub_stat = stub_request(:get, %r{stats/latest_for_teams.json*}).to_return(body: json_list(:stat, 2))
+          stub_stat = stub_request(:put, %r{stats/latest_for_teams*}).to_return(body: json_list(:stat, 2))
 
           stats = ESP::Stat.latest_for_teams
 
           assert_requested(stub_stat)
           assert_equal ESP::Stat, stats.resource_class
+        end
+
+        context 'next_page' do
+          should 'request page 2 when multiple stats' do
+            stub_stat = stub_request(:put, %r{stats/latest_for_teams*}).with(body: {}.to_json).to_return(body: json_list(:stat, 25))
+            stub_stat2 = stub_request(:put, %r{stats/latest_for_teams*}).with(body: { filter: {}, page: { number: '2', size: '20' } }.to_json).to_return(body: json_list(:stat, 2))
+
+            stats = ESP::Stat.latest_for_teams
+            stats.next_page
+
+            assert_requested(stub_stat)
+            assert_requested(stub_stat2)
+          end
         end
       end
     end
