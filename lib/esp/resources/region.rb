@@ -1,13 +1,13 @@
 module ESP
   class Region < ESP::Resource
-    # Not Implemented. You cannot create or update a CloudTrailEvent.
+    # Not Implemented. You cannot create or update a Region.
     #
     # @return [void]
     def save
       fail ESP::NotImplementedError
     end
 
-    # Not Implemented. You cannot destroy a an CloudTrailEvent.
+    # Not Implemented. You cannot destroy a Region.
     #
     # @return [void]
     def destroy

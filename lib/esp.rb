@@ -124,6 +124,7 @@ module ESP
   autoload :Metadata, File.expand_path(File.dirname(__FILE__) + '/esp/resources/metadata')
   autoload :Tag, File.expand_path(File.dirname(__FILE__) + '/esp/resources/tag')
   autoload :Region, File.expand_path(File.dirname(__FILE__) + '/esp/resources/region')
+  autoload :Role, File.expand_path(File.dirname(__FILE__) + '/esp/resources/role')
   autoload :Suppression, File.expand_path(File.dirname(__FILE__) + '/esp/resources/suppression')
   autoload :Stat, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat')
   autoload :StatCustomSignature, File.expand_path(File.dirname(__FILE__) + '/esp/resources/stat_custom_signature')

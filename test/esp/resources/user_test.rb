@@ -3,32 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
 module ESP
   class UserTest < ActiveSupport::TestCase
     context ESP::User do
-      context '#create' do
-        should 'not be implemented' do
-          assert_raises ESP::NotImplementedError do
-            ESP::User.create(name: 'test')
-          end
-        end
-      end
-
-      context '#update' do
-        should 'not be implemented' do
-          u = build(:user)
-          assert_raises ESP::NotImplementedError do
-            u.save
-          end
-        end
-      end
-
-      context '#destroy' do
-        should 'not be implemented' do
-          u = build(:user)
-          assert_raises ESP::NotImplementedError do
-            u.destroy
-          end
-        end
-      end
-
       context '#organization' do
         should 'call the api' do
           u = build(:user, organization_id: 1)
@@ -89,6 +63,17 @@ module ESP
           user.teams
 
           assert_not_requested(:put, /teams.json*/)
+        end
+      end
+
+      context '#role' do
+        should 'call the api' do
+          u = build(:user, role_id: 1)
+          stub_role = stub_request(:get, %r{roles/#{u.role_id}.json*}).to_return(body: json(:role))
+
+          u.role
+
+          assert_requested(stub_role)
         end
       end
     end

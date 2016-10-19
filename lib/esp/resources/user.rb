@@ -5,19 +5,10 @@ module ESP
     # @return [ESP::Organization]
     belongs_to :organization, class_name: 'ESP::Organization'
 
-    # Not Implemented. You cannot create or update a User.
+    # The role assigned to this user.
     #
-    # @return [void]
-    def save
-      fail ESP::NotImplementedError
-    end
-
-    # Not Implemented. You cannot destroy a User.
-    #
-    # @return [void]
-    def destroy
-      fail ESP::NotImplementedError
-    end
+    # @return [ESP::Role]
+    belongs_to :role, class_name: 'ESP::Role'
 
     # The collection of sub organizations that belong to the user.
     #
@@ -67,9 +58,33 @@ module ESP
     #
     #   @return [ActiveResource::PaginatedCollection<ESP::User>]
 
-    # @!method self.create
-    #   Not Implemented. You cannot create a User.
+    # @!method self.create(attributes = {})
+    #   Create a User.
+    #   *call-seq* -> +super.create(attributes={})+
     #
-    #   @return [void]
+    #   @param attributes [Hash] Required hash of user attributes.
+    #     ===== Valid Attributes
+    #
+    #     See {API documentation}[http://api-docs.evident.io?ruby#user-create] for valid arguments
+    #   @return [ESP::User]
+    #   @example
+    #     user = ESP::User.create(first_name: 'John', last_name: 'Doe', email: "test@email.com")
+
+    # @!method save
+    #   Create and update a User.
+    #
+    #   ===== Valid Attributes
+    #
+    #   See {API documentation}[http://api-docs.evident.io?ruby#user-create] for valid arguments
+    #
+    #   @return [Boolean]
+    #   @example
+    #     user = ESP::User.new(first_name: 'John', last_name: 'Doe', email: "test@email.com")
+    #     user.save
+
+    # @!method destroy
+    #   Delete a User.
+    #
+    #   @return [self]
   end
 end

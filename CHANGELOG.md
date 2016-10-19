@@ -1,4 +1,7 @@
 ## Unreleased
+### Added
+- Users create/update/destroy support
+- Role all/find support
 
 ### Fixed
 - Fix merge error when calling next_page on Stat.latest_for_teams
