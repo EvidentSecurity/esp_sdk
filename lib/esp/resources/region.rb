@@ -7,7 +7,7 @@ module ESP
       fail ESP::NotImplementedError
     end
 
-    # Not Implemented. You cannot destroy a an Region.
+    # Not Implemented. You cannot destroy a Region.
     #
     # @return [void]
     def destroy

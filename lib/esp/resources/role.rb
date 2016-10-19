@@ -7,7 +7,7 @@ module ESP
       fail ESP::NotImplementedError
     end
 
-    # Not Implemented. You cannot destroy a an Role.
+    # Not Implemented. You cannot destroy a Role.
     #
     # @return [void]
     def destroy
