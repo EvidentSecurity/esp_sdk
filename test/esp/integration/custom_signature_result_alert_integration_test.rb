@@ -6,7 +6,7 @@ module ESP::Integration
       context 'live calls' do
         context '#for_result' do
           should 'return alerts' do
-            result = ESP::CustomSignature::Result.first
+            result = ESP::CustomSignature::Result.first(params: { sorts: 'id' })
             fail 'Missing result' if result.blank?
 
             alerts = ESP::CustomSignature::Result::Alert.for_result(result.id)
@@ -17,7 +17,7 @@ module ESP::Integration
 
         context '#custom_signature' do
           should 'return a custom_signature' do
-            result = ESP::CustomSignature::Result.first
+            result = ESP::CustomSignature::Result.first(params: { sorts: 'id' })
             fail 'Missing result' if result.blank?
             alert = ESP::CustomSignature::Result::Alert.for_result(result.id).first
 
@@ -30,7 +30,7 @@ module ESP::Integration
 
         context '#external_account' do
           should 'return a external_account' do
-            result = ESP::CustomSignature::Result.first
+            result = ESP::CustomSignature::Result.first(params: { sorts: 'id' })
             fail 'Missing result' if result.blank?
             alert = ESP::CustomSignature::Result::Alert.for_result(result.id).first
 
@@ -43,7 +43,7 @@ module ESP::Integration
 
         context '#region' do
           should 'return a region' do
-            result = ESP::CustomSignature::Result.first
+            result = ESP::CustomSignature::Result.first(params: { sorts: 'id' })
             fail 'Missing result' if result.blank?
             alert = ESP::CustomSignature::Result::Alert.for_result(result.id).first
 

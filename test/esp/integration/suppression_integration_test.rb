@@ -5,7 +5,7 @@ module ESP::Integration
     context ESP::Suppression do
       context 'live calls' do
         setup do
-          @s = ESP::Suppression.first
+          @s = ESP::Suppression.first(params: { sorts: 'id' })
           fail "Live DB does not have any suppressions.  Add a suppression and run tests again." if @s.blank?
         end
 
