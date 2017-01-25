@@ -36,7 +36,7 @@ module ESP
     end
 
     def trust_policy(external_account_id) # rubocop:disable Metrics/MethodLength
-      <<TRUST_POLICY
+      <<-TRUST_POLICY.gsub /^\s*/, ''
   {
     "Version": "2012-10-17",
     "Statement": [
