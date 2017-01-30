@@ -6,10 +6,13 @@ rvm:
   - 2.1
   - 2.2
   - 2.3.0
+  - 2.4.0
 script:
   - bundle exec rake test
   - bundle exec rake coveralls:push
   - bundle exec rubocop
+  - bundle exec bundle-audit update
+  - bundle exec bundle-audit check
 
 addons:
   code_climate:

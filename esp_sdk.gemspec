@@ -37,8 +37,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'awesome_print'
   spec.add_development_dependency 'aws-sdk'
   spec.add_development_dependency 'rdiscount'
+  spec.add_development_dependency 'bundler-audit'
 
   spec.add_dependency 'activeresource', '~> 4.0.0'
-  spec.add_dependency 'api-auth', '~> 2.0.0'
+  spec.add_dependency 'api-auth', '~> 2.0'
   spec.add_dependency 'rack'
 end
