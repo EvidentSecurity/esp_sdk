@@ -37,8 +37,7 @@ FactoryGirl.define do
           links: {
             related: "http://localhost:3000/api/v2/teams/1.json"
           }
-        }
-      }
+        } }
     end
   end
 end

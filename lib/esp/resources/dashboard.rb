@@ -16,11 +16,8 @@ module ESP
     # @return [void]
     def self.where(attrs)
       # when calling `recent.next_page` it will come into here
-      if attrs[:from].to_s.include?('recent')
-        super
-      else
-        fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use the .recent method.'
-      end
+      return super if attrs[:from].to_s.include?('recent')
+      fail ESP::NotImplementedError, 'Regular ARELlike methods are disabled.  Use the .recent method.'
     end
 
     # Not Implemented. You cannot create or update a Dashboard.

@@ -33,7 +33,7 @@ module ESP
           team.external_accounts
 
           assert_requested(:get, /external_accounts.json*/) do |req|
-            assert_equal "filter[team_id_eq]=#{team.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[team_id_eq]=#{team.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end
@@ -60,7 +60,7 @@ module ESP
           team.reports
 
           assert_requested(:get, /reports.json*/) do |req|
-            assert_equal "filter[team_id_eq]=#{team.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[team_id_eq]=#{team.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end

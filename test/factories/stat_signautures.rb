@@ -90,8 +90,7 @@ FactoryGirl.define do
         links: {
           related: "http://test.host/api/v2/signatures/1.json"
         }
-      }
-      }
+      } }
     end
   end
 end

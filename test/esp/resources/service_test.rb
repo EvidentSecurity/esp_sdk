@@ -19,7 +19,7 @@ module ESP
           s.signatures
 
           assert_requested(:get, /signatures.json*/) do |req|
-            assert_equal "filter[service_id_eq]=#{s.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[service_id_eq]=#{s.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end

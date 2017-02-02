@@ -35,7 +35,7 @@ module ESP
       ESP_OWNER_ID.fetch(ESP.env, "762160981991")
     end
 
-    def trust_policy(external_account_id) # rubocop:disable Metrics/MethodLength
+    def trust_policy(external_account_id)
       <<TRUST_POLICY
   {
     "Version": "2012-10-17",

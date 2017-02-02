@@ -133,12 +133,14 @@ module ESP
       suppress(Suppression::UniqueIdentifier, reason)
     end
 
-    private
+    private_class_method
 
     # Overridden because alerts does not use ransack for searching
     def self.filters(params)
       { filter: params }
     end
+
+    private
 
     def suppress(klass, reason)
       fail ArgumentError, "You must specify the reason.".freeze unless reason.present?

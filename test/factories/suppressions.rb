@@ -72,8 +72,7 @@ FactoryGirl.define do
           links: {
             related: "http://test.host/api/v2/custom_signatures.json?filter%5Bid_in%5D%5B%5D=6"
           }
-        }
-      }
+        } }
     end
 
     trait :with_include do

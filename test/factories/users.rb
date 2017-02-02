@@ -47,8 +47,7 @@ FactoryGirl.define do
           links: {
             related: "http://localhost:3000/api/v2/teams.json?filter%5Bq%5D%5Bid_in%5D%5B%5D=1"
           }
-        }
-      }
+        } }
     end
 
     trait :with_include do

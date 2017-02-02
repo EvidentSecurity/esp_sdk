@@ -8,7 +8,7 @@ module ESP
   class CommandsTasks
     attr_reader :argv
 
-    HELP_MESSAGE = <<-EOT
+    HELP_MESSAGE = <<-EOT.freeze
 Usage: esp COMMAND [environment] [ARGS]
 
 The ESP commands are:
@@ -18,7 +18,7 @@ The ESP commands are:
 All commands can be run with -h (or --help) for more information.
     EOT
 
-    COMMAND_WHITELIST = %w(console add_external_account version help)
+    COMMAND_WHITELIST = %w(console add_external_account version help).freeze
 
     def initialize(argv)
       @argv = argv

@@ -29,7 +29,7 @@ module ESP
           organization.teams
 
           assert_requested(:get, /teams.json*/) do |req|
-            assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[organization_id_eq]=#{organization.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end
@@ -42,7 +42,7 @@ module ESP
           organization.sub_organizations
 
           assert_requested(:get, /sub_organizations.json*/) do |req|
-            assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[organization_id_eq]=#{organization.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end
@@ -55,7 +55,7 @@ module ESP
           organization.users
 
           assert_requested(:get, /users.json*/) do |req|
-            assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[organization_id_eq]=#{organization.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end
@@ -68,7 +68,7 @@ module ESP
           organization.reports
 
           assert_requested(:get, /reports.json*/) do |req|
-            assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[organization_id_eq]=#{organization.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end
@@ -81,7 +81,7 @@ module ESP
           organization.external_accounts
 
           assert_requested(:get, /external_accounts.json*/) do |req|
-            assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[organization_id_eq]=#{organization.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end
@@ -94,7 +94,7 @@ module ESP
           organization.custom_signatures
 
           assert_requested(:get, /custom_signatures.json*/) do |req|
-            assert_equal "filter[organization_id_eq]=#{organization.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[organization_id_eq]=#{organization.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end

@@ -4,9 +4,9 @@ module ActiveResource
   # @private
   class ConnectionError
     def initialize(response)
-      @response = if response.respond_to?(:response)
-                    message = decoded_errors(response.response.body)
-                    Struct.new(:body, :code, :message).new(response.response.body, response.code, message)
+      @response = if response.respond_to?(:body)
+                    message = decoded_errors(response.body)
+                    Struct.new(:body, :code, :message).new(response.body, response.code, message)
                   else
                     response
                   end
@@ -15,7 +15,7 @@ module ActiveResource
     private
 
     def decoded_errors(json)
-      Array((Hash(ActiveSupport::JSON.decode(json)))['errors'].map { |e| e['title'] }).join(" ")
+      Array(Hash(ActiveSupport::JSON.decode(json))['errors'].map { |e| e['title'] }).join(" ")
     rescue
       []
     end
@@ -43,7 +43,7 @@ module ActiveResource
         Formats.remove_root(parse_json_api(ActiveSupport::JSON.decode(json)))
       end
 
-      private
+      private_class_method
 
       def self.parse_json_api(elements)
         included = elements.delete('included')

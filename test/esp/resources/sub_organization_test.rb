@@ -22,7 +22,7 @@ module ESP
           sub_organization.teams
 
           assert_requested(:get, /teams.json*/) do |req|
-            assert_equal "filter[sub_organization_id_eq]=#{sub_organization.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[sub_organization_id_eq]=#{sub_organization.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end
@@ -35,7 +35,7 @@ module ESP
           sub_organization.external_accounts
 
           assert_requested(:get, /external_accounts.json*/) do |req|
-            assert_equal "filter[sub_organization_id_eq]=#{sub_organization.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[sub_organization_id_eq]=#{sub_organization.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end
@@ -48,7 +48,7 @@ module ESP
           sub_organization.reports
 
           assert_requested(:get, /reports.json*/) do |req|
-            assert_equal "filter[sub_organization_id_eq]=#{sub_organization.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[sub_organization_id_eq]=#{sub_organization.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end

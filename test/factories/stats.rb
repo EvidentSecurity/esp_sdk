@@ -122,8 +122,7 @@ FactoryGirl.define do
               type: "stat_custom_signatures"
             }
           ]
-        }
-      }
+        } }
     end
   end
 end

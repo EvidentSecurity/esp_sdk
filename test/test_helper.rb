@@ -41,8 +41,7 @@ class ActiveSupport::TestCase
     data             = json_array.map { |j| JSON.parse(j)['data'] }
     links            = build_links(data, page_args)
     list             = { 'data'  => data.slice(0, page_args[:size]),
-                         "links" => links
-    }
+                         "links" => links }
     list['included'] = JSON.parse(json_array.first)['included'] if json_array.first.present?
     list.to_json
   end
