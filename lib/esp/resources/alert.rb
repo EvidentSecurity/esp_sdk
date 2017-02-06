@@ -133,12 +133,11 @@ module ESP
       suppress(Suppression::UniqueIdentifier, reason)
     end
 
-    private_class_method
-
     # Overridden because alerts does not use ransack for searching
     def self.filters(params)
       { filter: params }
     end
+    private_class_method :filters
 
     private
 

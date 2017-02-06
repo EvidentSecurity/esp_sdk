@@ -1,7 +1,6 @@
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 load 'lib/tasks/rubocop.rake'
-load 'lib/tasks/testing.rake'
 require 'rdoc/task'
 
 Rake::TestTask.new do |task|

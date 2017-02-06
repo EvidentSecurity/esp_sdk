@@ -1,9 +1,4 @@
 ENV['ESP_ENV'] = 'test'
-# Don't run coveralls when esp web runs sdk tests.
-if ENV['CI_BUILD_STAGE'].to_s.casecmp('test_sdk') != 0
-  require 'coveralls'
-  Coveralls.wear!
-end
 
 require 'minitest/autorun'
 require 'minitest/reporters'

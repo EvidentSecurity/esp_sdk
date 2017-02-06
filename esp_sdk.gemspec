@@ -31,7 +31,6 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_development_dependency 'mocha'
   spec.add_development_dependency 'bourne'
   spec.add_development_dependency 'webmock'
-  spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'factory_girl'
   spec.add_development_dependency 'yard'
   spec.add_development_dependency 'awesome_print'

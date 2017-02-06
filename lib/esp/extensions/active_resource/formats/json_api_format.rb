@@ -43,9 +43,7 @@ module ActiveResource
         Formats.remove_root(parse_json_api(ActiveSupport::JSON.decode(json)))
       end
 
-      private_class_method
-
-      def self.parse_json_api(elements)
+      def parse_json_api(elements)
         included = elements.delete('included')
         elements.tap do |e|
           Array.wrap(e.fetch('data', {})).each do |object|
@@ -53,16 +51,18 @@ module ActiveResource
           end
         end
       end
+      private_class_method :parse_json_api
 
-      def self.parse_object!(object, included = nil)
+      def parse_object!(object, included = nil)
         return object unless object.respond_to?(:each)
         merge_attributes!(object)
         parse_elements(object)
         parse_relationships!(object, included)
         object
       end
+      private_class_method :parse_object!
 
-      def self.parse_elements(object)
+      def parse_elements(object)
         object.each_value do |value|
           if value.is_a? Hash
             parse_object!(value)
@@ -71,20 +71,23 @@ module ActiveResource
           end
         end
       end
+      private_class_method :parse_elements
 
-      def self.parse_relationships!(object, included)
+      def parse_relationships!(object, included)
         object.fetch('relationships', {}).each do |assoc, details|
           extract_foreign_keys!(object, assoc, details)
           merge_included_objects!(object, assoc, details['data'], included)
         end
       end
+      private_class_method :parse_relationships!
 
-      def self.merge_attributes!(object)
+      def merge_attributes!(object)
         return unless object.is_a? Hash
         object.merge! object.delete('attributes') unless object['attributes'].blank?
       end
+      private_class_method :merge_attributes!
 
-      def self.extract_foreign_keys!(object, assoc, assoc_details)
+      def extract_foreign_keys!(object, assoc, assoc_details)
         data = assoc_details['data']
         related_link = assoc_details.fetch('links', {}).fetch('related', {})
         if data.present?
@@ -93,16 +96,18 @@ module ActiveResource
           parse_related_link(object, assoc, related_link)
         end
       end
+      private_class_method :extract_foreign_keys!
 
-      def self.parse_data(object, assoc, data)
+      def parse_data(object, assoc, data)
         if data.is_a? Array
           object["#{assoc.singularize}_ids"] = data.map { |d| d['id'] }
         else
           object["#{assoc}_id"] = data['id']
         end
       end
+      private_class_method :parse_data
 
-      def self.parse_related_link(object, assoc, related_link)
+      def parse_related_link(object, assoc, related_link)
         # parse the url to get the id if the data node is not returned
         related_link.scan(%r{/(\d+)\.json$}) do |id|
           object["#{assoc}_id"] = id.first
@@ -111,8 +116,9 @@ module ActiveResource
         uri = URI.parse(related_link)
         object["#{assoc.singularize}_ids"] = Rack::Utils.parse_nested_query(CGI.unescape(uri.query)).fetch('filter', {}).fetch('id_in', []) if uri.query.present?
       end
+      private_class_method :parse_related_link
 
-      def self.merge_included_objects!(object, assoc, data, included)
+      def merge_included_objects!(object, assoc, data, included)
         return if included.blank?
         object[assoc] = case data
                         when Array
@@ -121,14 +127,16 @@ module ActiveResource
                           merge_nested_included_objects(object, [data], included).first
                         end
       end
+      private_class_method :merge_included_objects!
 
-      def self.merge_nested_included_objects(object, data, included)
+      def merge_nested_included_objects(object, data, included)
         assocs = included.compact.select { |i| data.include?(i.slice('type', 'id')) }
         # Remove the object from the included array to prevent an infinite loop if one of it's associations relates back to itself.
         assoc_included = included.dup
         assoc_included.delete(object)
         assocs.map { |i| parse_object!(i, assoc_included) }
       end
+      private_class_method :merge_nested_included_objects
     end
   end
 end
