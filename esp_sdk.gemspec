@@ -26,7 +26,6 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_development_dependency 'guard-minitest'
   spec.add_development_dependency 'guard-rubocop'
   spec.add_development_dependency 'minitest'
-  spec.add_development_dependency 'minitest-reporters'
   spec.add_development_dependency 'shoulda'
   spec.add_development_dependency 'mocha'
   spec.add_development_dependency 'bourne'

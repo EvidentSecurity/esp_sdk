@@ -53,7 +53,11 @@ module ESP::Integration
           should 'activate definition' do
             custom_signature = ESP::CustomSignature.last
             fail 'Missing custom signature' if custom_signature.blank?
-            definition = ESP::CustomSignature::Definition.create(custom_signature_id: custom_signature.id)
+            definition = custom_signature.definitions.last
+
+            if definition.blank? || definition.status != 'editable'
+              definition = ESP::CustomSignature::Definition.create(custom_signature_id: custom_signature.id)
+            end
 
             assert_equal 'editable', definition.status
 
@@ -67,6 +71,16 @@ module ESP::Integration
           should 'be able to create, update and destroy' do
             custom_signature = ESP::CustomSignature.last
             fail 'Missing custom signature' if custom_signature.blank?
+            old_definition = custom_signature.definitions.last
+
+            if old_definition.present? && old_definition.status == 'editable'
+              old_definition.destroy
+
+              assert_raises ActiveResource::ResourceNotFound do
+                ESP::CustomSignature::Definition.find(old_definition.id)
+              end
+            end
+
             definition = ESP::CustomSignature::Definition.new(custom_signature_id: custom_signature.id)
 
             assert_predicate definition, :new?

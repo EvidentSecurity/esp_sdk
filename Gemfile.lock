@@ -24,7 +24,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
-    ansi (1.5.0)
     api-auth (2.1.0)
     ast (2.3.0)
     awesome_print (1.7.0)
@@ -76,11 +75,6 @@ GEM
     metaclass (0.0.4)
     method_source (0.8.2)
     minitest (5.10.1)
-    minitest-reporters (1.1.14)
-      ansi
-      builder
-      minitest (>= 5.0)
-      ruby-progressbar
     mocha (1.2.1)
       metaclass (~> 0.0.1)
     nenv (0.3.0)
@@ -146,7 +140,6 @@ DEPENDENCIES
   guard-minitest
   guard-rubocop
   minitest
-  minitest-reporters
   mocha
   rake
   rdiscount
