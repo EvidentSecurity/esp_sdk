@@ -43,6 +43,21 @@ module ESP::Integration
             assert_not_nil user.sub_organization_ids
           end
         end
+
+        context ActiveResource::ConnectionError do
+          context 'live calls' do
+            context "with ESP::Team" do
+              context '.initialize' do
+                should 'parse the error and return a descriptive error message' do
+                  error = assert_raises ActiveResource::BadRequest do
+                    ESP::Team.create
+                  end
+                  assert_equal 'Failed.  Response code = 400.  Response message = param is missing or the value is empty: attributes.', error.message
+                end
+              end
+            end
+          end
+        end
       end
     end
   end
