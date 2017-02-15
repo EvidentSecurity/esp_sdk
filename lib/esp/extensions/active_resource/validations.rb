@@ -27,7 +27,7 @@ module ActiveResource
     private
 
     def decoded_errors(json)
-      Array((Hash(ActiveSupport::JSON.decode(json)))['errors'])
+      Array(Hash(ActiveSupport::JSON.decode(json))['errors'])
     rescue
       []
     end

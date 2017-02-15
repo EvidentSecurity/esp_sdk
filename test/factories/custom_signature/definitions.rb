@@ -23,8 +23,7 @@ FactoryGirl.define do
           links: {
             related: "http://localhost:3000/api/v2/custom_signature_results.json?filter%5Bdefinition_id_eq%5D=#{id}"
           }
-        }
-      }
+        } }
     end
   end
 end

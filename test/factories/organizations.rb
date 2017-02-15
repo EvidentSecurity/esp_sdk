@@ -41,8 +41,7 @@ FactoryGirl.define do
           links: {
             related: "http://localhost:3000/api/v2/teams.json?filter%5Borganization_id_eq%5D=2"
           }
-        }
-      }
+        } }
     end
   end
 end

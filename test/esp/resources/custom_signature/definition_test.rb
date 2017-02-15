@@ -23,7 +23,7 @@ module ESP
             definition.results
 
             assert_requested(:get, /custom_signature_results.json*/) do |req|
-              assert_equal "filter[definition_id_eq]=#{definition.id}", URI.unescape(req.uri.query)
+              assert_equal "filter[definition_id_eq]=#{definition.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
             end
           end
         end

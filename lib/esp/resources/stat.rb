@@ -32,11 +32,8 @@ module ESP
     # @return [void]
     def self.where(attrs)
       # when calling `latest_for_teams.next_page` it will come into here
-      if attrs[:from].to_s.include?('latest_for_teams')
-        super
-      else
-        fail ESP::NotImplementedError
-      end
+      return super if attrs[:from].to_s.include?('latest_for_teams')
+      fail ESP::NotImplementedError
     end
 
     # Not Implemented. You cannot search for a Stat.

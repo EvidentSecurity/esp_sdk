@@ -8,8 +8,9 @@ rvm:
   - 2.3.0
 script:
   - bundle exec rake test
-  - bundle exec rake coveralls:push
   - bundle exec rubocop
+  - bundle exec bundle-audit update
+  - bundle exec bundle-audit check
 
 addons:
   code_climate:

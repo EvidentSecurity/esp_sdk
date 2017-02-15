@@ -3,7 +3,7 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'esp/version'
 
-Gem::Specification.new do |spec|
+Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.name          = 'esp_sdk'
   spec.version       = ESP::VERSION
   spec.authors       = ['Evident.io']
@@ -31,14 +31,14 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'mocha'
   spec.add_development_dependency 'bourne'
   spec.add_development_dependency 'webmock'
-  spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'factory_girl'
   spec.add_development_dependency 'yard'
   spec.add_development_dependency 'awesome_print'
   spec.add_development_dependency 'aws-sdk'
   spec.add_development_dependency 'rdiscount'
+  spec.add_development_dependency 'bundler-audit'
 
   spec.add_dependency 'activeresource', '~> 4.0.0'
-  spec.add_dependency 'api-auth', '~> 2.0.0'
+  spec.add_dependency 'api-auth', '~> 2.0'
   spec.add_dependency 'rack'
 end

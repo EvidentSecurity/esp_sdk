@@ -12,9 +12,11 @@ AllCops:
     - 'bin/**/*'
     - 'test/test_reporter.rb'
     - 'test/shared_connection.rb'
+  TargetRubyVersion: 2.0
 
   DisplayCopNames: true
-  RunRailsCops: true
+Rails:
+  Enabled: true
 
 ################################################################
 ###################### Style ###################################
@@ -105,7 +107,7 @@ Style/CaseEquality:
 
 Style/CaseIndentation:
   Enabled: true
-  IndentWhenRelativeTo: case
+  EnforcedStyle: case
   SupportedStyles:
     - case
     - end
@@ -169,7 +171,7 @@ Style/ConstantName:
 Style/DefWithParentheses:
   Enabled: true
 
-Style/DeprecatedHashMethods:
+Style/PreferredHashMethods:
   Enabled: true
 
 Style/Documentation:
@@ -328,7 +330,7 @@ Style/LeadingCommentSpace:
 Style/LineEndConcatenation:
   Enabled: true
 
-Style/MethodCallParentheses:
+Style/MethodCallWithoutArgsParentheses:
   Enabled: true
 
 Style/MethodDefParentheses:
@@ -532,7 +534,7 @@ Style/SpaceAroundEqualsInParameterDefault:
     - space
     - no_space
 
-Style/SingleSpaceBeforeFirstArg:
+Style/SpaceBeforeFirstArg:
   Enabled: true
 
 Style/SpaceAfterColon:
@@ -541,7 +543,7 @@ Style/SpaceAfterColon:
 Style/SpaceAfterComma:
   Enabled: true
 
-Style/SpaceAfterControlKeyword:
+Style/SpaceAroundKeyword:
   Enabled: true
 
 Style/SpaceAfterMethodName:
@@ -582,9 +584,6 @@ Style/SpaceAroundEqualsInParameterDefault:
   Enabled: true
 
 Style/SpaceAroundOperators:
-  Enabled: true
-
-Style/SpaceBeforeModifierKeyword:
   Enabled: true
 
 Style/SpaceInsideBrackets:
@@ -636,12 +635,13 @@ Style/TrailingBlankLines:
     - final_newline
     - final_blank_line
 
-Style/TrailingComma:
+Style/TrailingCommaInLiteral:
   Enabled: true
   EnforcedStyleForMultiline: no_comma
-  SupportedStyles:
-    - comma
-    - no_comma
+
+Style/TrailingCommaInArguments:
+  Enabled: true
+  EnforcedStyleForMultiline: no_comma
 
 Style/TrailingUnderscoreVariable:
   Enabled: true
@@ -729,6 +729,10 @@ Metrics/BlockNesting:
   Enabled: true
   Max: 3
 
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+
 Metrics/ClassLength:
   Exclude:
     - 'test/**/*'
@@ -789,10 +793,7 @@ Lint/Debugger:
   Enabled: true
 
 Lint/DefEndAlignment:
-  AlignWith: start_of_line
-  SupportedStyles:
-    - start_of_line
-    - def
+  EnforcedStyleAlignWith: start_of_line
   Enabled: true
 
 Lint/DeprecatedClassMethods:
@@ -814,19 +815,13 @@ Lint/EmptyInterpolation:
   Enabled: true
 
 Lint/EndAlignment:
-  AlignWith: keyword
-  SupportedStyles:
-    - keyword
-    - variable
+  EnforcedStyleAlignWith: keyword
   Enabled: true
 
 Lint/EndInMethod:
   Enabled: true
 
 Lint/EnsureReturn:
-  Enabled: true
-
-Lint/Eval:
   Enabled: true
 
 Lint/FormatParameterMismatch:
@@ -861,9 +856,6 @@ Lint/RescueException:
   Enabled: true
 
 Lint/ShadowingOuterLocalVariable:
-  Enabled: true
-
-Lint/SpaceBeforeFirstArg:
   Enabled: true
 
 Lint/StringConversionInInterpolation:
@@ -902,9 +894,17 @@ Lint/UselessSetterCall:
 Lint/Void:
   Enabled: true
 
+Security/Eval:
+  Enabled: true
+
 ##############################################################
 ##################### Rails ##################################
 ##############################################################
+
+Rails/SkipsModelValidations:
+  Enabled: true
+  Exclude:
+    - 'test/**/*'
 
 Rails/ActionFilter:
   Enabled: true
@@ -914,11 +914,6 @@ Rails/ActionFilter:
     - filter
   Include:
     - app/controllers/**/*.rb
-
-Rails/DefaultScope:
-  Enabled: true
-  Include:
-    - app/models/**/*.rb
 
 Rails/Delegate:
   Enabled: true
@@ -939,14 +934,20 @@ Rails/Output:
 Rails/ReadWriteAttribute:
   Enabled: true
   Include:
-    - app/models/**/*.rb
+    - lib/**/*.rb
 
 Rails/ScopeArgs:
   Enabled: true
   Include:
-    - app/models/**/*.rb
+    - lib/**/*.rb
 
 Rails/Validation:
   Enabled: true
   Include:
-    - app/models/**/*.rb
+    - lib/**/*.rb
+
+Rails/Exit:
+  Enabled: true
+  Exclude:
+    - lib/esp/commands/**/*.rb
+

@@ -1,6 +1,6 @@
 require 'optparse'
 
-ARGV.clone.options do |opts|
+ARGV.clone.options do |opts| # rubocop:disable Metrics/BlockLength
   opts.banner = "Usage: esp add_external_account"
 
   opts.separator ""

@@ -1,12 +1,13 @@
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 load 'lib/tasks/rubocop.rake'
-load 'lib/tasks/testing.rake'
 require 'rdoc/task'
 
 Rake::TestTask.new do |task|
   task.libs << 'test'
   task.test_files = FileList['test/*_test.rb', 'test/**/*_test.rb'] - FileList["test/esp/integration/**/*_test.rb"]
+  task.verbose    = false
+  task.warning    = false
 end
 
 namespace "test" do

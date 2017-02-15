@@ -14,8 +14,7 @@ FactoryGirl.define do
         links: {
           related: "http://test.host/api/v2/users/1001.json"
         }
-      }
-      }
+      } }
     end
   end
 end

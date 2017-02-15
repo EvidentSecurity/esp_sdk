@@ -48,8 +48,7 @@ FactoryGirl.define do
           links: {
             related: "http://localhost:3000/api/v2/reports/55/alerts.json"
           }
-        }
-      }
+        } }
     end
   end
 end

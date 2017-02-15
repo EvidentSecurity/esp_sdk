@@ -44,7 +44,7 @@ module ESP
           external_account.reports
 
           assert_requested(:get, /reports.json*/) do |req|
-            assert_equal "filter[external_account_id_eq]=#{external_account.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[external_account_id_eq]=#{external_account.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end

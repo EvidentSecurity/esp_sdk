@@ -1,9 +1,4 @@
 ENV['ESP_ENV'] = 'test'
-# Don't run coveralls when esp web runs sdk tests.
-if ENV['CI_BUILD_STAGE'].to_s.casecmp('test_sdk') != 0
-  require 'coveralls'
-  Coveralls.wear!
-end
 
 require 'minitest/autorun'
 require 'minitest/reporters'
@@ -41,8 +36,7 @@ class ActiveSupport::TestCase
     data             = json_array.map { |j| JSON.parse(j)['data'] }
     links            = build_links(data, page_args)
     list             = { 'data'  => data.slice(0, page_args[:size]),
-                         "links" => links
-    }
+                         "links" => links }
     list['included'] = JSON.parse(json_array.first)['included'] if json_array.first.present?
     list.to_json
   end

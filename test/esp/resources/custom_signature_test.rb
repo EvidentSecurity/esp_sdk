@@ -36,7 +36,7 @@ module ESP
           custom_signature.definitions
 
           assert_requested(:get, /custom_signature_definitions.json*/) do |req|
-            assert_equal "filter[custom_signature_id_eq]=#{custom_signature.id}", URI.unescape(req.uri.query)
+            assert_equal "filter[custom_signature_id_eq]=#{custom_signature.id}", URI::DEFAULT_PARSER.unescape(req.uri.query)
           end
         end
       end

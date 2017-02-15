@@ -17,8 +17,7 @@ FactoryGirl.define do
         links: {
           related: "http://test.host/api/v2/reports/1/stats.json"
         }
-      }
-      }
+      } }
     end
     included do
       [

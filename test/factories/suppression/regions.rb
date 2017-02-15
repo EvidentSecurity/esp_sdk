@@ -62,8 +62,7 @@ FactoryGirl.define do
               }
             }
           }
-        ]
-      }
+        ] }
     end
     relationships do
       { organization: {
@@ -83,8 +82,7 @@ FactoryGirl.define do
           links: {
             related: "http://localhost:3000/api/v2/users/1.json"
           }
-        }
-      }
+        } }
     end
   end
 end
