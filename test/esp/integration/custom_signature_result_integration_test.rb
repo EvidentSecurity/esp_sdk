@@ -64,7 +64,8 @@ module ESP::Integration
 
         context '#create' do
           should 'be able to create' do
-            custom_signature = ESP::CustomSignature.create(name: 'ABC', identifier: 'ABC', risk_level: 'High')
+            team = ESP::Team.last
+            custom_signature = ESP::CustomSignature.create(name: 'ABC', identifier: 'ABC', risk_level: 'High', team_ids: [team.id])
             refute_predicate custom_signature, :new?
             definition = custom_signature.definitions.first
             fail 'Missing definition' if definition.blank?

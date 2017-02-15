@@ -36,7 +36,9 @@ module ESP::Integration
 
         context '#CRUD' do
           should 'be able to create, update and destroy' do
-            custom_signature = ESP::CustomSignature.new(@custom_signature.attributes)
+            team = ESP::Team.last
+            assert_predicate team, :present?
+            custom_signature = ESP::CustomSignature.new(@custom_signature.attributes.merge(team_ids: [team.id]))
 
             assert_predicate custom_signature, :new?
 

@@ -9,7 +9,7 @@ module ESP::Integration
             should 'return error when reason is not supplied' do
               alert_id = ESP::Report.all.detect { |r| r.status == 'complete' }.alerts.last.id
 
-              suppression = ESP::Suppression::UniqueIdentifier.create(alert_id: alert_id)
+              suppression = ESP::Suppression::UniqueIdentifier.create(alert_id: alert_id, reason: '')
 
               assert_equal "Suppression reason can't be blank", suppression.errors.full_messages.first
             end
