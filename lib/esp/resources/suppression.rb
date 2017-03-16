@@ -98,7 +98,7 @@ module ESP
       patch(:deactivate).tap do |response|
         load_attributes_from_response(response)
       end
-    rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid, ActiveResource::UnauthorizedAccess => error
+    rescue ActiveResource::BadRequest, ActiveResource::ResourceInvalid, ActiveResource::UnauthorizedAccess, ActiveResource::ForbiddenAccess => error
       load_remote_errors(error, true)
       self.code = error.response.code
       false
