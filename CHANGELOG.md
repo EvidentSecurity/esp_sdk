@@ -1,4 +1,13 @@
 ## Unreleased
+
+## 2.8.0 - 2017-04-04
+### Changed
+- Removed leading whitespace from policy document #44
+- Update gems #45
+- Update ActiveSupport #49
+- Handle Forbidden response from API #48
+
+## 2.7.0 - 2016-11-02
 ### Added
 - Users create/update/destroy support
 - Role all/find support
